@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<resources>
+
+    <string name="app_name">Buy Sell Inventory</string>
+
+    <string name="write_here">Write Here | यंहा लिखें </string>
+    <string name="reset_text">Reset</string>
+    <string name="product_text">Product</string>
+    <string name="customer_text">Customer</string>
+    <string name="supplier_text">Supplier</string>
+    <string name="buy_text">Buy</string>
+    <string name="sell_text">Sell</string>
+    <string name="statement_text">Statement</string>
+    <string name="stock_text">Stock</string>
+    <string name="holders_text">Holders</string>
+    <string name="expenditure_mini_text">Exp.</string>
+    <string name="share_text">Share</string>
+    <string name="rate_us_text">Rate Us</string>
+    <string name="feedback_text">Feedback</string>
+    <string name="help_text">Help</string>
+    <string name="ad_view_text">Ad View</string>
+    <string name="log_out_text">Log out</string>
+    <string name="welcome_text">Welcome!!</string>
+
+    <string name="add_product_text">Add Product</string>
+    <string name="add_customer_text">Add Customer</string>
+    <string name="add_supplier_text">Add Supplier</string>
+    <string name="name_text">Name</string>
+    <string name="phone_text">Phone No.</string>
+    <string name="buy_price_text">Buy Price</string>
+    <string name="sell_price_text">Sell Price</string>
+    <string name="company_text">Company</string>
+    <string name="save_text">Save</string>
+    <string name="cancel_text">Cancel</string>
+    <string name="city_text">City</string>
+    <string name="address_text">Address</string>
+
+    <string name="quantity_text">Quantity</string>
+    <string name="price_text">Price</string>
+    <string name="cash_text">Cash</string>
+    <string name="on_hold_text">On Hold</string>
+    <string name="history_by_supplier_text">History By Supplier</string>
+    <string name="history_by_product_text">History By Product</string>
+    <string name="history_text">History</string>
+    <string name="today_text">Today</string>
+    <string name="yesterday_text">Yesterday</string>
+    <string name="this_month_text">This Month</string>
+    <string name="last_month_text">Last Month</string>
+    <string name="this_year_text">This Year</string>
+    <string name="last_year_text">Last Year</string>
+    <string name="from_text">From</string>
+    <string name="to_text">To</string>
+
+    <string name="can_not_undo_customer_money_text">Can Not Undo Because You Get Paid From Customer After Sell.</string>
+    <string name="undo_sell_product">Undo Sell Product</string>
+    <string name="can_not_undo_text">Can Not Undo Because You Sell This Product After Buy.</string>
+    <string name="can_not_undo_supplier_money_text">Can Not Undo Because You Pay Supplier After Buy.</string>
+    <string name="feedback_request_text">Something Is Wrong Please Send Feedback to Developer from Home Screen.</string>
+    <string name="undo_buy_text">Undo Any Brought Product</string>
+    <string name="tap_to_undo_transsion_text">Tap On List Item &amp; Click To Undo To Undo That!!!</string>
+    <string name="pay_to_supplier_text">Pay To Supplier</string>
+    <string name="pay_by_customer_text">Pay By Customer</string>
+    <string name="supplier_name_text">Supplier Name</string>
+    <string name="customer_name_text">Customer Name</string>
+    <string name="amount_to_pay_text">Amount To Pay</string>
+    <string name="remaining_amount_text">Remaining Amount</string>
+    <string name="history_of_pay_text">History of Pay</string>
+    <string name="history_of_buy_text">History of Buy</string>
+    <string name="pay_text">Pay</string>
+    <string name="history_of_sell_text">History of Sell</string>
+    <string name="expenditure_text">Expenditure</string>
+    <string name="money_text">Money</string>
+    <string name="remark_text">Remark</string>
+    <string name="product_mini_text">Prod.</string>
+    <string name="customer_mini_text">Cus.</string>
+    <string name="supplier_mini_text">Supp.</string>
+    <string name="money_mini_text">Mon.</string>
+    <string name="quantity_mini_text">Quan.</string>
+    <string name="date_text">Date</string>
+    <string name="mode_text">Mode</string>
+    <string name="amount_text">Amount</string>
+    <string name="back_text">Back</string>
+    <string name="remaining_stock_text">Remaining Stock</string>
+    <string name="search_text">Search</string>
+
+    <string name="total_sell_text">Total Sell : </string>
+    <string name="total_cash_sell_text">Total Cash Sell : </string>
+    <string name="total_on_hold_sell_text">Total On Hold Sell : </string>
+    <string name="total_buy_text">Total Buy : </string>
+    <string name="total_cash_buy_text">Total Cash Buy : </string>
+    <string name="total_on_hold_buy_text">Total On Hold Buy : </string>
+    <string name="gross_profit_text">Gross Profit : </string>
+    <string name="gross_profit_cash_text">Gross Profit Cash : </string>
+    <string name="gross_profit_on_hold_text">Gross Profit On Hold : </string>
+    <string name="gross_profit_on_hold_customer_pay_text">Gross Profit On Hold Customer Pay : </string>
+    <string name="net_profit_text">Net Profit : </string>
+    <string name="net_profit_cash_text">Net Profit Cash : </string>
+    <string name="net_profit_on_hold_text">Net Profit On Hold : </string>
+    <string name="net_profit_on_hold_customer_pay_text">Net Profit On Hold Customer Pay : </string>
+    <string name="remaining_payment_for_supplier_text">Remaining Payment For Supplier : </string>
+    <string name="remaining_profit_from_customer_text">Remaining Profit From Customer : </string>
+    <string name="remaining_payment_from_customer_text">Remaining Payment From Customer : </string>
+    <string name="total_expenditure_text">Total Expenditure : </string>
+    <string name="remaining_net_profit_text">Remaining Net Profit : </string>
+    <string name="hold_payment_paid_by_customer_text">Hold Payment Paid By Customer : </string>
+    <string name="hold_payment_paid_to_supplier_text">Hold Payment Paid To Supplier : </string>
+
+    <string name="total_money_text">Total Money : </string>
+    <string name="img_description_logo">Buy Sell Inventory</string>
+
+    <!-- Banner -->
+    <string name="home1">ca-app-pub-2563796576069532/8644311746</string>
+    <string name="home2">ca-app-pub-2563796576069532/2427291711</string>
+    <string name="product">ca-app-pub-2563796576069532/5635005028</string>
+    <string name="addProduct1">ca-app-pub-2563796576069532/9806184327</string>
+    <string name="addProduct2">ca-app-pub-2563796576069532/4466243641</string>
+    <string name="supplier">ca-app-pub-2563796576069532/5575295273</string>
+    <string name="addSupplier1">ca-app-pub-2563796576069532/7315752358</string>
+    <string name="addSupplier2">ca-app-pub-2563796576069532/5013038556</string>
+    <string name="customer">ca-app-pub-2563796576069532/8264149744</string>
+    <string name="addCustomer1">ca-app-pub-2563796576069532/5619527304</string>
+    <string name="addCustomer2">ca-app-pub-2563796576069532/7619499525</string>
+    <string name="buy1">ca-app-pub-2563796576069532/8418340211</string>
+    <string name="buy2">ca-app-pub-2563796576069532/6913331634</string>
+    <string name="historyBySupplier">ca-app-pub-2563796576069532/3254246080</string>
+    <string name="historyByProduct">ca-app-pub-2563796576069532/6870412688</string>
+    <string name="sell1">ca-app-pub-2563796576069532/5047793616</string>
+    <string name="sell2">ca-app-pub-2563796576069532/6422377047</string>
+    <string name="sellHistory">ca-app-pub-2563796576069532/4978800413</string>
+    <string name="statement1">ca-app-pub-2563796576069532/4753469515</string>
+    <string name="statement2">ca-app-pub-2563796576069532/7080852595</string>
+    <string name="sDay1">ca-app-pub-2563796576069532/5036540542</string>
+    <string name="sDay2">ca-app-pub-2563796576069532/4269365739</string>
+    <string name="sDay3">ca-app-pub-2563796576069532/3289178751</string>
+    <string name="sDay4">ca-app-pub-2563796576069532/9288035925</string>
+    <string name="sDay5">ca-app-pub-2563796576069532/7943164663</string>
+    <string name="sSearch1">ca-app-pub-2563796576069532/2481641343</string>
+    <string name="sSearch2">ca-app-pub-2563796576069532/9558185581</string>
+    <string name="sSearch3">ca-app-pub-2563796576069532/2961875699</string>
+    <string name="sSearch4">ca-app-pub-2563796576069532/8593476328</string>
+    <string name="sSearch5">ca-app-pub-2563796576069532/1836496280</string>
+    <string name="stock">ca-app-pub-2563796576069532/5468619538</string>
+    <string name="holders1">ca-app-pub-2563796576069532/1342753839</string>
+    <string name="holders2">ca-app-pub-2563796576069532/3488682828</string>
+    <string name="payToSupplier1">ca-app-pub-2563796576069532/7657359673</string>
+    <string name="payToSupplier2">ca-app-pub-2563796576069532/1401096604</string>
+    <string name="historyOfPaySupplier">ca-app-pub-2563796576069532/2077251008</string>
+    <string name="historyOfBuySupplier">ca-app-pub-2563796576069532/3275261533</string>
+    <string name="payByCustomer1">ca-app-pub-2563796576069532/6591211088</string>
+    <string name="payByCustomer2">ca-app-pub-2563796576069532/6601452396</string>
+    <string name="historyOfPayCustomer">ca-app-pub-2563796576069532/5880764649</string>
+    <string name="historyOfSellCustomer">ca-app-pub-2563796576069532/8399116777</string>
+    <string name="exp1">ca-app-pub-2563796576069532/3058503641</string>
+    <string name="exp2">ca-app-pub-2563796576069532/9180402325</string>
+    <string name="expHistory">ca-app-pub-2563796576069532/6946488204</string>
+    <string name="profile1">ca-app-pub-2563796576069532/2851631846</string>
+    <string name="profile2">ca-app-pub-2563796576069532/6768973354</string>
+
+
+    <!-- Intersial -->
+    <string name="homeH">ca-app-pub-2563796576069532/7078350140</string>
+    <string name="sellH">ca-app-pub-2563796576069532/5197404213</string>
+    <string name="buyH">ca-app-pub-2563796576069532/7110085832</string>
+    <string name="statementH">ca-app-pub-2563796576069532/8718734879</string>
+    <string name="ExpH">ca-app-pub-2563796576069532/7625145053</string>
+    <string name="stockH">ca-app-pub-2563796576069532/6504060101</string>
+
+
+    <string name="description">Buy Sell Inventory Application Online Data Store.\n
+        This Application Provides Lots of Features The Working is as Follows....\n
+        1. First Button \'Product\', Used To Add Product Items, There Buy Price, There Sell Price,
+        Company , See Product List, Delete Item Many More.\n
+        2. Supplier Button \'Supplier\', Used To Handle Suppliers,
+        There Detail Contact Info and Many More. It is must to Add Supplier Before Buy Any Item.\n
+        3. Customer Button \'Customer\',
+        It is optional for cash sell but must for customer borrow or On Hold Payment Sell.
+        Before Sell Anything On Hold Payment to any Customer,
+        It Is must to add There information in customer Tab.\n
+        4. Buy Button \'Buy\', Buy Products from Supplier with option of cash or on hold.
+        There is also two more button \'History By Supplier\',
+        Which shows History of All buy and there is also filter option for any particular supplier.
+        The Another Button is \'History By Product\' Which Shows All History of Buy Product.\n
+        5. Sell Button \'Sell\', Sell Product on Cash or On Hold With Auto Suggestion Customer Name.
+        History Button \'History\', show Sell History With Date Filter,
+        Date and Product Name Combine Filter.\n
+        6. Stock Button \'Stock\', Shows Remaining Stock.\n
+        7. Holders Button \'Holders\', Both Hold Payments,
+        To Suppliers or From Customers Details With Pay History, Buy History,
+        Sell History in different tables.\n
+        8. Expenditure Button \'Exp.\', All Expenditure Including House or Shop.\n
+        9. Statement Button \'Statement\', Generate Statement as well as you like.
+        From Which Date To Which Date All. Statement shows...\n
+        a). Total Sell\n
+        b). Total Cash Sell\n
+        c). Total On Hold Sell\n
+        d). Total Payment Done By Customers\n
+        e). Remaining Payment from Customers\n
+        f). Total Buy\n
+        g). Total Cash Buy\n
+        h). Total On Hold Buy\n
+        i). Total Payment Done By Supplier\n
+        j). Remaining Payment for Supplier\n
+        k). Total Gross Profit\n
+        l). Cash Gross Profit\n
+        m). On Hold Gross Profit\n
+        n). Gross Profit of Payment of Customer\n
+        o). Gross Profit of Remaining Payment from Customer\n
+        p). Total Expenditure\n
+        q). Total Net Profit\n
+        r). Cash Net Profit\n
+        s). On Hold Net Profit\n
+        t). Net Profit of Customer Payment\n
+        u). Net Profit of Remaining Customer Payment\n
+        10. Logout Button \'Logout\'\n
+\n
+        Product -> सामान\n
+        Supplier -> सप्लायर, दुकानदार को सामान बेचने वाला\n
+        Customer -> ग्राहक\n
+        Buy -> खरीदना\n
+        Sell -> बेचना\n
+        Statement -> विवरण\n
+        Stock -> बाकि माल, भंडार\n
+        Expenditure -> खर्चा\n
+        Cash -> नगद धन\n
+        On Hold -> उधार\n
+        Holders -> उधार वाले\n
+        Payment -> भुगतान\n
+        Pay -> देना\n
+        Add -> जोड़े\n
+        History -> इतिहास\n
+        Inventory -> सूचि\n
+\n
+        A to Z Work of Shop.All Inventory Work In Simple Way.\n
+        दुकान का पूरा हिसाब, बही खाते का पूरा हिसाब, घरेलु एंव अन्य खर्च का हिसाब और भी अन्य बहुत सारी विशेषताएं
+        आसन तरीके से एंव ऑनलाइन डाटा स्टोर|\n</string>
+
+    <string name="descriptionmini">Buy Sell Inventory Application Online Data Store.\n
+        This Application Provides Lots of Features The Working is as Follows....\n</string>
+    <string name="verify_text">Verify पुष्टि</string>
+    <string name="solve_msg">To Reset Solve it! मिटाने के लिए इसे हल करें! 99+2+3+5=</string>
+    <string name="side_exp">Side Exp.</string>
+    <string name="side_statement">Side Statement</string>
+    <string name="side_business">Side Business</string>
+    <string name="side_expenditure">Side Expenditure</string>
+    <string name="side_income">Side Income</string>
+    <string name="profit">Profit</string>
+    <string name="undo">Undo</string>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!--TODO temp -->
+
+    <string name="quickstart_message">Click the SUBSCRIBE TO NEWS button below to subscribe to the
+        news topic. Messages sent to the news topic will be received. The LOG TOKEN button logs the
+        InstanceID token to logcat.</string>
+    <string name="subscribe_to_news">Subscribe To News</string>
+    <string name="log_token">Log Token</string>
+
+    <string name="msg_subscribed">Subscribed to news topic</string>
+    <string name="msg_token_fmt" translatable="false">InstanceID Token: %s</string>
+
+    <string name="default_notification_channel_id" translatable="false">fcm_default_channel</string>
+    <!--
+        This is the name that users will see when interacting with this channel.
+        It should describe the category of notifications that will be sent through this channel
+     -->
+    <string name="default_notification_channel_name" translatable="true">News</string>
+    <string name="msg_subscribe_failed">Failed to subscribe to news topic</string>
+
+</resources>

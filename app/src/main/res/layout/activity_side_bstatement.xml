@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.sanshy.buysellinventory.SideBStatement">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="match_parent"
+            android:layout_height="80sp"
+            android:layout_margin="5sp"
+            app:srcCompat="@drawable/logo" />
+
+        <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/adView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            ads:adSize="BANNER"
+            ads:adUnitId="@string/statement1"></com.google.android.gms.ads.AdView>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/today"
+                        android:layout_width="wrap_content"
+                        android:layout_height="70sp"
+                        android:layout_margin="10sp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/button"
+                        android:fontFamily="@font/carter_one"
+                        android:onClick="todaySt"
+                        android:paddingBottom="4sp"
+                        android:text="@string/today_text"
+                        android:textAllCaps="false"
+                        android:textColor="#fff"
+                        android:textSize="21sp" />
+
+                    <Button
+                        android:id="@+id/supplier"
+                        android:layout_width="wrap_content"
+                        android:layout_height="70sp"
+                        android:layout_margin="10sp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/button"
+                        android:fontFamily="@font/carter_one"
+                        android:onClick="yesterdaySt"
+                        android:paddingBottom="4sp"
+                        android:text="@string/yesterday_text"
+                        android:textAllCaps="false"
+                        android:textColor="#fff"
+                        android:textSize="21sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/customer"
+                        android:layout_width="wrap_content"
+                        android:layout_height="70sp"
+                        android:layout_margin="10sp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/button"
+                        android:fontFamily="@font/carter_one"
+                        android:onClick="thisMonth"
+                        android:paddingBottom="4sp"
+                        android:text="@string/this_month_text"
+                        android:textAllCaps="false"
+                        android:textColor="#fff"
+                        android:textSize="21sp" />
+
+                    <Button
+                        android:id="@+id/buy"
+                        android:layout_width="wrap_content"
+                        android:layout_height="70sp"
+                        android:layout_margin="10sp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/button"
+                        android:fontFamily="@font/carter_one"
+                        android:onClick="lastMonth"
+                        android:paddingBottom="4sp"
+                        android:text="@string/last_month_text"
+                        android:textAllCaps="false"
+                        android:textColor="#fff"
+                        android:textSize="21sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/sell"
+                        android:layout_width="wrap_content"
+                        android:layout_height="70sp"
+                        android:layout_margin="10sp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/button"
+                        android:fontFamily="@font/carter_one"
+                        android:onClick="thisYear"
+                        android:paddingBottom="4sp"
+                        android:text="@string/this_year_text"
+                        android:textAllCaps="false"
+                        android:textColor="#fff"
+                        android:textSize="21sp" />
+
+                    <Button
+                        android:id="@+id/statement"
+                        android:layout_width="wrap_content"
+                        android:layout_height="70sp"
+                        android:layout_margin="10sp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/button"
+                        android:fontFamily="@font/carter_one"
+                        android:onClick="lastYear"
+                        android:paddingBottom="4sp"
+                        android:text="@string/last_year_text"
+                        android:textAllCaps="false"
+                        android:textColor="#fff"
+                        android:textSize="21sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/exp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="70sp"
+                        android:layout_margin="10sp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/blueb"
+                        android:fontFamily="@font/carter_one"
+                        android:onClick="fromSt"
+                        android:paddingBottom="4sp"
+                        android:text="@string/from_text"
+                        android:textAllCaps="false"
+                        android:textColor="#fff"
+                        android:textSize="21sp" />
+
+                    <Button
+                        android:id="@+id/last"
+                        android:layout_width="wrap_content"
+                        android:layout_height="70sp"
+                        android:layout_margin="10sp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/blueb"
+                        android:fontFamily="@font/carter_one"
+                        android:onClick="toSt"
+                        android:paddingBottom="4sp"
+                        android:text="@string/to_text"
+                        android:textAllCaps="false"
+                        android:textColor="#fff"
+                        android:textSize="21sp" />
+
+                </LinearLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center">
+
+                    <Button
+                        android:id="@+id/search2"
+                        android:layout_width="200sp"
+                        android:layout_height="70sp"
+                        android:layout_margin="10sp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginTop="5dp"
+                        android:background="@drawable/blueb"
+                        android:fontFamily="@font/carter_one"
+                        android:onClick="searchSt"
+                        android:paddingBottom="4sp"
+                        android:text="@string/search_text"
+                        android:textAllCaps="false"
+                        android:textColor="#fff"
+                        android:textSize="21sp" />
+                </RelativeLayout>
+
+                <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/adView2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    ads:adSize="BANNER"
+                    ads:adUnitId="@string/statement2"></com.google.android.gms.ads.AdView>
+
+            </LinearLayout>
+
+        </ScrollView>
+    </LinearLayout>
+</android.support.constraint.ConstraintLayout>

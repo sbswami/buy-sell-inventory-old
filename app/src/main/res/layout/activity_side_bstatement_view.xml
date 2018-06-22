@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:orientation="vertical"
+    tools:context="com.sanshy.buysellinventory.SideBStatementView">
+
+    <TextView
+        android:id="@+id/income"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="2sp"
+        android:fontFamily="@font/karla"
+        android:gravity="center"
+        android:padding="5sp"
+        android:text="Loading...."
+        android:textColor="#000"
+        android:textSize="19sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/expend"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="2sp"
+        android:fontFamily="@font/karla"
+        android:gravity="center"
+        android:padding="5sp"
+        android:text="Loading...."
+        android:textColor="#000"
+        android:textSize="19sp"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/profitButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="@drawable/buttonorange"
+        android:fontFamily="@font/carter_one"
+        android:gravity="center"
+        android:onClick="profitB"
+        android:text="@string/profit"
+        android:textColor="#fff"
+        android:textSize="22sp" />
+
+    <TextView
+        android:id="@+id/profit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="2sp"
+        android:fontFamily="@font/karla"
+        android:gravity="center"
+        android:padding="5sp"
+        android:text="Loading...."
+        android:textColor="#000"
+        android:textSize="19sp"
+        android:textStyle="bold"
+        android:visibility="gone" />
+
+</LinearLayout>

@@ -1,0 +1,394 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.sanshy.buysellinventory.home">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="match_parent"
+            android:layout_height="80sp"
+            android:layout_margin="5sp"
+            app:srcCompat="@drawable/logo" />
+
+        <com.google.android.gms.ads.AdView
+            xmlns:ads="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/adView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            ads:adSize="BANNER"
+            ads:adUnitId="@string/home1">
+        </com.google.android.gms.ads.AdView>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/profile"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/carter_one"
+                        android:onClick="Profile"
+                        android:text="Profile"
+                        android:textAlignment="center"
+                        android:textColor="#000"
+                        android:textSize="19sp" />
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/product"
+                        android:layout_width="wrap_content"
+                        android:layout_height="70sp"
+                        android:layout_margin="10sp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/button"
+                        android:fontFamily="@font/carter_one"
+                        android:onClick="product"
+                        android:paddingBottom="4sp"
+                        android:text="@string/product_text"
+                        android:textAllCaps="false"
+                        android:textColor="#fff"
+                        android:textSize="19sp" />
+
+                    <Button
+                        android:id="@+id/supplier"
+                        android:layout_width="wrap_content"
+                        android:layout_height="70sp"
+                        android:layout_margin="10sp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/button"
+                        android:fontFamily="@font/carter_one"
+                        android:onClick="supplier"
+                        android:paddingBottom="4sp"
+                        android:text="@string/supplier_text"
+                        android:textAllCaps="false"
+                        android:textColor="#fff"
+                        android:textSize="19sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/customer"
+                        android:layout_width="wrap_content"
+                        android:layout_height="70sp"
+                        android:layout_margin="10sp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/button"
+                        android:fontFamily="@font/carter_one"
+                        android:onClick="customer"
+                        android:paddingBottom="4sp"
+                        android:text="@string/customer_text"
+                        android:textAllCaps="false"
+                        android:textColor="#fff"
+                        android:textSize="19sp" />
+
+                    <Button
+                        android:id="@+id/buy"
+                        android:layout_width="wrap_content"
+                        android:layout_height="70sp"
+                        android:layout_margin="10sp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/button"
+                        android:fontFamily="@font/carter_one"
+                        android:onClick="buy"
+                        android:paddingBottom="4sp"
+                        android:text="@string/buy_text"
+                        android:textAllCaps="false"
+                        android:textColor="#fff"
+                        android:textSize="19sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/sell"
+                        android:layout_width="wrap_content"
+                        android:layout_height="70sp"
+                        android:layout_margin="10sp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/button"
+                        android:fontFamily="@font/carter_one"
+                        android:onClick="sell"
+                        android:paddingBottom="4sp"
+                        android:text="@string/sell_text"
+                        android:textAllCaps="false"
+                        android:textColor="#fff"
+                        android:textSize="19sp" />
+
+                    <Button
+                        android:id="@+id/statement"
+                        android:layout_width="wrap_content"
+                        android:layout_height="70sp"
+                        android:layout_margin="10sp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/button"
+                        android:fontFamily="@font/carter_one"
+                        android:onClick="statement"
+                        android:paddingBottom="4sp"
+                        android:text="@string/statement_text"
+                        android:textAllCaps="false"
+                        android:textColor="#fff"
+                        android:textSize="19sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/stock"
+                        android:layout_width="wrap_content"
+                        android:layout_height="70sp"
+                        android:layout_margin="10sp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/button"
+                        android:fontFamily="@font/carter_one"
+                        android:onClick="stock"
+                        android:paddingBottom="4sp"
+                        android:text="@string/stock_text"
+                        android:textAllCaps="false"
+                        android:textColor="#fff"
+                        android:textSize="19sp" />
+
+                    <Button
+                        android:id="@+id/payment"
+                        android:layout_width="wrap_content"
+                        android:layout_height="70sp"
+                        android:layout_margin="10sp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/button"
+                        android:fontFamily="@font/carter_one"
+                        android:onClick="payment"
+                        android:paddingBottom="4sp"
+                        android:text="@string/holders_text"
+                        android:textAllCaps="false"
+                        android:textColor="#fff"
+                        android:textSize="19sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/exp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="70sp"
+                        android:layout_margin="10sp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/button"
+                        android:fontFamily="@font/carter_one"
+                        android:onClick="exp"
+                        android:paddingBottom="4sp"
+                        android:text="@string/expenditure_mini_text"
+                        android:textAllCaps="false"
+                        android:textColor="#fff"
+                        android:textSize="19sp" />
+
+                    <Button
+                        android:id="@+id/ad"
+                        android:layout_width="wrap_content"
+                        android:layout_height="70sp"
+                        android:layout_margin="10sp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/button"
+                        android:fontFamily="@font/carter_one"
+                        android:onClick="ad"
+                        android:paddingBottom="4sp"
+                        android:text="S. Business"
+                        android:textAllCaps="false"
+                        android:textColor="#fff"
+                        android:textSize="19sp" />
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/share"
+                        android:layout_width="wrap_content"
+                        android:layout_height="70sp"
+                        android:layout_margin="10sp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/button"
+                        android:fontFamily="@font/carter_one"
+                        android:onClick="share"
+                        android:paddingBottom="4sp"
+                        android:text="@string/share_text"
+                        android:textAllCaps="false"
+                        android:textColor="#fff"
+                        android:textSize="19sp" />
+
+                    <Button
+                        android:id="@+id/rateus"
+                        android:layout_width="wrap_content"
+                        android:layout_height="70sp"
+                        android:layout_margin="10sp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/button"
+                        android:fontFamily="@font/carter_one"
+                        android:onClick="rateUs"
+                        android:paddingBottom="4sp"
+                        android:text="@string/rate_us_text"
+                        android:textAllCaps="false"
+                        android:textColor="#fff"
+                        android:textSize="19sp" />
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/help"
+                        android:layout_width="wrap_content"
+                        android:layout_height="70sp"
+                        android:layout_margin="10sp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/button"
+                        android:fontFamily="@font/carter_one"
+                        android:onClick="help"
+                        android:paddingBottom="4sp"
+                        android:text="@string/help_text"
+                        android:textAllCaps="false"
+                        android:textColor="#fff"
+                        android:textSize="19sp" />
+
+                    <Button
+                        android:id="@+id/feedback"
+                        android:layout_width="wrap_content"
+                        android:layout_height="70sp"
+                        android:layout_margin="10sp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/button"
+                        android:fontFamily="@font/carter_one"
+                        android:onClick="feedback"
+                        android:paddingBottom="4sp"
+                        android:text="@string/feedback_text"
+                        android:textAllCaps="false"
+                        android:textColor="#fff"
+                        android:textSize="19sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/reset"
+                        android:layout_width="wrap_content"
+                        android:layout_height="70sp"
+                        android:layout_margin="10sp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/button"
+                        android:fontFamily="@font/carter_one"
+                        android:onClick="resetB"
+                        android:paddingBottom="4sp"
+                        android:text="@string/reset_text"
+                        android:textAllCaps="false"
+                        android:textColor="#fff"
+                        android:textSize="19sp" />
+
+                    <Button
+                        android:id="@+id/logout"
+                        android:layout_width="wrap_content"
+                        android:layout_height="70sp"
+                        android:layout_margin="10sp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/button"
+                        android:fontFamily="@font/carter_one"
+                        android:onClick="logout"
+                        android:paddingBottom="4sp"
+                        android:text="@string/log_out_text"
+                        android:textAllCaps="false"
+                        android:textColor="#fff"
+                        android:textSize="19sp" />
+
+                </LinearLayout>
+
+                <com.google.android.gms.ads.AdView
+                    android:id="@+id/adView2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:adSize="BANNER"
+                    app:adUnitId="@string/home2"></com.google.android.gms.ads.AdView>
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>

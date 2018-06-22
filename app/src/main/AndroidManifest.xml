@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.sanshy.buysellinventory">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".home">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+
+        <meta-data android:name="firebase_messaging_auto_init_enabled"
+            android:value="false" />
+        <meta-data android:name="firebase_analytics_collection_enabled"
+            android:value="false" />
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
+
+        <activity
+            android:name=".Product"
+            android:parentActivityName=".home" />
+        <activity
+            android:name=".addProduct"
+            android:parentActivityName=".Product" />
+        <activity
+            android:name=".Supplier"
+            android:parentActivityName=".home" />
+        <activity
+            android:name=".addSupplier"
+            android:parentActivityName=".Supplier" />
+        <activity
+            android:name=".Customer"
+            android:parentActivityName=".home" />
+        <activity
+            android:name=".addCustomer"
+            android:parentActivityName=".Customer" />
+        <activity
+            android:name=".Buy"
+            android:parentActivityName=".home" />
+        <activity
+            android:name=".Sell"
+            android:parentActivityName=".home" />
+        <activity
+            android:name=".Stock"
+            android:parentActivityName=".home" />
+        <activity
+            android:name=".Payment"
+            android:parentActivityName=".home" />
+        <activity
+            android:name=".payToSupplier"
+            android:parentActivityName=".Payment" />
+        <activity
+            android:name=".payByCustomer"
+            android:parentActivityName=".Payment" />
+        <activity
+            android:name=".historySupplier"
+            android:parentActivityName=".payToSupplier" />
+        <activity
+            android:name=".historySupplierBuy"
+            android:parentActivityName=".payToSupplier" />
+        <activity
+            android:name=".historyCustomer"
+            android:parentActivityName=".payByCustomer" />
+        <activity
+            android:name=".Statement"
+            android:parentActivityName=".home" />
+        <activity
+            android:name=".Expenditure"
+            android:parentActivityName=".home" />
+        <activity
+            android:name=".expenditureList"
+            android:parentActivityName=".Expenditure" />
+        <activity
+            android:name=".buyList"
+            android:parentActivityName=".Buy" />
+        <activity
+            android:name=".buyHistoryByProduct"
+            android:parentActivityName=".Buy" />
+        <activity
+            android:name=".sellHistory"
+            android:parentActivityName=".Sell" />
+        <activity
+            android:name=".historyCustomerSell"
+            android:parentActivityName=".payByCustomer" />
+        <activity
+            android:name=".StatementDay"
+            android:parentActivityName=".Statement" />
+        <activity
+            android:name=".StatementYesterday"
+            android:parentActivityName=".Statement" />
+        <activity
+            android:name=".StatementSearch"
+            android:parentActivityName=".Statement" />
+        <activity
+            android:name=".Main2Activity"
+            android:parentActivityName=".home" />
+        <activity android:name=".help" />
+        <activity android:name=".fiveItemLister" />
+        <activity
+            android:name=".undoSell"
+            android:parentActivityName=".Sell" />
+        <activity android:name=".UndoBuy" />
+        <activity android:name=".SideBusinessWork" />
+        <activity android:name=".SideBExp" />
+        <activity android:name=".SideBIncome" />
+        <activity android:name=".SideBStatement" />
+        <activity android:name=".SideBExpList" />
+        <activity android:name=".SideBExpIncomeList" />
+        <activity android:name=".SideBStatementView" />
+        <activity android:name=".UndoExp" />
+        <activity android:name=".UndoSideExp" />
+        <activity android:name=".UndoSideIncome"/>
+
+
+        <service
+            android:name=".MyFirebaseMessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+            </intent-filter>
+        </service>
+
+        <service
+            android:name=".MyFirebaseInstanceIDService">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
+            </intent-filter>
+        </service>
+
+        <service android:name=".MyJobService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.firebase.jobdispatcher.ACTION_EXECUTE"/>
+            </intent-filter>
+        </service>
+
+    </application>
+
+</manifest>

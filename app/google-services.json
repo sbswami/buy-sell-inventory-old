@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "373686237433",
+    "firebase_url": "https://buysell-99ddc.firebaseio.com",
+    "project_id": "buysell-99ddc",
+    "storage_bucket": "buysell-99ddc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:373686237433:android:79f29e325eee8399",
+        "android_client_info": {
+          "package_name": "com.sanshy.buysellinventory"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "373686237433-cid357usffnlr3otlvdg8bmqe1giu2ie.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.sanshy.buysellinventory",
+            "certificate_hash": "fb5e96ce50924917ed5f147699445c40f7b5aa7c"
+          }
+        },
+        {
+          "client_id": "373686237433-maf5bdojasfm1f3o33i8as9tjhv8s0gs.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAG5n5FPoWQy8yJX9vuLaMN1PEW_3MLKKU"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "373686237433-maf5bdojasfm1f3o33i8as9tjhv8s0gs.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

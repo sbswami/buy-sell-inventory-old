@@ -1,0 +1,332 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.sanshy.buysellinventory.StatementYesterday">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <com.google.android.gms.ads.AdView
+                xmlns:ads="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/adView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                ads:adSize="BANNER"
+                ads:adUnitId="@string/sDay1">
+            </com.google.android.gms.ads.AdView>
+
+            <TextView
+                android:id="@+id/totalSell"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="2sp"
+                android:fontFamily="@font/karla"
+                android:gravity="center"
+                android:padding="5sp"
+                android:text="Loading....."
+                android:textColor="#000"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/totalCashSell"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="2sp"
+                android:fontFamily="@font/karla"
+                android:gravity="center"
+                android:padding="5sp"
+                android:text="Loading....."
+                android:textColor="#000"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/totalOnHoldSell"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="2sp"
+                android:fontFamily="@font/karla"
+                android:gravity="center"
+                android:padding="5sp"
+                android:text="Loading....."
+                android:textColor="#000"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/totalHoldPaymentSellPay"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="2sp"
+                android:fontFamily="@font/karla"
+                android:gravity="center"
+                android:padding="5sp"
+                android:text="Loading....."
+                android:textColor="#000"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/totalOnHoldPaymentAfterPaySell"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="2sp"
+                android:fontFamily="@font/karla"
+                android:gravity="center"
+                android:padding="5sp"
+                android:text="Loading....."
+                android:textColor="#000"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+            <com.google.android.gms.ads.AdView
+                xmlns:ads="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/adView2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                ads:adSize="BANNER"
+                ads:adUnitId="@string/sDay2">
+            </com.google.android.gms.ads.AdView>
+            <TextView
+                android:id="@+id/totalBuy"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="2sp"
+                android:fontFamily="@font/karla"
+                android:gravity="center"
+                android:padding="5sp"
+                android:text="Loading....."
+                android:textColor="#000"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/totalCashBuy"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="2sp"
+                android:fontFamily="@font/karla"
+                android:gravity="center"
+                android:padding="5sp"
+                android:text="Loading....."
+                android:textColor="#000"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/totalOnHOldBuy"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="2sp"
+                android:fontFamily="@font/karla"
+                android:gravity="center"
+                android:padding="5sp"
+                android:text="Loading....."
+                android:textColor="#000"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/totalHoldPaymentBuyPay"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="2sp"
+                android:fontFamily="@font/karla"
+                android:gravity="center"
+                android:padding="5sp"
+                android:text="Loading....."
+                android:textColor="#000"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/totalOnHoldPaymentAfterPayBuy"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="2sp"
+                android:fontFamily="@font/karla"
+                android:gravity="center"
+                android:padding="5sp"
+                android:text="Loading....."
+                android:textColor="#000"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+            <com.google.android.gms.ads.AdView
+                xmlns:ads="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/adView3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                ads:adSize="BANNER"
+                ads:adUnitId="@string/sSearch3">
+            </com.google.android.gms.ads.AdView>
+            <TextView
+                android:id="@+id/totalGrossProfit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="2sp"
+                android:fontFamily="@font/karla"
+                android:gravity="center"
+                android:padding="5sp"
+                android:text="Loading....."
+                android:textColor="#000"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/totalGrossProfitCash"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="2sp"
+                android:fontFamily="@font/karla"
+                android:gravity="center"
+                android:padding="5sp"
+                android:text="Loading....."
+                android:textColor="#000"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/totalGrossProfitOnHold"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="2sp"
+                android:fontFamily="@font/karla"
+                android:gravity="center"
+                android:padding="5sp"
+                android:text="Loading....."
+                android:textColor="#000"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/totalGrossProfitWithHoldPay"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="2sp"
+                android:fontFamily="@font/karla"
+                android:gravity="center"
+                android:padding="5sp"
+                android:text="Loading....."
+                android:textColor="#000"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/totalGrossProfitRemainAfterPay"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="2sp"
+                android:fontFamily="@font/karla"
+                android:gravity="center"
+                android:padding="5sp"
+                android:text="Loading....."
+                android:textColor="#000"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+            <com.google.android.gms.ads.AdView
+                xmlns:ads="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/adView4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                ads:adSize="BANNER"
+                ads:adUnitId="@string/sDay4">
+            </com.google.android.gms.ads.AdView>
+            <TextView
+                android:id="@+id/totalExp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="2sp"
+                android:fontFamily="@font/karla"
+                android:gravity="center"
+                android:padding="5sp"
+                android:text="Loading....."
+                android:textColor="#000"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/totalNetProfit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="2sp"
+                android:fontFamily="@font/karla"
+                android:gravity="center"
+                android:padding="5sp"
+                android:text="Loading....."
+                android:textColor="#000"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/totalNetProfitCash"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="2sp"
+                android:fontFamily="@font/karla"
+                android:gravity="center"
+                android:padding="5sp"
+                android:text="Loading....."
+                android:textColor="#000"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/totalNetProfitOnHold"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="2sp"
+                android:fontFamily="@font/karla"
+                android:gravity="center"
+                android:padding="5sp"
+                android:text="Loading....."
+                android:textColor="#000"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/totalNetProfitWithHoldPay"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="2sp"
+                android:fontFamily="@font/karla"
+                android:gravity="center"
+                android:padding="5sp"
+                android:text="Loading....."
+                android:textColor="#000"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+
+            <TextView
+                android:id="@+id/totalNetProfitRemainAfterPay"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="2sp"
+                android:fontFamily="@font/karla"
+                android:gravity="center"
+                android:padding="5sp"
+                android:text="Loading....."
+                android:textColor="#000"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <com.google.android.gms.ads.AdView
+                xmlns:ads="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/adView5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                ads:adSize="BANNER"
+                ads:adUnitId="@string/sDay5">
+            </com.google.android.gms.ads.AdView>
+        </LinearLayout>
+    </ScrollView>
+</android.support.constraint.ConstraintLayout>
