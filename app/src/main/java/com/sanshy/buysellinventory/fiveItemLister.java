@@ -74,7 +74,6 @@ public class fiveItemLister extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
 
-        android.os.Process.killProcess(android.os.Process.myPid());
     }
 
 }

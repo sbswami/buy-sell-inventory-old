@@ -3,6 +3,7 @@ package com.sanshy.buysellinventory;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.ConnectivityManager;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -68,57 +69,53 @@ public class payByCustomer extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         final DatabaseReference mCustomerRef = mRootRef.child(user.getUid()+"/onHoldCustomer");
-        final ArrayList<String> temp = new ArrayList<>();
-        mCustomerRef.addValueEventListener(new ValueEventListener() {
+        MyProgressBar.ShowProgress(this);
+        mCustomerRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if (temp.size()==0)
+             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                customerList.clear();
+                onHoldList.clear();
+                grossList.clear();
+                for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren())
                 {
-                    temp.add("Kuch BHi");
-                    customerList.clear();
-                    onHoldList.clear();
-                    grossList.clear();
-                    for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren())
-                    {
-                        customerList.add(dataSnapshot1.child("name").getValue(String.class));
-                        onHoldList.add(dataSnapshot1.child("onHoldMoney").getValue(String.class));
-                        grossList.add(dataSnapshot1.child("grossProfit").getValue(String.class));
-                    }
-                    final String Name[] = new String[customerList.size()];
-                    final String OnHoldMoney[] = new String[onHoldList.size()];
-                    final String GrossProfit[] = new String[grossList.size()];
-                    for (int i = 0; i < customerList.size(); i++)
-                    {
-                        Name[i] = customerList.get(i);
-                        OnHoldMoney[i] = onHoldList.get(i);
-                        GrossProfit[i] = grossList.get(i);
-                    }
-
-                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(payByCustomer.this,android.R.layout.simple_spinner_dropdown_item, Arrays.asList(Name));
-
-                    suggestion_box3.setAdapter(adapter);
-
-                    final int[] index = new int[1];
-                    suggestion_box3.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                        @Override
-                        public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                            index[0] = Arrays.asList(Name).indexOf(suggestion_box3.getText().toString());
-                            remainAmount.setText("Total : "+OnHoldMoney[index[0]]);
-                            amount.setText(OnHoldMoney[index[0]]);
-                            Amount = OnHoldMoney[index[0]];
-                            Profit = GrossProfit[index[0]];
-                        }
-                    });
-
+                    customerList.add(dataSnapshot1.child("name").getValue(String.class));
+                    onHoldList.add(dataSnapshot1.child("onHoldMoney").getValue(String.class));
+                    grossList.add(dataSnapshot1.child("grossProfit").getValue(String.class));
                 }
-                temp.add("Kuch BHi");
+                final String Name[] = new String[customerList.size()];
+                final String OnHoldMoney[] = new String[onHoldList.size()];
+                final String GrossProfit[] = new String[grossList.size()];
+                for (int i = 0; i < customerList.size(); i++)
+                {
+                    Name[i] = customerList.get(i);
+                    OnHoldMoney[i] = onHoldList.get(i);
+                    GrossProfit[i] = grossList.get(i);
+                }
+
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>(payByCustomer.this,android.R.layout.simple_spinner_dropdown_item, Arrays.asList(Name));
+
+                suggestion_box3.setAdapter(adapter);
+
+                MyProgressBar.HideProgress();
+
+                final int[] index = new int[1];
+                suggestion_box3.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                        index[0] = Arrays.asList(Name).indexOf(suggestion_box3.getText().toString());
+                        remainAmount.setText("Total : "+OnHoldMoney[index[0]]);
+                        amount.setText(OnHoldMoney[index[0]]);
+                        Amount = OnHoldMoney[index[0]];
+                        Profit = GrossProfit[index[0]];
+                    }
+                });
 
 
             }
 
             @Override
-            public void onCancelled(DatabaseError databaseError) {
-
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                MyProgressBar.HideProgress();
             }
         });
 
@@ -229,63 +226,7 @@ public class payByCustomer extends AppCompatActivity {
     public void onResume() {
         super.onResume();  // Always call the superclass method first
 
-        connectionCheck();
-
-    }
-
-    public void connectionCheck()
-    {
-
-        if (isInternetOn())
-        {
-
-        }
-        else {
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setTitle("Connection Problem")
-                    .setMessage("Please Connect To Internet and Click OK!!!")
-                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            connectionCheck();
-                        }
-                    })
-                    .setCancelable(false)
-                    .setNegativeButton("Close App", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            android.os.Process.killProcess(android.os.Process.myPid());
-                        }
-                    });
-            builder.create().show();
-        }
-    }
-
-    public final boolean isInternetOn() {
-
-        // get Connectivity Manager object to check connection
-        ConnectivityManager connec =
-                (ConnectivityManager)getSystemService(getBaseContext().CONNECTIVITY_SERVICE);
-
-        // Check for network connections
-        if ( connec.getNetworkInfo(0).getState() == android.net.NetworkInfo.State.CONNECTED ||
-                connec.getNetworkInfo(0).getState() == android.net.NetworkInfo.State.CONNECTING ||
-                connec.getNetworkInfo(1).getState() == android.net.NetworkInfo.State.CONNECTING ||
-                connec.getNetworkInfo(1).getState() == android.net.NetworkInfo.State.CONNECTED ) {
-
-            // if connected with internet
-
-
-            return true;
-
-        } else if (
-                connec.getNetworkInfo(0).getState() == android.net.NetworkInfo.State.DISCONNECTED ||
-                        connec.getNetworkInfo(1).getState() == android.net.NetworkInfo.State.DISCONNECTED  ) {
-
-
-            return false;
-        }
-        return false;
+        NetworkConnectivityCheck.connectionCheck(this);
     }
 
 }

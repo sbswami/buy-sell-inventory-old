@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.ConnectivityManager;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -83,9 +84,9 @@ public class Buy extends AppCompatActivity {
         final DatabaseReference mProductRef = mRootRef.child(user.getUid()+"/product");
         final DatabaseReference mSupplierRef = mRootRef.child(user.getUid()+"/supplier");
 
-        mSupplierRef.addValueEventListener(new ValueEventListener() {
+        mSupplierRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 supplierList.clear();
                 for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren())
                 {
@@ -105,14 +106,14 @@ public class Buy extends AppCompatActivity {
             }
 
             @Override
-            public void onCancelled(DatabaseError databaseError) {
+            public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
         });
 
-        mProductRef.addValueEventListener(new ValueEventListener() {
+        mProductRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 productList.clear();
                 for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren())
                 {
@@ -176,7 +177,7 @@ public class Buy extends AppCompatActivity {
             }
 
             @Override
-            public void onCancelled(DatabaseError databaseError) {
+            public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
         });
@@ -184,6 +185,8 @@ public class Buy extends AppCompatActivity {
     }
     public void save(View view)
     {
+        NetworkConnectivityCheck.connectionCheck(Buy.this);
+
         String ProductName = suggestion_box.getText().toString();
         final String Quantity = quantity.getText().toString();
         final String Price = price.getText().toString();
@@ -274,32 +277,25 @@ public class Buy extends AppCompatActivity {
                         .show();
                 return;
             }
-            final ArrayList<String> hold = new ArrayList<>();
             final DatabaseReference mOnHoldSupplierRef = mRootRef.child(user.getUid()+"/onHoldSupplier/"+SupplierName);
-            mOnHoldSupplierRef.child("onHoldMoney").addValueEventListener(new ValueEventListener() {
+            mOnHoldSupplierRef.child("onHoldMoney").addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    if (hold.size() == 0)
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    try
                     {
-                        hold.add("Kuchh bhi");
-                        try
-                        {
-                            double Old = Double.parseDouble(dataSnapshot.getValue(String.class));
-                            double New = Double.parseDouble(Price);
-                            double result = Old+New;
-                            mOnHoldSupplierRef.child("onHoldMoney").setValue(result+"");
-                        }
-                        catch (Exception ex)
-                        {
-                            System.out.println(ex);
-                        }
-
+                        double Old = Double.parseDouble(dataSnapshot.getValue(String.class));
+                        double New = Double.parseDouble(Price);
+                        double result = Old+New;
+                        mOnHoldSupplierRef.child("onHoldMoney").setValue(result+"");
                     }
-                    hold.add("kuch bhi");
+                    catch (Exception ex)
+                    {
+                        System.out.println(ex);
+                    }
                 }
 
                 @Override
-                public void onCancelled(DatabaseError databaseError) {
+                public void onCancelled(@NonNull DatabaseError databaseError) {
 
                 }
             });
@@ -315,43 +311,30 @@ public class Buy extends AppCompatActivity {
         DatabaseReference mBuyRef = mRootRef.child(user.getUid()+"/buy");
         final DatabaseReference mStockRef = mRootRef.child(user.getUid()+"/stock/"+ProductName);
         final String[] temp = new String[1];
-        final ArrayList<String> cont = new ArrayList<>();
-        mStockRef.child("quantity").addValueEventListener(new ValueEventListener() {
+        mStockRef.child("quantity").addListenerForSingleValueEvent(new ValueEventListener() {
 
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-
-
-
-                if (cont.size() == 0)
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                System.out.println(dataSnapshot.getValue(String.class));
+                temp[0] = dataSnapshot.getValue(String.class);
+                System.out.println(temp[0]);
+                double result = 0;
+                double Old = 0;
+                try
                 {
-                    System.out.println(dataSnapshot.getValue(String.class));
-                    temp[0] = dataSnapshot.getValue(String.class);
-                    System.out.println(temp[0]);
-                    double result = 0;
-                    double Old = 0;
-                    try
-                    {
 
-                        Old = Double.parseDouble(temp[0]);
+                    Old = Double.parseDouble(temp[0]);
 
 
-                    }catch (Exception ex)
-                    {
-                        Old = 0;
-                    }
-                    double New = Double.parseDouble(Quantity);
-                    result = Old + New;
-                    String Result = result + "";
-                    System.out.println(Result);
-                    mStockRef.child("quantity").setValue(Result);
-                    cont.add("kuchh bhi");
-
+                }catch (Exception ex)
+                {
+                    Old = 0;
                 }
-
-
-
-
+                double New = Double.parseDouble(Quantity);
+                result = Old + New;
+                String Result = result + "";
+                System.out.println(Result);
+                mStockRef.child("quantity").setValue(Result);
             }
 
             @Override
@@ -365,17 +348,16 @@ public class Buy extends AppCompatActivity {
         bitem bi = new bitem(ProductName,Quantity,Price,PayType,SupplierName,buyId,Date,Date+"_"+SupplierName,Date+"_"+ProductName,PayType+"_"+ProductName,PayType+"_"+SupplierName,Date+"_"+PayType,productBuyPrice,productSellPrice);
         mBuyRef.child(buyId).setValue(bi);
 
+        MyDialogBox.ShowDialog(Buy.this,"Product Buy Done");
         Toast.makeText(this, "Product Buy Done", Toast.LENGTH_SHORT).show();
         finish();
-
 
     }
     public void supplierHistory(View view)
     {
         startActivity(new Intent(this, buyList.class));
     }
-    public void productHistory(View view)
-    {
+    public void productHistory(View view) {
         startActivity(new Intent(this,buyHistoryByProduct.class));
     }
 
@@ -391,62 +373,7 @@ public class Buy extends AppCompatActivity {
     public void onResume() {
         super.onResume();  // Always call the superclass method first
 
-        connectionCheck();
-
+        NetworkConnectivityCheck.connectionCheck(Buy.this);
     }
 
-    public void connectionCheck()
-    {
-
-        if (isInternetOn())
-        {
-
-        }
-        else {
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setTitle("Connection Problem")
-                    .setMessage("Please Connect To Internet and Click OK!!!")
-                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            connectionCheck();
-                        }
-                    })
-                    .setCancelable(false)
-                    .setNegativeButton("Close App", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            android.os.Process.killProcess(android.os.Process.myPid());
-                        }
-                    });
-            builder.create().show();
-        }
-    }
-
-    public final boolean isInternetOn() {
-
-        // get Connectivity Manager object to check connection
-        ConnectivityManager connec =
-                (ConnectivityManager)getSystemService(getBaseContext().CONNECTIVITY_SERVICE);
-
-        // Check for network connections
-        if ( connec.getNetworkInfo(0).getState() == android.net.NetworkInfo.State.CONNECTED ||
-                connec.getNetworkInfo(0).getState() == android.net.NetworkInfo.State.CONNECTING ||
-                connec.getNetworkInfo(1).getState() == android.net.NetworkInfo.State.CONNECTING ||
-                connec.getNetworkInfo(1).getState() == android.net.NetworkInfo.State.CONNECTED ) {
-
-            // if connected with internet
-
-
-            return true;
-
-        } else if (
-                connec.getNetworkInfo(0).getState() == android.net.NetworkInfo.State.DISCONNECTED ||
-                        connec.getNetworkInfo(1).getState() == android.net.NetworkInfo.State.DISCONNECTED  ) {
-
-
-            return false;
-        }
-        return false;
-    }
 }

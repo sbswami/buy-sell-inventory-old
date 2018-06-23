@@ -3,6 +3,7 @@ package com.sanshy.buysellinventory;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.ConnectivityManager;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -58,9 +59,9 @@ public class Customer extends AppCompatActivity {
 
 
         final DatabaseReference mCustomerRef = mRootRef.child(user.getUid()+"/customer");
-        mCustomerRef.addValueEventListener(new ValueEventListener() {
+        mCustomerRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                 ciList.clear();
 
@@ -104,9 +105,9 @@ public class Customer extends AppCompatActivity {
                                             final DatabaseReference mOnHoldCustomerRef = mRootRef.child(user.getUid()+"/onHoldCustomer");
                                             Query query = mOnHoldCustomerRef.orderByChild("name").equalTo(Name[i]);
                                             final ArrayList<String> tempo = new ArrayList<>();
-                                            query.addValueEventListener(new ValueEventListener() {
+                                            query.addListenerForSingleValueEvent(new ValueEventListener() {
                                                 @Override
-                                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                                     if (tempo.size() == 0)
                                                     {
                                                         double Money = 0;
@@ -126,7 +127,7 @@ public class Customer extends AppCompatActivity {
                                                             final ArrayList<String> temp2 = new ArrayList<>();
                                                             applesQuery.addListenerForSingleValueEvent(new ValueEventListener() {
                                                                 @Override
-                                                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                                                     if (temp1.size() == 0)
                                                                     {
                                                                         for (DataSnapshot appleSnapshot: dataSnapshot.getChildren()) {
@@ -138,13 +139,13 @@ public class Customer extends AppCompatActivity {
                                                                 }
 
                                                                 @Override
-                                                                public void onCancelled(DatabaseError databaseError) {
+                                                                public void onCancelled(@NonNull DatabaseError databaseError) {
                                                                     Log.e("Error", "onCancelled", databaseError.toException());
                                                                 }
                                                             });
                                                             deleteOnHold.addListenerForSingleValueEvent(new ValueEventListener() {
                                                                 @Override
-                                                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                                                     if (temp2.size()==0)
                                                                     {
                                                                         for (DataSnapshot appleSnapshot: dataSnapshot.getChildren()) {
@@ -156,7 +157,7 @@ public class Customer extends AppCompatActivity {
                                                                 }
 
                                                                 @Override
-                                                                public void onCancelled(DatabaseError databaseError) {
+                                                                public void onCancelled(@NonNull DatabaseError databaseError) {
                                                                     Log.e("Error", "onCancelled", databaseError.toException());
                                                                 }
                                                             });
@@ -175,7 +176,7 @@ public class Customer extends AppCompatActivity {
                                                 }
 
                                                 @Override
-                                                public void onCancelled(DatabaseError databaseError) {
+                                                public void onCancelled(@NonNull DatabaseError databaseError) {
 
                                                 }
                                             });
@@ -196,7 +197,7 @@ public class Customer extends AppCompatActivity {
             }
 
             @Override
-            public void onCancelled(DatabaseError databaseError) {
+            public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
         });
@@ -214,64 +215,9 @@ public class Customer extends AppCompatActivity {
     @Override
     public void onResume() {
         super.onResume();  // Always call the superclass method first
-
-        connectionCheck();
+        NetworkConnectivityCheck.connectionCheck(Customer.this);
 
     }
 
-    public void connectionCheck()
-    {
-
-        if (isInternetOn())
-        {
-
-        }
-        else {
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setTitle("Connection Problem")
-                    .setMessage("Please Connect To Internet and Click OK!!!")
-                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            connectionCheck();
-                        }
-                    })
-                    .setCancelable(false)
-                    .setNegativeButton("Close App", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            android.os.Process.killProcess(android.os.Process.myPid());
-                        }
-                    });
-            builder.create().show();
-        }
-    }
-
-    public final boolean isInternetOn() {
-
-        // get Connectivity Manager object to check connection
-        ConnectivityManager connec =
-                (ConnectivityManager)getSystemService(getBaseContext().CONNECTIVITY_SERVICE);
-
-        // Check for network connections
-        if ( connec.getNetworkInfo(0).getState() == android.net.NetworkInfo.State.CONNECTED ||
-                connec.getNetworkInfo(0).getState() == android.net.NetworkInfo.State.CONNECTING ||
-                connec.getNetworkInfo(1).getState() == android.net.NetworkInfo.State.CONNECTING ||
-                connec.getNetworkInfo(1).getState() == android.net.NetworkInfo.State.CONNECTED ) {
-
-            // if connected with internet
-
-
-            return true;
-
-        } else if (
-                connec.getNetworkInfo(0).getState() == android.net.NetworkInfo.State.DISCONNECTED ||
-                        connec.getNetworkInfo(1).getState() == android.net.NetworkInfo.State.DISCONNECTED  ) {
-
-
-            return false;
-        }
-        return false;
-    }
 
 }

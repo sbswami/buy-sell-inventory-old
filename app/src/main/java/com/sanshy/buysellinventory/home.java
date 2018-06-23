@@ -301,35 +301,17 @@ public class home extends AppCompatActivity implements RewardedVideoAdListener {
     public void logout(View view)
     {
 
-        Log.d(TAG, "Subscribing to news topic");
-        // [START subscribe_topics]
-        FirebaseMessaging.getInstance().subscribeToTopic("news")
+        if (mRewardedVideoAd.isLoaded()) {
+            mRewardedVideoAd.show();
+        }
+        AuthUI.getInstance()
+                .signOut(this)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
                     public void onComplete(@NonNull Task<Void> task) {
-                        String msg = getString(R.string.msg_subscribed);
-                        if (!task.isSuccessful()) {
-                            msg = getString(R.string.msg_subscribe_failed);
-                        }
-                        Log.d(TAG, msg);
-                        Toast.makeText(home.this, msg, Toast.LENGTH_SHORT).show();
+                        home.this.finish();
+                        startActivity(new Intent(home.this,MainActivity.class));
                     }
                 });
-        // [END subscribe_topics]
-
-        //TODO UnComment It
-
-//        if (mRewardedVideoAd.isLoaded()) {
-//            mRewardedVideoAd.show();
-//        }
-//        AuthUI.getInstance()
-//                .signOut(this)
-//                .addOnCompleteListener(new OnCompleteListener<Void>() {
-//                    public void onComplete(@NonNull Task<Void> task) {
-//                        home.this.finish();
-//                        startActivity(new Intent(home.this,MainActivity.class));
-//                    }
-//                });
     }
 
     public void help(View view){
@@ -340,10 +322,8 @@ public class home extends AppCompatActivity implements RewardedVideoAdListener {
         // Log and toast
         String msg = getString(R.string.msg_token_fmt, token);
         Log.d(TAG, msg);
-        Toast.makeText(home.this, msg, Toast.LENGTH_SHORT).show();
 
-        //TODO Uncomment it
-        //startActivity(new Intent(this,help.class));
+        startActivity(new Intent(this,help.class));
     }
     public void ad(View view){
         startActivity(new Intent(this,SideBusinessWork.class));

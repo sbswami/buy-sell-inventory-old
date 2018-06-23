@@ -63,29 +63,37 @@ public class StatementSearch extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        tBuy.clear();
-        tCashBuy.clear();
-        tOnHoldBuy.clear();
-        tHoldPaymentBuyPay.clear();
-        tOnHoldPaymentAfterPayBuy.clear();
-        tSell.clear();
-        tCashSell.clear();
-        tOnHoldSell.clear();
-        tHoldPaymentSellPay.clear();
-        tOnHoldPaymentAfterPaySell.clear();
-        tGrossProfit.clear();
-        tGrossProfitCash.clear();
-        tGrossProfitOnHold.clear();
-        tGrossProfitWithHoldPay.clear();
-        tGrossProfitRemainAfterPay.clear();
-        tExp.clear();
-        tNetProfit.clear();
-        tNetProfitCash.clear();
-        tNetProfitOnHold.clear();
-        tNetProfitWithHoldPay.clear();
-        tNetProfitRemainAfterPay.clear();
+        //TODO UnComment it
+//        tBuy.clear();
+//        tCashBuy.clear();
+//        tOnHoldBuy.clear();
+//        tHoldPaymentBuyPay.clear();
+//        tOnHoldPaymentAfterPayBuy.clear();
+//        tSell.clear();
+//        tCashSell.clear();
+//        tOnHoldSell.clear();
+//        tHoldPaymentSellPay.clear();
+//        tOnHoldPaymentAfterPaySell.clear();
+//        tGrossProfit.clear();
+//        tGrossProfitCash.clear();
+//        tGrossProfitOnHold.clear();
+//        tGrossProfitWithHoldPay.clear();
+//        tGrossProfitRemainAfterPay.clear();
+//        tExp.clear();
+//        tNetProfit.clear();
+//        tNetProfitCash.clear();
+//        tNetProfitOnHold.clear();
+//        tNetProfitWithHoldPay.clear();
+////        tNetProfitRemainAfterPay.clear();
+//        android.os.Process.killProcess(android.os.Process.myPid());
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
         android.os.Process.killProcess(android.os.Process.myPid());
     }
+
     Button tbb,tcbb,tohbb,tppbsb,trpbsb;
     Button tsb,tcsb,tohsb,tppbcb,trpbcb;
     Button tgpb,tcgpb,tohgpb,tgppbcb,trgpcb;
@@ -205,7 +213,7 @@ public class StatementSearch extends AppCompatActivity {
             String date = datesList.get(h);
 
             Query totalSellQuery = mSellRef.orderByChild("date").equalTo(date);
-            totalSellQuery.addValueEventListener(new ValueEventListener() {
+            totalSellQuery.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     double priceTotal = 0;
@@ -287,7 +295,7 @@ public class StatementSearch extends AppCompatActivity {
                 }
                 /*
         Query totalSellQuery = mSellRef.orderByChild("date").equalTo(date);
-        totalSellQuery.addValueEventListener(new ValueEventListener() {
+        totalSellQuery.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 double priceTotal = 0;
@@ -359,7 +367,7 @@ public class StatementSearch extends AppCompatActivity {
         for (int h = 0; h < datesList.size(); h++) {
             String date = datesList.get(h);
             Query totalCashSellQuery = mSellRef.orderByChild("date_mode").equalTo(date+"_Cash");
-            totalCashSellQuery.addValueEventListener(new ValueEventListener() {
+            totalCashSellQuery.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     double totalMoney = 0;
@@ -438,7 +446,7 @@ public class StatementSearch extends AppCompatActivity {
                 }
                 /*
             Query totalCashSellQuery = mSellRef.orderByChild("date_mode").equalTo(date+"_Cash");
-            totalCashSellQuery.addValueEventListener(new ValueEventListener() {
+            totalCashSellQuery.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 double totalMoney = 0;
@@ -505,7 +513,7 @@ public class StatementSearch extends AppCompatActivity {
         for (int h = 0; h < datesList.size(); h++) {
             String date = datesList.get(h);
         Query totalOnHoldSellQuery = mSellRef.orderByChild("date_mode").equalTo(date+"_On Hold");
-        totalOnHoldSellQuery.addValueEventListener(new ValueEventListener() {
+        totalOnHoldSellQuery.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 double totalMoney1 = 0;
@@ -586,7 +594,7 @@ public class StatementSearch extends AppCompatActivity {
 
             /*
         Query totalOnHoldSellQuery = mSellRef.orderByChild("date_mode").equalTo(date+"_On Hold");
-        totalOnHoldSellQuery.addValueEventListener(new ValueEventListener() {
+        totalOnHoldSellQuery.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 double totalMoney1 = 0;
@@ -667,7 +675,7 @@ public class StatementSearch extends AppCompatActivity {
                 String date = datesList.get(h);
             Query totalHoldPaymentSellPayQuery = mPayByCustomer.orderByChild("date").equalTo(date);
             final double finalTotalMoney = onHoldMoneyCustomer;
-            totalHoldPaymentSellPayQuery.addValueEventListener(new ValueEventListener() {
+            totalHoldPaymentSellPayQuery.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     double totalMoney2 = 0;
@@ -742,7 +750,7 @@ public class StatementSearch extends AppCompatActivity {
                 /*
                     Query totalHoldPaymentSellPayQuery = mPayByCustomer.orderByChild("date").equalTo(date);
             final double finalTotalMoney = onHoldMoneyCustomer;
-            totalHoldPaymentSellPayQuery.addValueEventListener(new ValueEventListener() {
+            totalHoldPaymentSellPayQuery.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     double totalMoney2 = 0;
@@ -798,7 +806,7 @@ public class StatementSearch extends AppCompatActivity {
                 String date = datesList.get(h);
                 Query totalHoldPaymentSellPayQuery = mPayByCustomer.orderByChild("date").equalTo(date);
                 final double finalTotalMoney = onHoldMoneyCustomer;
-                totalHoldPaymentSellPayQuery.addValueEventListener(new ValueEventListener() {
+                totalHoldPaymentSellPayQuery.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         double totalMoney2 = 0;
@@ -872,7 +880,7 @@ public class StatementSearch extends AppCompatActivity {
             }/*
             Query totalHoldPaymentSellPayQuery = mPayByCustomer.orderByChild("date").equalTo(date);
             final double finalTotalMoney = onHoldMoneyCustomer;
-            totalHoldPaymentSellPayQuery.addValueEventListener(new ValueEventListener() {
+            totalHoldPaymentSellPayQuery.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     double totalMoney2 = 0;
@@ -906,12 +914,13 @@ public class StatementSearch extends AppCompatActivity {
         }
     }
 
+    ValueEventListener singleValue1;
     public void tb(View view){
 
         for (int h = 0; h < datesList.size(); h++){
             String date = datesList.get(h);
             Query totalBuyQuery = mBuyRef.orderByChild("date").equalTo(date);
-            totalBuyQuery.addValueEventListener(new ValueEventListener() {
+            singleValue1 = new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     double priceTotal = 0;
@@ -943,20 +952,22 @@ public class StatementSearch extends AppCompatActivity {
                 public void onCancelled(DatabaseError databaseError) {
 
                 }
-            });
+            };
+            totalBuyQuery.addListenerForSingleValueEvent(singleValue1);
         }
 
         tbb.setVisibility(View.GONE);
         totalBuy.setVisibility(View.VISIBLE);
 
     }
+    ValueEventListener singleValue2;
     public void tcb(View view){
         tcbb.setVisibility(View.GONE);
         totalCashBuy.setVisibility(View.VISIBLE);
         for (int h = 0; h < datesList.size(); h++) {
             String date = datesList.get(h);
             Query totalCashBuyQuery = mBuyRef.orderByChild("date_mode").equalTo(date + "_Cash");
-            totalCashBuyQuery.addValueEventListener(new ValueEventListener() {
+            singleValue2 = new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     double totalMoney = 0;
@@ -985,9 +996,11 @@ public class StatementSearch extends AppCompatActivity {
                 public void onCancelled(DatabaseError databaseError) {
 
                 }
-            });
+            };
+            totalCashBuyQuery.addListenerForSingleValueEvent(singleValue2);
         }
     }
+    ValueEventListener singleValue3;
     public void tohb(View view){
         tohbb.setVisibility(View.GONE);
         totalOnHoldBuy.setVisibility(View.VISIBLE);
@@ -995,7 +1008,7 @@ public class StatementSearch extends AppCompatActivity {
             String date = datesList.get(h);
 
             Query totalOnHoldBuyQuery = mBuyRef.orderByChild("date_mode").equalTo(date+"_On Hold");
-            totalOnHoldBuyQuery.addValueEventListener(new ValueEventListener() {
+            singleValue3 = new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     double totalMoney1 = 0;
@@ -1027,10 +1040,12 @@ public class StatementSearch extends AppCompatActivity {
                 public void onCancelled(DatabaseError databaseError) {
 
                 }
-            });
+            };
+            totalOnHoldBuyQuery.addListenerForSingleValueEvent(singleValue3);
 
                 }
     }
+    ValueEventListener singleValue4;
     public void ppbs(View view){
         if (checkOnHoldButtonBuy == 0){
             alertDialog("Click Upper Button","Before Click It You Need To Click On Hold Buy Button!!");
@@ -1045,7 +1060,7 @@ public class StatementSearch extends AppCompatActivity {
 
                 Query totalHoldPaymentBuyPayQuery = mPayToSupplier.orderByChild("date").equalTo(date);
                 final double finalTotalMoney = onHoldMoneySupplier;
-                totalHoldPaymentBuyPayQuery.addValueEventListener(new ValueEventListener() {
+                singleValue4  = new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         double totalMoney2 = 0;
@@ -1092,12 +1107,13 @@ public class StatementSearch extends AppCompatActivity {
                     public void onCancelled(DatabaseError databaseError) {
 
                     }
-                });
+                };
+                totalHoldPaymentBuyPayQuery.addListenerForSingleValueEvent(singleValue4);
             }
             /*
             Query totalHoldPaymentBuyPayQuery = mPayToSupplier.orderByChild("date").equalTo(date);
             final double finalTotalMoney = onHoldMoneySupplier;
-            totalHoldPaymentBuyPayQuery.addValueEventListener(new ValueEventListener() {
+            totalHoldPaymentBuyPayQuery.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     double totalMoney2 = 0;
@@ -1138,7 +1154,7 @@ public class StatementSearch extends AppCompatActivity {
 
                 Query totalHoldPaymentBuyPayQuery = mPayToSupplier.orderByChild("date").equalTo(date);
                 final double finalTotalMoney = onHoldMoneySupplier;
-                totalHoldPaymentBuyPayQuery.addValueEventListener(new ValueEventListener() {
+                totalHoldPaymentBuyPayQuery.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         double totalMoney2 = 0;
@@ -1190,7 +1206,7 @@ public class StatementSearch extends AppCompatActivity {
 /*
             Query totalHoldPaymentBuyPayQuery = mPayToSupplier.orderByChild("date").equalTo(date);
             final double finalTotalMoney = onHoldMoneySupplier;
-            totalHoldPaymentBuyPayQuery.addValueEventListener(new ValueEventListener() {
+            totalHoldPaymentBuyPayQuery.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     double totalMoney2 = 0;
@@ -1228,7 +1244,7 @@ public class StatementSearch extends AppCompatActivity {
             String date = datesList.get(h);
 
             Query totalSellQuery = mSellRef.orderByChild("date").equalTo(date);
-            totalSellQuery.addValueEventListener(new ValueEventListener() {
+            totalSellQuery.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     double priceTotal = 0;
@@ -1310,7 +1326,7 @@ public class StatementSearch extends AppCompatActivity {
         }
                 /*
         Query totalSellQuery = mSellRef.orderByChild("date").equalTo(date);
-        totalSellQuery.addValueEventListener(new ValueEventListener() {
+        totalSellQuery.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 double priceTotal = 0;
@@ -1382,7 +1398,7 @@ public class StatementSearch extends AppCompatActivity {
         for (int h = 0; h < datesList.size(); h++) {
             String date = datesList.get(h);
             Query totalCashSellQuery = mSellRef.orderByChild("date_mode").equalTo(date+"_Cash");
-            totalCashSellQuery.addValueEventListener(new ValueEventListener() {
+            totalCashSellQuery.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     double totalMoney = 0;
@@ -1461,7 +1477,7 @@ public class StatementSearch extends AppCompatActivity {
         }
                 /*
             Query totalCashSellQuery = mSellRef.orderByChild("date_mode").equalTo(date+"_Cash");
-            totalCashSellQuery.addValueEventListener(new ValueEventListener() {
+            totalCashSellQuery.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 double totalMoney = 0;
@@ -1528,7 +1544,7 @@ public class StatementSearch extends AppCompatActivity {
         for (int h = 0; h < datesList.size(); h++) {
             String date = datesList.get(h);
             Query totalOnHoldSellQuery = mSellRef.orderByChild("date_mode").equalTo(date+"_On Hold");
-            totalOnHoldSellQuery.addValueEventListener(new ValueEventListener() {
+            totalOnHoldSellQuery.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     double totalMoney1 = 0;
@@ -1609,7 +1625,7 @@ public class StatementSearch extends AppCompatActivity {
 
             /*
         Query totalOnHoldSellQuery = mSellRef.orderByChild("date_mode").equalTo(date+"_On Hold");
-        totalOnHoldSellQuery.addValueEventListener(new ValueEventListener() {
+        totalOnHoldSellQuery.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 double totalMoney1 = 0;
@@ -1690,7 +1706,7 @@ public class StatementSearch extends AppCompatActivity {
                 String date = datesList.get(h);
                 Query totalHoldPaymentSellPayQuery = mPayByCustomer.orderByChild("date").equalTo(date);
                 final double finalTotalMoney = onHoldMoneyCustomer;
-                totalHoldPaymentSellPayQuery.addValueEventListener(new ValueEventListener() {
+                totalHoldPaymentSellPayQuery.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         double totalMoney2 = 0;
@@ -1765,7 +1781,7 @@ public class StatementSearch extends AppCompatActivity {
                 /*
                     Query totalHoldPaymentSellPayQuery = mPayByCustomer.orderByChild("date").equalTo(date);
             final double finalTotalMoney = onHoldMoneyCustomer;
-            totalHoldPaymentSellPayQuery.addValueEventListener(new ValueEventListener() {
+            totalHoldPaymentSellPayQuery.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     double totalMoney2 = 0;
@@ -1821,7 +1837,7 @@ public class StatementSearch extends AppCompatActivity {
                 String date = datesList.get(h);
                 Query totalHoldPaymentSellPayQuery = mPayByCustomer.orderByChild("date").equalTo(date);
                 final double finalTotalMoney = onHoldMoneyCustomer;
-                totalHoldPaymentSellPayQuery.addValueEventListener(new ValueEventListener() {
+                totalHoldPaymentSellPayQuery.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         double totalMoney2 = 0;
@@ -1895,7 +1911,7 @@ public class StatementSearch extends AppCompatActivity {
             }/*
             Query totalHoldPaymentSellPayQuery = mPayByCustomer.orderByChild("date").equalTo(date);
             final double finalTotalMoney = onHoldMoneyCustomer;
-            totalHoldPaymentSellPayQuery.addValueEventListener(new ValueEventListener() {
+            totalHoldPaymentSellPayQuery.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     double totalMoney2 = 0;
@@ -1980,7 +1996,7 @@ public class StatementSearch extends AppCompatActivity {
             final String date = datesList.get(h);
         /*
                     Query totalExpQuery = mExpRef.orderByChild("date").equalTo(date);
-                    totalExpQuery.addValueEventListener(new ValueEventListener() {
+                    totalExpQuery.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             double priceTotal = 0;
@@ -2012,7 +2028,7 @@ public class StatementSearch extends AppCompatActivity {
 
 
                     Query totalExpQuery = mExpRef.orderByChild("date").equalTo(date);
-                    totalExpQuery.addValueEventListener(new ValueEventListener() {
+                    totalExpQuery.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             double priceTotal = 0;
@@ -2055,7 +2071,7 @@ public class StatementSearch extends AppCompatActivity {
             });
 
                     Query totalExpQuery = mExpRef.orderByChild("date").equalTo(date);
-                    totalExpQuery.addValueEventListener(new ValueEventListener() {
+                    totalExpQuery.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             double priceTotal = 0;
@@ -2091,7 +2107,7 @@ public class StatementSearch extends AppCompatActivity {
 
                     Query totalExpQuery = mExpRef.orderByChild("date").equalTo(date);
                     final double finalTotalProfit = totalProfit;
-                    totalExpQuery.addValueEventListener(new ValueEventListener() {
+                    totalExpQuery.addListenerForSingleValueEvent(new ValueEventListener() {
                                 @Override
                                 public void onDataChange(DataSnapshot dataSnapshot) {
                                     double priceTotal = 0;
@@ -2140,7 +2156,7 @@ public class StatementSearch extends AppCompatActivity {
                             });
                  */
             Query totalExpQuery = mExpRef.orderByChild("date").equalTo(date);
-            totalExpQuery.addValueEventListener(new ValueEventListener() {
+            totalExpQuery.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     double priceTotal = 0;
@@ -2216,64 +2232,6 @@ public class StatementSearch extends AppCompatActivity {
     public void onResume() {
         super.onResume();  // Always call the superclass method first
 
-        connectionCheck();
-
-
-
-    }
-
-    public void connectionCheck()
-    {
-
-        if (isInternetOn())
-        {
-
-        }
-        else {
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setTitle("Connection Problem")
-                    .setMessage("Please Connect To Internet and Click OK!!!")
-                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            connectionCheck();
-                        }
-                    })
-                    .setCancelable(false)
-                    .setNegativeButton("Close App", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            android.os.Process.killProcess(android.os.Process.myPid());
-                        }
-                    });
-            builder.create().show();
-        }
-    }
-
-    public final boolean isInternetOn() {
-
-        // get Connectivity Manager object to check connection
-        ConnectivityManager connec =
-                (ConnectivityManager)getSystemService(getBaseContext().CONNECTIVITY_SERVICE);
-
-        // Check for network connections
-        if ( connec.getNetworkInfo(0).getState() == android.net.NetworkInfo.State.CONNECTED ||
-                connec.getNetworkInfo(0).getState() == android.net.NetworkInfo.State.CONNECTING ||
-                connec.getNetworkInfo(1).getState() == android.net.NetworkInfo.State.CONNECTING ||
-                connec.getNetworkInfo(1).getState() == android.net.NetworkInfo.State.CONNECTED ) {
-
-            // if connected with internet
-
-
-            return true;
-
-        } else if (
-                connec.getNetworkInfo(0).getState() == android.net.NetworkInfo.State.DISCONNECTED ||
-                        connec.getNetworkInfo(1).getState() == android.net.NetworkInfo.State.DISCONNECTED  ) {
-
-
-            return false;
-        }
-        return false;
+        NetworkConnectivityCheck.connectionCheck(this);
     }
 }

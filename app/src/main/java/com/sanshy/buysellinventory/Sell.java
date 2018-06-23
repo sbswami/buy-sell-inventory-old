@@ -3,6 +3,7 @@ package com.sanshy.buysellinventory;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.ConnectivityManager;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -83,10 +84,11 @@ public class Sell extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
+        MyProgressBar.ShowProgress(this);
         final DatabaseReference mProductRef = mRootRef.child(user.getUid()+"/product");
         final DatabaseReference mCustomerRef = mRootRef.child(user.getUid()+"/customer");
 
-        mCustomerRef.addValueEventListener(new ValueEventListener() {
+        mCustomerRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 customerList.clear();
@@ -113,7 +115,7 @@ public class Sell extends AppCompatActivity {
             }
         });
 
-        mProductRef.addValueEventListener(new ValueEventListener() {
+        mProductRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 productList.clear();
@@ -135,6 +137,9 @@ public class Sell extends AppCompatActivity {
                 ArrayAdapter<String> adapter = new ArrayAdapter<String>(Sell.this,android.R.layout.simple_spinner_dropdown_item, Arrays.asList(Name));
 
                 suggestion_box.setAdapter(adapter);
+
+                MyProgressBar.HideProgress();
+
                 final int[] index = new int[1];
                 suggestion_box.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
@@ -179,13 +184,14 @@ public class Sell extends AppCompatActivity {
             }
 
             @Override
-            public void onCancelled(DatabaseError databaseError) {
+            public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
         });
 
     }
     public void save(View view) {
+        MyProgressBar.ShowProgress(this);
         final String ProductName = suggestion_box.getText().toString();
         final String Quantity = quantity.getText().toString();
         final String Price = price.getText().toString();
@@ -225,7 +231,8 @@ try
                     .setPositiveButton("OK",null)
                     .create()
                     .show();
-            return;
+            MyProgressBar.HideProgress();
+return;
         }
 
 
@@ -240,17 +247,20 @@ try
         if (ProductName.isEmpty())
         {
             suggestion_box.setError("Select Item");
-            return;
+            MyProgressBar.HideProgress();
+return;
         }
         if (Quantity.isEmpty())
         {
-            quantity.setError("Select Quantity");
-            return;
+            quantity.setError("Enter Quantity");
+            MyProgressBar.HideProgress();
+return;
         }
         if (CustomerName.isEmpty() && PayType.equals("On Hold"))
         {
             suggestion_box2.setError("Select Customer Name");
-            return;
+            MyProgressBar.HideProgress();
+return;
         }
         if (PayType.equals("On Hold"))
         {
@@ -271,135 +281,127 @@ try
                         .setPositiveButton("OK",null)
                         .create()
                         .show();
-                return;
+                MyProgressBar.HideProgress();
+return;
             }
         }
         if (Price.equals("Price"))
         {
             String feedbackText = getResources().getString(R.string.feedback_request_text);
             Toast.makeText(Sell.this, feedbackText, Toast.LENGTH_SHORT).show();
-            return;
+            MyProgressBar.HideProgress();
+return;
         }
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         Date date = new Date();
         final String Date = dateFormat.format(date);
-        final DatabaseReference mBuyRef = mRootRef.child(user.getUid()+"/sell");
+        final DatabaseReference mSellRef = mRootRef.child(user.getUid()+"/sell");
 
         final DatabaseReference mStockRef = mRootRef.child(user.getUid()+"/stock/"+ProductName);
         final String[] temp = new String[1];
-        final ArrayList<String> cont = new ArrayList<>();
         final double finalGrossProfit = grossProfit;
-        mStockRef.child("quantity").addValueEventListener(new ValueEventListener() {
+        mStockRef.child("quantity").addListenerForSingleValueEvent(new ValueEventListener() {
 
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                if (cont.size() == 0)
+                System.out.println(dataSnapshot.getValue(String.class));
+                temp[0] = dataSnapshot.getValue(String.class);
+                System.out.println(temp[0]);
+                double Old = Double.parseDouble(temp[0]);
+                double New = Double.parseDouble(Quantity);
+                double result = Old - New;
+
+                if (New > Old)
                 {
-                    cont.add("kuchh bhi");
-                    System.out.println(dataSnapshot.getValue(String.class));
-                    temp[0] = dataSnapshot.getValue(String.class);
-                    System.out.println(temp[0]);
-                    double Old = Double.parseDouble(temp[0]);
-                    double New = Double.parseDouble(Quantity);
-                    double result = Old - New;
-
-                    if (New > Old)
+                    try
                     {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(Sell.this);
+                        builder.setTitle("Stock")
+                                .setMessage("Out of Stock")
+                                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                                    }
+                                })
+                                .create()
+                                .show();
+
+                        MyProgressBar.HideProgress();
+return;
+                    }
+                    catch (Exception ex)
+                    {
+
+                    }
+
+                    MyProgressBar.HideProgress();
+return;
+                }
+                if (New == 0)
+                {
+                    try
+                    {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(Sell.this);
+                        builder.setTitle("Stock")
+                                .setMessage("Select Quantity")
+                                .setPositiveButton("Ok", null)
+                                .create()
+                                .show();
+                        MyProgressBar.HideProgress();
+return;
+                    }catch (Exception ex)
+                    {
+
+                    }
+                    MyProgressBar.HideProgress();
+return;
+                }
+                String Result = result + "";
+                System.out.println(Result);
+                mStockRef.child("quantity").setValue(Result);
+
+                String sellId = mSellRef.push().getKey();
+                sellitem si = new sellitem(ProductName,Quantity,Price,PayType,CustomerName,sellId,Date,PayType+"_"+ProductName,PayType+"_"+CustomerName,Date+"_"+CustomerName,Date+"_"+ProductName,Date+"_"+PayType,productBuyPrice,productSellPrice);
+                mSellRef.child(sellId).setValue(si);
+
+
+                MyProgressBar.HideProgress();
+                MyDialogBox.ShowDialog(Sell.this,"Sell Done");
+
+                final DatabaseReference mOnHoldCustomerRef = mRootRef.child(user.getUid()+"/onHoldCustomer/"+CustomerName);
+                mOnHoldCustomerRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         try
                         {
-                            AlertDialog.Builder builder = new AlertDialog.Builder(Sell.this);
-                            builder.setTitle("Stock")
-                                    .setMessage("Out of Stock")
-                                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                                        @Override
-                                        public void onClick(DialogInterface dialogInterface, int i) {
-
-                                        }
-                                    })
-                                    .create()
-                                    .show();
-
-                            cont.add("kuchh bhi");
-                            return;
+                            double Old = Double.parseDouble(dataSnapshot.child("onHoldMoney").getValue(String.class));
+                            double New = Double.parseDouble(Price);
+                            double result = Old+New;
+                            double OldProfit = Double.parseDouble(dataSnapshot.child("grossProfit").getValue(String.class));
+                            double resultProfit = OldProfit + finalGrossProfit;
+                            mOnHoldCustomerRef.child("grossProfit").setValue(resultProfit+"");
+                            mOnHoldCustomerRef.child("onHoldMoney").setValue(result+"");
                         }
                         catch (Exception ex)
                         {
-
+                            System.out.println(ex);
                         }
 
-                        cont.add("kuchh bhi");
-                        return;
                     }
-                    if (New == 0)
-                    {
-                        try
-                        {
-                            AlertDialog.Builder builder = new AlertDialog.Builder(Sell.this);
-                            builder.setTitle("Stock")
-                                    .setMessage("Select Quantity")
-                                    .setPositiveButton("Ok", null)
-                                    .create()
-                                    .show();
-                            cont.add("kuchh bhi");
-                            return;
-                        }catch (Exception ex)
-                        {
 
-                        }
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
 
-                        cont.add("kuchh bhi");
-                        return;
                     }
-                    String Result = result + "";
-                    System.out.println(Result);
-                    mStockRef.child("quantity").setValue(Result);
-
-                    String sellId = mBuyRef.push().getKey();
-                    sellitem si = new sellitem(ProductName,Quantity,Price,PayType,CustomerName,sellId,Date,PayType+"_"+ProductName,PayType+"_"+CustomerName,Date+"_"+CustomerName,Date+"_"+ProductName,Date+"_"+PayType,productBuyPrice,productSellPrice);
-                    mBuyRef.child(sellId).setValue(si);
-
-                    final ArrayList<String> hold = new ArrayList<>();
-                    final DatabaseReference mOnHoldCustomerRef = mRootRef.child(user.getUid()+"/onHoldCustomer/"+CustomerName);
-                    mOnHoldCustomerRef.addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-
-                            if (hold.size() == 0)
-                            {
-                                try
-                                {
-                                    double Old = Double.parseDouble(dataSnapshot.child("onHoldMoney").getValue(String.class));
-                                    double New = Double.parseDouble(Price);
-                                    double result = Old+New;
-                                    double OldProfit = Double.parseDouble(dataSnapshot.child("grossProfit").getValue(String.class));
-                                    double resultProfit = OldProfit + finalGrossProfit;
-                                    mOnHoldCustomerRef.child("grossProfit").setValue(resultProfit+"");
-                                    mOnHoldCustomerRef.child("onHoldMoney").setValue(result+"");
-                                }
-                                catch (Exception ex)
-                                {
-                                    System.out.println(ex);
-                                }
-
-                            }
-                            hold.add("kuch bhi");
-                        }
-
-                        @Override
-                        public void onCancelled(DatabaseError databaseError) {
-
-                        }
-                    });
-                    Toast.makeText(Sell.this, "Product Sell Done", Toast.LENGTH_SHORT).show();
-                    finish();
-
-                }
-                cont.add("kuchh bhi");
+                });
+                Toast.makeText(Sell.this, "Product Sell Done", Toast.LENGTH_SHORT).show();
+                finish();
             }
 
             @Override
-            public void onCancelled(DatabaseError databaseError) {
+            public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
         });
@@ -429,62 +431,7 @@ try
     public void onResume() {
         super.onResume();  // Always call the superclass method first
 
-        connectionCheck();
-
+        NetworkConnectivityCheck.connectionCheck(this);
     }
 
-    public void connectionCheck()
-    {
-
-        if (isInternetOn())
-        {
-
-        }
-        else {
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setTitle("Connection Problem")
-                    .setMessage("Please Connect To Internet and Click OK!!!")
-                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            connectionCheck();
-                        }
-                    })
-                    .setCancelable(false)
-                    .setNegativeButton("Close App", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            android.os.Process.killProcess(android.os.Process.myPid());
-                        }
-                    });
-            builder.create().show();
-        }
-    }
-
-    public final boolean isInternetOn() {
-
-        // get Connectivity Manager object to check connection
-        ConnectivityManager connec =
-                (ConnectivityManager)getSystemService(getBaseContext().CONNECTIVITY_SERVICE);
-
-        // Check for network connections
-        if ( connec.getNetworkInfo(0).getState() == android.net.NetworkInfo.State.CONNECTED ||
-                connec.getNetworkInfo(0).getState() == android.net.NetworkInfo.State.CONNECTING ||
-                connec.getNetworkInfo(1).getState() == android.net.NetworkInfo.State.CONNECTING ||
-                connec.getNetworkInfo(1).getState() == android.net.NetworkInfo.State.CONNECTED ) {
-
-            // if connected with internet
-
-
-            return true;
-
-        } else if (
-                connec.getNetworkInfo(0).getState() == android.net.NetworkInfo.State.DISCONNECTED ||
-                        connec.getNetworkInfo(1).getState() == android.net.NetworkInfo.State.DISCONNECTED  ) {
-
-
-            return false;
-        }
-        return false;
-    }
 }

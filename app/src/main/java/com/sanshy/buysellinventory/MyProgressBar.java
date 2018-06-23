@@ -3,7 +3,7 @@ package com.sanshy.buysellinventory;
 import android.app.ProgressDialog;
 import android.content.Context;
 
-public class MyPgrocessBar {
+public class MyProgressBar {
 
     static ProgressDialog mProgress;
     static String progressText;
@@ -17,6 +17,14 @@ public class MyPgrocessBar {
         mProgress = new ProgressDialog(myContext);
         mProgress.setMessage("Loading Data...");
     }
-    public void ShowProgress(){mProgress.show();}
-    public void HideProgress(){mProgress.hide();}
+    public static void ShowProgress(){mProgress.show();}
+    public static void HideProgress(){mProgress.hide();}
+
+    public static void ShowProgress(Context myContext){
+        mProgress = new ProgressDialog(myContext);
+        mProgress.setMessage("Loading Data...");
+        mProgress.show();
+    }
+
+
 }
