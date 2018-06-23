@@ -406,9 +406,6 @@ return;
             }
         });
 
-
-
-
     }
     public void mySellList(View view)
     {

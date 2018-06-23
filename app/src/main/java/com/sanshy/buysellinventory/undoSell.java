@@ -3,6 +3,7 @@ package com.sanshy.buysellinventory;
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.net.ConnectivityManager;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -97,50 +98,40 @@ public class undoSell extends AppCompatActivity {
                                     if (ModeText.equals("Cash")){
                                         final DatabaseReference mStockRef = mRootRef.child(user.getUid()+"/stock/"+ProductText);
                                         final String[] temp = new String[1];
-                                        final ArrayList<String> cont = new ArrayList<>();
-                                        mStockRef.child("quantity").addValueEventListener(new ValueEventListener() {
+                                        MyProgressBar.ShowProgress(undoSell.this);
+                                        mStockRef.child("quantity").addListenerForSingleValueEvent(new ValueEventListener() {
 
                                             @Override
-                                            public void onDataChange(DataSnapshot dataSnapshot) {
-                                                if (cont.size() == 0)
-                                                {   cont.add("kuchh bhi");
-                                                    System.out.println(dataSnapshot.getValue(String.class));
-                                                    temp[0] = dataSnapshot.getValue(String.class);
-                                                    System.out.println(temp[0]);
-                                                    double result = 0;
-                                                    double Old = 0;
-                                                    try
-                                                    {
+                                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                                System.out.println(dataSnapshot.getValue(String.class));
+                                                temp[0] = dataSnapshot.getValue(String.class);
+                                                System.out.println(temp[0]);
+                                                double result = 0;
+                                                double Old = 0;
+                                                try
+                                                {
 
-                                                        Old = Double.parseDouble(temp[0]);
+                                                    Old = Double.parseDouble(temp[0]);
 
 
-                                                    }catch (Exception ex)
-                                                    {
-                                                        Old = 0;
-                                                    }
-                                                    double New = Double.parseDouble(QuantityText);
-
-                                                        result = Old + New;
-                                                        String Result = result + "";
-                                                        System.out.println(Result);
-                                                        mStockRef.child("quantity").setValue(Result);
-                                                        DatabaseReference mUndoSellRef = mRootRef.child(user.getUid()+"/sell/"+KeyIdText);
-                                                        mUndoSellRef.removeValue();
-
-
-                                                    cont.add("kuchh bhi");
-
+                                                }catch (Exception ex)
+                                                {
+                                                    Old = 0;
                                                 }
-                                                cont.add("kuchh bhi");
+                                                double New = Double.parseDouble(QuantityText);
 
-
-
+                                                result = Old + New;
+                                                String Result = result + "";
+                                                System.out.println(Result);
+                                                mStockRef.child("quantity").setValue(Result);
+                                                DatabaseReference mUndoSellRef = mRootRef.child(user.getUid()+"/sell/"+KeyIdText);
+                                                mUndoSellRef.removeValue();
+                                                MyProgressBar.HideProgress();
                                             }
 
                                             @Override
-                                            public void onCancelled(DatabaseError databaseError) {
-
+                                            public void onCancelled(@NonNull DatabaseError databaseError) {
+                                                MyProgressBar.HideProgress();
                                             }
                                         });
 
@@ -149,110 +140,91 @@ public class undoSell extends AppCompatActivity {
                                     {
                                         final DatabaseReference mStockRef = mRootRef.child(user.getUid()+"/stock/"+ProductText);
                                         final String[] temp = new String[1];
-                                        final ArrayList<String> cont = new ArrayList<>();
-                                        mStockRef.child("quantity").addValueEventListener(new ValueEventListener() {
+                                        MyProgressBar.ShowProgress(undoSell.this);
+                                        mStockRef.child("quantity").addListenerForSingleValueEvent(new ValueEventListener() {
 
                                             @Override
-                                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                                                System.out.println(dataSnapshot.getValue(String.class));
+                                                temp[0] = dataSnapshot.getValue(String.class);
+                                                System.out.println(temp[0]);
+                                                double result = 0;
+                                                double Old = 0;
+                                                try
+                                                {
+
+                                                    Old = Double.parseDouble(temp[0]);
 
 
-
-                                                if (cont.size() == 0)
-                                                {   cont.add("kuchh bhi");
-                                                    System.out.println(dataSnapshot.getValue(String.class));
-                                                    temp[0] = dataSnapshot.getValue(String.class);
-                                                    System.out.println(temp[0]);
-                                                    double result = 0;
-                                                    double Old = 0;
-                                                    try
-                                                    {
-
-                                                        Old = Double.parseDouble(temp[0]);
-
-
-                                                    }catch (Exception ex)
-                                                    {
-                                                        Old = 0;
-                                                    }
-                                                    double New = Double.parseDouble(QuantityText);
-                                                    double grossProfit = 0;
-                                                    try
-                                                    {
-                                                        double quan = Double.parseDouble(QuantityText);
-                                                        grossProfit = quan * Double.parseDouble(productSellPrice) - quan * Double.parseDouble(productBuyPrice);
-                                                    }catch(Exception ex)
-                                                    {
-
-                                                    }
-
-                                                    final double finalGrossProfit = grossProfit;
-                                                        final double finalOld = Old;
-                                                        final double finalNew = New;
-                                                        final ArrayList<String> hold = new ArrayList<>();
-                                                        final DatabaseReference mOnHoldCustomerRef = mRootRef.child(user.getUid()+"/onHoldCustomer/"+CustomerText);
-                                                        mOnHoldCustomerRef.addValueEventListener(new ValueEventListener() {
-                                                            @Override
-                                                            public void onDataChange(DataSnapshot dataSnapshot) {
-                                                                if (hold.size() == 0)
-                                                                {
-                                                                    try
-                                                                    {
-                                                                        double OldCustomerM = Double.parseDouble(dataSnapshot.child("onHoldMoney").getValue(String.class));
-                                                                        double NewCustomerM = Double.parseDouble(MoneyText);
-                                                                        if (OldCustomerM<NewCustomerM){
-                                                                            String canUndoText = getResources().getString(R.string.can_not_undo_customer_money_text);
-                                                                            AlertDialog.Builder builder1 = new AlertDialog.Builder(undoSell.this);
-                                                                            builder1.setTitle("Unable")
-                                                                                    .setMessage(canUndoText)
-                                                                                    .setPositiveButton("OK",null)
-                                                                                    .create().show();
-                                                                        }
-                                                                        else {
-                                                                            double OldProfit = Double.parseDouble(dataSnapshot.child("grossProfit").getValue(String.class));
-                                                                            double resultProfit = OldProfit - finalGrossProfit;
-                                                                            mOnHoldCustomerRef.child("grossProfit").setValue(resultProfit+"");
-                                                                            double resultCustomerResult = OldCustomerM - NewCustomerM;
-                                                                            mOnHoldCustomerRef.child("onHoldMoney").setValue(resultCustomerResult+"");
-
-                                                                            double Qresult = finalOld + finalNew;
-                                                                            String Result = Qresult + "";
-                                                                            System.out.println(Result);
-                                                                            mStockRef.child("quantity").setValue(Result);
-
-                                                                            DatabaseReference mUndoSellRef = mRootRef.child(user.getUid()+"/sell/"+KeyIdText);
-                                                                            mUndoSellRef.removeValue();
-                                                                        }
-
-                                                                    }
-                                                                    catch (Exception ex)
-                                                                    {
-                                                                        System.out.println(ex);
-                                                                    }
-
-                                                                }
-                                                                hold.add("kuch bhi");
-                                                            }
-
-                                                            @Override
-                                                            public void onCancelled(DatabaseError databaseError) {
-
-                                                            }
-                                                        });
-
-
-
-
-                                                    cont.add("kuchh bhi");
-
+                                                }catch (Exception ex)
+                                                {
+                                                    Old = 0;
                                                 }
-                                                cont.add("kuchh bhi");
+                                                double New = Double.parseDouble(QuantityText);
+                                                double grossProfit = 0;
+                                                try
+                                                {
+                                                    double quan = Double.parseDouble(QuantityText);
+                                                    grossProfit = quan * Double.parseDouble(productSellPrice) - quan * Double.parseDouble(productBuyPrice);
+                                                }catch(Exception ex){}
 
+                                                final double finalGrossProfit = grossProfit;
+                                                final double finalOld = Old;
+                                                final double finalNew = New;
+                                                MyProgressBar.ShowProgress(undoSell.this);
+                                                final DatabaseReference mOnHoldCustomerRef = mRootRef.child(user.getUid()+"/onHoldCustomer/"+CustomerText);
+                                                mOnHoldCustomerRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                                                    @Override
+                                                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                                        try
+                                                        {
+                                                            double OldCustomerM = Double.parseDouble(dataSnapshot.child("onHoldMoney").getValue(String.class));
+                                                            double NewCustomerM = Double.parseDouble(MoneyText);
+                                                            if (OldCustomerM<NewCustomerM){
+                                                                String canUndoText = getResources().getString(R.string.can_not_undo_customer_money_text);
+                                                                AlertDialog.Builder builder1 = new AlertDialog.Builder(undoSell.this);
+                                                                builder1.setTitle("Unable")
+                                                                        .setMessage(canUndoText)
+                                                                        .setPositiveButton("OK",null)
+                                                                        .create().show();
+                                                            }
+                                                            else {
+                                                                double OldProfit = Double.parseDouble(dataSnapshot.child("grossProfit").getValue(String.class));
+                                                                double resultProfit = OldProfit - finalGrossProfit;
+                                                                mOnHoldCustomerRef.child("grossProfit").setValue(resultProfit+"");
+                                                                double resultCustomerResult = OldCustomerM - NewCustomerM;
+                                                                mOnHoldCustomerRef.child("onHoldMoney").setValue(resultCustomerResult+"");
 
+                                                                double Qresult = finalOld + finalNew;
+                                                                String Result = Qresult + "";
+                                                                System.out.println(Result);
+                                                                mStockRef.child("quantity").setValue(Result);
 
+                                                                DatabaseReference mUndoSellRef = mRootRef.child(user.getUid()+"/sell/"+KeyIdText);
+                                                                mUndoSellRef.removeValue();
+                                                            }
+
+                                                        }
+                                                        catch (Exception ex)
+                                                        {
+                                                            System.out.println(ex);
+                                                        }
+                                                        finally {
+                                                            MyProgressBar.HideProgress();
+                                                        }
+
+                                                    }
+
+                                                    @Override
+                                                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                                                        MyProgressBar.HideProgress();
+                                                    }
+                                                });
                                             }
 
                                             @Override
-                                            public void onCancelled(DatabaseError databaseError) {
+                                            public void onCancelled(@NonNull DatabaseError databaseError) {
 
                                             }
                                         });
@@ -277,10 +249,10 @@ public class undoSell extends AppCompatActivity {
         super.onStart();
 
         DatabaseReference mOnHoldSupplier = mRootRef.child(user.getUid()+"/sell");
-
-        mOnHoldSupplier.addValueEventListener(new ValueEventListener() {
+        MyProgressBar.ShowProgress(this);
+        mOnHoldSupplier.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 Product.clear();
                 date.clear();
                 money.clear();
@@ -339,22 +311,21 @@ public class undoSell extends AppCompatActivity {
                 statementAdapter historyPayList = new statementAdapter(undoSell.this,Date,productList,Supplier,Quantity,Amount,Mode);
                 listView.setAdapter(historyPayList);
 
-
-
+                MyProgressBar.HideProgress();
 
             }
 
             @Override
-            public void onCancelled(DatabaseError databaseError) {
-
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                MyProgressBar.HideProgress();
             }
         });
 
         final ArrayList<String> cList = new ArrayList<>();
         DatabaseReference mCustomerRef = mRootRef.child(user.getUid()+"/product");
-        mCustomerRef.addValueEventListener(new ValueEventListener() {
+        mCustomerRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 cList.clear();
                 for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren())
                 {
@@ -375,10 +346,10 @@ public class undoSell extends AppCompatActivity {
                         DatabaseReference mSearchRef = mRootRef.child(user.getUid()+"/sell");
 
                         Query query = mSearchRef.orderByChild("productName").equalTo(suggestion_box4.getText().toString());
-
-                        query.addValueEventListener(new ValueEventListener() {
+                        MyProgressBar.ShowProgress(undoSell.this);
+                        query.addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
-                            public void onDataChange(DataSnapshot dataSnapshot) {
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                 Product.clear();
                                 date.clear();
                                 money.clear();
@@ -436,14 +407,12 @@ public class undoSell extends AppCompatActivity {
                                 statementAdapter historyPayList = new statementAdapter(undoSell.this,Date,productList,Supplier,Quantity,Amount,Mode);
                                 listView.setAdapter(historyPayList);
 
-
-
-
+                                MyProgressBar.HideProgress();
                             }
 
                             @Override
-                            public void onCancelled(DatabaseError databaseError) {
-
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+                                MyProgressBar.HideProgress();
                             }
                         });
 
@@ -528,8 +497,7 @@ public class undoSell extends AppCompatActivity {
 
         return dates;
     }
-    public void search(View view)
-    {
+    public void search(View view){
         String searchProduct = suggestion_box4.getText().toString();
         if (searchProduct.isEmpty())
         {
@@ -574,12 +542,14 @@ public class undoSell extends AppCompatActivity {
                 keyId.clear();
                 buyPrice.clear();
                 sellPrice.clear();
+                MyProgressBar.ShowProgress(this);
                 for (int i = 0; i < Dates.size(); i++)
                 {
+                    final int iFinal = i;
                     Query query = mSellRef.orderByChild("date").equalTo(betweenDates[i]);
-                    query.addValueEventListener(new ValueEventListener() {
+                    query.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                             for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren())
                             {
@@ -650,17 +620,16 @@ public class undoSell extends AppCompatActivity {
 //                                }
 //                            }catch (Exception ex){}
 
-
                             statementAdapter historyPayList = new statementAdapter(undoSell.this,Date,productList,Supplier,Quantity,Amount,Mode);
                             listView.setAdapter(historyPayList);
 
-
-
+                            if (iFinal==(Dates.size()-1)){
+                                MyProgressBar.HideProgress();
+                            }
                         }
-
                         @Override
-                        public void onCancelled(DatabaseError databaseError) {
-
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+                            MyProgressBar.HideProgress();
                         }
                     });
 
@@ -714,12 +683,14 @@ public class undoSell extends AppCompatActivity {
                 keyId.clear();
                 buyPrice.clear();
                 sellPrice.clear();
+                MyProgressBar.ShowProgress(this);
                 for (int i = 0; i < Dates.size(); i++)
                 {
+                    final int iFinal = i;
                     Query query = mSellRef.orderByChild("date_productName").equalTo(betweenDates[i]+"_"+searchProduct);
-                    query.addValueEventListener(new ValueEventListener() {
+                    query.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                             for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren())
                             {
@@ -793,13 +764,15 @@ public class undoSell extends AppCompatActivity {
                             statementAdapter historyPayList = new statementAdapter(undoSell.this,Date,productList,Supplier,Quantity,Amount,Mode);
                             listView.setAdapter(historyPayList);
 
-
+                           if (iFinal==(Dates.size()-1)){
+                               MyProgressBar.HideProgress();
+                           }
 
                         }
 
                         @Override
-                        public void onCancelled(DatabaseError databaseError) {
-
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+                            MyProgressBar.HideProgress();
                         }
                     });
 
@@ -823,62 +796,8 @@ public class undoSell extends AppCompatActivity {
     public void onResume() {
         super.onResume();  // Always call the superclass method first
 
-        connectionCheck();
+        NetworkConnectivityCheck.connectionCheck(this);
 
     }
 
-    public void connectionCheck()
-    {
-
-        if (isInternetOn())
-        {
-
-        }
-        else {
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setTitle("Connection Problem")
-                    .setMessage("Please Connect To Internet and Click OK!!!")
-                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            connectionCheck();
-                        }
-                    })
-                    .setCancelable(false)
-                    .setNegativeButton("Close App", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            android.os.Process.killProcess(android.os.Process.myPid());
-                        }
-                    });
-            builder.create().show();
-        }
-    }
-
-    public final boolean isInternetOn() {
-
-        // get Connectivity Manager object to check connection
-        ConnectivityManager connec =
-                (ConnectivityManager)getSystemService(getBaseContext().CONNECTIVITY_SERVICE);
-
-        // Check for network connections
-        if ( connec.getNetworkInfo(0).getState() == android.net.NetworkInfo.State.CONNECTED ||
-                connec.getNetworkInfo(0).getState() == android.net.NetworkInfo.State.CONNECTING ||
-                connec.getNetworkInfo(1).getState() == android.net.NetworkInfo.State.CONNECTING ||
-                connec.getNetworkInfo(1).getState() == android.net.NetworkInfo.State.CONNECTED ) {
-
-            // if connected with internet
-
-
-            return true;
-
-        } else if (
-                connec.getNetworkInfo(0).getState() == android.net.NetworkInfo.State.DISCONNECTED ||
-                        connec.getNetworkInfo(1).getState() == android.net.NetworkInfo.State.DISCONNECTED  ) {
-
-
-            return false;
-        }
-        return false;
-    }
 }

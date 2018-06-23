@@ -3,6 +3,7 @@ package com.sanshy.buysellinventory;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.ConnectivityManager;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -60,9 +61,9 @@ public class SideBIncome extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         DatabaseReference mHint = mRootRef.child(user.getUid()+"/SideBIncomeremark");
-        mHint.addValueEventListener(new ValueEventListener() {
+        mHint.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 hintList.clear();
                 for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren())
                 {
@@ -86,23 +87,26 @@ public class SideBIncome extends AppCompatActivity {
             }
 
             @Override
-            public void onCancelled(DatabaseError databaseError) {
+            public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
         });
     }
     public void save(View view){
+        MyProgressBar.ShowProgress(this);
         String Money = money.getText().toString();
         String Remark = remark.getText().toString();
 
         if (Money.isEmpty())
         {
             money.setError("Please Fill It");
+            MyProgressBar.HideProgress();
             return;
         }
         if (Remark.isEmpty())
         {
             remark.setError("Please Fill It");
+            MyProgressBar.HideProgress();
             return;
         }
 
@@ -134,6 +138,7 @@ public class SideBIncome extends AppCompatActivity {
         mExRef.child(Id).child("date").setValue(Date);
         mExRef.child(Id).child("date_remark").setValue(Date+"_"+Remark);
 
+        MyProgressBar.HideProgress();
 
         Toast.makeText(this, "Saved", Toast.LENGTH_SHORT).show();
         finish();
@@ -153,62 +158,6 @@ public class SideBIncome extends AppCompatActivity {
     @Override
     public void onResume() {
         super.onResume();  // Always call the superclass method first
-
-        connectionCheck();
-
-    }
-
-    public void connectionCheck(){
-
-        if (isInternetOn())
-        {
-
-        }
-        else {
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setTitle("Connection Problem")
-                    .setMessage("Please Connect To Internet and Click OK!!!")
-                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            connectionCheck();
-                        }
-                    })
-                    .setCancelable(false)
-                    .setNegativeButton("Close App", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            android.os.Process.killProcess(android.os.Process.myPid());
-                        }
-                    });
-            builder.create().show();
-        }
-    }
-
-    public final boolean isInternetOn() {
-
-        // get Connectivity Manager object to check connection
-        ConnectivityManager connec =
-                (ConnectivityManager)getSystemService(getBaseContext().CONNECTIVITY_SERVICE);
-
-        // Check for network connections
-        if ( connec.getNetworkInfo(0).getState() == android.net.NetworkInfo.State.CONNECTED ||
-                connec.getNetworkInfo(0).getState() == android.net.NetworkInfo.State.CONNECTING ||
-                connec.getNetworkInfo(1).getState() == android.net.NetworkInfo.State.CONNECTING ||
-                connec.getNetworkInfo(1).getState() == android.net.NetworkInfo.State.CONNECTED ) {
-
-            // if connected with internet
-
-
-            return true;
-
-        } else if (
-                connec.getNetworkInfo(0).getState() == android.net.NetworkInfo.State.DISCONNECTED ||
-                        connec.getNetworkInfo(1).getState() == android.net.NetworkInfo.State.DISCONNECTED  ) {
-
-
-            return false;
-        }
-        return false;
+        NetworkConnectivityCheck.connectionCheck(this);
     }
 }

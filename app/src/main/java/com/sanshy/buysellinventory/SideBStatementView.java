@@ -1,6 +1,7 @@
 package com.sanshy.buysellinventory;
 
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -65,9 +66,9 @@ public class SideBStatementView extends AppCompatActivity {
         {
             final String date = datesList.get(h);
             Query totalExpQuery = mExpRef.orderByChild("date").equalTo(date);
-            totalExpQuery.addValueEventListener(new ValueEventListener() {
+            totalExpQuery.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     double priceTotal = 0;
                     for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren())
                     {
@@ -94,7 +95,7 @@ public class SideBStatementView extends AppCompatActivity {
                 }
 
                 @Override
-                public void onCancelled(DatabaseError databaseError) {
+                public void onCancelled(@NonNull DatabaseError databaseError) {
 
                 }
             });
@@ -102,10 +103,10 @@ public class SideBStatementView extends AppCompatActivity {
         for (int h = 0; h < datesList.size(); h++)
         {
             final String date = datesList.get(h);
-            Query totalExpQuery = mIncomeRef.orderByChild("date").equalTo(date);
-            totalExpQuery.addValueEventListener(new ValueEventListener() {
+            Query totalIncomQuery = mIncomeRef.orderByChild("date").equalTo(date);
+            totalIncomQuery.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     double priceTotal = 0;
                     for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren())
                     {
@@ -128,11 +129,10 @@ public class SideBStatementView extends AppCompatActivity {
                             checkIncome = 1;
                         }
                     }catch (Exception ex){}
-                    //totalExp.setText("Total Expenditure : "+priceTotal);
                 }
 
                 @Override
-                public void onCancelled(DatabaseError databaseError) {
+                public void onCancelled(@NonNull DatabaseError databaseError) {
 
                 }
             });
@@ -140,8 +140,8 @@ public class SideBStatementView extends AppCompatActivity {
     }
 
     @Override
-    public void onBackPressed() {
-        super.onBackPressed();
+    public void onPause() {
+        super.onPause();
 
         android.os.Process.killProcess(android.os.Process.myPid());
     }
