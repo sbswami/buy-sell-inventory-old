@@ -37,6 +37,20 @@ import java.util.Date;
 
 public class Buy extends AppCompatActivity {
 
+    public static final String TOTAL_HOLD_PAID_TO_SUPPLIER = "TotalHoldPaidToSupplier";
+    public static final String TOTAL_ON_HOLD_BUY = "TotalOnHoldBuy";
+    public static final String TOTAL_CASH_BUY = "TotalCashBuy";
+    public static final String TOTAL_BUY = "TotalBuy";
+    public static final String TOTAL_SELL = "TotalSell";
+    public static final String TOTAL_CASH_SELL = "TotalCashSell";
+    public static final String TOTAL_ON_HOLD_SELL = "TotalOnHoldSell";
+    public static final String TOTAL_HOLD_PAID_BY_CUSTOMER = "TotalHoldPaidByCustomer";
+    public static final String GROSS_PROFIT = "GrossProfit";
+    public static final String CASH_GROSS_PROFIT = "CashGrossProfit";
+    public static final String ON_HOLD_GROSS_PROFIT = "OnHoldGrossProfit";
+    public static final String TOTAL_EXPENDITURE = "TotalExpenditure";
+    public static final String GROSS_PROFIT_PAID_BY_ON_HOLD_CUSTOMER = "GrossProfitPaidByOnHoldCustomer";
+    public static final String NET_PROFIT = "NetProfit";
     AutoCompleteTextView suggestion_box,suggestion_box2;
 
     ArrayList<pitem> productList = new ArrayList<>();
@@ -186,7 +200,7 @@ public class Buy extends AppCompatActivity {
     public void save(View view)
     {
         NetworkConnectivityCheck.connectionCheck(Buy.this);
-
+        MyProgressBar.ShowProgress(this);
         String ProductName = suggestion_box.getText().toString();
         final String Quantity = quantity.getText().toString();
         final String Price = price.getText().toString();
@@ -195,7 +209,7 @@ public class Buy extends AppCompatActivity {
 
         payType = findViewById(id);
 
-        String PayType = payType.getText().toString();
+        final String PayType = payType.getText().toString();
 
         int checkProduct = 0;
         for (int i = 0; i < productList.size(); i++)
@@ -214,24 +228,28 @@ public class Buy extends AppCompatActivity {
                     .setPositiveButton("OK",null)
                     .create()
                     .show();
-            return;
+            MyProgressBar.HideProgress();
+return;
         }
 
 
         if (ProductName.isEmpty())
         {
             suggestion_box.setError("Select Item");
-            return;
+            MyProgressBar.HideProgress();
+return;
         }
         if (Quantity.isEmpty())
         {
             quantity.setError("Select Quantity");
-            return;
+            MyProgressBar.HideProgress();
+return;
         }
         if (SupplierName.isEmpty())
         {
             suggestion_box2.setError("Select Supplier Name");
-            return;
+            MyProgressBar.HideProgress();
+return;
         }
         double New = Double.parseDouble(Quantity);
         if (New == 0)
@@ -254,7 +272,8 @@ public class Buy extends AppCompatActivity {
 
             }
 
-            return;
+            MyProgressBar.HideProgress();
+return;
         }
         if (PayType.equals("On Hold"))
         {
@@ -275,7 +294,8 @@ public class Buy extends AppCompatActivity {
                         .setPositiveButton("OK",null)
                         .create()
                         .show();
-                return;
+                MyProgressBar.HideProgress();
+return;
             }
             final DatabaseReference mOnHoldSupplierRef = mRootRef.child(user.getUid()+"/onHoldSupplier/"+SupplierName);
             mOnHoldSupplierRef.child("onHoldMoney").addListenerForSingleValueEvent(new ValueEventListener() {
@@ -303,7 +323,8 @@ public class Buy extends AppCompatActivity {
         if (Price.equals("Price")){
             String feedbackText = getResources().getString(R.string.feedback_request_text);
             Toast.makeText(Buy.this, feedbackText, Toast.LENGTH_SHORT).show();
-            return;
+            MyProgressBar.HideProgress();
+return;
         }
         @SuppressLint("SimpleDateFormat") DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         Date date = new Date();
@@ -347,7 +368,70 @@ public class Buy extends AppCompatActivity {
         String buyId = mBuyRef.push().getKey();
         bitem bi = new bitem(ProductName,Quantity,Price,PayType,SupplierName,buyId,Date,Date+"_"+SupplierName,Date+"_"+ProductName,PayType+"_"+ProductName,PayType+"_"+SupplierName,Date+"_"+PayType,productBuyPrice,productSellPrice);
         mBuyRef.child(buyId).setValue(bi);
+        
+        final DatabaseReference mStatementInventory = mRootRef.child(user.getUid()+"/Statement/Inventory/"+Date);
+        mStatementInventory.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                double buyMoney = Double.parseDouble(Price);
+                if (dataSnapshot.exists()){
 
+                    String tBuyCloud = (String) dataSnapshot.child(TOTAL_BUY).getValue();
+                    String tCashBuyCloud = (String) dataSnapshot.child(TOTAL_CASH_BUY).getValue();
+                    String tOnHoldBuyCloud = (String) dataSnapshot.child(TOTAL_ON_HOLD_BUY).getValue();
+                    String tHoldPaidToSuppCloud = (String) dataSnapshot.child(TOTAL_HOLD_PAID_TO_SUPPLIER).getValue();
+                    
+                    double buyCloud = Double.parseDouble(tBuyCloud);
+                    double cashBuyCloud = Double.parseDouble(tCashBuyCloud);
+                    double onHoldBuyCloud = Double.parseDouble(tOnHoldBuyCloud);
+                    
+                    double nowTBuy = buyMoney+buyCloud;
+                    
+                    if (PayType.equals("On Hold")){
+                        double nowTOnHold = buyMoney + onHoldBuyCloud;
+                        String saveTOnHold = String.valueOf(nowTOnHold);
+                        mStatementInventory.child(TOTAL_ON_HOLD_BUY).setValue(saveTOnHold);
+                    }else{
+                        double nowTCash = buyMoney + cashBuyCloud;
+                        String saveTCash = String.valueOf(nowTCash);
+                        mStatementInventory.child(TOTAL_CASH_BUY).setValue(saveTCash);
+                    }
+                    
+                    String saveTBuy = String.valueOf(nowTBuy);
+
+                    mStatementInventory.child(TOTAL_BUY).setValue(saveTBuy);
+
+                }
+                else {
+                    if (PayType.equals("On Hold")){
+                        mStatementInventory.child(TOTAL_ON_HOLD_BUY).setValue(Price);
+                        mStatementInventory.child(TOTAL_CASH_BUY).setValue("0");
+                    }else {
+                        mStatementInventory.child(TOTAL_CASH_BUY).setValue(Price);
+                        mStatementInventory.child(TOTAL_ON_HOLD_BUY).setValue("0");
+                    }
+                    mStatementInventory.child(TOTAL_BUY).setValue(Price);                    
+                    mStatementInventory.child(TOTAL_HOLD_PAID_TO_SUPPLIER).setValue("0");
+                    mStatementInventory.child(TOTAL_SELL).setValue("0");
+                    mStatementInventory.child(TOTAL_CASH_SELL).setValue("0");
+                    mStatementInventory.child(TOTAL_ON_HOLD_SELL).setValue("0");
+                    mStatementInventory.child(TOTAL_HOLD_PAID_BY_CUSTOMER).setValue("0");
+                    mStatementInventory.child(GROSS_PROFIT).setValue("0");
+                    mStatementInventory.child(CASH_GROSS_PROFIT).setValue("0");
+                    mStatementInventory.child(ON_HOLD_GROSS_PROFIT).setValue("0");
+                    mStatementInventory.child(GROSS_PROFIT_PAID_BY_ON_HOLD_CUSTOMER).setValue("0");
+                    mStatementInventory.child(TOTAL_EXPENDITURE).setValue("0");
+                    mStatementInventory.child(NET_PROFIT).setValue("0");
+                }
+
+                MyProgressBar.HideProgress();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                MyProgressBar.HideProgress();
+            }
+        });
         MyDialogBox.ShowDialog(Buy.this,"Product Buy Done");
         Toast.makeText(this, "Product Buy Done", Toast.LENGTH_SHORT).show();
         finish();

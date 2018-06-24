@@ -35,6 +35,21 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import static com.sanshy.buysellinventory.Buy.CASH_GROSS_PROFIT;
+import static com.sanshy.buysellinventory.Buy.GROSS_PROFIT;
+import static com.sanshy.buysellinventory.Buy.GROSS_PROFIT_PAID_BY_ON_HOLD_CUSTOMER;
+import static com.sanshy.buysellinventory.Buy.NET_PROFIT;
+import static com.sanshy.buysellinventory.Buy.ON_HOLD_GROSS_PROFIT;
+import static com.sanshy.buysellinventory.Buy.TOTAL_BUY;
+import static com.sanshy.buysellinventory.Buy.TOTAL_CASH_BUY;
+import static com.sanshy.buysellinventory.Buy.TOTAL_CASH_SELL;
+import static com.sanshy.buysellinventory.Buy.TOTAL_EXPENDITURE;
+import static com.sanshy.buysellinventory.Buy.TOTAL_HOLD_PAID_BY_CUSTOMER;
+import static com.sanshy.buysellinventory.Buy.TOTAL_HOLD_PAID_TO_SUPPLIER;
+import static com.sanshy.buysellinventory.Buy.TOTAL_ON_HOLD_BUY;
+import static com.sanshy.buysellinventory.Buy.TOTAL_ON_HOLD_SELL;
+import static com.sanshy.buysellinventory.Buy.TOTAL_SELL;
+
 public class UndoExp extends AppCompatActivity {
 
     AutoCompleteTextView suggestion_box4;
@@ -74,20 +89,54 @@ public class UndoExp extends AppCompatActivity {
                 try
                 {
                     String RemarkS = Remark.get(i);
-                    String DateS = date.get(i);
-                    String MoneyS = money.get(i);
+                    final String DateS = date.get(i);
+                    final String MoneyS = money.get(i);
                     final String EidS = Eid.get(i);
 
                     AlertDialog.Builder builder = new AlertDialog.Builder(UndoExp.this);
                     builder.setTitle("Exp. Details")
                             .setMessage("Remark : "+RemarkS+"\n"+
-                                    "DateS : "+DateS+"\n"+
-                                    "MoneyS : "+MoneyS)
+                                    "Date : "+DateS+"\n"+
+                                    "Money : "+MoneyS)
                             .setPositiveButton("Undo!", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialogInterface, int i) {
+                                    MyProgressBar.ShowProgress(UndoExp.this);
                                     DatabaseReference mExp = mRootRef.child(user.getUid()+"/Expenditure/"+EidS);
                                     mExp.removeValue();
+
+                                    final DatabaseReference mStatementInventory = mRootRef.child(user.getUid()+"/Statement/Inventory/"+DateS);
+                                    mStatementInventory.addListenerForSingleValueEvent(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                            double expMoney = Double.parseDouble(MoneyS);
+                                            if (dataSnapshot.exists()){
+
+                                                String tExpCloud = (String) dataSnapshot.child(TOTAL_EXPENDITURE).getValue();
+                                                String netProfitCloud = (String) dataSnapshot.child(NET_PROFIT).getValue();
+
+                                                double tExp = Double.parseDouble(tExpCloud);
+                                                double netPro = Double.parseDouble(netProfitCloud);
+
+                                                double nowExp = tExp - expMoney;
+                                                double nowNetPro = netPro + expMoney;
+
+                                                String saveExp = String.valueOf(nowExp);
+                                                String saveNetPro = String.valueOf(nowNetPro);
+
+                                                mStatementInventory.child(TOTAL_EXPENDITURE).setValue(saveExp);
+                                                mStatementInventory.child(NET_PROFIT).setValue(saveNetPro);
+
+
+                                            }
+                                            MyProgressBar.HideProgress();
+                                        }
+
+                                        @Override
+                                        public void onCancelled(@NonNull DatabaseError databaseError) {
+                                            MyProgressBar.HideProgress();
+                                        }
+                                    });
                                 }
                             }).setNeutralButton("Cancel",null);
                     builder.create().show();

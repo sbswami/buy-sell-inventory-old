@@ -34,6 +34,21 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 
+import static com.sanshy.buysellinventory.Buy.CASH_GROSS_PROFIT;
+import static com.sanshy.buysellinventory.Buy.GROSS_PROFIT;
+import static com.sanshy.buysellinventory.Buy.GROSS_PROFIT_PAID_BY_ON_HOLD_CUSTOMER;
+import static com.sanshy.buysellinventory.Buy.NET_PROFIT;
+import static com.sanshy.buysellinventory.Buy.ON_HOLD_GROSS_PROFIT;
+import static com.sanshy.buysellinventory.Buy.TOTAL_BUY;
+import static com.sanshy.buysellinventory.Buy.TOTAL_CASH_BUY;
+import static com.sanshy.buysellinventory.Buy.TOTAL_CASH_SELL;
+import static com.sanshy.buysellinventory.Buy.TOTAL_EXPENDITURE;
+import static com.sanshy.buysellinventory.Buy.TOTAL_HOLD_PAID_BY_CUSTOMER;
+import static com.sanshy.buysellinventory.Buy.TOTAL_HOLD_PAID_TO_SUPPLIER;
+import static com.sanshy.buysellinventory.Buy.TOTAL_ON_HOLD_BUY;
+import static com.sanshy.buysellinventory.Buy.TOTAL_ON_HOLD_SELL;
+import static com.sanshy.buysellinventory.Buy.TOTAL_SELL;
+
 public class Sell extends AppCompatActivity {
 
     AutoCompleteTextView suggestion_box,suggestion_box2;
@@ -367,9 +382,6 @@ return;
                 mSellRef.child(sellId).setValue(si);
 
 
-                MyProgressBar.HideProgress();
-                MyDialogBox.ShowDialog(Sell.this,"Sell Done");
-
                 final DatabaseReference mOnHoldCustomerRef = mRootRef.child(user.getUid()+"/onHoldCustomer/"+CustomerName);
                 mOnHoldCustomerRef.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
@@ -396,6 +408,109 @@ return;
 
                     }
                 });
+                final DatabaseReference mStatementInventory = mRootRef.child(user.getUid()+"/Statement/Inventory/"+Date);
+                mStatementInventory.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        double sellMoney = Double.parseDouble(Price);
+                        double grossProfitMoney = finalGrossProfit;
+                        if (dataSnapshot.exists()){
+
+                            String tSellCloud = (String) dataSnapshot.child(TOTAL_SELL).getValue();
+                            String tCashSellCloud = (String) dataSnapshot.child(TOTAL_CASH_SELL).getValue();
+                            String tOnHoldSellCloud = (String) dataSnapshot.child(TOTAL_ON_HOLD_SELL).getValue();
+
+                            String tGrossProfit = (String) dataSnapshot.child(GROSS_PROFIT).getValue();
+                            String tCashGrossProfit = (String) dataSnapshot.child(CASH_GROSS_PROFIT).getValue();
+                            String tOnHoldGrossProfit = (String) dataSnapshot.child(ON_HOLD_GROSS_PROFIT).getValue();
+
+                            String tNetProfit = (String) dataSnapshot.child(NET_PROFIT).getValue();
+
+                            double sellCloud = Double.parseDouble(tSellCloud);
+                            double cashSellCloud  = Double.parseDouble(tCashSellCloud);
+                            double onHoldSellCloud = Double.parseDouble(tOnHoldSellCloud);
+
+                            double grossProfit = Double.parseDouble(tGrossProfit);
+                            double cashGrossProfit = Double.parseDouble(tCashGrossProfit);
+                            double onHoldGrossProfit = Double.parseDouble(tOnHoldGrossProfit);
+
+                            double netProfit = Double.parseDouble(tNetProfit);
+
+                            double nowSell = sellMoney+sellCloud;
+
+                            double nowGrossProfit = grossProfitMoney+grossProfit;
+
+                            double nowNetProfit = grossProfitMoney+netProfit;
+
+                            String saveSell = String.valueOf(nowSell);
+                            mStatementInventory.child(TOTAL_SELL).setValue(saveSell);
+
+                            String saveGrossProfit = String.valueOf(nowGrossProfit);
+                            mStatementInventory.child(GROSS_PROFIT).setValue(saveGrossProfit);
+
+                            String saveNetProfit = String.valueOf(nowNetProfit);
+                            mStatementInventory.child(NET_PROFIT).setValue(saveNetProfit);
+
+                            if (PayType.equals("On Hold")){
+                                double nowOnHoldSell = onHoldSellCloud+sellMoney;
+                                double nowOnHoldGrossProfit = onHoldGrossProfit+grossProfitMoney;
+
+                                String saveOnHoldSell = String.valueOf(nowOnHoldSell);
+                                mStatementInventory.child(TOTAL_ON_HOLD_SELL).setValue(saveOnHoldSell);
+                                String saveOnHoldGrossProfit = String.valueOf(nowOnHoldGrossProfit);
+                                mStatementInventory.child(ON_HOLD_GROSS_PROFIT).setValue(saveOnHoldGrossProfit);
+
+                            }else{
+                                double nowCashSell = cashSellCloud+sellMoney;
+                                double nowCashGrossProfit = cashGrossProfit+grossProfitMoney;
+
+                                String saveCashSell = String.valueOf(nowCashSell);
+                                mStatementInventory.child(TOTAL_CASH_SELL).setValue(saveCashSell);
+                                String saveCashGrossProfit = String.valueOf(nowCashGrossProfit);
+                                mStatementInventory.child(CASH_GROSS_PROFIT).setValue(saveCashGrossProfit);
+
+                            }
+
+                        }
+                        else {
+                            String saveNetProfit = String.valueOf(grossProfitMoney);
+                            mStatementInventory.child(NET_PROFIT).setValue(saveNetProfit);
+
+                            String saveSell = String.valueOf(sellMoney);
+                            mStatementInventory.child(TOTAL_SELL).setValue(saveSell);
+
+                            mStatementInventory.child(GROSS_PROFIT).setValue(saveNetProfit);
+
+                            if (PayType.equals("On Hold")){
+                                mStatementInventory.child(ON_HOLD_GROSS_PROFIT).setValue(saveNetProfit);
+                                mStatementInventory.child(TOTAL_ON_HOLD_SELL).setValue(saveSell);
+                                mStatementInventory.child(CASH_GROSS_PROFIT).setValue("0");
+                                mStatementInventory.child(TOTAL_CASH_SELL).setValue("0");
+                            }else {
+                                mStatementInventory.child(CASH_GROSS_PROFIT).setValue(saveNetProfit);
+                                mStatementInventory.child(TOTAL_CASH_SELL).setValue(saveSell);
+                                mStatementInventory.child(ON_HOLD_GROSS_PROFIT).setValue("0");
+                                mStatementInventory.child(TOTAL_ON_HOLD_SELL).setValue("0");
+                            }
+
+                            mStatementInventory.child(TOTAL_CASH_BUY).setValue("0");
+                            mStatementInventory.child(TOTAL_ON_HOLD_BUY).setValue("0");
+                            mStatementInventory.child(TOTAL_BUY).setValue("0");
+                            mStatementInventory.child(TOTAL_HOLD_PAID_TO_SUPPLIER).setValue("0");
+                            mStatementInventory.child(TOTAL_HOLD_PAID_BY_CUSTOMER).setValue("0");
+                            mStatementInventory.child(GROSS_PROFIT_PAID_BY_ON_HOLD_CUSTOMER).setValue("0");
+                            mStatementInventory.child(TOTAL_EXPENDITURE).setValue("0");
+                        }
+
+                        MyProgressBar.HideProgress();
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                        MyProgressBar.HideProgress();
+                    }
+                });
+                MyDialogBox.ShowDialog(Sell.this,"Sell Done");
                 Toast.makeText(Sell.this, "Product Sell Done", Toast.LENGTH_SHORT).show();
                 finish();
             }

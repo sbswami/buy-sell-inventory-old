@@ -31,6 +31,21 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 
+import static com.sanshy.buysellinventory.Buy.CASH_GROSS_PROFIT;
+import static com.sanshy.buysellinventory.Buy.GROSS_PROFIT;
+import static com.sanshy.buysellinventory.Buy.GROSS_PROFIT_PAID_BY_ON_HOLD_CUSTOMER;
+import static com.sanshy.buysellinventory.Buy.NET_PROFIT;
+import static com.sanshy.buysellinventory.Buy.ON_HOLD_GROSS_PROFIT;
+import static com.sanshy.buysellinventory.Buy.TOTAL_BUY;
+import static com.sanshy.buysellinventory.Buy.TOTAL_CASH_BUY;
+import static com.sanshy.buysellinventory.Buy.TOTAL_CASH_SELL;
+import static com.sanshy.buysellinventory.Buy.TOTAL_EXPENDITURE;
+import static com.sanshy.buysellinventory.Buy.TOTAL_HOLD_PAID_BY_CUSTOMER;
+import static com.sanshy.buysellinventory.Buy.TOTAL_HOLD_PAID_TO_SUPPLIER;
+import static com.sanshy.buysellinventory.Buy.TOTAL_ON_HOLD_BUY;
+import static com.sanshy.buysellinventory.Buy.TOTAL_ON_HOLD_SELL;
+import static com.sanshy.buysellinventory.Buy.TOTAL_SELL;
+
 public class payByCustomer extends AppCompatActivity {
 
     private DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
@@ -123,19 +138,25 @@ public class payByCustomer extends AppCompatActivity {
     }
     public void pay(View view)
     {
-
-
+        MyProgressBar.ShowProgress(this);
         String Name = suggestion_box3.getText().toString();
         final String PayMoney = amount.getText().toString();
 
         if (Name.isEmpty())
         {
             suggestion_box3.setError("Please Select Customer Name");
-            return;
+            MyProgressBar.HideProgress();
+return;
         }
         if (PayMoney.isEmpty())
         {
             amount.setError("Please Enter");
+            MyProgressBar.HideProgress();
+return;
+        }
+        if (PayMoney.equals("0")){
+            MyDialogBox.ShowDialog(this,"You Can't Pay 0");
+            MyProgressBar.HideProgress();
             return;
         }
         int checkCustomer = 0;
@@ -155,7 +176,8 @@ public class payByCustomer extends AppCompatActivity {
                     .setPositiveButton("OK",null)
                     .create()
                     .show();
-            return;
+            MyProgressBar.HideProgress();
+return;
         }
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -166,7 +188,7 @@ public class payByCustomer extends AppCompatActivity {
                     public void onClick(DialogInterface dialogInterface, int i) {
                         if (Double.parseDouble(PayMoney) > Double.parseDouble(Amount))
                         {
-                            Toast.makeText(payByCustomer.this, "You Are Paying In Advance", Toast.LENGTH_SHORT).show();
+                            MyDialogBox.ShowDialog(payByCustomer.this,"You Are Paying In Advance");
                         }
                         double PayProfit = 0;
                         try
@@ -199,12 +221,73 @@ public class payByCustomer extends AppCompatActivity {
                         mOnHoldCustomer.child(suggestion_box3.getText().toString()).child("onHoldMoney").setValue(result+"");
                         mOnHoldCustomer.child(suggestion_box3.getText().toString()).child("grossProfit").setValue(resultProfit+"");
 
+                        final double finalPayProfit = PayProfit;
+                        final double finalAmountPay = Double.parseDouble(PayMoney);
+                        final DatabaseReference mStatementInventory = mRootRef.child(user.getUid()+"/Statement/Inventory/"+Date);
+                        mStatementInventory.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                if (dataSnapshot.exists()){
+
+                                    String tHPBCustomer = (String) dataSnapshot.child(TOTAL_HOLD_PAID_BY_CUSTOMER).getValue();
+                                    String tGrossPByOnHoldCustomer = (String) dataSnapshot.child(GROSS_PROFIT_PAID_BY_ON_HOLD_CUSTOMER).getValue();
+
+                                    double tHPBC = Double.parseDouble(tHPBCustomer);
+                                    double tGPBOHC = Double.parseDouble(tGrossPByOnHoldCustomer);
+
+                                    double nowHPBC = tHPBC + finalAmountPay;
+                                    double nowGPBOHC = tGPBOHC + finalPayProfit;
+
+                                    String saveHPBC = String.valueOf(nowHPBC);
+                                    String saveGPBOHC = String.valueOf(nowGPBOHC);
+
+                                    mStatementInventory.child(TOTAL_HOLD_PAID_BY_CUSTOMER).setValue(saveHPBC);
+                                    mStatementInventory.child(GROSS_PROFIT_PAID_BY_ON_HOLD_CUSTOMER).setValue(saveGPBOHC);
+
+
+                                }
+                                else {
+
+                                    String saveHPBC = String.valueOf(finalAmountPay);
+                                    String saveGPBOHC = String.valueOf(finalPayProfit);
+
+                                    mStatementInventory.child(TOTAL_HOLD_PAID_BY_CUSTOMER).setValue(saveHPBC);
+                                    mStatementInventory.child(GROSS_PROFIT_PAID_BY_ON_HOLD_CUSTOMER).setValue(saveGPBOHC);
+
+                                    mStatementInventory.child(TOTAL_EXPENDITURE).setValue("0");
+                                    mStatementInventory.child(NET_PROFIT).setValue("0");
+                                    mStatementInventory.child(TOTAL_CASH_BUY).setValue("0");
+                                    mStatementInventory.child(TOTAL_ON_HOLD_BUY).setValue("0");
+                                    mStatementInventory.child(TOTAL_BUY).setValue("0");
+                                    mStatementInventory.child(TOTAL_HOLD_PAID_TO_SUPPLIER).setValue("0");
+                                    mStatementInventory.child(TOTAL_SELL).setValue("0");
+                                    mStatementInventory.child(TOTAL_CASH_SELL).setValue("0");
+                                    mStatementInventory.child(TOTAL_ON_HOLD_SELL).setValue("0");
+                                    mStatementInventory.child(GROSS_PROFIT).setValue("0");
+                                    mStatementInventory.child(CASH_GROSS_PROFIT).setValue("0");
+                                    mStatementInventory.child(ON_HOLD_GROSS_PROFIT).setValue("0");
+                                }
+
+                                MyProgressBar.HideProgress();
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+                                MyProgressBar.HideProgress();
+                            }
+                        });
+
                         Toast.makeText(payByCustomer.this, "Payment Done", Toast.LENGTH_SHORT).show();
                         finish();
 
                     }
                 })
-                .setNegativeButton("Cancel",null)
+                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        MyProgressBar.HideProgress();
+                    }
+                })
                 .create().show();
     }
     public void historyPay(View view)

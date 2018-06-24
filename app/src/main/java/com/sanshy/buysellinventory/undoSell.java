@@ -34,6 +34,21 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import static com.sanshy.buysellinventory.Buy.CASH_GROSS_PROFIT;
+import static com.sanshy.buysellinventory.Buy.GROSS_PROFIT;
+import static com.sanshy.buysellinventory.Buy.GROSS_PROFIT_PAID_BY_ON_HOLD_CUSTOMER;
+import static com.sanshy.buysellinventory.Buy.NET_PROFIT;
+import static com.sanshy.buysellinventory.Buy.ON_HOLD_GROSS_PROFIT;
+import static com.sanshy.buysellinventory.Buy.TOTAL_BUY;
+import static com.sanshy.buysellinventory.Buy.TOTAL_CASH_BUY;
+import static com.sanshy.buysellinventory.Buy.TOTAL_CASH_SELL;
+import static com.sanshy.buysellinventory.Buy.TOTAL_EXPENDITURE;
+import static com.sanshy.buysellinventory.Buy.TOTAL_HOLD_PAID_BY_CUSTOMER;
+import static com.sanshy.buysellinventory.Buy.TOTAL_HOLD_PAID_TO_SUPPLIER;
+import static com.sanshy.buysellinventory.Buy.TOTAL_ON_HOLD_BUY;
+import static com.sanshy.buysellinventory.Buy.TOTAL_ON_HOLD_SELL;
+import static com.sanshy.buysellinventory.Buy.TOTAL_SELL;
+
 public class undoSell extends AppCompatActivity {
 
     AutoCompleteTextView suggestion_box4;
@@ -74,7 +89,7 @@ public class undoSell extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
                 try{
-                    String DateText =date.get(i);
+                    final String DateText =date.get(i);
                     final String ProductText = Product.get(i);
                     final String CustomerText =supplier.get(i);
                     final String QuantityText = quantity.get(i);
@@ -83,6 +98,11 @@ public class undoSell extends AppCompatActivity {
                     final String KeyIdText = keyId.get(i);
                     final String productSellPrice = sellPrice.get(i);
                     final String productBuyPrice = buyPrice.get(i);
+
+                    double buyP = Double.parseDouble(productBuyPrice);
+                    double sellP = Double.parseDouble(productSellPrice);
+                    double quant = Double.parseDouble(QuantityText);
+                    final double grossProfitOfSell = (sellP-buyP)*quant;
 
                     AlertDialog.Builder builder = new AlertDialog.Builder(undoSell.this);
                     builder.setTitle("Sell Detail!")
@@ -126,7 +146,64 @@ public class undoSell extends AppCompatActivity {
                                                 mStockRef.child("quantity").setValue(Result);
                                                 DatabaseReference mUndoSellRef = mRootRef.child(user.getUid()+"/sell/"+KeyIdText);
                                                 mUndoSellRef.removeValue();
-                                                MyProgressBar.HideProgress();
+
+                                                final DatabaseReference mStatementInventory = mRootRef.child(user.getUid()+"/Statement/Inventory/"+DateText);
+                                                mStatementInventory.addListenerForSingleValueEvent(new ValueEventListener() {
+                                                    @Override
+                                                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                                        double sellMoney = Double.parseDouble(MoneyText);
+                                                        double grossProfitMoney = grossProfitOfSell;
+                                                        if (dataSnapshot.exists()){
+
+                                                            String tSellCloud = (String) dataSnapshot.child(TOTAL_SELL).getValue();
+                                                            String tCashSellCloud = (String) dataSnapshot.child(TOTAL_CASH_SELL).getValue();
+
+                                                            String tGrossProfit = (String) dataSnapshot.child(GROSS_PROFIT).getValue();
+                                                            String tCashGrossProfit = (String) dataSnapshot.child(CASH_GROSS_PROFIT).getValue();
+
+                                                            String tNetProfit = (String) dataSnapshot.child(NET_PROFIT).getValue();
+
+                                                            double sellCloud = Double.parseDouble(tSellCloud);
+                                                            double cashSellCloud  = Double.parseDouble(tCashSellCloud);
+
+                                                            double grossProfit = Double.parseDouble(tGrossProfit);
+                                                            double cashGrossProfit = Double.parseDouble(tCashGrossProfit);
+
+                                                            double netProfit = Double.parseDouble(tNetProfit);
+
+                                                            double nowSell = sellCloud - sellMoney;
+
+                                                            double nowGrossProfit = grossProfit-grossProfitMoney;
+
+                                                            double nowNetProfit = netProfit - grossProfitMoney;
+
+                                                            String saveSell = String.valueOf(nowSell);
+                                                            mStatementInventory.child(TOTAL_SELL).setValue(saveSell);
+
+                                                            String saveGrossProfit = String.valueOf(nowGrossProfit);
+                                                            mStatementInventory.child(GROSS_PROFIT).setValue(saveGrossProfit);
+
+                                                            String saveNetProfit = String.valueOf(nowNetProfit);
+                                                            mStatementInventory.child(NET_PROFIT).setValue(saveNetProfit);
+
+                                                            double nowCashSell = cashSellCloud-sellMoney;
+                                                            double nowCashGrossProfit = cashGrossProfit-grossProfitMoney;
+
+                                                            String saveCashSell = String.valueOf(nowCashSell);
+                                                            mStatementInventory.child(TOTAL_CASH_SELL).setValue(saveCashSell);
+                                                            String saveCashGrossProfit = String.valueOf(nowCashGrossProfit);
+                                                            mStatementInventory.child(CASH_GROSS_PROFIT).setValue(saveCashGrossProfit);
+
+
+                                                        }
+                                                        MyProgressBar.HideProgress();
+                                                    }
+
+                                                    @Override
+                                                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                                                        MyProgressBar.HideProgress();
+                                                    }
+                                                });
                                             }
 
                                             @Override
@@ -188,6 +265,7 @@ public class undoSell extends AppCompatActivity {
                                                                         .setMessage(canUndoText)
                                                                         .setPositiveButton("OK",null)
                                                                         .create().show();
+                                                                MyProgressBar.HideProgress();
                                                             }
                                                             else {
                                                                 double OldProfit = Double.parseDouble(dataSnapshot.child("grossProfit").getValue(String.class));
@@ -203,6 +281,63 @@ public class undoSell extends AppCompatActivity {
 
                                                                 DatabaseReference mUndoSellRef = mRootRef.child(user.getUid()+"/sell/"+KeyIdText);
                                                                 mUndoSellRef.removeValue();
+
+                                                                final DatabaseReference mStatementInventory = mRootRef.child(user.getUid()+"/Statement/Inventory/"+DateText);
+                                                                mStatementInventory.addListenerForSingleValueEvent(new ValueEventListener() {
+                                                                    @Override
+                                                                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                                                        double sellMoney = Double.parseDouble(MoneyText);
+                                                                        double grossProfitMoney = finalGrossProfit;
+                                                                        if (dataSnapshot.exists()){
+
+                                                                            String tSellCloud = (String) dataSnapshot.child(TOTAL_SELL).getValue();
+                                                                            String tOnHoldSellCloud = (String) dataSnapshot.child(TOTAL_ON_HOLD_SELL).getValue();
+
+                                                                            String tGrossProfit = (String) dataSnapshot.child(GROSS_PROFIT).getValue();
+                                                                            String tOnHoldGrossProfit = (String) dataSnapshot.child(ON_HOLD_GROSS_PROFIT).getValue();
+
+                                                                            String tNetProfit = (String) dataSnapshot.child(NET_PROFIT).getValue();
+
+                                                                            double sellCloud = Double.parseDouble(tSellCloud);
+                                                                            double onHoldSellCloud = Double.parseDouble(tOnHoldSellCloud);
+
+                                                                            double grossProfit = Double.parseDouble(tGrossProfit);
+                                                                            double onHoldGrossProfit = Double.parseDouble(tOnHoldGrossProfit);
+
+                                                                            double netProfit = Double.parseDouble(tNetProfit);
+
+                                                                            double nowSell = sellCloud - sellMoney;
+
+                                                                            double nowGrossProfit = grossProfit - grossProfitMoney;
+
+                                                                            double nowNetProfit = netProfit - grossProfitMoney;
+
+                                                                            String saveSell = String.valueOf(nowSell);
+                                                                            mStatementInventory.child(TOTAL_SELL).setValue(saveSell);
+
+                                                                            String saveGrossProfit = String.valueOf(nowGrossProfit);
+                                                                            mStatementInventory.child(GROSS_PROFIT).setValue(saveGrossProfit);
+
+                                                                            String saveNetProfit = String.valueOf(nowNetProfit);
+                                                                            mStatementInventory.child(NET_PROFIT).setValue(saveNetProfit);
+
+                                                                            double nowOnHoldSell = onHoldSellCloud-sellMoney;
+                                                                            double nowOnHoldGrossProfit = onHoldGrossProfit-grossProfitMoney;
+
+                                                                            String saveOnHoldSell = String.valueOf(nowOnHoldSell);
+                                                                            mStatementInventory.child(TOTAL_ON_HOLD_SELL).setValue(saveOnHoldSell);
+                                                                            String saveOnHoldGrossProfit = String.valueOf(nowOnHoldGrossProfit);
+                                                                            mStatementInventory.child(ON_HOLD_GROSS_PROFIT).setValue(saveOnHoldGrossProfit);
+                                                                        }
+
+                                                                        MyProgressBar.HideProgress();
+                                                                    }
+
+                                                                    @Override
+                                                                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                                                                        MyProgressBar.HideProgress();
+                                                                    }
+                                                                });
                                                             }
 
                                                         }
@@ -213,6 +348,8 @@ public class undoSell extends AppCompatActivity {
                                                         finally {
                                                             MyProgressBar.HideProgress();
                                                         }
+
+                                                        MyProgressBar.HideProgress();
 
                                                     }
 

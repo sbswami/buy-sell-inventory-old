@@ -83,10 +83,10 @@ public class UndoSideIncome extends AppCompatActivity {
                     final String EidS = Eid.get(i);
 
                     AlertDialog.Builder builder = new AlertDialog.Builder(UndoSideIncome.this);
-                    builder.setTitle("Exp. Details")
+                    builder.setTitle("Income Details")
                             .setMessage("Remark : "+RemarkS+"\n"+
-                                    "DateS : "+DateS+"\n"+
-                                    "MoneyS : "+MoneyS)
+                                    "Date : "+DateS+"\n"+
+                                    "Money : "+MoneyS)
                             .setPositiveButton("Undo!", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialogInterface, int i) {

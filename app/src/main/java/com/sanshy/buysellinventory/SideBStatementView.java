@@ -123,4 +123,10 @@ public class SideBStatementView extends AppCompatActivity {
 
         android.os.Process.killProcess(android.os.Process.myPid());
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        NetworkConnectivityCheck.connectionCheck(this);
+    }
 }

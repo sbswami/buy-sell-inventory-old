@@ -34,6 +34,10 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import static com.sanshy.buysellinventory.Buy.TOTAL_BUY;
+import static com.sanshy.buysellinventory.Buy.TOTAL_CASH_BUY;
+import static com.sanshy.buysellinventory.Buy.TOTAL_ON_HOLD_BUY;
+
 public class UndoBuy extends AppCompatActivity {
 
     AutoCompleteTextView suggestion_box4;
@@ -72,7 +76,7 @@ public class UndoBuy extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
                 try{
-                    String DateText =date.get(i);
+                    final String DateText =date.get(i);
                     final String ProductText = Product.get(i);
                     final String SupplierText =supplier.get(i);
                     final String QuantityText = quantity.get(i);
@@ -91,6 +95,7 @@ public class UndoBuy extends AppCompatActivity {
                             .setPositiveButton("Undo!!", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialogInterface, int i) {
+                                    MyProgressBar.ShowProgress(UndoBuy.this);
                                     if (ModeText.equals("Cash")){
                                         final DatabaseReference mStockRef = mRootRef.child(user.getUid()+"/stock/"+ProductText);
                                         final String[] temp = new String[1];
@@ -131,10 +136,39 @@ public class UndoBuy extends AppCompatActivity {
                                                     mStockRef.child("quantity").setValue(Result);
                                                     DatabaseReference mBuyUndoRef = mRootRef.child(user.getUid()+"/buy/"+KeyIdText);
                                                     mBuyUndoRef.removeValue();
+                                                    final DatabaseReference mStatementInventory = mRootRef.child(user.getUid()+"/Statement/Inventory/"+DateText);
+                                                    mStatementInventory.addListenerForSingleValueEvent(new ValueEventListener() {
+                                                        @Override
+                                                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                                            double buyMoney = Double.parseDouble(MoneyText);
+                                                            if (dataSnapshot.exists()){
+
+                                                                String tBuyCloud = (String) dataSnapshot.child(TOTAL_BUY).getValue();
+                                                                String tCashBuyCloud = (String) dataSnapshot.child(TOTAL_CASH_BUY).getValue();
+
+                                                                double buyCloud = Double.parseDouble(tBuyCloud);
+                                                                double cashBuyCloud = Double.parseDouble(tCashBuyCloud);
+
+                                                                double nowTBuy = buyCloud-buyMoney;
+                                                                double nowTCash = cashBuyCloud-buyMoney;
+
+                                                                String saveTCash = String.valueOf(nowTCash);
+                                                                mStatementInventory.child(TOTAL_CASH_BUY).setValue(saveTCash);
+
+                                                                String saveTBuy = String.valueOf(nowTBuy);
+                                                                mStatementInventory.child(TOTAL_BUY).setValue(saveTBuy);
+
+                                                            }
+                                                            MyProgressBar.HideProgress();
+                                                        }
+
+                                                        @Override
+                                                        public void onCancelled(@NonNull DatabaseError databaseError) {
+                                                            MyProgressBar.HideProgress();
+                                                        }
+                                                    });
                                                 }
 
-
-                                                MyProgressBar.HideProgress();
                                             }
 
                                             @Override
@@ -178,6 +212,7 @@ public class UndoBuy extends AppCompatActivity {
                                                             .setMessage(canUndoText)
                                                             .setPositiveButton("OK",null)
                                                             .create().show();
+                                                    MyProgressBar.HideProgress();
                                                 }
                                                 else{
                                                     final double finalOld = Old;
@@ -211,14 +246,45 @@ public class UndoBuy extends AppCompatActivity {
 
                                                                     DatabaseReference mBuyUndoRef = mRootRef.child(user.getUid()+"/buy/"+KeyIdText);
                                                                     mBuyUndoRef.removeValue();
+                                                                    final DatabaseReference mStatementInventory = mRootRef.child(user.getUid()+"/Statement/Inventory/"+DateText);
+                                                                    mStatementInventory.addListenerForSingleValueEvent(new ValueEventListener() {
+                                                                        @Override
+                                                                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                                                            double buyMoney = Double.parseDouble(MoneyText);
+                                                                            if (dataSnapshot.exists()){
+
+                                                                                String tBuyCloud = (String) dataSnapshot.child(TOTAL_BUY).getValue();
+                                                                                String tOnHoldBuyCloud = (String) dataSnapshot.child(TOTAL_ON_HOLD_BUY).getValue();
+
+                                                                                double buyCloud = Double.parseDouble(tBuyCloud);
+                                                                                double onHoldBuyCloud = Double.parseDouble(tOnHoldBuyCloud);
+
+                                                                                double nowTBuy = buyCloud-buyMoney;
+                                                                                double nowTOnHold = onHoldBuyCloud-buyCloud ;
+
+                                                                                String saveTOnHold = String.valueOf(nowTOnHold);
+                                                                                mStatementInventory.child(TOTAL_ON_HOLD_BUY).setValue(saveTOnHold);
+
+                                                                                String saveTBuy = String.valueOf(nowTBuy);
+                                                                                mStatementInventory.child(TOTAL_BUY).setValue(saveTBuy);
+
+                                                                            }
+                                                                            MyProgressBar.HideProgress();
+                                                                        }
+
+                                                                        @Override
+                                                                        public void onCancelled(@NonNull DatabaseError databaseError) {
+                                                                            MyProgressBar.HideProgress();
+                                                                        }
+                                                                    });
                                                                 }
 
                                                             }
                                                             catch (Exception ex)
                                                             {
                                                                 System.out.println(ex);
+                                                                MyProgressBar.HideProgress();
                                                             }
-                                                            MyProgressBar.HideProgress();
 
                                                         }
 
@@ -230,6 +296,8 @@ public class UndoBuy extends AppCompatActivity {
 
 
                                                 }
+
+                                                MyProgressBar.HideProgress();
 
                                             }
 

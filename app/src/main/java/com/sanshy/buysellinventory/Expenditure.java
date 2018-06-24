@@ -3,6 +3,7 @@ package com.sanshy.buysellinventory;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.ConnectivityManager;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -28,6 +29,21 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
+
+import static com.sanshy.buysellinventory.Buy.CASH_GROSS_PROFIT;
+import static com.sanshy.buysellinventory.Buy.GROSS_PROFIT;
+import static com.sanshy.buysellinventory.Buy.GROSS_PROFIT_PAID_BY_ON_HOLD_CUSTOMER;
+import static com.sanshy.buysellinventory.Buy.NET_PROFIT;
+import static com.sanshy.buysellinventory.Buy.ON_HOLD_GROSS_PROFIT;
+import static com.sanshy.buysellinventory.Buy.TOTAL_BUY;
+import static com.sanshy.buysellinventory.Buy.TOTAL_CASH_BUY;
+import static com.sanshy.buysellinventory.Buy.TOTAL_CASH_SELL;
+import static com.sanshy.buysellinventory.Buy.TOTAL_EXPENDITURE;
+import static com.sanshy.buysellinventory.Buy.TOTAL_HOLD_PAID_BY_CUSTOMER;
+import static com.sanshy.buysellinventory.Buy.TOTAL_HOLD_PAID_TO_SUPPLIER;
+import static com.sanshy.buysellinventory.Buy.TOTAL_ON_HOLD_BUY;
+import static com.sanshy.buysellinventory.Buy.TOTAL_ON_HOLD_SELL;
+import static com.sanshy.buysellinventory.Buy.TOTAL_SELL;
 
 public class Expenditure extends AppCompatActivity {
 
@@ -98,18 +114,21 @@ public class Expenditure extends AppCompatActivity {
 
     public void save(View view)
     {
-        String Money = money.getText().toString();
+        MyProgressBar.ShowProgress(this);
+        final String Money = money.getText().toString();
         String Remark = remark.getText().toString();
 
         if (Money.isEmpty())
         {
             money.setError("Please Fill It");
-            return;
+            MyProgressBar.HideProgress();
+return;
         }
         if (Remark.isEmpty())
         {
             remark.setError("Please Fill It");
-            return;
+            MyProgressBar.HideProgress();
+return;
         }
 
         int check = 0;
@@ -140,6 +159,58 @@ public class Expenditure extends AppCompatActivity {
         mExRef.child(Id).child("date").setValue(Date);
         mExRef.child(Id).child("date_remark").setValue(Date+"_"+Remark);
 
+        final DatabaseReference mStatementInventory = mRootRef.child(user.getUid()+"/Statement/Inventory/"+Date);
+        mStatementInventory.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                double expMoney = Double.parseDouble(Money);
+                if (dataSnapshot.exists()){
+
+                    String tExpCloud = (String) dataSnapshot.child(TOTAL_EXPENDITURE).getValue();
+                    String netProfitCloud = (String) dataSnapshot.child(NET_PROFIT).getValue();
+
+                    double tExp = Double.parseDouble(tExpCloud);
+                    double netPro = Double.parseDouble(netProfitCloud);
+
+                    double nowExp = tExp + expMoney;
+                    double nowNetPro = netPro - expMoney;
+
+                    String saveExp = String.valueOf(nowExp);
+                    String saveNetPro = String.valueOf(nowNetPro);
+
+                    mStatementInventory.child(TOTAL_EXPENDITURE).setValue(saveExp);
+                    mStatementInventory.child(NET_PROFIT).setValue(saveNetPro);
+
+
+                }
+                else {
+                    double netPro = 0-expMoney;
+                    String saveNetPro = String.valueOf(netPro);
+                    mStatementInventory.child(TOTAL_EXPENDITURE).setValue(Money);
+                    mStatementInventory.child(NET_PROFIT).setValue(saveNetPro);
+                    mStatementInventory.child(TOTAL_CASH_BUY).setValue("0");
+                    mStatementInventory.child(TOTAL_ON_HOLD_BUY).setValue("0");
+                    mStatementInventory.child(TOTAL_BUY).setValue("0");
+                    mStatementInventory.child(TOTAL_HOLD_PAID_TO_SUPPLIER).setValue("0");
+                    mStatementInventory.child(TOTAL_SELL).setValue("0");
+                    mStatementInventory.child(TOTAL_CASH_SELL).setValue("0");
+                    mStatementInventory.child(TOTAL_ON_HOLD_SELL).setValue("0");
+                    mStatementInventory.child(TOTAL_HOLD_PAID_BY_CUSTOMER).setValue("0");
+                    mStatementInventory.child(GROSS_PROFIT).setValue("0");
+                    mStatementInventory.child(CASH_GROSS_PROFIT).setValue("0");
+                    mStatementInventory.child(ON_HOLD_GROSS_PROFIT).setValue("0");
+                    mStatementInventory.child(GROSS_PROFIT_PAID_BY_ON_HOLD_CUSTOMER).setValue("0");
+                }
+
+                MyProgressBar.HideProgress();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                MyProgressBar.HideProgress();
+            }
+        });
+        
         MyDialogBox.ShowDialog(Expenditure.this,"Saved");
         Toast.makeText(this, "Saved", Toast.LENGTH_SHORT).show();
         finish();
