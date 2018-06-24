@@ -20,21 +20,9 @@
                 android:id="@+id/adView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:visibility="visible"
                 app:adSize="BANNER"
                 app:adUnitId="@string/sDay1" />
-
-            <Button
-                android:id="@+id/tsb"
-                android:layout_width="match_parent"
-                android:layout_height="60sp"
-                android:layout_weight="1"
-                android:background="@drawable/buttonorange"
-                android:fontFamily="@font/carter_one"
-                android:gravity="center"
-                android:onClick="ts"
-                android:text="@string/total_sell_text"
-                android:textColor="#fff"
-                android:textSize="14sp" />
 
 
             <TextView
@@ -49,20 +37,7 @@
                 android:textColor="#000"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                android:visibility="gone" />
-
-            <Button
-                android:id="@+id/tcsb"
-                android:layout_width="match_parent"
-                android:layout_height="60sp"
-                android:layout_weight="1"
-                android:background="@drawable/buttonorange"
-                android:fontFamily="@font/carter_one"
-                android:gravity="center"
-                android:onClick="tcs"
-                android:text="@string/total_cash_sell_text"
-                android:textColor="#fff"
-                android:textSize="14sp" />
+                android:visibility="visible" />
 
             <TextView
                 android:id="@+id/totalCashSell"
@@ -76,20 +51,7 @@
                 android:textColor="#000"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                android:visibility="gone" />
-
-            <Button
-                android:id="@+id/tohsb"
-                android:layout_width="match_parent"
-                android:layout_height="60sp"
-                android:layout_weight="1"
-                android:background="@drawable/buttonorange"
-                android:fontFamily="@font/carter_one"
-                android:gravity="center"
-                android:onClick="tohs"
-                android:text="@string/total_on_hold_sell_text"
-                android:textColor="#fff"
-                android:textSize="14sp" />
+                android:visibility="visible" />
 
             <TextView
                 android:id="@+id/totalOnHoldSell"
@@ -103,20 +65,7 @@
                 android:textColor="#000"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                android:visibility="gone" />
-
-            <Button
-                android:id="@+id/ppbcb"
-                android:layout_width="match_parent"
-                android:layout_height="60sp"
-                android:layout_weight="1"
-                android:background="@drawable/buttonorange"
-                android:fontFamily="@font/carter_one"
-                android:gravity="center"
-                android:onClick="ppbc"
-                android:text="@string/hold_payment_paid_by_customer_text"
-                android:textColor="#fff"
-                android:textSize="14sp" />
+                android:visibility="visible" />
 
             <TextView
                 android:id="@+id/totalHoldPaymentSellPay"
@@ -130,20 +79,7 @@
                 android:textColor="#000"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                android:visibility="gone" />
-
-            <Button
-                android:id="@+id/rpfcb"
-                android:layout_width="match_parent"
-                android:layout_height="60sp"
-                android:layout_weight="1"
-                android:background="@drawable/buttonorange"
-                android:fontFamily="@font/carter_one"
-                android:gravity="center"
-                android:onClick="rpfc"
-                android:text="@string/remaining_payment_from_customer_text"
-                android:textColor="#fff"
-                android:textSize="14sp" />
+                android:visibility="visible" />
 
             <TextView
                 android:id="@+id/totalOnHoldPaymentAfterPaySell"
@@ -157,27 +93,15 @@
                 android:textColor="#000"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                android:visibility="gone" />
+                android:visibility="visible" />
 
             <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/adView2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:visibility="visible"
                 ads:adSize="BANNER"
                 ads:adUnitId="@string/sDay2" />
-
-            <Button
-                android:id="@+id/tsb2"
-                android:layout_width="match_parent"
-                android:layout_height="60sp"
-                android:layout_weight="1"
-                android:background="@drawable/buttonorange"
-                android:fontFamily="@font/carter_one"
-                android:gravity="center"
-                android:onClick="tb"
-                android:text="@string/total_buy_text"
-                android:textColor="#fff"
-                android:textSize="14sp" />
 
             <TextView
                 android:id="@+id/totalBuy"
@@ -191,20 +115,7 @@
                 android:textColor="#000"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                android:visibility="gone" />
-
-            <Button
-                android:id="@+id/tcsb2"
-                android:layout_width="match_parent"
-                android:layout_height="60sp"
-                android:layout_weight="1"
-                android:background="@drawable/buttonorange"
-                android:fontFamily="@font/carter_one"
-                android:gravity="center"
-                android:onClick="tcb"
-                android:text="@string/total_cash_buy_text"
-                android:textColor="#fff"
-                android:textSize="14sp" />
+                android:visibility="visible" />
 
             <TextView
                 android:id="@+id/totalCashBuy"
@@ -218,20 +129,7 @@
                 android:textColor="#000"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                android:visibility="gone" />
-
-            <Button
-                android:id="@+id/tohsb2"
-                android:layout_width="match_parent"
-                android:layout_height="60sp"
-                android:layout_weight="1"
-                android:background="@drawable/buttonorange"
-                android:fontFamily="@font/carter_one"
-                android:gravity="center"
-                android:onClick="tohb"
-                android:text="@string/total_on_hold_buy_text"
-                android:textColor="#fff"
-                android:textSize="14sp" />
+                android:visibility="visible" />
 
             <TextView
                 android:id="@+id/totalOnHOldBuy"
@@ -245,20 +143,7 @@
                 android:textColor="#000"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                android:visibility="gone" />
-
-            <Button
-                android:id="@+id/ppbcb2"
-                android:layout_width="match_parent"
-                android:layout_height="60sp"
-                android:layout_weight="1"
-                android:background="@drawable/buttonorange"
-                android:fontFamily="@font/carter_one"
-                android:gravity="center"
-                android:onClick="ppbs"
-                android:text="@string/hold_payment_paid_to_supplier_text"
-                android:textColor="#fff"
-                android:textSize="14sp" />
+                android:visibility="visible" />
 
             <TextView
                 android:id="@+id/totalHoldPaymentBuyPay"
@@ -272,20 +157,7 @@
                 android:textColor="#000"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                android:visibility="gone" />
-
-            <Button
-                android:id="@+id/rpfcb2"
-                android:layout_width="match_parent"
-                android:layout_height="60sp"
-                android:layout_weight="1"
-                android:background="@drawable/buttonorange"
-                android:fontFamily="@font/carter_one"
-                android:gravity="center"
-                android:onClick="rpfs"
-                android:text="@string/remaining_payment_for_supplier_text"
-                android:textColor="#fff"
-                android:textSize="14sp" />
+                android:visibility="visible" />
 
             <TextView
                 android:id="@+id/totalOnHoldPaymentAfterPayBuy"
@@ -299,12 +171,13 @@
                 android:textColor="#000"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                android:visibility="gone" />
+                android:visibility="visible" />
 
             <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/adView3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:visibility="visible"
                 ads:adSize="BANNER"
                 ads:adUnitId="@string/sDay3" />
 
@@ -320,20 +193,7 @@
                 android:textColor="#000"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                android:visibility="gone" />
-
-            <Button
-                android:id="@+id/tsb3"
-                android:layout_width="match_parent"
-                android:layout_height="60sp"
-                android:layout_weight="1"
-                android:background="@drawable/buttonorange"
-                android:fontFamily="@font/carter_one"
-                android:gravity="center"
-                android:onClick="tgp"
-                android:text="@string/gross_profit_text"
-                android:textColor="#fff"
-                android:textSize="14sp" />
+                android:visibility="visible" />
 
             <TextView
                 android:id="@+id/totalGrossProfitCash"
@@ -347,20 +207,7 @@
                 android:textColor="#000"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                android:visibility="gone" />
-
-            <Button
-                android:id="@+id/tcsb3"
-                android:layout_width="match_parent"
-                android:layout_height="60sp"
-                android:layout_weight="1"
-                android:background="@drawable/buttonorange"
-                android:fontFamily="@font/carter_one"
-                android:gravity="center"
-                android:onClick="tcgp"
-                android:text="@string/gross_profit_cash_text"
-                android:textColor="#fff"
-                android:textSize="14sp" />
+                android:visibility="visible" />
 
             <TextView
                 android:id="@+id/totalGrossProfitOnHold"
@@ -374,20 +221,7 @@
                 android:textColor="#000"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                android:visibility="gone" />
-
-            <Button
-                android:id="@+id/tohsb3"
-                android:layout_width="match_parent"
-                android:layout_height="60sp"
-                android:layout_weight="1"
-                android:background="@drawable/buttonorange"
-                android:fontFamily="@font/carter_one"
-                android:gravity="center"
-                android:onClick="tohgp"
-                android:text="@string/gross_profit_on_hold_text"
-                android:textColor="#fff"
-                android:textSize="14sp" />
+                android:visibility="visible" />
 
             <TextView
                 android:id="@+id/totalGrossProfitWithHoldPay"
@@ -401,20 +235,7 @@
                 android:textColor="#000"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                android:visibility="gone" />
-
-            <Button
-                android:id="@+id/ppbcb3"
-                android:layout_width="match_parent"
-                android:layout_height="60sp"
-                android:layout_weight="1"
-                android:background="@drawable/buttonorange"
-                android:fontFamily="@font/carter_one"
-                android:gravity="center"
-                android:onClick="gppbc"
-                android:text="@string/gross_profit_on_hold_customer_pay_text"
-                android:textColor="#fff"
-                android:textSize="14sp" />
+                android:visibility="visible" />
 
             <TextView
                 android:id="@+id/totalGrossProfitRemainAfterPay"
@@ -428,25 +249,13 @@
                 android:textColor="#000"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                android:visibility="gone" />
-
-            <Button
-                android:id="@+id/rpfcb3"
-                android:layout_width="match_parent"
-                android:layout_height="60sp"
-                android:layout_weight="1"
-                android:background="@drawable/buttonorange"
-                android:fontFamily="@font/carter_one"
-                android:gravity="center"
-                android:onClick="rgpfc"
-                android:text="@string/remaining_profit_from_customer_text"
-                android:textColor="#fff"
-                android:textSize="14sp" />
+                android:visibility="visible" />
 
             <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/adView4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:visibility="visible"
                 ads:adSize="BANNER"
                 ads:adUnitId="@string/sDay4"></com.google.android.gms.ads.AdView>
 
@@ -461,7 +270,8 @@
                 android:text="Loading....."
                 android:textColor="#000"
                 android:textSize="18sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:visibility="visible" />
 
             <TextView
                 android:id="@+id/totalNetProfit"
@@ -475,80 +285,14 @@
                 android:textColor="#000"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                android:visibility="gone" />
-
-            <Button
-                android:id="@+id/tsb4"
-                android:layout_width="match_parent"
-                android:layout_height="60sp"
-                android:layout_weight="1"
-                android:background="@drawable/buttonorange"
-                android:fontFamily="@font/carter_one"
-                android:gravity="center"
-                android:onClick="tnp"
-                android:text="@string/net_profit_text"
-                android:textColor="#fff"
-                android:textSize="14sp" />
-
-            <TextView
-                android:id="@+id/totalNetProfitCash"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="2sp"
-                android:fontFamily="@font/karla"
-                android:gravity="center"
-                android:padding="5sp"
-                android:text="Loading....."
-                android:textColor="#000"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:visibility="gone" />
-
-            <Button
-                android:id="@+id/tcsb4"
-                android:layout_width="match_parent"
-                android:layout_height="60sp"
-                android:layout_weight="1"
-                android:background="@drawable/buttonorange"
-                android:fontFamily="@font/carter_one"
-                android:gravity="center"
-                android:onClick="tcnp"
-                android:text="@string/net_profit_cash_text"
-                android:textColor="#fff"
-                android:textSize="14sp" />
-
-            <TextView
-                android:id="@+id/totalNetProfitOnHold"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="2sp"
-                android:fontFamily="@font/karla"
-                android:gravity="center"
-                android:padding="5sp"
-                android:text="Loading....."
-                android:textColor="#000"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:visibility="gone" />
-
-            <Button
-                android:id="@+id/tohsb4"
-                android:layout_width="match_parent"
-                android:layout_height="60sp"
-                android:layout_weight="1"
-                android:background="@drawable/buttonorange"
-                android:fontFamily="@font/carter_one"
-                android:gravity="center"
-                android:onClick="tohnp"
-                android:text="@string/net_profit_on_hold_text"
-                android:textColor="#fff"
-                android:textSize="14sp" />
+                android:visibility="visible" />
 
 
             <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/adView5"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:visibility="visible"
                 ads:adSize="BANNER"
                 ads:adUnitId="@string/sDay5"></com.google.android.gms.ads.AdView>
         </LinearLayout>

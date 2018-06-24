@@ -101,12 +101,6 @@
             android:name=".historyCustomerSell"
             android:parentActivityName=".payByCustomer" />
         <activity
-            android:name=".StatementDay"
-            android:parentActivityName=".Statement" />
-        <activity
-            android:name=".StatementYesterday"
-            android:parentActivityName=".Statement" />
-        <activity
             android:name=".StatementSearch"
             android:parentActivityName=".Statement" />
         <activity

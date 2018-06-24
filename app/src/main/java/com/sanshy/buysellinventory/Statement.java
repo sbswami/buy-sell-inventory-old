@@ -80,236 +80,236 @@ public class Statement extends AppCompatActivity {
         @Override
         protected void onStart() {
             super.onStart();
-/*
-            final DatabaseReference mSellRef = mRootRef.child(user.getUid()+"/sell");
-            final DatabaseReference mBuyRef = mRootRef.child(user.getUid()+"/buy");
-            final DatabaseReference mExpRef = mRootRef.child(user.getUid()+"/Expenditure");
 
-            final ArrayList<String> sellDateList = new ArrayList<>();
-            final ArrayList<String> buyDateList = new ArrayList<>();
-            final ArrayList<String> expDateList = new ArrayList<>();
-
-            final ArrayList<bitem> buyList = new ArrayList<>();
-            final ArrayList<sellitem> sellList = new ArrayList<>();
-            final ArrayList<String> expMoneyList = new ArrayList<>();
-
-            final ArrayList<String> Date = new ArrayList<>();
-
-            final Set<String> hs = new HashSet<>();
-
-            mSellRef.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    sellDateList.clear();
-                    sellList.clear();
-                    hs.clear();
-                    for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren())
-                    {
-                        sellDateList.add(dataSnapshot1.child("date").getValue(String.class));
-                    }
-                    hs.addAll(sellDateList);
-                    sellDateList.clear();
-                    sellDateList.addAll(hs);
-                    hs.clear();
-
-                    mBuyRef.addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-                            buyDateList.clear();
-                            buyList.clear();
-                            hs.clear();
-                            for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren())
-                            {
-                               buyDateList.add(dataSnapshot1.child("date").getValue(String.class));
-                            }
-                            hs.addAll(buyDateList);
-                            buyDateList.clear();
-                            buyDateList.addAll(hs);
-                            hs.clear();
-
-                            mExpRef.addValueEventListener(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(DataSnapshot dataSnapshot) {
-                                    expDateList.clear();
-                                    expMoneyList.clear();
-                                    hs.clear();
-                                    for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren())
-                                    {
-                                        expDateList.add(dataSnapshot1.child("date").getValue(String.class));
-                                    }
-                                    hs.addAll(expDateList);
-                                    expDateList.clear();
-                                    expDateList.addAll(hs);
-                                    hs.clear();
-
-                                    Date.addAll(expDateList);
-                                    Date.addAll(buyDateList);
-                                    Date.addAll(sellDateList);
-
-                                    hs.addAll(Date);
-                                    Date.clear();
-                                    Date.addAll(hs);
-                                    hs.clear();
-
-                                    final String DateList[] = new String[Date.size()+1];
-                                    final ArrayList<String> totalBuyList = new ArrayList<>();
-                                    final ArrayList<String> totalSellList = new ArrayList<>();
-                                    final ArrayList<String> totalExpList = new ArrayList<>();
-                                    for (int i = 0; i < Date.size(); i++)
-                                    {
-                                        DateList[i] = Date.get(i);
-                                        String dateValue = Date.get(i);
-
-                                        Query buyQ = mBuyRef.orderByChild("date").equalTo(dateValue);
-                                        final Query sellQ = mSellRef.orderByChild("date").equalTo(dateValue);
-                                        final Query expQ = mExpRef.orderByChild("date").equalTo(dateValue);
-
-                                        buyQ.addValueEventListener(new ValueEventListener() {
-                                            @Override
-                                            public void onDataChange(DataSnapshot dataSnapshot) {
-
-                                                double total = 0;
-                                                for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren())
-                                                {
-                                                    try
-                                                    {
-                                                        total+= Double.parseDouble(dataSnapshot1.child("price").getValue(String.class));
-                                                    }catch (Exception e)
-                                                    {
-
-                                                    }
-                                                }
-                                                totalBuyList.add(total+"");
-
-                                                sellQ.addValueEventListener(new ValueEventListener() {
-                                                    @Override
-                                                    public void onDataChange(DataSnapshot dataSnapshot) {
-                                                        double total = 0;
-                                                        for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren())
-                                                        {
-                                                            try
-                                                            {
-                                                                total+= Double.parseDouble(dataSnapshot1.child("price").getValue(String.class));
-                                                            }catch (Exception e)
-                                                            {
-
-                                                            }
-                                                        }
-                                                        totalSellList.add(total+"");
-
-                                                        expQ.addValueEventListener(new ValueEventListener() {
-                                                            @Override
-                                                            public void onDataChange(DataSnapshot dataSnapshot) {
-                                                                double total = 0;
-                                                                for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren())
-                                                                {
-                                                                    try
-                                                                    {
-                                                                        total+= Double.parseDouble(dataSnapshot1.child("money").getValue(String.class));
-                                                                    }
-                                                                    catch (Exception e)
-                                                                    {
-
-                                                                    }
-                                                                }
-                                                                totalExpList.add(total+"");
-                                                                String tSellList[] = new String[Date.size()+1];
-                                                                String tBuyList[] = new String[Date.size()+1];
-                                                                String tExpList[] = new String[Date.size()+1];
-                                                                String tGrossList[] = new String[Date.size()+1];
-                                                                String tNetList[] = new String[Date.size()+1];
-                                                                double grandSell = 0;
-                                                                double grandBuy = 0;
-                                                                double grandExp = 0;
-                                                                double grandGross = 0;
-                                                                double grandNet = 0;
-
-                                                                for (int j = 0 ; j< Date.size(); j++)
-                                                                {
-                                                                    try
-                                                                    {
-                                                                        tBuyList[j] = totalBuyList.get(j);
-                                                                        tSellList[j] = totalSellList.get(j);
-                                                                        tExpList[j] = totalExpList.get(j);
-
-                                                                        double gResult = Double.parseDouble(tBuyList[j]);
-
-                                                                        grandBuy += Double.parseDouble(tBuyList[j]);
-                                                                        grandSell += Double.parseDouble(tSellList[j]);
-                                                                        grandExp += Double.parseDouble(tExpList[j]);
-                                                                    }
-                                                                    catch (Exception e)
-                                                                    {
-
-                                                                    }
-
-                                                                }
-                                                                try
-                                                                {
-                                                                    tBuyList[Date.size()] = grandBuy +"";
-                                                                    tSellList[Date.size()] = grandSell + "";
-                                                                    tExpList[Date.size()] = grandExp + "";
-                                                                    DateList[Date.size()] = "Total";
-                                                                }catch (Exception ex)
-                                                                {
-
-                                                                }
-
-                                                                    statementAdapter adapter = new statementAdapter(Statement.this,DateList,tBuyList,tSellList,tSellList,tExpList,tSellList);
-                                                                listView.setAdapter(adapter);
-                                                                System.out.println(Date);
-                                                                System.out.println(totalSellList);
-                                                                System.out.println(totalBuyList);
-                                                                System.out.println(totalExpList);
-                                                            }
-
-                                                            @Override
-                                                            public void onCancelled(DatabaseError databaseError) {
-
-                                                            }
-                                                        });
-                                                    }
-
-                                                    @Override
-                                                    public void onCancelled(DatabaseError databaseError) {
-
-                                                    }
-                                                });
-
-                                            }
-
-                                            @Override
-                                            public void onCancelled(DatabaseError databaseError) {
-
-                                            }
-                                        });
-
-
-
-                                    }
-
-                                }
-
-                                @Override
-                                public void onCancelled(DatabaseError databaseError) {
-
-                                }
-                            });
-                        }
-
-                        @Override
-                        public void onCancelled(DatabaseError databaseError) {
-
-                        }
-                    });
-                }
-
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-
-                }
-            });
- */
+//            final DatabaseReference mSellRef = mRootRef.child(user.getUid()+"/sell");
+//            final DatabaseReference mBuyRef = mRootRef.child(user.getUid()+"/buy");
+//            final DatabaseReference mExpRef = mRootRef.child(user.getUid()+"/Expenditure");
+//
+//            final ArrayList<String> sellDateList = new ArrayList<>();
+//            final ArrayList<String> buyDateList = new ArrayList<>();
+//            final ArrayList<String> expDateList = new ArrayList<>();
+//
+//            final ArrayList<bitem> buyList = new ArrayList<>();
+//            final ArrayList<sellitem> sellList = new ArrayList<>();
+//            final ArrayList<String> expMoneyList = new ArrayList<>();
+//
+//            final ArrayList<String> Date = new ArrayList<>();
+//
+//            final Set<String> hs = new HashSet<>();
+//
+//            mSellRef.addValueEventListener(new ValueEventListener() {
+//                @Override
+//                public void onDataChange(DataSnapshot dataSnapshot) {
+//                    sellDateList.clear();
+//                    sellList.clear();
+//                    hs.clear();
+//                    for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren())
+//                    {
+//                        sellDateList.add(dataSnapshot1.child("date").getValue(String.class));
+//                    }
+//                    hs.addAll(sellDateList);
+//                    sellDateList.clear();
+//                    sellDateList.addAll(hs);
+//                    hs.clear();
+//
+//                    mBuyRef.addValueEventListener(new ValueEventListener() {
+//                        @Override
+//                        public void onDataChange(DataSnapshot dataSnapshot) {
+//                            buyDateList.clear();
+//                            buyList.clear();
+//                            hs.clear();
+//                            for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren())
+//                            {
+//                               buyDateList.add(dataSnapshot1.child("date").getValue(String.class));
+//                            }
+//                            hs.addAll(buyDateList);
+//                            buyDateList.clear();
+//                            buyDateList.addAll(hs);
+//                            hs.clear();
+//
+//                            mExpRef.addValueEventListener(new ValueEventListener() {
+//                                @Override
+//                                public void onDataChange(DataSnapshot dataSnapshot) {
+//                                    expDateList.clear();
+//                                    expMoneyList.clear();
+//                                    hs.clear();
+//                                    for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren())
+//                                    {
+//                                        expDateList.add(dataSnapshot1.child("date").getValue(String.class));
+//                                    }
+//                                    hs.addAll(expDateList);
+//                                    expDateList.clear();
+//                                    expDateList.addAll(hs);
+//                                    hs.clear();
+//
+//                                    Date.addAll(expDateList);
+//                                    Date.addAll(buyDateList);
+//                                    Date.addAll(sellDateList);
+//
+//                                    hs.addAll(Date);
+//                                    Date.clear();
+//                                    Date.addAll(hs);
+//                                    hs.clear();
+//
+//                                    final String DateList[] = new String[Date.size()+1];
+//                                    final ArrayList<String> totalBuyList = new ArrayList<>();
+//                                    final ArrayList<String> totalSellList = new ArrayList<>();
+//                                    final ArrayList<String> totalExpList = new ArrayList<>();
+//                                    for (int i = 0; i < Date.size(); i++)
+//                                    {
+//                                        DateList[i] = Date.get(i);
+//                                        String dateValue = Date.get(i);
+//
+//                                        Query buyQ = mBuyRef.orderByChild("date").equalTo(dateValue);
+//                                        final Query sellQ = mSellRef.orderByChild("date").equalTo(dateValue);
+//                                        final Query expQ = mExpRef.orderByChild("date").equalTo(dateValue);
+//
+//                                        buyQ.addValueEventListener(new ValueEventListener() {
+//                                            @Override
+//                                            public void onDataChange(DataSnapshot dataSnapshot) {
+//
+//                                                double total = 0;
+//                                                for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren())
+//                                                {
+//                                                    try
+//                                                    {
+//                                                        total+= Double.parseDouble(dataSnapshot1.child("price").getValue(String.class));
+//                                                    }catch (Exception e)
+//                                                    {
+//
+//                                                    }
+//                                                }
+//                                                totalBuyList.add(total+"");
+//
+//                                                sellQ.addValueEventListener(new ValueEventListener() {
+//                                                    @Override
+//                                                    public void onDataChange(DataSnapshot dataSnapshot) {
+//                                                        double total = 0;
+//                                                        for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren())
+//                                                        {
+//                                                            try
+//                                                            {
+//                                                                total+= Double.parseDouble(dataSnapshot1.child("price").getValue(String.class));
+//                                                            }catch (Exception e)
+//                                                            {
+//
+//                                                            }
+//                                                        }
+//                                                        totalSellList.add(total+"");
+//
+//                                                        expQ.addValueEventListener(new ValueEventListener() {
+//                                                            @Override
+//                                                            public void onDataChange(DataSnapshot dataSnapshot) {
+//                                                                double total = 0;
+//                                                                for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren())
+//                                                                {
+//                                                                    try
+//                                                                    {
+//                                                                        total+= Double.parseDouble(dataSnapshot1.child("money").getValue(String.class));
+//                                                                    }
+//                                                                    catch (Exception e)
+//                                                                    {
+//
+//                                                                    }
+//                                                                }
+//                                                                totalExpList.add(total+"");
+//                                                                String tSellList[] = new String[Date.size()+1];
+//                                                                String tBuyList[] = new String[Date.size()+1];
+//                                                                String tExpList[] = new String[Date.size()+1];
+//                                                                String tGrossList[] = new String[Date.size()+1];
+//                                                                String tNetList[] = new String[Date.size()+1];
+//                                                                double grandSell = 0;
+//                                                                double grandBuy = 0;
+//                                                                double grandExp = 0;
+//                                                                double grandGross = 0;
+//                                                                double grandNet = 0;
+//
+//                                                                for (int j = 0 ; j< Date.size(); j++)
+//                                                                {
+//                                                                    try
+//                                                                    {
+//                                                                        tBuyList[j] = totalBuyList.get(j);
+//                                                                        tSellList[j] = totalSellList.get(j);
+//                                                                        tExpList[j] = totalExpList.get(j);
+//
+//                                                                        double gResult = Double.parseDouble(tBuyList[j]);
+//
+//                                                                        grandBuy += Double.parseDouble(tBuyList[j]);
+//                                                                        grandSell += Double.parseDouble(tSellList[j]);
+//                                                                        grandExp += Double.parseDouble(tExpList[j]);
+//                                                                    }
+//                                                                    catch (Exception e)
+//                                                                    {
+//
+//                                                                    }
+//
+//                                                                }
+//                                                                try
+//                                                                {
+//                                                                    tBuyList[Date.size()] = grandBuy +"";
+//                                                                    tSellList[Date.size()] = grandSell + "";
+//                                                                    tExpList[Date.size()] = grandExp + "";
+//                                                                    DateList[Date.size()] = "Total";
+//                                                                }catch (Exception ex)
+//                                                                {
+//
+//                                                                }
+//
+//                                                                    statementAdapter adapter = new statementAdapter(Statement.this,DateList,tBuyList,tSellList,tSellList,tExpList,tSellList);
+//                                                                listView.setAdapter(adapter);
+//                                                                System.out.println(Date);
+//                                                                System.out.println(totalSellList);
+//                                                                System.out.println(totalBuyList);
+//                                                                System.out.println(totalExpList);
+//                                                            }
+//
+//                                                            @Override
+//                                                            public void onCancelled(DatabaseError databaseError) {
+//
+//                                                            }
+//                                                        });
+//                                                    }
+//
+//                                                    @Override
+//                                                    public void onCancelled(DatabaseError databaseError) {
+//
+//                                                    }
+//                                                });
+//
+//                                            }
+//
+//                                            @Override
+//                                            public void onCancelled(DatabaseError databaseError) {
+//
+//                                            }
+//                                        });
+//
+//
+//
+//                                    }
+//
+//                                }
+//
+//                                @Override
+//                                public void onCancelled(DatabaseError databaseError) {
+//
+//                                }
+//                            });
+//                        }
+//
+//                        @Override
+//                        public void onCancelled(DatabaseError databaseError) {
+//
+//                        }
+//                    });
+//                }
+//
+//                @Override
+//                public void onCancelled(DatabaseError databaseError) {
+//
+//                }
+//            });
+//
         }
 
 
@@ -318,8 +318,11 @@ public class Statement extends AppCompatActivity {
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         Date date1 = new Date();
         String date = dateFormat.format(date1);
-        Intent intent = new Intent(this,StatementDay.class);
-        intent.putExtra("date",date);
+
+        String betweenDates[] = {date};
+
+        Intent intent = new Intent(this,StatementSearch.class);
+        intent.putExtra("dates",betweenDates);
         startActivity(intent);
     }
     public void yesterdaySt(View view)
@@ -328,8 +331,11 @@ public class Statement extends AppCompatActivity {
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         cal.add(Calendar.DATE, -1);
         String date = dateFormat.format(cal.getTime());
-        Intent intent = new Intent(this,StatementDay.class);
-        intent.putExtra("date",date);
+
+        String betweenDates[] = {date};
+
+        Intent intent = new Intent(this,StatementSearch.class);
+        intent.putExtra("dates",betweenDates);
         startActivity(intent);
     }
     public void thisMonth(View view)
