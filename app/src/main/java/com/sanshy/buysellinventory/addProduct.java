@@ -34,7 +34,7 @@ public class addProduct extends AppCompatActivity {
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
     private FirebaseUser user = mAuth.getCurrentUser();
 
-    EditText name,buyPrice,sellPrice;
+    EditText name,buyPrice,sellPrice,buyMargin;
 
     AutoCompleteTextView company;
 
@@ -51,6 +51,7 @@ public class addProduct extends AppCompatActivity {
         buyPrice = findViewById(R.id.buyPrice);
         sellPrice = findViewById(R.id.sellPrice);
         company = findViewById(R.id.company);
+        buyMargin = findViewById(R.id.buyMargin);
 
         AdView adView1,adView2;
         adView1 = findViewById(R.id.adView);
@@ -106,9 +107,10 @@ public class addProduct extends AppCompatActivity {
     {
         NetworkConnectivityCheck.connectionCheck(addProduct.this);
         final String Name = name.getText().toString();
-        final String BuyPrice = buyPrice.getText().toString();
+        final String BuyP = buyPrice.getText().toString();
         final String SellPrice = sellPrice.getText().toString();
         final String Company = company.getText().toString();
+        final String Margin = buyMargin.getText().toString();
 
         int check = 0;
         for (int i = 0; i < hintList.size(); i++)
@@ -121,21 +123,28 @@ public class addProduct extends AppCompatActivity {
         if (check == 0)
         {
             DatabaseReference mHint = mRootRef.child(user.getUid()+"/company");
-
+            hintList.add(Company);
             String Id = mHint.push().getKey();
 
             mHint.child(Id).child("id").setValue(Id);
             mHint.child(Id).child("hint").setValue(Company);
         }
 
+
         if (Name.isEmpty())
         {
             name.setError("Required Field");
             return;
         }
-        if (BuyPrice.isEmpty())
+        if (BuyP.isEmpty()&&Margin.isEmpty())
         {
-            buyPrice.setError("Required Field");
+            buyMargin.setError("Required Field");
+            return;
+        }
+        if (!(BuyP.isEmpty()||Margin.isEmpty()))
+        {
+            MyDialogBox.ShowDialog(addProduct.this,"Please Enter in Any one.\n" +
+                    "Buy Price or Margin Percentage");
             return;
         }
         if (SellPrice.isEmpty())
@@ -144,6 +153,17 @@ public class addProduct extends AppCompatActivity {
             return;
         }
 
+        String tempBuyPriceHolder = BuyP;
+        if (BuyP.isEmpty()){
+            double marginPercent = Double.parseDouble(Margin);
+            double sellPri = Double.parseDouble(SellPrice);
+
+            double marginMain = (marginPercent*sellPri)/100;
+            double buyPri = sellPri - marginMain;
+            tempBuyPriceHolder = String.valueOf(buyPri);
+        }
+
+        final String BuyPrice = tempBuyPriceHolder;
 
         DatabaseReference allCus = mRootRef.child(user.getUid()+"/product");
         MyProgressBar.ShowProgress(addProduct.this);

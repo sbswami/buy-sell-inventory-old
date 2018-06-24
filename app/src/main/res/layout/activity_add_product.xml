@@ -68,24 +68,6 @@
                 android:textSize="24sp" />
 
             <EditText
-                android:id="@+id/buyPrice"
-                android:layout_width="match_parent"
-                android:layout_height="70sp"
-                android:layout_margin="10sp"
-                android:background="@drawable/bluebox"
-                android:cursorVisible="true"
-                android:ems="10"
-                android:fontFamily="@font/carter_one"
-                android:hint="@string/buy_price_text"
-                android:inputType="number|numberDecimal"
-                android:paddingLeft="20sp"
-                android:paddingRight="20sp"
-                android:textColor="#fff"
-                android:textColorHint="#fff"
-                android:textCursorDrawable="@drawable/color_cursor"
-                android:textSize="24sp" />
-
-            <EditText
                 android:id="@+id/sellPrice"
                 android:layout_width="match_parent"
                 android:layout_height="70sp"
@@ -95,6 +77,51 @@
                 android:ems="10"
                 android:fontFamily="@font/carter_one"
                 android:hint="@string/sell_price_text"
+                android:inputType="number|numberDecimal"
+                android:paddingLeft="20sp"
+                android:paddingRight="20sp"
+                android:textColor="#fff"
+                android:textColorHint="#fff"
+                android:textCursorDrawable="@drawable/color_cursor"
+                android:textSize="24sp" />
+
+            <EditText
+                android:id="@+id/buyMargin"
+                android:layout_width="match_parent"
+                android:layout_height="70sp"
+                android:layout_margin="10sp"
+                android:background="@drawable/bluebox"
+                android:cursorVisible="true"
+                android:ems="10"
+                android:fontFamily="@font/carter_one"
+                android:hint="@string/buy_percentage_text"
+                android:inputType="number|numberDecimal"
+                android:paddingLeft="20sp"
+                android:paddingRight="20sp"
+                android:textColor="#fff"
+                android:textColorHint="#fff"
+                android:textCursorDrawable="@drawable/color_cursor"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="or"
+                android:textColor="#000"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/buyPrice"
+                android:layout_width="match_parent"
+                android:layout_height="70sp"
+                android:layout_margin="10sp"
+                android:background="@drawable/bluebox"
+                android:cursorVisible="true"
+                android:ems="10"
+                android:fontFamily="@font/carter_one"
+                android:hint="@string/buy_price_text"
                 android:inputType="number|numberDecimal"
                 android:paddingLeft="20sp"
                 android:paddingRight="20sp"

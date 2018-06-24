@@ -28,6 +28,7 @@
     <string name="name_text">Name</string>
     <string name="phone_text">Phone No.</string>
     <string name="buy_price_text">Buy Price</string>
+    <string name="buy_percentage_text">Margin Percentage</string>
     <string name="sell_price_text">Sell Price</string>
     <string name="company_text">Company</string>
     <string name="save_text">Save</string>
