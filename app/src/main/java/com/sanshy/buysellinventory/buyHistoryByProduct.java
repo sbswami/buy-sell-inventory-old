@@ -372,7 +372,7 @@ public class buyHistoryByProduct extends AppCompatActivity {
                     Query query = mBuyRef.orderByChild("date").equalTo(betweenDates[i]);
                     query.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                             for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren())
                             {
@@ -384,41 +384,40 @@ public class buyHistoryByProduct extends AppCompatActivity {
                                 supplier.add(dataSnapshot1.child("supplierName").getValue(String.class));
 
                             }
-                            if (iFinal==(Dates.size()-1)){
-                                final String productList[] = new String[Product.size()+1];
-                                String Date[] = new String[date.size()+1];
-                                String Amount[] = new String[money.size()+1];
-                                String Mode[] = new String[mode.size()+1];
-                                String Quantity[] = new String[quantity.size()+1];
-                                String Supplier[] = new String[supplier.size()+1];
+                            final String productList[] = new String[Product.size()+1];
+                            String Date[] = new String[date.size()+1];
+                            String Amount[] = new String[money.size()+1];
+                            String Mode[] = new String[mode.size()+1];
+                            String Quantity[] = new String[quantity.size()+1];
+                            String Supplier[] = new String[supplier.size()+1];
 
-                                double total = 0;
-                                int quant = 0;
-                                int count = 0;
-                                for (int i = 0; i < Product.size(); i++)
+                            double total = 0;
+                            int quant = 0;
+                            int count = 0;
+                            for (int i = 0; i < Product.size(); i++)
+                            {
+                                productList[i] = Product.get(i);
+                                Date[i] = date.get(i);
+                                Amount[i] = money.get(i);
+                                Quantity[i] = quantity.get(i);
+                                Mode[i] = mode.get(i);
+                                Supplier[i] = supplier.get(i);
+                                count++;
+                                try
                                 {
-                                    productList[i] = Product.get(i);
-                                    Date[i] = date.get(i);
-                                    Amount[i] = money.get(i);
-                                    Quantity[i] = quantity.get(i);
-                                    Mode[i] = mode.get(i);
-                                    Supplier[i] = supplier.get(i);
-                                    count++;
-                                    try
-                                    {
-                                        total += Double.parseDouble(Amount[i]);
-                                        quant += (int)Double.parseDouble(Quantity[i]);
-                                    }catch (Exception es)
-                                    {
+                                    total += Double.parseDouble(Amount[i]);
+                                    quant += (int)Double.parseDouble(Quantity[i]);
+                                }catch (Exception es)
+                                {
 
-                                    }
                                 }
+                            }
 
-                                Date[Product.size()] = count+" Total";
-                                Amount[money.size()] = total+"";
-                                Quantity[quantity.size()] = quant+"";
+                            Date[Product.size()] = count+" Total";
+                            Amount[money.size()] = total+"";
+                            Quantity[quantity.size()] = quant+"";
 
-                                /*TODO : change Page */
+                            /*TODO : change Page */
 //                            try{
 //                                if (Date[Product.size()].equals(betweenDates[Dates.size()])){
 //                                    Intent intent = new Intent(sellHistory.this,fiveItemLister.class);
@@ -441,18 +440,20 @@ public class buyHistoryByProduct extends AppCompatActivity {
 //                                }
 //                            }catch (Exception ex){}
 
-                                statementAdapter historyPayList = new statementAdapter(buyHistoryByProduct.this,Date,productList,Supplier,Quantity,Amount,Mode);
-                                listView.setAdapter(historyPayList);
+                            statementAdapter historyPayList = new statementAdapter(buyHistoryByProduct.this,Date,productList,Supplier,Quantity,Amount,Mode);
+                            listView.setAdapter(historyPayList);
 
-                                remainAmount.setText("Total Money : "+total);
+                            remainAmount.setText("Total Money : "+total);
+
+                            if (iFinal==(Dates.size()-1)){
 
                                 MyProgressBar.HideProgress();
                             }
                         }
 
                         @Override
-                        public void onCancelled(DatabaseError databaseError) {
-
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+                            MyProgressBar.HideProgress();
                         }
                     });
 
@@ -510,7 +511,7 @@ public class buyHistoryByProduct extends AppCompatActivity {
                     Query query = mBuyRef.orderByChild("date_productName").equalTo(betweenDates[i]+"_"+searchProduct);
                     query.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                             for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren())
                             {
@@ -522,41 +523,40 @@ public class buyHistoryByProduct extends AppCompatActivity {
                                 supplier.add(dataSnapshot1.child("supplierName").getValue(String.class));
 
                             }
-                            if (iFinal==(Dates.size()-1)){
-                                final String productList[] = new String[Product.size()+1];
-                                String Date[] = new String[date.size()+1];
-                                String Amount[] = new String[money.size()+1];
-                                String Mode[] = new String[mode.size()+1];
-                                String Quantity[] = new String[quantity.size()+1];
-                                String Supplier[] = new String[supplier.size()+1];
+                            final String productList[] = new String[Product.size()+1];
+                            String Date[] = new String[date.size()+1];
+                            String Amount[] = new String[money.size()+1];
+                            String Mode[] = new String[mode.size()+1];
+                            String Quantity[] = new String[quantity.size()+1];
+                            String Supplier[] = new String[supplier.size()+1];
 
-                                double total = 0;
-                                int quant = 0;
-                                int count = 0;
-                                for (int i = 0; i < Product.size(); i++)
+                            double total = 0;
+                            int quant = 0;
+                            int count = 0;
+                            for (int i = 0; i < Product.size(); i++)
+                            {
+                                productList[i] = Product.get(i);
+                                Date[i] = date.get(i);
+                                Amount[i] = money.get(i);
+                                Quantity[i] = quantity.get(i);
+                                Mode[i] = mode.get(i);
+                                Supplier[i] = supplier.get(i);
+                                count++;
+                                try
                                 {
-                                    productList[i] = Product.get(i);
-                                    Date[i] = date.get(i);
-                                    Amount[i] = money.get(i);
-                                    Quantity[i] = quantity.get(i);
-                                    Mode[i] = mode.get(i);
-                                    Supplier[i] = supplier.get(i);
-                                    count++;
-                                    try
-                                    {
-                                        total += Double.parseDouble(Amount[i]);
-                                        quant += (int)Double.parseDouble(Quantity[i]);
-                                    }catch (Exception es)
-                                    {
+                                    total += Double.parseDouble(Amount[i]);
+                                    quant += (int)Double.parseDouble(Quantity[i]);
+                                }catch (Exception es)
+                                {
 
-                                    }
                                 }
+                            }
 
-                                Date[Product.size()] = count+" Total";
-                                Amount[money.size()] = total+"";
-                                Quantity[quantity.size()] = quant+"";
+                            Date[Product.size()] = count+" Total";
+                            Amount[money.size()] = total+"";
+                            Quantity[quantity.size()] = quant+"";
 
-                                /*TODO : Change Page*/
+                            /*TODO : Change Page*/
 //                            try{
 //                                if (Date[Product.size()].equals(betweenDates[Dates.size()])){
 //                                    Intent intent = new Intent(sellHistory.this,fiveItemLister.class);
@@ -579,11 +579,12 @@ public class buyHistoryByProduct extends AppCompatActivity {
 //                                }
 //                            }catch (Exception ex){}
 
-                                statementAdapter historyPayList = new statementAdapter(buyHistoryByProduct.this,Date,productList,Supplier,Quantity,Amount,Mode);
-                                listView.setAdapter(historyPayList);
+                            statementAdapter historyPayList = new statementAdapter(buyHistoryByProduct.this,Date,productList,Supplier,Quantity,Amount,Mode);
+                            listView.setAdapter(historyPayList);
 
-                                remainAmount.setText("Total Money : "+total);
+                            remainAmount.setText("Total Money : "+total);
 
+                            if (iFinal==(Dates.size()-1)){
                                 MyProgressBar.HideProgress();
                             }
 
@@ -591,8 +592,8 @@ public class buyHistoryByProduct extends AppCompatActivity {
                         }
 
                         @Override
-                        public void onCancelled(DatabaseError databaseError) {
-
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+                            MyProgressBar.HideProgress();
                         }
                     });
 

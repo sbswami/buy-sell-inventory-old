@@ -64,7 +64,7 @@ public class Product extends AppCompatActivity {
 
         MyProgressBar.ShowProgress(this);
         final DatabaseReference mProductRefMain = mRootRef.child(user.getUid()+"/product");
-        mProductRefMain.addListenerForSingleValueEvent(new ValueEventListener() {
+        mProductRefMain.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
@@ -105,6 +105,7 @@ public class Product extends AppCompatActivity {
                                         @Override
                                         public void onClick(DialogInterface dialogInterface, int i2) {
                                             final DatabaseReference mStockRef = mRootRef.child(user.getUid()+"/stock");
+                                            MyProgressBar.ShowProgress(Product.this);
                                             Query query = mStockRef.orderByChild("productName").equalTo(Name[i]);
                                             query.addListenerForSingleValueEvent(new ValueEventListener() {
                                                 @Override
@@ -223,7 +224,7 @@ public class Product extends AppCompatActivity {
                         final DatabaseReference mProductRef = mRootRef.child(user.getUid()+"/product");
                         Query query = mProductRef.orderByChild("name").equalTo(suggestion_box4.getText().toString());
                         MyProgressBar.ShowProgress(Product.this);
-                        query.addListenerForSingleValueEvent(new ValueEventListener() {
+                        query.addValueEventListener(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
@@ -263,10 +264,10 @@ public class Product extends AppCompatActivity {
                                                         public void onClick(DialogInterface dialogInterface, int i2) {
                                                             final DatabaseReference mStockRef = mRootRef.child(user.getUid()+"/stock");
                                                             Query query = mStockRef.orderByChild("productName").equalTo(Name[i]);
-
+                                                            MyProgressBar.ShowProgress(Product.this);
                                                             query.addListenerForSingleValueEvent(new ValueEventListener() {
                                                                 @Override
-                                                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                                                     double Money = 0;
                                                                     try
                                                                     {
@@ -278,13 +279,14 @@ public class Product extends AppCompatActivity {
                                                                     }
                                                                     if (Money == 0)
                                                                     {
+
                                                                         Query applesQuery = mProductRef.orderByChild("name").equalTo(Name[i]);
                                                                         Query deleteOnHold = mStockRef.orderByChild("productName").equalTo(Name[i]);
                                                                         final ArrayList<String> temp1 = new ArrayList<>();
                                                                         final ArrayList<String> temp2 = new ArrayList<>();
                                                                         applesQuery.addListenerForSingleValueEvent(new ValueEventListener() {
                                                                             @Override
-                                                                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                                                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                                                                 if (temp1.size() == 0)
                                                                                 {
                                                                                     for (DataSnapshot appleSnapshot: dataSnapshot.getChildren()) {
@@ -292,17 +294,16 @@ public class Product extends AppCompatActivity {
                                                                                     }
                                                                                 }
                                                                                 temp1.add("Kuch bhi");
-
                                                                             }
 
                                                                             @Override
-                                                                            public void onCancelled(DatabaseError databaseError) {
+                                                                            public void onCancelled(@NonNull DatabaseError databaseError) {
                                                                                 Log.e("Error", "onCancelled", databaseError.toException());
                                                                             }
                                                                         });
                                                                         deleteOnHold.addListenerForSingleValueEvent(new ValueEventListener() {
                                                                             @Override
-                                                                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                                                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                                                                 if (temp2.size()==0)
                                                                                 {
                                                                                     for (DataSnapshot appleSnapshot: dataSnapshot.getChildren()) {
@@ -314,7 +315,7 @@ public class Product extends AppCompatActivity {
                                                                             }
 
                                                                             @Override
-                                                                            public void onCancelled(DatabaseError databaseError) {
+                                                                            public void onCancelled(@NonNull DatabaseError databaseError) {
                                                                                 Log.e("Error", "onCancelled", databaseError.toException());
                                                                             }
                                                                         });
@@ -331,8 +332,8 @@ public class Product extends AppCompatActivity {
                                                                 }
 
                                                                 @Override
-                                                                public void onCancelled(DatabaseError databaseError) {
-
+                                                                public void onCancelled(@NonNull DatabaseError databaseError) {
+                                                                    MyProgressBar.HideProgress();
                                                                 }
                                                             });
                                                         }

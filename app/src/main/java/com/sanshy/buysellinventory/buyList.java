@@ -248,7 +248,6 @@ public class buyList extends AppCompatActivity {
                     list[i] = cList.get(i);
                 }
                 ArrayAdapter<String> adapter = new ArrayAdapter<String>(buyList.this,android.R.layout.simple_spinner_dropdown_item, Arrays.asList(list));
-
                 suggestion_box4.setAdapter(adapter);
                 suggestion_box4.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
@@ -290,7 +289,7 @@ public class buyList extends AppCompatActivity {
                                     Query query = mBuyRef.orderByChild("date_supplierName").equalTo(DateSupplier.get(i));
                                     query.addListenerForSingleValueEvent(new ValueEventListener() {
                                         @Override
-                                        public void onDataChange(DataSnapshot dataSnapshot) {
+                                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                             ArrayList<String> Money = new ArrayList<>();
                                             String Id = "";
                                             for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren())
@@ -352,7 +351,7 @@ public class buyList extends AppCompatActivity {
                                             }
 
                                             finally {
-                                                if (iFinal==(DateSupplier.size())){
+                                                if (iFinal==(DateSupplier.size()-1)){
                                                     MyProgressBar.HideProgress();
                                                 }
                                             }

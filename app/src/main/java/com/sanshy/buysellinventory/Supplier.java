@@ -59,7 +59,7 @@ public class Supplier extends AppCompatActivity {
         MyProgressBar.ShowProgress(this);
 
         final DatabaseReference mSupplierRef = mRootRef.child(user.getUid()+"/supplier");
-        mSupplierRef.addListenerForSingleValueEvent(new ValueEventListener() {
+        mSupplierRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
@@ -136,7 +136,6 @@ public class Supplier extends AppCompatActivity {
                                                                     }
                                                                 }
                                                                 temp1.add("Kuch bhi");
-
                                                             }
 
                                                             @Override
@@ -154,7 +153,6 @@ public class Supplier extends AppCompatActivity {
                                                                     }
                                                                 }
                                                                 temp2.add("Kuchh Bhi");
-
                                                             }
 
                                                             @Override
@@ -173,7 +171,6 @@ public class Supplier extends AppCompatActivity {
                                                                 .show();
                                                     }
 
-                                                    MyProgressBar.HideProgress();
                                                 }
 
                                                 @Override

@@ -260,7 +260,7 @@ public class UndoBuy extends AppCompatActivity {
 
         DatabaseReference mOnHoldSupplier = mRootRef.child(user.getUid()+"/buy");
         MyProgressBar.ShowProgress(this);
-        mOnHoldSupplier.addListenerForSingleValueEvent(new ValueEventListener() {
+        mOnHoldSupplier.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 Product.clear();
@@ -328,8 +328,8 @@ public class UndoBuy extends AppCompatActivity {
         });
 
         final ArrayList<String> cList = new ArrayList<>();
-        DatabaseReference mCustomerRef = mRootRef.child(user.getUid()+"/product");
-        mCustomerRef.addListenerForSingleValueEvent(new ValueEventListener() {
+        DatabaseReference mProducrRef = mRootRef.child(user.getUid()+"/product");
+        mProducrRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 cList.clear();
@@ -353,9 +353,10 @@ public class UndoBuy extends AppCompatActivity {
 
                         Query query = mSearchRef.orderByChild("productName").equalTo(suggestion_box4.getText().toString());
                         MyProgressBar.ShowProgress(UndoBuy.this);
-                        query.addListenerForSingleValueEvent(new ValueEventListener() {
+                        query.addValueEventListener(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                MyProgressBar.ShowProgress(UndoBuy.this);
                                 Product.clear();
                                 date.clear();
                                 money.clear();

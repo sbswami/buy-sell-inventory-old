@@ -161,7 +161,7 @@ public class UndoExp extends AppCompatActivity {
 
         final ArrayList<String> cList = new ArrayList<>();
         DatabaseReference mRemarkRef = mRootRef.child(user.getUid()+"/remark");
-        mRemarkRef.addValueEventListener(new ValueEventListener() {
+        mRemarkRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 cList.clear();
@@ -272,8 +272,7 @@ public class UndoExp extends AppCompatActivity {
     int tday = 0;
     int tmonth = 0;
     int tYear = 0;
-    public void from(View view)
-    {
+    public void from(View view){
         final Calendar c = Calendar.getInstance();
         mYear = c.get(Calendar.YEAR);
         mMonth = c.get(Calendar.MONTH);
@@ -295,8 +294,7 @@ public class UndoExp extends AppCompatActivity {
 
         System.out.println(fday+fmonth+fYear+"");
     }
-    public void to(View view)
-    {
+    public void to(View view){
         final Calendar c = Calendar.getInstance();
         mYear = c.get(Calendar.YEAR);
         mMonth = c.get(Calendar.MONTH);
@@ -378,7 +376,7 @@ public class UndoExp extends AppCompatActivity {
                 {
                     final int iFinal = i;
                     Query query = mExpRef.orderByChild("date").equalTo(betweenDates[i]);
-                    query.addValueEventListener(new ValueEventListener() {
+                    query.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren())
@@ -480,7 +478,7 @@ public class UndoExp extends AppCompatActivity {
                 {
                     final int iFinal = i;
                     Query query = mExpRef.orderByChild("date_remark").equalTo(betweenDates[i]+"_"+searchProduct);
-                    query.addValueEventListener(new ValueEventListener() {
+                    query.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren())

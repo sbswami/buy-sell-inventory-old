@@ -250,7 +250,7 @@ public class undoSell extends AppCompatActivity {
 
         DatabaseReference mOnHoldSupplier = mRootRef.child(user.getUid()+"/sell");
         MyProgressBar.ShowProgress(this);
-        mOnHoldSupplier.addListenerForSingleValueEvent(new ValueEventListener() {
+        mOnHoldSupplier.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 Product.clear();
@@ -347,7 +347,7 @@ public class undoSell extends AppCompatActivity {
 
                         Query query = mSearchRef.orderByChild("productName").equalTo(suggestion_box4.getText().toString());
                         MyProgressBar.ShowProgress(undoSell.this);
-                        query.addListenerForSingleValueEvent(new ValueEventListener() {
+                        query.addValueEventListener(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                 Product.clear();

@@ -56,10 +56,10 @@ public class Customer extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
-
+        MyProgressBar.ShowProgress(this);
 
         final DatabaseReference mCustomerRef = mRootRef.child(user.getUid()+"/customer");
-        mCustomerRef.addListenerForSingleValueEvent(new ValueEventListener() {
+        mCustomerRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
@@ -89,6 +89,7 @@ public class Customer extends AppCompatActivity {
                     mySimpleListAdapter arrayAdapter = new mySimpleListAdapter(Customer.this, Name);
                     listView.setAdapter(arrayAdapter);
 
+                    MyProgressBar.HideProgress();
                     listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
                         public void onItemClick(AdapterView<?> adapterView, View view, final int i, long l) {
@@ -104,80 +105,75 @@ public class Customer extends AppCompatActivity {
 
                                             final DatabaseReference mOnHoldCustomerRef = mRootRef.child(user.getUid()+"/onHoldCustomer");
                                             Query query = mOnHoldCustomerRef.orderByChild("name").equalTo(Name[i]);
-                                            final ArrayList<String> tempo = new ArrayList<>();
+                                            MyProgressBar.ShowProgress(Customer.this);
                                             query.addListenerForSingleValueEvent(new ValueEventListener() {
                                                 @Override
                                                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                                    if (tempo.size() == 0)
+                                                    double Money = 0;
+                                                    try
                                                     {
-                                                        double Money = 0;
-                                                        try
-                                                        {
-                                                            Money = Double.parseDouble(dataSnapshot.child(Name[i]).child("onHoldMoney").getValue(String.class));
+                                                        Money = Double.parseDouble(dataSnapshot.child(Name[i]).child("onHoldMoney").getValue(String.class));
 
-                                                        }catch (Exception ex)
-                                                        {
+                                                    }catch (Exception ex)
+                                                    {
 
-                                                        }
-                                                        if (Money == 0)
-                                                        {
-                                                            Query applesQuery = mCustomerRef.orderByChild("namePhone").equalTo(NamePhone[i]);
-                                                            Query deleteOnHold = mOnHoldCustomerRef.orderByChild("name").equalTo(Name[i]);
-                                                            final ArrayList<String> temp1 = new ArrayList<>();
-                                                            final ArrayList<String> temp2 = new ArrayList<>();
-                                                            applesQuery.addListenerForSingleValueEvent(new ValueEventListener() {
-                                                                @Override
-                                                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                                                    if (temp1.size() == 0)
-                                                                    {
-                                                                        for (DataSnapshot appleSnapshot: dataSnapshot.getChildren()) {
-                                                                            appleSnapshot.getRef().removeValue();
-                                                                        }
-                                                                    }
-                                                                    temp1.add("Kuch bhi");
-
-                                                                }
-
-                                                                @Override
-                                                                public void onCancelled(@NonNull DatabaseError databaseError) {
-                                                                    Log.e("Error", "onCancelled", databaseError.toException());
-                                                                }
-                                                            });
-                                                            deleteOnHold.addListenerForSingleValueEvent(new ValueEventListener() {
-                                                                @Override
-                                                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                                                    if (temp2.size()==0)
-                                                                    {
-                                                                        for (DataSnapshot appleSnapshot: dataSnapshot.getChildren()) {
-                                                                            appleSnapshot.getRef().removeValue();
-                                                                        }
-                                                                    }
-                                                                    temp2.add("Kuchh Bhi");
-
-                                                                }
-
-                                                                @Override
-                                                                public void onCancelled(@NonNull DatabaseError databaseError) {
-                                                                    Log.e("Error", "onCancelled", databaseError.toException());
-                                                                }
-                                                            });
-                                                        }
-                                                        else
-                                                        {
-                                                            AlertDialog.Builder builder1 = new AlertDialog.Builder(Customer.this);
-                                                            builder1.setTitle("Can't Delete")
-                                                                    .setMessage("Payment Still Remaining")
-                                                                    .setPositiveButton("OK",null)
-                                                                    .create()
-                                                                    .show();
-                                                        }
                                                     }
-                                                    tempo.add("Kuch Bhi");
+                                                    if (Money == 0)
+                                                    {
+                                                        Query applesQuery = mCustomerRef.orderByChild("namePhone").equalTo(NamePhone[i]);
+                                                        Query deleteOnHold = mOnHoldCustomerRef.orderByChild("name").equalTo(Name[i]);
+                                                        final ArrayList<String> temp1 = new ArrayList<>();
+                                                        final ArrayList<String> temp2 = new ArrayList<>();
+                                                        applesQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+                                                            @Override
+                                                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                                                if (temp1.size() == 0)
+                                                                {
+                                                                    for (DataSnapshot appleSnapshot: dataSnapshot.getChildren()) {
+                                                                        appleSnapshot.getRef().removeValue();
+                                                                    }
+                                                                }
+                                                                temp1.add("Kuch bhi");
+                                                            }
+
+                                                            @Override
+                                                            public void onCancelled(@NonNull DatabaseError databaseError) {
+                                                                Log.e("Error", "onCancelled", databaseError.toException());
+                                                            }
+                                                        });
+                                                        deleteOnHold.addListenerForSingleValueEvent(new ValueEventListener() {
+                                                            @Override
+                                                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                                                if (temp2.size()==0)
+                                                                {
+                                                                    for (DataSnapshot appleSnapshot: dataSnapshot.getChildren()) {
+                                                                        appleSnapshot.getRef().removeValue();
+                                                                    }
+                                                                }
+                                                                temp2.add("Kuchh Bhi");
+
+                                                            }
+
+                                                            @Override
+                                                            public void onCancelled(@NonNull DatabaseError databaseError) {
+                                                                Log.e("Error", "onCancelled", databaseError.toException());
+                                                            }
+                                                        });
+                                                    }
+                                                    else
+                                                    {
+                                                        AlertDialog.Builder builder1 = new AlertDialog.Builder(Customer.this);
+                                                        builder1.setTitle("Can't Delete")
+                                                                .setMessage("Payment Still Remaining")
+                                                                .setPositiveButton("OK",null)
+                                                                .create()
+                                                                .show();
+                                                    }
                                                 }
 
                                                 @Override
                                                 public void onCancelled(@NonNull DatabaseError databaseError) {
-
+                                                    MyProgressBar.HideProgress();
                                                 }
                                             });
 
