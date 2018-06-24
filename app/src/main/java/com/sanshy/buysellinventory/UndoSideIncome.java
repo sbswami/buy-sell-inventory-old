@@ -35,6 +35,10 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import static com.sanshy.buysellinventory.SideBExp.EXPEND;
+import static com.sanshy.buysellinventory.SideBExp.INCOME;
+import static com.sanshy.buysellinventory.SideBExp.PROFIT;
+
 public class UndoSideIncome extends AppCompatActivity {
 
     AutoCompleteTextView suggestion_box4;
@@ -74,8 +78,8 @@ public class UndoSideIncome extends AppCompatActivity {
                 try
                 {
                     String RemarkS = Remark.get(i);
-                    String DateS = date.get(i);
-                    String MoneyS = money.get(i);
+                    final String DateS = date.get(i);
+                    final String MoneyS = money.get(i);
                     final String EidS = Eid.get(i);
 
                     AlertDialog.Builder builder = new AlertDialog.Builder(UndoSideIncome.this);
@@ -86,8 +90,40 @@ public class UndoSideIncome extends AppCompatActivity {
                             .setPositiveButton("Undo!", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialogInterface, int i) {
+                                    MyProgressBar.ShowProgress(UndoSideIncome.this);
                                     DatabaseReference mExp = mRootRef.child(user.getUid()+"/SideBusiness/Income/"+EidS);
                                     mExp.removeValue();
+                                    final DatabaseReference mSideStatementRef = mRootRef.child(user.getUid()+"/Statement/SideBStatement/"+DateS);
+                                    mSideStatementRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                            double IncomeMoney = Double.parseDouble(MoneyS);
+                                            if (dataSnapshot.exists()){
+
+                                                String ExpendCloud = (String) dataSnapshot.child(EXPEND).getValue();
+                                                String IncomeCloud = (String) dataSnapshot.child(INCOME).getValue();
+                                                String ProfitCloud = (String) dataSnapshot.child(PROFIT).getValue();
+
+                                                double icomCloud = Double.parseDouble(IncomeCloud);
+                                                double profCloud = Double.parseDouble(ProfitCloud);
+
+                                                double nowIncome = icomCloud-IncomeMoney;
+                                                double nowProfit = profCloud-IncomeMoney;
+
+                                                String SaveIncome = String.valueOf(nowIncome);
+                                                String SaveProfit = String.valueOf(nowProfit);
+
+                                                mSideStatementRef.child(INCOME).setValue(SaveIncome);
+                                                mSideStatementRef.child(PROFIT).setValue(SaveProfit);
+                                            }
+                                            MyProgressBar.HideProgress();
+                                        }
+
+                                        @Override
+                                        public void onCancelled(@NonNull DatabaseError databaseError) {
+                                            MyProgressBar.HideProgress();
+                                        }
+                                    });
                                 }
                             })
                             .setNeutralButton("Cancel",null);

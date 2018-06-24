@@ -21,12 +21,15 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import static com.sanshy.buysellinventory.SideBExp.EXPEND;
+import static com.sanshy.buysellinventory.SideBExp.INCOME;
+import static com.sanshy.buysellinventory.SideBExp.PROFIT;
+
 public class SideBStatementView extends AppCompatActivity {
 
-    public TextView income;
-    public TextView expend;
-    public TextView profit;
-    public Button profitButton;
+    public TextView incomeText;
+    public TextView expendText;
+    public TextView profitText;
     int checkExp = 0;
     int checkIncome = 0;
     double exp = 0;
@@ -44,11 +47,9 @@ public class SideBStatementView extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_side_bstatement_view);
 
-        income = findViewById(R.id.income);
-        expend = findViewById(R.id.expend);
-        profit = findViewById(R.id.profit);
-
-        profitButton = findViewById(R.id.profitButton);
+        incomeText = findViewById(R.id.income);
+        expendText = findViewById(R.id.expend);
+        profitText = findViewById(R.id.profit);
 
         Intent intent = getIntent();
         String dates[] = intent.getStringArrayExtra("dates");
@@ -57,86 +58,63 @@ public class SideBStatementView extends AppCompatActivity {
         System.out.println(datesList);
     }
 
+    ArrayList<Double> expList = new ArrayList<>();
+    ArrayList<Double> incomeList = new ArrayList<>();
+    ArrayList<Double> profitList = new ArrayList<>();
+
     @Override
     protected void onStart() {
         super.onStart();
-        DatabaseReference mExpRef = mRootRef.child(user.getUid()+"/SideBusiness/Expenditure");
-        DatabaseReference mIncomeRef = mRootRef.child(user.getUid()+"/SideBusiness/Income");
-        for (int h = 0; h < datesList.size(); h++)
-        {
-            final String date = datesList.get(h);
-            Query totalExpQuery = mExpRef.orderByChild("date").equalTo(date);
-            totalExpQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+
+        expList.clear();
+        incomeList.clear();
+        profitList.clear();
+        MyProgressBar.ShowProgress(this);
+        for (int x = 0; x < datesList.size(); x++){
+            final int xFinal = x;
+            String date = datesList.get(x);
+            DatabaseReference mSideStatement = mRootRef.child(user.getUid()+"/Statement/SideBStatement/"+date);
+            mSideStatement.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    double priceTotal = 0;
-                    for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren())
-                    {
-                        try
-                        {
-                            priceTotal += Double.parseDouble(dataSnapshot1.child("money").getValue(String.class));
-                        }catch (Exception ex){}
-                    }
-                    try {
-                        String st = priceTotal+"";
-                        if (st.isEmpty())
-                        {
+                    if (dataSnapshot.exists()){
+                        String exp = (String) dataSnapshot.child(EXPEND).getValue();
+                        String income = (String) dataSnapshot.child(INCOME).getValue();
+                        String profit = (String) dataSnapshot.child(PROFIT).getValue();
 
+                        double expD = Double.parseDouble(exp);
+                        double incomeD = Double.parseDouble(income);
+                        double profitD = Double.parseDouble(profit);
+
+                        expList.add(expD);
+                        incomeList.add(incomeD);
+                        profitList.add(profitD);
+                    }
+
+
+                    if (xFinal==(datesList.size()-1)){
+                        double totalExp = 0;
+                        double totalIncome = 0;
+                        double totalProfit = 0;
+                        for (int z = 0; z < profitList.size(); z++){
+                            totalExp+=expList.get(z);
+                            totalIncome+=incomeList.get(z);
+                            totalProfit+=profitList.get(z);
                         }
-                        else {
-                            tExp.add(priceTotal+"");
-                            double sum = sumAll(tExp);
-                            exp = sum;
-                            expend.setText("Total Expenditure : "+sum);
-                            checkExp = 1;
-                        }
-                    }catch (Exception ex){}
-                    //totalExp.setText("Total Expenditure : "+priceTotal);
+                        expendText.setText("Total Exp. : "+totalExp);
+                        incomeText.setText("Total Income : "+totalIncome);
+                        profitText.setText("Total Profit : "+totalProfit);
+                        MyProgressBar.HideProgress();
+                    }
                 }
 
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
-
+                    MyProgressBar.HideProgress();
                 }
             });
         }
-        for (int h = 0; h < datesList.size(); h++)
-        {
-            final String date = datesList.get(h);
-            Query totalIncomQuery = mIncomeRef.orderByChild("date").equalTo(date);
-            totalIncomQuery.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    double priceTotal = 0;
-                    for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren())
-                    {
-                        try
-                        {
-                            priceTotal += Double.parseDouble(dataSnapshot1.child("money").getValue(String.class));
-                        }catch (Exception ex){}
-                    }
-                    try {
-                        String st = priceTotal+"";
-                        if (st.isEmpty())
-                        {
 
-                        }
-                        else {
-                            tIncome.add(priceTotal+"");
-                            double sum = sumAll(tIncome);
-                            Income = sum;
-                            income.setText("Total Income : "+sum);
-                            checkIncome = 1;
-                        }
-                    }catch (Exception ex){}
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                }
-            });
-        }
     }
 
     @Override
@@ -144,46 +122,5 @@ public class SideBStatementView extends AppCompatActivity {
         super.onPause();
 
         android.os.Process.killProcess(android.os.Process.myPid());
-    }
-    public void profitB(View view){
-        if ((checkExp == 0 )&&(checkIncome == 0))
-        {
-            Toast.makeText(this, "Please Wait...", Toast.LENGTH_SHORT).show();
-        }
-        else{
-            double Profit = Income - exp;
-            profit.setText("Profit : "+Profit);
-            profit.setVisibility(View.VISIBLE);
-            profitButton.setVisibility(View.GONE);
-        }
-
-    }
-
-    public double sumAll(ArrayList<String> list)
-    {
-        try
-        {
-            double all[] = new double[list.size()];
-
-            for (int g = 0; g<list.size(); g++)
-            {
-                try
-                {
-                    all[g] = Double.parseDouble(list.get(g));
-                }catch (Exception ex)
-                {
-
-                }
-            }
-
-
-            double sum = 0;
-            for (int k = 0; k < list.size(); k++)
-            {
-                sum += all[k];
-            }
-            return sum;
-        }catch (Exception ex){}
-        return 0.0;
     }
 }

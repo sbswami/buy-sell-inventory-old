@@ -30,6 +30,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 
+import static com.sanshy.buysellinventory.SideBExp.EXPEND;
+import static com.sanshy.buysellinventory.SideBExp.INCOME;
+import static com.sanshy.buysellinventory.SideBExp.PROFIT;
+
 public class SideBIncome extends AppCompatActivity {
 
     EditText money;
@@ -94,7 +98,7 @@ public class SideBIncome extends AppCompatActivity {
     }
     public void save(View view){
         MyProgressBar.ShowProgress(this);
-        String Money = money.getText().toString();
+        final String Money = money.getText().toString();
         String Remark = remark.getText().toString();
 
         if (Money.isEmpty())
@@ -138,7 +142,45 @@ public class SideBIncome extends AppCompatActivity {
         mExRef.child(Id).child("date").setValue(Date);
         mExRef.child(Id).child("date_remark").setValue(Date+"_"+Remark);
 
-        MyProgressBar.HideProgress();
+        final DatabaseReference mSideStatementRef = mRootRef.child(user.getUid()+"/Statement/SideBStatement/"+Date);
+        mSideStatementRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                double IncomeMoney = Double.parseDouble(Money);
+                if (dataSnapshot.exists()){
+
+                    String ExpendCloud = (String) dataSnapshot.child(EXPEND).getValue();
+                    String IncomeCloud = (String) dataSnapshot.child(INCOME).getValue();
+                    String ProfitCloud = (String) dataSnapshot.child(PROFIT).getValue();
+
+                    double icomCloud = Double.parseDouble(IncomeCloud);
+                    double profCloud = Double.parseDouble(ProfitCloud);
+
+                    double nowIncome = icomCloud+IncomeMoney;
+                    double nowProfit = profCloud+IncomeMoney;
+
+                    String SaveIncome = String.valueOf(nowIncome);
+                    String SaveProfit = String.valueOf(nowProfit);
+
+                    mSideStatementRef.child(INCOME).setValue(SaveIncome);
+                    mSideStatementRef.child(PROFIT).setValue(SaveProfit);
+                }
+                else {
+                    double profi = 0+IncomeMoney;
+                    String SaveProfit = String.valueOf(profi);
+                    mSideStatementRef.child(INCOME).setValue(Money);
+                    mSideStatementRef.child(PROFIT).setValue(SaveProfit);
+                    mSideStatementRef.child(EXPEND).setValue("0");
+                }
+
+                MyProgressBar.HideProgress();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                MyProgressBar.HideProgress();
+            }
+        });
 
         Toast.makeText(this, "Saved", Toast.LENGTH_SHORT).show();
         finish();

@@ -32,6 +32,9 @@ import java.util.Date;
 
 public class SideBExp extends AppCompatActivity {
 
+    public static final String EXPEND = "expendText";
+    public static final String INCOME = "incomeText";
+    public static final String PROFIT = "profitText";
     EditText money;
     AutoCompleteTextView remark;
 
@@ -94,7 +97,7 @@ public class SideBExp extends AppCompatActivity {
     }
     public void save(View view){
         MyProgressBar.ShowProgress(this);
-        String Money = money.getText().toString();
+        final String Money = money.getText().toString();
         String Remark = remark.getText().toString();
 
         if (Money.isEmpty())
@@ -131,6 +134,7 @@ public class SideBExp extends AppCompatActivity {
         Date date = new Date();
         final String Date = dateFormat.format(date);
         DatabaseReference mExRef = mRootRef.child(user.getUid()+"/SideBusiness/Expenditure");
+
         String Id = mExRef.push().getKey();
         mExRef.child(Id).child("id").setValue(Id);
         mExRef.child(Id).child("money").setValue(Money);
@@ -138,7 +142,47 @@ public class SideBExp extends AppCompatActivity {
         mExRef.child(Id).child("date").setValue(Date);
         mExRef.child(Id).child("date_remark").setValue(Date+"_"+Remark);
 
-        MyProgressBar.HideProgress();
+        final DatabaseReference mSideStatementRef = mRootRef.child(user.getUid()+"/Statement/SideBStatement/"+Date);
+        mSideStatementRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                double expMoney = Double.parseDouble(Money);
+                if (dataSnapshot.exists()){
+
+                    String ExpendCloud = (String) dataSnapshot.child(EXPEND).getValue();
+                    String IncomeCloud = (String) dataSnapshot.child(INCOME).getValue();
+                    String ProfitCloud = (String) dataSnapshot.child(PROFIT).getValue();
+
+                    double expCloud = Double.parseDouble(ExpendCloud);
+                    double profCloud = Double.parseDouble(ProfitCloud);
+
+                    double nowExp = expCloud+expMoney;
+                    double nowProfit = profCloud-expMoney;
+
+                    String SaveExp = String.valueOf(nowExp);
+                    String SaveProfit = String.valueOf(nowProfit);
+
+                    mSideStatementRef.child(EXPEND).setValue(SaveExp);
+                    mSideStatementRef.child(PROFIT).setValue(SaveProfit);
+
+                }
+                else {
+                    double profi = 0-expMoney;
+                    String SaveProfit = String.valueOf(profi);
+                    mSideStatementRef.child(EXPEND).setValue(Money);
+                    mSideStatementRef.child(PROFIT).setValue(SaveProfit);
+                    mSideStatementRef.child(INCOME).setValue("0");
+
+                }
+
+                MyProgressBar.HideProgress();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                MyProgressBar.HideProgress();
+            }
+        });
         Toast.makeText(this, "Saved", Toast.LENGTH_SHORT).show();
         finish();
     }

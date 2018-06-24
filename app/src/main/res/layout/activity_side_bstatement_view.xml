@@ -34,19 +34,6 @@
         android:textSize="19sp"
         android:textStyle="bold" />
 
-    <Button
-        android:id="@+id/profitButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:background="@drawable/buttonorange"
-        android:fontFamily="@font/carter_one"
-        android:gravity="center"
-        android:onClick="profitB"
-        android:text="@string/profit"
-        android:textColor="#fff"
-        android:textSize="22sp" />
-
     <TextView
         android:id="@+id/profit"
         android:layout_width="match_parent"
@@ -58,7 +45,6 @@
         android:text="Loading...."
         android:textColor="#000"
         android:textSize="19sp"
-        android:textStyle="bold"
-        android:visibility="gone" />
+        android:textStyle="bold" />
 
 </LinearLayout>
