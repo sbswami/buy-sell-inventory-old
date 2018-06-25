@@ -45,6 +45,7 @@ import static com.sanshy.buysellinventory.Buy.TOTAL_HOLD_PAID_TO_SUPPLIER;
 import static com.sanshy.buysellinventory.Buy.TOTAL_ON_HOLD_BUY;
 import static com.sanshy.buysellinventory.Buy.TOTAL_ON_HOLD_SELL;
 import static com.sanshy.buysellinventory.Buy.TOTAL_SELL;
+import static com.sanshy.buysellinventory.MyUserStaticClass.userIdMainStatic;
 
 public class payToSupplier extends AppCompatActivity {
 
@@ -81,7 +82,7 @@ public class payToSupplier extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        final DatabaseReference mCustomerRef = mRootRef.child(user.getUid()+"/onHoldSupplier");
+        final DatabaseReference mCustomerRef = mRootRef.child(userIdMainStatic+"/onHoldSupplier");
         MyProgressBar.ShowProgress(this);
         mCustomerRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -182,7 +183,7 @@ return;
                         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
                         Date date = new Date();
                         String Date = dateFormat.format(date);
-                        DatabaseReference mPayHistory = mRootRef.child(user.getUid()+"/payToSupplier");
+                        DatabaseReference mPayHistory = mRootRef.child(userIdMainStatic+"/payToSupplier");
                         String Id = mPayHistory.push().getKey();
                         mPayHistory.child(Id).child("payToSupplierId").setValue(Id);
                         mPayHistory.child(Id).child("name").setValue(suggestion_box3.getText().toString());
@@ -190,13 +191,13 @@ return;
                         mPayHistory.child(Id).child("money").setValue(PayMoney);
                         mPayHistory.child(Id).child("dateName").setValue(Date+"_"+suggestion_box3.getText().toString());
 
-                        DatabaseReference mOnHoldSupplier = mRootRef.child(user.getUid()+"/onHoldSupplier/");
+                        DatabaseReference mOnHoldSupplier = mRootRef.child(userIdMainStatic+"/onHoldSupplier/");
                         double result = Double.parseDouble(Amount) - Double.parseDouble(PayMoney);
 
                         mOnHoldSupplier.child(suggestion_box3.getText().toString()).child("onHoldMoney").setValue(result+"");
 
                         final double finalAmountPay = Double.parseDouble(PayMoney);
-                        final DatabaseReference mStatementInventory = mRootRef.child(user.getUid()+"/Statement/Inventory/"+Date);
+                        final DatabaseReference mStatementInventory = mRootRef.child(userIdMainStatic+"/Statement/Inventory/"+Date);
                         mStatementInventory.addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

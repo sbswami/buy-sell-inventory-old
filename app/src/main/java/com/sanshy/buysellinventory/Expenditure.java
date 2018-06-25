@@ -44,6 +44,7 @@ import static com.sanshy.buysellinventory.Buy.TOTAL_HOLD_PAID_TO_SUPPLIER;
 import static com.sanshy.buysellinventory.Buy.TOTAL_ON_HOLD_BUY;
 import static com.sanshy.buysellinventory.Buy.TOTAL_ON_HOLD_SELL;
 import static com.sanshy.buysellinventory.Buy.TOTAL_SELL;
+import static com.sanshy.buysellinventory.MyUserStaticClass.userIdMainStatic;
 
 public class Expenditure extends AppCompatActivity {
 
@@ -75,7 +76,7 @@ public class Expenditure extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        DatabaseReference mHint = mRootRef.child(user.getUid()+"/remark");
+        DatabaseReference mHint = mRootRef.child(userIdMainStatic+"/remark");
         mHint.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -141,7 +142,7 @@ return;
         }
         if (check == 0)
         {
-            DatabaseReference mHint = mRootRef.child(user.getUid()+"/remark");
+            DatabaseReference mHint = mRootRef.child(userIdMainStatic+"/remark");
 
             String Id = mHint.push().getKey();
 
@@ -151,7 +152,7 @@ return;
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         Date date = new Date();
         final String Date = dateFormat.format(date);
-        DatabaseReference mExRef = mRootRef.child(user.getUid()+"/Expenditure");
+        DatabaseReference mExRef = mRootRef.child(userIdMainStatic+"/Expenditure");
         String Id = mExRef.push().getKey();
         mExRef.child(Id).child("id").setValue(Id);
         mExRef.child(Id).child("money").setValue(Money);
@@ -159,7 +160,7 @@ return;
         mExRef.child(Id).child("date").setValue(Date);
         mExRef.child(Id).child("date_remark").setValue(Date+"_"+Remark);
 
-        final DatabaseReference mStatementInventory = mRootRef.child(user.getUid()+"/Statement/Inventory/"+Date);
+        final DatabaseReference mStatementInventory = mRootRef.child(userIdMainStatic+"/Statement/Inventory/"+Date);
         mStatementInventory.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

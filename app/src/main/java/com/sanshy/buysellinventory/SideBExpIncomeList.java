@@ -35,6 +35,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import static com.sanshy.buysellinventory.MyUserStaticClass.userIdMainStatic;
+
 public class SideBExpIncomeList extends AppCompatActivity {
 
     AutoCompleteTextView suggestion_box4;
@@ -72,7 +74,7 @@ public class SideBExpIncomeList extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
-        DatabaseReference mExp = mRootRef.child(user.getUid()+"/SideBusiness/Income");
+        DatabaseReference mExp = mRootRef.child(userIdMainStatic+"/SideBusiness/Income");
 
         Query query = mExp.limitToLast(50);
         MyProgressBar.ShowProgress(this);
@@ -128,7 +130,7 @@ public class SideBExpIncomeList extends AppCompatActivity {
         });
 
         final ArrayList<String> cList = new ArrayList<>();
-        DatabaseReference mRemarkRef = mRootRef.child(user.getUid()+"/SideBIncomeremark");
+        DatabaseReference mRemarkRef = mRootRef.child(userIdMainStatic+"/SideBIncomeremark");
         mRemarkRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -151,7 +153,7 @@ public class SideBExpIncomeList extends AppCompatActivity {
 
                         progressBar.setVisibility(View.VISIBLE);
                         progressBar.setFocusableInTouchMode(true);
-                        DatabaseReference mSearchRef = mRootRef.child(user.getUid()+"/SideBusiness/Income");
+                        DatabaseReference mSearchRef = mRootRef.child(userIdMainStatic+"/SideBusiness/Income");
 
                         Query query = mSearchRef.orderByChild("remark").equalTo(suggestion_box4.getText().toString());
                         MyProgressBar.ShowProgress(SideBExpIncomeList.this);
@@ -311,7 +313,7 @@ public class SideBExpIncomeList extends AppCompatActivity {
                         .show();
                 return;
             }
-            DatabaseReference mExpRef = mRootRef.child(user.getUid()+"/SideBusiness/Income");
+            DatabaseReference mExpRef = mRootRef.child(userIdMainStatic+"/SideBusiness/Income");
             List<Date> dates = new ArrayList<>();
             String sDate1 = fday+"/"+fmonth+"/"+fYear;
             String sDate2 = tday+"/"+tmonth+"/"+tYear;
@@ -410,7 +412,7 @@ public class SideBExpIncomeList extends AppCompatActivity {
                         .show();
                 return;
             }
-            DatabaseReference mExpRef = mRootRef.child(user.getUid()+"/SideBusiness/Income");
+            DatabaseReference mExpRef = mRootRef.child(userIdMainStatic+"/SideBusiness/Income");
             List<Date> dates = new ArrayList<>();
             String sDate1 = fday+"/"+fmonth+"/"+fYear;
             String sDate2 = tday+"/"+tmonth+"/"+tYear;

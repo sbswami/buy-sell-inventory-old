@@ -26,6 +26,8 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
+import static com.sanshy.buysellinventory.MyUserStaticClass.userIdMainStatic;
+
 public class buyList extends AppCompatActivity {
 
     AutoCompleteTextView suggestion_box4;
@@ -64,7 +66,7 @@ public class buyList extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
-        final DatabaseReference mBuyRef = mRootRef.child(user.getUid()+"/buy");
+        final DatabaseReference mBuyRef = mRootRef.child(userIdMainStatic+"/buy");
         final ArrayList<String> DateSupplier = new ArrayList<>();
         final Set<String> hs = new HashSet<>();
         MyProgressBar.ShowProgress(buyList.this);
@@ -233,7 +235,7 @@ public class buyList extends AppCompatActivity {
 //        });
 //*/
         final ArrayList<String> cList = new ArrayList<>();
-        DatabaseReference mCustomerRef = mRootRef.child(user.getUid()+"/supplier");
+        DatabaseReference mCustomerRef = mRootRef.child(userIdMainStatic+"/supplier");
         mCustomerRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -254,7 +256,7 @@ public class buyList extends AppCompatActivity {
                     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
                         String text = suggestion_box4.getText().toString();
-                        final DatabaseReference mBuyRef = mRootRef.child(user.getUid()+"/buy");
+                        final DatabaseReference mBuyRef = mRootRef.child(userIdMainStatic+"/buy");
                         final ArrayList<String> DateSupplier = new ArrayList<>();
                         final Set<String> hs = new HashSet<>();
                         MyProgressBar.ShowProgress(buyList.this);

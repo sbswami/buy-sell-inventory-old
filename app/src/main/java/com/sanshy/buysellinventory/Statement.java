@@ -81,9 +81,9 @@ public class Statement extends AppCompatActivity {
         protected void onStart() {
             super.onStart();
 
-//            final DatabaseReference mSellRef = mRootRef.child(user.getUid()+"/sell");
-//            final DatabaseReference mBuyRef = mRootRef.child(user.getUid()+"/buy");
-//            final DatabaseReference mExpRef = mRootRef.child(user.getUid()+"/Expenditure");
+//            final DatabaseReference mSellRef = mRootRef.child(userIdMainStatic+"/sell");
+//            final DatabaseReference mBuyRef = mRootRef.child(userIdMainStatic+"/buy");
+//            final DatabaseReference mExpRef = mRootRef.child(userIdMainStatic+"/Expenditure");
 //
 //            final ArrayList<String> sellDateList = new ArrayList<>();
 //            final ArrayList<String> buyDateList = new ArrayList<>();

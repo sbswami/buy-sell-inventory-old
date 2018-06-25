@@ -43,6 +43,8 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.messaging.FirebaseMessaging;
 
+import static com.sanshy.buysellinventory.MyUserStaticClass.userIdMainStatic;
+
 
 public class home extends AppCompatActivity implements RewardedVideoAdListener {
 
@@ -54,12 +56,24 @@ public class home extends AppCompatActivity implements RewardedVideoAdListener {
     Button Share;
     InterstitialAd mInterstitialAd,mInterstitialAd2;
 
+    String UserIdFromAdmin;
+
     private RewardedVideoAd mRewardedVideoAd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+        try{
+            Intent intent = getIntent();
+            UserIdFromAdmin = intent.getStringExtra("uid");
+            MyUserStaticClass.setUserIdMainStatic(UserIdFromAdmin);
+        }catch (Exception ex){
+
+
+
+        }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             // Create channel to show notifications.
@@ -361,7 +375,7 @@ public class home extends AppCompatActivity implements RewardedVideoAdListener {
                                                     FirebaseAuth mAuth = FirebaseAuth.getInstance();
                                                     FirebaseUser user = mAuth.getCurrentUser();
 
-                                                    DatabaseReference mUserRef = mRootRef.child(user.getUid());
+                                                    DatabaseReference mUserRef = mRootRef.child(userIdMainStatic);
                                                     mUserRef.removeValue();
 
                                                     Toast.makeText(home.this, "App Reset Done!!", Toast.LENGTH_SHORT).show();

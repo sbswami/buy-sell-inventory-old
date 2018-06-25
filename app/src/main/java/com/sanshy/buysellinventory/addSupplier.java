@@ -27,6 +27,8 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import static com.sanshy.buysellinventory.MyUserStaticClass.userIdMainStatic;
+
 public class addSupplier extends AppCompatActivity {
 
     private DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
@@ -66,7 +68,7 @@ public class addSupplier extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        DatabaseReference mHint = mRootRef.child(user.getUid()+"/company");
+        DatabaseReference mHint = mRootRef.child(userIdMainStatic+"/company");
         mHint.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -98,7 +100,7 @@ public class addSupplier extends AppCompatActivity {
             }
         });
 
-        DatabaseReference mHint2 = mRootRef.child(user.getUid()+"/city");
+        DatabaseReference mHint2 = mRootRef.child(userIdMainStatic+"/city");
         mHint2.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -129,7 +131,7 @@ public class addSupplier extends AppCompatActivity {
 
             }
         });
-        DatabaseReference mHint3 = mRootRef.child(user.getUid()+"/address");
+        DatabaseReference mHint3 = mRootRef.child(userIdMainStatic+"/address");
         mHint3.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -188,7 +190,7 @@ public class addSupplier extends AppCompatActivity {
         }
         if (check == 0)
         {
-            DatabaseReference mHint = mRootRef.child(user.getUid()+"/company");
+            DatabaseReference mHint = mRootRef.child(userIdMainStatic+"/company");
 
             String Id = mHint.push().getKey();
 
@@ -205,7 +207,7 @@ public class addSupplier extends AppCompatActivity {
         }
         if (check1 == 0)
         {
-            DatabaseReference mHint2 = mRootRef.child(user.getUid()+"/city");
+            DatabaseReference mHint2 = mRootRef.child(userIdMainStatic+"/city");
 
             String Id = mHint2.push().getKey();
 
@@ -222,7 +224,7 @@ public class addSupplier extends AppCompatActivity {
         }
         if (check2 == 0)
         {
-            DatabaseReference mHint2 = mRootRef.child(user.getUid()+"/address");
+            DatabaseReference mHint2 = mRootRef.child(userIdMainStatic+"/address");
 
             String Id = mHint2.push().getKey();
 
@@ -256,7 +258,7 @@ public class addSupplier extends AppCompatActivity {
         }
 
 
-        DatabaseReference allCus = mRootRef.child(user.getUid()+"/supplier");
+        DatabaseReference allCus = mRootRef.child(userIdMainStatic+"/supplier");
 
         final String finalAddress = Address;
         final String finalAddress1 = Address;
@@ -277,11 +279,11 @@ public class addSupplier extends AppCompatActivity {
                 MyProgressBar.HideProgress();
                 if (check == 0)
                 {
-                    DatabaseReference mSupplierRef = mRootRef.child(user.getUid()+"/supplier/"+Name+"_"+user.getUid());
+                    DatabaseReference mSupplierRef = mRootRef.child(userIdMainStatic+"/supplier/"+Name+"_"+userIdMainStatic);
 
                     sitem si = new sitem(Name,Company,Phone,City, finalAddress1,Name+"_"+City,Company+"_"+City);
                     mSupplierRef.setValue(si);
-                    DatabaseReference mOnHoldSupplierRef = mRootRef.child(user.getUid()+"/onHoldSupplier/"+Name);
+                    DatabaseReference mOnHoldSupplierRef = mRootRef.child(userIdMainStatic+"/onHoldSupplier/"+Name);
                     mOnHoldSupplierRef.child("id").setValue(Name+"_"+Phone);
                     mOnHoldSupplierRef.child("name").setValue(Name);
                     mOnHoldSupplierRef.child("onHoldMoney").setValue("0");

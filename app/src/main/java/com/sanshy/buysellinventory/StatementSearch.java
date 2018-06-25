@@ -43,6 +43,7 @@ import static com.sanshy.buysellinventory.Buy.TOTAL_HOLD_PAID_TO_SUPPLIER;
 import static com.sanshy.buysellinventory.Buy.TOTAL_ON_HOLD_BUY;
 import static com.sanshy.buysellinventory.Buy.TOTAL_ON_HOLD_SELL;
 import static com.sanshy.buysellinventory.Buy.TOTAL_SELL;
+import static com.sanshy.buysellinventory.MyUserStaticClass.userIdMainStatic;
 
 public class StatementSearch extends AppCompatActivity {
 
@@ -123,7 +124,7 @@ public class StatementSearch extends AppCompatActivity {
 
             final int iFinal = i;
             String Date = datesList.get(i);
-            final DatabaseReference mStatementInventory = mRootRef.child(user.getUid()+"/Statement/Inventory/"+Date);
+            final DatabaseReference mStatementInventory = mRootRef.child(userIdMainStatic+"/Statement/Inventory/"+Date);
             mStatementInventory.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

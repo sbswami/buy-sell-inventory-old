@@ -28,6 +28,8 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import static com.sanshy.buysellinventory.MyUserStaticClass.userIdMainStatic;
+
 
 public class Customer extends AppCompatActivity {
 
@@ -58,7 +60,7 @@ public class Customer extends AppCompatActivity {
 
         MyProgressBar.ShowProgress(this);
 
-        final DatabaseReference mCustomerRef = mRootRef.child(user.getUid()+"/customer");
+        final DatabaseReference mCustomerRef = mRootRef.child(userIdMainStatic+"/customer");
         mCustomerRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -103,7 +105,7 @@ public class Customer extends AppCompatActivity {
                                         @Override
                                         public void onClick(DialogInterface dialogInterface, int i2) {
 
-                                            final DatabaseReference mOnHoldCustomerRef = mRootRef.child(user.getUid()+"/onHoldCustomer");
+                                            final DatabaseReference mOnHoldCustomerRef = mRootRef.child(userIdMainStatic+"/onHoldCustomer");
                                             Query query = mOnHoldCustomerRef.orderByChild("name").equalTo(Name[i]);
                                             MyProgressBar.ShowProgress(Customer.this);
                                             query.addListenerForSingleValueEvent(new ValueEventListener() {

@@ -29,6 +29,8 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import static com.sanshy.buysellinventory.MyUserStaticClass.userIdMainStatic;
+
 
 public class Product extends AppCompatActivity {
 
@@ -63,7 +65,7 @@ public class Product extends AppCompatActivity {
         super.onStart();
 
         MyProgressBar.ShowProgress(this);
-        final DatabaseReference mProductRefMain = mRootRef.child(user.getUid()+"/product");
+        final DatabaseReference mProductRefMain = mRootRef.child(userIdMainStatic+"/product");
         mProductRefMain.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -104,7 +106,7 @@ public class Product extends AppCompatActivity {
                                     .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
                                         @Override
                                         public void onClick(DialogInterface dialogInterface, int i2) {
-                                            final DatabaseReference mStockRef = mRootRef.child(user.getUid()+"/stock");
+                                            final DatabaseReference mStockRef = mRootRef.child(userIdMainStatic+"/stock");
                                             MyProgressBar.ShowProgress(Product.this);
                                             Query query = mStockRef.orderByChild("productName").equalTo(Name[i]);
                                             query.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -200,7 +202,7 @@ public class Product extends AppCompatActivity {
         });
 
         final ArrayList<String> pList = new ArrayList<>();
-        DatabaseReference mProductSugRef = mRootRef.child(user.getUid()+"/product");
+        DatabaseReference mProductSugRef = mRootRef.child(userIdMainStatic+"/product");
         mProductSugRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -221,7 +223,7 @@ public class Product extends AppCompatActivity {
                     @Override
                     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                         listView.setFocusable(true);
-                        final DatabaseReference mProductRef = mRootRef.child(user.getUid()+"/product");
+                        final DatabaseReference mProductRef = mRootRef.child(userIdMainStatic+"/product");
                         Query query = mProductRef.orderByChild("name").equalTo(suggestion_box4.getText().toString());
                         MyProgressBar.ShowProgress(Product.this);
                         query.addValueEventListener(new ValueEventListener() {
@@ -262,7 +264,7 @@ public class Product extends AppCompatActivity {
                                                     .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
                                                         @Override
                                                         public void onClick(DialogInterface dialogInterface, int i2) {
-                                                            final DatabaseReference mStockRef = mRootRef.child(user.getUid()+"/stock");
+                                                            final DatabaseReference mStockRef = mRootRef.child(userIdMainStatic+"/stock");
                                                             Query query = mStockRef.orderByChild("productName").equalTo(Name[i]);
                                                             MyProgressBar.ShowProgress(Product.this);
                                                             query.addListenerForSingleValueEvent(new ValueEventListener() {

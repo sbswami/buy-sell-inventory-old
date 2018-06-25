@@ -34,6 +34,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import static com.sanshy.buysellinventory.MyUserStaticClass.userIdMainStatic;
+
 public class historySupplierBuy extends AppCompatActivity {
 
     AutoCompleteTextView suggestion_box4;
@@ -71,7 +73,7 @@ public class historySupplierBuy extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
-        DatabaseReference mOnHoldSupplier = mRootRef.child(user.getUid()+"/buy");
+        DatabaseReference mOnHoldSupplier = mRootRef.child(userIdMainStatic+"/buy");
         Query query =mOnHoldSupplier.orderByChild("mode").equalTo("On Hold").limitToLast(50);
         MyProgressBar.ShowProgress(this);
         query.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -136,7 +138,7 @@ public class historySupplierBuy extends AppCompatActivity {
         });
 
         final ArrayList<String> cList = new ArrayList<>();
-        DatabaseReference mCustomerRef = mRootRef.child(user.getUid()+"/supplier");
+        DatabaseReference mCustomerRef = mRootRef.child(userIdMainStatic+"/supplier");
         mCustomerRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -157,7 +159,7 @@ public class historySupplierBuy extends AppCompatActivity {
                     @Override
                     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
-                        DatabaseReference mSearchRef = mRootRef.child(user.getUid()+"/buy");
+                        DatabaseReference mSearchRef = mRootRef.child(userIdMainStatic+"/buy");
 
                         Query query = mSearchRef.orderByChild("modeSupplierName").equalTo("On Hold_"+suggestion_box4.getText().toString());
                         MyProgressBar.ShowProgress(historySupplierBuy.this);
@@ -316,7 +318,7 @@ public class historySupplierBuy extends AppCompatActivity {
                         .show();
                 return;
             }
-            DatabaseReference mOnHoldSupplier = mRootRef.child(user.getUid()+"/buy");
+            DatabaseReference mOnHoldSupplier = mRootRef.child(userIdMainStatic+"/buy");
             List<Date> dates = new ArrayList<>();
             String sDate1 = fday+"/"+fmonth+"/"+fYear;
             String sDate2 = tday+"/"+tmonth+"/"+tYear;
@@ -427,7 +429,7 @@ public class historySupplierBuy extends AppCompatActivity {
                         .show();
                 return;
             }
-            DatabaseReference mOnHoldSupplier = mRootRef.child(user.getUid()+"/buy");
+            DatabaseReference mOnHoldSupplier = mRootRef.child(userIdMainStatic+"/buy");
             List<Date> dates = new ArrayList<>();
             String sDate1 = fday+"/"+fmonth+"/"+fYear;
             String sDate2 = tday+"/"+tmonth+"/"+tYear;

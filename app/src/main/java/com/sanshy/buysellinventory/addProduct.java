@@ -28,6 +28,8 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import static com.sanshy.buysellinventory.MyUserStaticClass.userIdMainStatic;
+
 public class addProduct extends AppCompatActivity {
 
     private DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
@@ -65,7 +67,7 @@ public class addProduct extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        DatabaseReference mHint = mRootRef.child(user.getUid()+"/company");
+        DatabaseReference mHint = mRootRef.child(userIdMainStatic+"/company");
         mHint.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -122,7 +124,7 @@ public class addProduct extends AppCompatActivity {
         }
         if (check == 0)
         {
-            DatabaseReference mHint = mRootRef.child(user.getUid()+"/company");
+            DatabaseReference mHint = mRootRef.child(userIdMainStatic+"/company");
             hintList.add(Company);
             String Id = mHint.push().getKey();
 
@@ -165,7 +167,7 @@ public class addProduct extends AppCompatActivity {
 
         final String BuyPrice = tempBuyPriceHolder;
 
-        DatabaseReference allCus = mRootRef.child(user.getUid()+"/product");
+        DatabaseReference allCus = mRootRef.child(userIdMainStatic+"/product");
         MyProgressBar.ShowProgress(addProduct.this);
         allCus.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -183,11 +185,11 @@ public class addProduct extends AppCompatActivity {
                 MyProgressBar.HideProgress();
                 if (check == 0)
                 {
-                    DatabaseReference mProductRef = mRootRef.child(user.getUid()+"/product/"+Name+"_"+user.getUid());
+                    DatabaseReference mProductRef = mRootRef.child(userIdMainStatic+"/product/"+Name+"_"+userIdMainStatic);
                     pitem pi = new pitem(Name,SellPrice,BuyPrice,Company,Company+"_"+SellPrice,Company+"_"+BuyPrice);
                     mProductRef.setValue(pi);
 
-                    DatabaseReference mStockRef = mRootRef.child(user.getUid()+"/stock/"+Name);
+                    DatabaseReference mStockRef = mRootRef.child(userIdMainStatic+"/stock/"+Name);
                     stockitem stocki = new stockitem(Name,"0",BuyPrice,SellPrice);
                     mStockRef.setValue(stocki);
                     Toast.makeText(addProduct.this, "Product Saved", Toast.LENGTH_SHORT).show();

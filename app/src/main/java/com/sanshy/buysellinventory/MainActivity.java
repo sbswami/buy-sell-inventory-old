@@ -3,6 +3,7 @@ package com.sanshy.buysellinventory;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.ConnectivityManager;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -15,11 +16,17 @@ import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.IdpResponse;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -41,6 +48,8 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    ArrayList<String> allUserList = new ArrayList<>();
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -49,6 +58,79 @@ public class MainActivity extends AppCompatActivity {
 
             if (resultCode == RESULT_OK) {
                 // Successfully signed in
+
+                MyProgressBar.ShowProgress(this);
+
+                FirebaseAuth mAuth = FirebaseAuth.getInstance();
+                final FirebaseUser user = mAuth.getCurrentUser();
+
+                final DatabaseReference userIdListRef = mRootRef.child("AdminWork/AllUserList");
+                userIdListRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        allUserList.clear();
+                        if (dataSnapshot.exists()){
+                            allUserList = (ArrayList<String>) dataSnapshot.getValue();
+
+                            for (int k = 0; k < allUserList.size(); k++){
+                                if (allUserList.get(k).equals(user.getUid())){
+                                    break;
+                                }
+                                if (k==(allUserList.size()-1)){
+                                    allUserList.add(user.getUid());
+                                    userIdListRef.setValue(allUserList);
+
+
+                                    final DatabaseReference allInfoRef = mRootRef.child("AdminWork/AllDataList");
+                                    allInfoRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                            ArrayList<Map<String,String>> userDList = new ArrayList<>();
+                                            Map<String, String> userData = new HashMap<>();
+                                            userData.put("Uid",user.getUid());
+                                            userData.put("DisplayName",user.getDisplayName());
+                                            userData.put("Email",user.getEmail());
+                                            try{
+                                                userData.put("Photo",user.getPhotoUrl().toString());
+                                            }catch (Exception ex){}
+                                            userData.put("Phone",user.getPhoneNumber());
+
+                                            if (dataSnapshot.exists()){
+                                                try{
+                                                    userDList = (ArrayList<Map<String, String>>) dataSnapshot.getValue();
+                                                    userDList.add(userData);
+                                                    allInfoRef.setValue(userDList);
+
+                                                }catch (Exception ex){}
+
+                                            }
+                                            else {
+                                                userDList.add(userData);
+                                                allInfoRef.setValue(userDList);
+                                            }
+                                        }
+
+                                        @Override
+                                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                        }
+                                    });
+
+                                }
+                            }
+                        }
+                        MyProgressBar.HideProgress();
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+
+
+                MyUserStaticClass.userIdMainStatic = user.getUid();
+
                 startActivity(new Intent(this,home.class));
                 this.finish();
                 // ...

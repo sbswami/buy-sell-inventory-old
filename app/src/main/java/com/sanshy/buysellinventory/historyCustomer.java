@@ -34,6 +34,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import static com.sanshy.buysellinventory.MyUserStaticClass.userIdMainStatic;
+
 public class historyCustomer extends AppCompatActivity {
 
     AutoCompleteTextView suggestion_box4;
@@ -69,7 +71,7 @@ public class historyCustomer extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
-        DatabaseReference mOnHoldCustomerPayRef = mRootRef.child(user.getUid()+"/payByCustomer");
+        DatabaseReference mOnHoldCustomerPayRef = mRootRef.child(userIdMainStatic+"/payByCustomer");
 
         Query query = mOnHoldCustomerPayRef.limitToLast(50);
         MyProgressBar.ShowProgress(historyCustomer.this);
@@ -121,7 +123,7 @@ public class historyCustomer extends AppCompatActivity {
             }
         });
         final ArrayList<String> cList = new ArrayList<>();
-        DatabaseReference mCustomerRef = mRootRef.child(user.getUid()+"/customer");
+        DatabaseReference mCustomerRef = mRootRef.child(userIdMainStatic+"/customer");
         mCustomerRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -142,7 +144,7 @@ public class historyCustomer extends AppCompatActivity {
                     @Override
                     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
-                        DatabaseReference mSearchRef = mRootRef.child(user.getUid()+"/payByCustomer/");
+                        DatabaseReference mSearchRef = mRootRef.child(userIdMainStatic+"/payByCustomer/");
 
                         Query query = mSearchRef.orderByChild("name").equalTo(suggestion_box4.getText().toString());
                         MyProgressBar.ShowProgress(historyCustomer.this);
@@ -303,7 +305,7 @@ public class historyCustomer extends AppCompatActivity {
                         .show();
                 return;
             }
-            DatabaseReference payByCustomerRef = mRootRef.child(user.getUid()+"/payByCustomer");
+            DatabaseReference payByCustomerRef = mRootRef.child(userIdMainStatic+"/payByCustomer");
             List<Date> dates = new ArrayList<>();
             String sDate1 = fday+"/"+fmonth+"/"+fYear;
             String sDate2 = tday+"/"+tmonth+"/"+tYear;
@@ -400,7 +402,7 @@ public class historyCustomer extends AppCompatActivity {
                         .show();
                 return;
             }
-            DatabaseReference payByCustomerRef = mRootRef.child(user.getUid()+"/payByCustomer");
+            DatabaseReference payByCustomerRef = mRootRef.child(userIdMainStatic+"/payByCustomer");
             List<Date> dates = new ArrayList<>();
             String sDate1 = fday+"/"+fmonth+"/"+fYear;
             String sDate2 = tday+"/"+tmonth+"/"+tYear;

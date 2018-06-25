@@ -29,6 +29,8 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import static com.sanshy.buysellinventory.MyUserStaticClass.userIdMainStatic;
+
 public class Stock extends AppCompatActivity {
 
     ListView lv;
@@ -58,7 +60,7 @@ public class Stock extends AppCompatActivity {
         super.onStart();
 
         MyProgressBar.ShowProgress(this);
-        DatabaseReference mStockRef = mRootRef.child(user.getUid()+"/stock");
+        DatabaseReference mStockRef = mRootRef.child(userIdMainStatic+"/stock");
         mStockRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -142,7 +144,7 @@ public class Stock extends AppCompatActivity {
         });
 
         final ArrayList<String> pList = new ArrayList<>();
-        DatabaseReference mProductRefSearch = mRootRef.child(user.getUid()+"/product");
+        DatabaseReference mProductRefSearch = mRootRef.child(userIdMainStatic+"/product");
         mProductRefSearch.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -162,7 +164,7 @@ public class Stock extends AppCompatActivity {
                 suggestion_box4.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                        DatabaseReference mStockRef = mRootRef.child(user.getUid()+"/stock/"+suggestion_box4.getText().toString());
+                        DatabaseReference mStockRef = mRootRef.child(userIdMainStatic+"/stock/"+suggestion_box4.getText().toString());
                         MyProgressBar.ShowProgress(Stock.this);
                         mStockRef.addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override

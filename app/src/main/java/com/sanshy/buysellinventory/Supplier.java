@@ -28,6 +28,8 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import static com.sanshy.buysellinventory.MyUserStaticClass.userIdMainStatic;
+
 
 public class Supplier extends AppCompatActivity {
 
@@ -58,7 +60,7 @@ public class Supplier extends AppCompatActivity {
 
         MyProgressBar.ShowProgress(this);
 
-        final DatabaseReference mSupplierRef = mRootRef.child(user.getUid()+"/supplier");
+        final DatabaseReference mSupplierRef = mRootRef.child(userIdMainStatic+"/supplier");
         mSupplierRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -104,7 +106,7 @@ public class Supplier extends AppCompatActivity {
                                     .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
                                         @Override
                                         public void onClick(DialogInterface dialogInterface, int i2) {
-                                            final DatabaseReference mOnHoldSupplierRef = mRootRef.child(user.getUid()+"/onHoldSupplier");
+                                            final DatabaseReference mOnHoldSupplierRef = mRootRef.child(userIdMainStatic+"/onHoldSupplier");
                                             Query query = mOnHoldSupplierRef.orderByChild("name").equalTo(Name[i]);
                                             MyProgressBar.ShowProgress(Supplier.this);
                                             query.addListenerForSingleValueEvent(new ValueEventListener() {

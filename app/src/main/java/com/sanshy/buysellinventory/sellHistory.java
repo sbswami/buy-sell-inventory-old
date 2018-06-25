@@ -35,6 +35,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import static com.sanshy.buysellinventory.MyUserStaticClass.userIdMainStatic;
+
 public class sellHistory extends AppCompatActivity {
 
     AutoCompleteTextView suggestion_box4;
@@ -73,7 +75,7 @@ public class sellHistory extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
-        DatabaseReference mSellRef = mRootRef.child(user.getUid()+"/sell");
+        DatabaseReference mSellRef = mRootRef.child(userIdMainStatic+"/sell");
 
         Query query = mSellRef.limitToLast(50);
         MyProgressBar.ShowProgress(sellHistory.this);
@@ -142,7 +144,7 @@ public class sellHistory extends AppCompatActivity {
         });
 
         final ArrayList<String> cList = new ArrayList<>();
-        DatabaseReference mCustomerRef = mRootRef.child(user.getUid()+"/product");
+        DatabaseReference mCustomerRef = mRootRef.child(userIdMainStatic+"/product");
         mCustomerRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -163,7 +165,7 @@ public class sellHistory extends AppCompatActivity {
                     @Override
                     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
-                        DatabaseReference mSearchRef = mRootRef.child(user.getUid()+"/sell");
+                        DatabaseReference mSearchRef = mRootRef.child(userIdMainStatic+"/sell");
 
                         Query query = mSearchRef.orderByChild("productName").equalTo(suggestion_box4.getText().toString());
                         MyProgressBar.ShowProgress(sellHistory.this);
@@ -347,7 +349,7 @@ public class sellHistory extends AppCompatActivity {
                         .show();
                 return;
             }
-            DatabaseReference mSellRef = mRootRef.child(user.getUid()+"/sell");
+            DatabaseReference mSellRef = mRootRef.child(userIdMainStatic+"/sell");
             List<Date> dates = new ArrayList<>();
             String sDate1 = fday+"/"+fmonth+"/"+fYear;
             String sDate2 = tday+"/"+tmonth+"/"+tYear;
@@ -483,7 +485,7 @@ public class sellHistory extends AppCompatActivity {
                         .show();
                 return;
             }
-            DatabaseReference mSellRef = mRootRef.child(user.getUid()+"/sell");
+            DatabaseReference mSellRef = mRootRef.child(userIdMainStatic+"/sell");
             List<Date> dates = new ArrayList<>();
             String sDate1 = fday+"/"+fmonth+"/"+fYear;
             String sDate2 = tday+"/"+tmonth+"/"+tYear;
@@ -622,7 +624,7 @@ public class sellHistory extends AppCompatActivity {
             DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
             Date date2 = new Date();
             final String Date = dateFormat.format(date2);
-            DatabaseReference mSellRef = mRootRef.child(user.getUid()+"/sell");
+            DatabaseReference mSellRef = mRootRef.child(userIdMainStatic+"/sell");
             Query query = mSellRef.orderByChild("date").equalTo(Date);
             MyProgressBar.ShowProgress(sellHistory.this);
             query.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -710,7 +712,7 @@ public class sellHistory extends AppCompatActivity {
             DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
             Date date2 = new Date();
             final String Date = dateFormat.format(date2);
-            DatabaseReference mSellRef = mRootRef.child(user.getUid()+"/sell");
+            DatabaseReference mSellRef = mRootRef.child(userIdMainStatic+"/sell");
             Query query = mSellRef.orderByChild("date_productName").equalTo(Date+"_"+searchProduct);
             MyProgressBar.ShowProgress(sellHistory.this);
             query.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -802,7 +804,7 @@ public class sellHistory extends AppCompatActivity {
             DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
             cal.add(Calendar.DATE, -1);
             String Date = dateFormat.format(cal.getTime());
-            DatabaseReference mSellRef = mRootRef.child(user.getUid()+"/sell");
+            DatabaseReference mSellRef = mRootRef.child(userIdMainStatic+"/sell");
             Query query = mSellRef.orderByChild("date").equalTo(Date);
             MyProgressBar.ShowProgress(sellHistory.this);
             query.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -888,7 +890,7 @@ public class sellHistory extends AppCompatActivity {
             DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
             cal.add(Calendar.DATE, -1);
             String Date = dateFormat.format(cal.getTime());
-            DatabaseReference mSellRef = mRootRef.child(user.getUid()+"/sell");
+            DatabaseReference mSellRef = mRootRef.child(userIdMainStatic+"/sell");
             Query query = mSellRef.orderByChild("date_productName").equalTo(Date+"_"+searchProduct);
             MyProgressBar.ShowProgress(sellHistory.this);
             query.addListenerForSingleValueEvent(new ValueEventListener() {

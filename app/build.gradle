@@ -6,8 +6,8 @@ android {
         applicationId "com.sanshy.buysellinventory"
         minSdkVersion 19
         targetSdkVersion 27
-        versionCode 17
-        versionName "2.3"
+        versionCode 18
+        versionName "3.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {

@@ -28,6 +28,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
 
+import static com.sanshy.buysellinventory.MyUserStaticClass.userIdMainStatic;
+
 public class addCustomer extends AppCompatActivity {
 
     private DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
@@ -66,7 +68,7 @@ public class addCustomer extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
-        DatabaseReference mHint2 = mRootRef.child(user.getUid()+"/city");
+        DatabaseReference mHint2 = mRootRef.child(userIdMainStatic+"/city");
         mHint2.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -98,7 +100,7 @@ public class addCustomer extends AppCompatActivity {
             }
         });
 
-        DatabaseReference mHint3 = mRootRef.child(user.getUid()+"/address");
+        DatabaseReference mHint3 = mRootRef.child(userIdMainStatic+"/address");
         mHint3.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -155,7 +157,7 @@ public class addCustomer extends AppCompatActivity {
         }
         if (check1 == 0)
         {
-            DatabaseReference mHint2 = mRootRef.child(user.getUid()+"/city");
+            DatabaseReference mHint2 = mRootRef.child(userIdMainStatic+"/city");
 
             String Id = mHint2.push().getKey();
 
@@ -172,7 +174,7 @@ public class addCustomer extends AppCompatActivity {
         }
         if (check2 == 0)
         {
-            DatabaseReference mHint2 = mRootRef.child(user.getUid()+"/address");
+            DatabaseReference mHint2 = mRootRef.child(userIdMainStatic+"/address");
 
             String Id = mHint2.push().getKey();
 
@@ -200,7 +202,7 @@ public class addCustomer extends AppCompatActivity {
             Address = "Not Defined";
         }
 
-        DatabaseReference allCus = mRootRef.child(user.getUid()+"/customer");
+        DatabaseReference allCus = mRootRef.child(userIdMainStatic+"/customer");
         final String finalAddress = Address;
         MyProgressBar.ShowProgress(addCustomer.this);
         allCus.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -220,11 +222,11 @@ public class addCustomer extends AppCompatActivity {
                 MyProgressBar.HideProgress();
                 if (check == 0)
                 {
-                    DatabaseReference mCustomerRef = mRootRef.child(user.getUid()+"/customer/"+Name+"_"+Phone+"_"+user.getUid());
+                    DatabaseReference mCustomerRef = mRootRef.child(userIdMainStatic+"/customer/"+Name+"_"+Phone+"_"+userIdMainStatic);
 
                     citem ci = new citem(Name,Phone,City, finalAddress,Name+"_"+Phone,Name+"_"+City);
                     mCustomerRef.setValue(ci);
-                    DatabaseReference mOnHoldCustomerRef = mRootRef.child(user.getUid()+"/onHoldCustomer/"+Name);
+                    DatabaseReference mOnHoldCustomerRef = mRootRef.child(userIdMainStatic+"/onHoldCustomer/"+Name);
                     mOnHoldCustomerRef.child("name").setValue(Name);
                     mOnHoldCustomerRef.child("onHoldMoney").setValue("0");
                     mOnHoldCustomerRef.child("grossProfit").setValue("0");

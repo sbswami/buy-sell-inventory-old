@@ -30,6 +30,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 
+import static com.sanshy.buysellinventory.MyUserStaticClass.userIdMainStatic;
 import static com.sanshy.buysellinventory.SideBExp.EXPEND;
 import static com.sanshy.buysellinventory.SideBExp.INCOME;
 import static com.sanshy.buysellinventory.SideBExp.PROFIT;
@@ -64,7 +65,7 @@ public class SideBIncome extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        DatabaseReference mHint = mRootRef.child(user.getUid()+"/SideBIncomeremark");
+        DatabaseReference mHint = mRootRef.child(userIdMainStatic+"/SideBIncomeremark");
         mHint.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -124,7 +125,7 @@ public class SideBIncome extends AppCompatActivity {
         }
         if (check == 0)
         {
-            DatabaseReference mHint = mRootRef.child(user.getUid()+"/SideBIncomeremark");
+            DatabaseReference mHint = mRootRef.child(userIdMainStatic+"/SideBIncomeremark");
 
             String Id = mHint.push().getKey();
 
@@ -134,7 +135,7 @@ public class SideBIncome extends AppCompatActivity {
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         Date date = new Date();
         final String Date = dateFormat.format(date);
-        DatabaseReference mExRef = mRootRef.child(user.getUid()+"/SideBusiness/Income");
+        DatabaseReference mExRef = mRootRef.child(userIdMainStatic+"/SideBusiness/Income");
         String Id = mExRef.push().getKey();
         mExRef.child(Id).child("id").setValue(Id);
         mExRef.child(Id).child("money").setValue(Money);
@@ -142,7 +143,7 @@ public class SideBIncome extends AppCompatActivity {
         mExRef.child(Id).child("date").setValue(Date);
         mExRef.child(Id).child("date_remark").setValue(Date+"_"+Remark);
 
-        final DatabaseReference mSideStatementRef = mRootRef.child(user.getUid()+"/Statement/SideBStatement/"+Date);
+        final DatabaseReference mSideStatementRef = mRootRef.child(userIdMainStatic+"/Statement/SideBStatement/"+Date);
         mSideStatementRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

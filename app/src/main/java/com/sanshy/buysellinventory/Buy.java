@@ -35,6 +35,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 
+import static com.sanshy.buysellinventory.MyUserStaticClass.userIdMainStatic;
+
 public class Buy extends AppCompatActivity {
 
     public static final String TOTAL_HOLD_PAID_TO_SUPPLIER = "TotalHoldPaidToSupplier";
@@ -95,8 +97,8 @@ public class Buy extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
-        final DatabaseReference mProductRef = mRootRef.child(user.getUid()+"/product");
-        final DatabaseReference mSupplierRef = mRootRef.child(user.getUid()+"/supplier");
+        final DatabaseReference mProductRef = mRootRef.child(userIdMainStatic+"/product");
+        final DatabaseReference mSupplierRef = mRootRef.child(userIdMainStatic+"/supplier");
 
         mSupplierRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -297,7 +299,7 @@ return;
                 MyProgressBar.HideProgress();
 return;
             }
-            final DatabaseReference mOnHoldSupplierRef = mRootRef.child(user.getUid()+"/onHoldSupplier/"+SupplierName);
+            final DatabaseReference mOnHoldSupplierRef = mRootRef.child(userIdMainStatic+"/onHoldSupplier/"+SupplierName);
             mOnHoldSupplierRef.child("onHoldMoney").addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -329,8 +331,8 @@ return;
         @SuppressLint("SimpleDateFormat") DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         Date date = new Date();
         String Date = dateFormat.format(date);
-        DatabaseReference mBuyRef = mRootRef.child(user.getUid()+"/buy");
-        final DatabaseReference mStockRef = mRootRef.child(user.getUid()+"/stock/"+ProductName);
+        DatabaseReference mBuyRef = mRootRef.child(userIdMainStatic+"/buy");
+        final DatabaseReference mStockRef = mRootRef.child(userIdMainStatic+"/stock/"+ProductName);
         final String[] temp = new String[1];
         mStockRef.child("quantity").addListenerForSingleValueEvent(new ValueEventListener() {
 
@@ -369,7 +371,7 @@ return;
         bitem bi = new bitem(ProductName,Quantity,Price,PayType,SupplierName,buyId,Date,Date+"_"+SupplierName,Date+"_"+ProductName,PayType+"_"+ProductName,PayType+"_"+SupplierName,Date+"_"+PayType,productBuyPrice,productSellPrice);
         mBuyRef.child(buyId).setValue(bi);
         
-        final DatabaseReference mStatementInventory = mRootRef.child(user.getUid()+"/Statement/Inventory/"+Date);
+        final DatabaseReference mStatementInventory = mRootRef.child(userIdMainStatic+"/Statement/Inventory/"+Date);
         mStatementInventory.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

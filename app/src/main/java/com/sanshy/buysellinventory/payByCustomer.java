@@ -45,12 +45,14 @@ import static com.sanshy.buysellinventory.Buy.TOTAL_HOLD_PAID_TO_SUPPLIER;
 import static com.sanshy.buysellinventory.Buy.TOTAL_ON_HOLD_BUY;
 import static com.sanshy.buysellinventory.Buy.TOTAL_ON_HOLD_SELL;
 import static com.sanshy.buysellinventory.Buy.TOTAL_SELL;
+import static com.sanshy.buysellinventory.MyUserStaticClass.userIdMainStatic;
 
 public class payByCustomer extends AppCompatActivity {
 
     private DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
     private FirebaseUser user = mAuth.getCurrentUser();
+
 
     AutoCompleteTextView suggestion_box3;
     TextView remainAmount;
@@ -83,7 +85,7 @@ public class payByCustomer extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        final DatabaseReference mCustomerRef = mRootRef.child(user.getUid()+"/onHoldCustomer");
+        final DatabaseReference mCustomerRef = mRootRef.child(userIdMainStatic+"/onHoldCustomer");
         MyProgressBar.ShowProgress(this);
         mCustomerRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -203,7 +205,7 @@ return;
                         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
                         Date date = new Date();
                         String Date = dateFormat.format(date);
-                        DatabaseReference mPayHistory = mRootRef.child(user.getUid()+"/payByCustomer");
+                        DatabaseReference mPayHistory = mRootRef.child(userIdMainStatic+"/payByCustomer");
                         String Id = mPayHistory.push().getKey();
                         mPayHistory.child(Id).child("payByCustomerId").setValue(Id);
                         mPayHistory.child(Id).child("name").setValue(suggestion_box3.getText().toString());
@@ -214,7 +216,7 @@ return;
 
 
 
-                        DatabaseReference mOnHoldCustomer = mRootRef.child(user.getUid()+"/onHoldCustomer/");
+                        DatabaseReference mOnHoldCustomer = mRootRef.child(userIdMainStatic+"/onHoldCustomer/");
                         double result = Double.parseDouble(Amount) - Double.parseDouble(PayMoney);
                         double resultProfit = Double.parseDouble(Profit) - PayProfit;
 
@@ -223,7 +225,7 @@ return;
 
                         final double finalPayProfit = PayProfit;
                         final double finalAmountPay = Double.parseDouble(PayMoney);
-                        final DatabaseReference mStatementInventory = mRootRef.child(user.getUid()+"/Statement/Inventory/"+Date);
+                        final DatabaseReference mStatementInventory = mRootRef.child(userIdMainStatic+"/Statement/Inventory/"+Date);
                         mStatementInventory.addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

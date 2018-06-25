@@ -21,6 +21,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import static com.sanshy.buysellinventory.MyUserStaticClass.userIdMainStatic;
 import static com.sanshy.buysellinventory.SideBExp.EXPEND;
 import static com.sanshy.buysellinventory.SideBExp.INCOME;
 import static com.sanshy.buysellinventory.SideBExp.PROFIT;
@@ -73,7 +74,7 @@ public class SideBStatementView extends AppCompatActivity {
         for (int x = 0; x < datesList.size(); x++){
             final int xFinal = x;
             String date = datesList.get(x);
-            DatabaseReference mSideStatement = mRootRef.child(user.getUid()+"/Statement/SideBStatement/"+date);
+            DatabaseReference mSideStatement = mRootRef.child(userIdMainStatic+"/Statement/SideBStatement/"+date);
             mSideStatement.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

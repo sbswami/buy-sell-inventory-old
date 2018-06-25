@@ -31,6 +31,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import static com.sanshy.buysellinventory.MyUserStaticClass.userIdMainStatic;
+
 public class buyHistoryByProduct extends AppCompatActivity {
 
     AutoCompleteTextView suggestion_box4;
@@ -55,8 +57,8 @@ public class buyHistoryByProduct extends AppCompatActivity {
 
 
 
-    DatabaseReference mProductRef = mRootRef.child(user.getUid()+"/product");
-    DatabaseReference mBuyQuery = mRootRef.child(user.getUid()+"/buy");
+    DatabaseReference mProductRef = mRootRef.child(userIdMainStatic+"/product");
+    DatabaseReference mBuyQuery = mRootRef.child(userIdMainStatic+"/buy");
     Query holdQuery = mBuyQuery.limitToLast(50);
 
 
@@ -172,7 +174,7 @@ public class buyHistoryByProduct extends AppCompatActivity {
                     @Override
                     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
-                        DatabaseReference mSearchRef = mRootRef.child(user.getUid()+"/buy");
+                        DatabaseReference mSearchRef = mRootRef.child(userIdMainStatic+"/buy");
 
                         Query query = mSearchRef.orderByChild("productName").equalTo(suggestion_box4.getText().toString());
                         MyProgressBar.ShowProgress(buyHistoryByProduct.this);
@@ -337,7 +339,7 @@ public class buyHistoryByProduct extends AppCompatActivity {
                         .show();
                 return;
             }
-            DatabaseReference mBuyRef = mRootRef.child(user.getUid()+"/buy");
+            DatabaseReference mBuyRef = mRootRef.child(userIdMainStatic+"/buy");
             List<Date> dates = new ArrayList<>();
             String sDate1 = fday+"/"+fmonth+"/"+fYear;
             String sDate2 = tday+"/"+tmonth+"/"+tYear;
@@ -476,7 +478,7 @@ public class buyHistoryByProduct extends AppCompatActivity {
                         .show();
                 return;
             }
-            DatabaseReference mBuyRef = mRootRef.child(user.getUid()+"/buy");
+            DatabaseReference mBuyRef = mRootRef.child(userIdMainStatic+"/buy");
             List<Date> dates = new ArrayList<>();
             String sDate1 = fday+"/"+fmonth+"/"+fYear;
             String sDate2 = tday+"/"+tmonth+"/"+tYear;

@@ -48,6 +48,7 @@ import static com.sanshy.buysellinventory.Buy.TOTAL_HOLD_PAID_TO_SUPPLIER;
 import static com.sanshy.buysellinventory.Buy.TOTAL_ON_HOLD_BUY;
 import static com.sanshy.buysellinventory.Buy.TOTAL_ON_HOLD_SELL;
 import static com.sanshy.buysellinventory.Buy.TOTAL_SELL;
+import static com.sanshy.buysellinventory.MyUserStaticClass.userIdMainStatic;
 
 public class undoSell extends AppCompatActivity {
 
@@ -116,7 +117,7 @@ public class undoSell extends AppCompatActivity {
                                 @Override
                                 public void onClick(DialogInterface dialogInterface, int i) {
                                     if (ModeText.equals("Cash")){
-                                        final DatabaseReference mStockRef = mRootRef.child(user.getUid()+"/stock/"+ProductText);
+                                        final DatabaseReference mStockRef = mRootRef.child(userIdMainStatic+"/stock/"+ProductText);
                                         final String[] temp = new String[1];
                                         MyProgressBar.ShowProgress(undoSell.this);
                                         mStockRef.child("quantity").addListenerForSingleValueEvent(new ValueEventListener() {
@@ -144,10 +145,10 @@ public class undoSell extends AppCompatActivity {
                                                 String Result = result + "";
                                                 System.out.println(Result);
                                                 mStockRef.child("quantity").setValue(Result);
-                                                DatabaseReference mUndoSellRef = mRootRef.child(user.getUid()+"/sell/"+KeyIdText);
+                                                DatabaseReference mUndoSellRef = mRootRef.child(userIdMainStatic+"/sell/"+KeyIdText);
                                                 mUndoSellRef.removeValue();
 
-                                                final DatabaseReference mStatementInventory = mRootRef.child(user.getUid()+"/Statement/Inventory/"+DateText);
+                                                final DatabaseReference mStatementInventory = mRootRef.child(userIdMainStatic+"/Statement/Inventory/"+DateText);
                                                 mStatementInventory.addListenerForSingleValueEvent(new ValueEventListener() {
                                                     @Override
                                                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -215,7 +216,7 @@ public class undoSell extends AppCompatActivity {
                                     }
                                     else if (ModeText.equals("On Hold"))
                                     {
-                                        final DatabaseReference mStockRef = mRootRef.child(user.getUid()+"/stock/"+ProductText);
+                                        final DatabaseReference mStockRef = mRootRef.child(userIdMainStatic+"/stock/"+ProductText);
                                         final String[] temp = new String[1];
                                         MyProgressBar.ShowProgress(undoSell.this);
                                         mStockRef.child("quantity").addListenerForSingleValueEvent(new ValueEventListener() {
@@ -250,7 +251,7 @@ public class undoSell extends AppCompatActivity {
                                                 final double finalOld = Old;
                                                 final double finalNew = New;
                                                 MyProgressBar.ShowProgress(undoSell.this);
-                                                final DatabaseReference mOnHoldCustomerRef = mRootRef.child(user.getUid()+"/onHoldCustomer/"+CustomerText);
+                                                final DatabaseReference mOnHoldCustomerRef = mRootRef.child(userIdMainStatic+"/onHoldCustomer/"+CustomerText);
                                                 mOnHoldCustomerRef.addListenerForSingleValueEvent(new ValueEventListener() {
                                                     @Override
                                                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -279,10 +280,10 @@ public class undoSell extends AppCompatActivity {
                                                                 System.out.println(Result);
                                                                 mStockRef.child("quantity").setValue(Result);
 
-                                                                DatabaseReference mUndoSellRef = mRootRef.child(user.getUid()+"/sell/"+KeyIdText);
+                                                                DatabaseReference mUndoSellRef = mRootRef.child(userIdMainStatic+"/sell/"+KeyIdText);
                                                                 mUndoSellRef.removeValue();
 
-                                                                final DatabaseReference mStatementInventory = mRootRef.child(user.getUid()+"/Statement/Inventory/"+DateText);
+                                                                final DatabaseReference mStatementInventory = mRootRef.child(userIdMainStatic+"/Statement/Inventory/"+DateText);
                                                                 mStatementInventory.addListenerForSingleValueEvent(new ValueEventListener() {
                                                                     @Override
                                                                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -385,7 +386,7 @@ public class undoSell extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
-        DatabaseReference mOnHoldSupplier = mRootRef.child(user.getUid()+"/sell");
+        DatabaseReference mOnHoldSupplier = mRootRef.child(userIdMainStatic+"/sell");
         MyProgressBar.ShowProgress(this);
         mOnHoldSupplier.addValueEventListener(new ValueEventListener() {
             @Override
@@ -459,7 +460,7 @@ public class undoSell extends AppCompatActivity {
         });
 
         final ArrayList<String> cList = new ArrayList<>();
-        DatabaseReference mCustomerRef = mRootRef.child(user.getUid()+"/product");
+        DatabaseReference mCustomerRef = mRootRef.child(userIdMainStatic+"/product");
         mCustomerRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -480,7 +481,7 @@ public class undoSell extends AppCompatActivity {
                     @Override
                     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
-                        DatabaseReference mSearchRef = mRootRef.child(user.getUid()+"/sell");
+                        DatabaseReference mSearchRef = mRootRef.child(userIdMainStatic+"/sell");
 
                         Query query = mSearchRef.orderByChild("productName").equalTo(suggestion_box4.getText().toString());
                         MyProgressBar.ShowProgress(undoSell.this);
@@ -648,7 +649,7 @@ public class undoSell extends AppCompatActivity {
                         .show();
                 return;
             }
-            DatabaseReference mSellRef = mRootRef.child(user.getUid()+"/sell");
+            DatabaseReference mSellRef = mRootRef.child(userIdMainStatic+"/sell");
             List<Date> dates = new ArrayList<>();
             String sDate1 = fday+"/"+fmonth+"/"+fYear;
             String sDate2 = tday+"/"+tmonth+"/"+tYear;
@@ -789,7 +790,7 @@ public class undoSell extends AppCompatActivity {
                         .show();
                 return;
             }
-            DatabaseReference mSellRef = mRootRef.child(user.getUid()+"/sell");
+            DatabaseReference mSellRef = mRootRef.child(userIdMainStatic+"/sell");
             List<Date> dates = new ArrayList<>();
             String sDate1 = fday+"/"+fmonth+"/"+fYear;
             String sDate2 = tday+"/"+tmonth+"/"+tYear;

@@ -48,6 +48,7 @@ import static com.sanshy.buysellinventory.Buy.TOTAL_HOLD_PAID_TO_SUPPLIER;
 import static com.sanshy.buysellinventory.Buy.TOTAL_ON_HOLD_BUY;
 import static com.sanshy.buysellinventory.Buy.TOTAL_ON_HOLD_SELL;
 import static com.sanshy.buysellinventory.Buy.TOTAL_SELL;
+import static com.sanshy.buysellinventory.MyUserStaticClass.userIdMainStatic;
 
 public class Sell extends AppCompatActivity {
 
@@ -100,8 +101,8 @@ public class Sell extends AppCompatActivity {
         super.onStart();
 
         MyProgressBar.ShowProgress(this);
-        final DatabaseReference mProductRef = mRootRef.child(user.getUid()+"/product");
-        final DatabaseReference mCustomerRef = mRootRef.child(user.getUid()+"/customer");
+        final DatabaseReference mProductRef = mRootRef.child(userIdMainStatic+"/product");
+        final DatabaseReference mCustomerRef = mRootRef.child(userIdMainStatic+"/customer");
 
         mCustomerRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -310,9 +311,9 @@ return;
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         Date date = new Date();
         final String Date = dateFormat.format(date);
-        final DatabaseReference mSellRef = mRootRef.child(user.getUid()+"/sell");
+        final DatabaseReference mSellRef = mRootRef.child(userIdMainStatic+"/sell");
 
-        final DatabaseReference mStockRef = mRootRef.child(user.getUid()+"/stock/"+ProductName);
+        final DatabaseReference mStockRef = mRootRef.child(userIdMainStatic+"/stock/"+ProductName);
         final String[] temp = new String[1];
         final double finalGrossProfit = grossProfit;
         mStockRef.child("quantity").addListenerForSingleValueEvent(new ValueEventListener() {
@@ -382,7 +383,7 @@ return;
                 mSellRef.child(sellId).setValue(si);
 
 
-                final DatabaseReference mOnHoldCustomerRef = mRootRef.child(user.getUid()+"/onHoldCustomer/"+CustomerName);
+                final DatabaseReference mOnHoldCustomerRef = mRootRef.child(userIdMainStatic+"/onHoldCustomer/"+CustomerName);
                 mOnHoldCustomerRef.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -408,7 +409,7 @@ return;
 
                     }
                 });
-                final DatabaseReference mStatementInventory = mRootRef.child(user.getUid()+"/Statement/Inventory/"+Date);
+                final DatabaseReference mStatementInventory = mRootRef.child(userIdMainStatic+"/Statement/Inventory/"+Date);
                 mStatementInventory.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

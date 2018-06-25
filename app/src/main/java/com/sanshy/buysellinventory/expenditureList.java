@@ -35,6 +35,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import static com.sanshy.buysellinventory.MyUserStaticClass.userIdMainStatic;
+
 public class expenditureList extends AppCompatActivity {
 
     AutoCompleteTextView suggestion_box4;
@@ -72,7 +74,7 @@ public class expenditureList extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
-        DatabaseReference mExp = mRootRef.child(user.getUid()+"/Expenditure");
+        DatabaseReference mExp = mRootRef.child(userIdMainStatic+"/Expenditure");
 
         Query query = mExp.limitToLast(50);
 
@@ -127,7 +129,7 @@ public class expenditureList extends AppCompatActivity {
         });
 
         final ArrayList<String> cList = new ArrayList<>();
-        DatabaseReference mRemarkRef = mRootRef.child(user.getUid()+"/remark");
+        DatabaseReference mRemarkRef = mRootRef.child(userIdMainStatic+"/remark");
         mRemarkRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -150,7 +152,7 @@ public class expenditureList extends AppCompatActivity {
 
                         progressBar.setVisibility(View.VISIBLE);
                         progressBar.setFocusableInTouchMode(true);
-                        DatabaseReference mSearchRef = mRootRef.child(user.getUid()+"/Expenditure");
+                        DatabaseReference mSearchRef = mRootRef.child(userIdMainStatic+"/Expenditure");
 
                         Query query = mSearchRef.orderByChild("remark").equalTo(suggestion_box4.getText().toString());
                         MyProgressBar.ShowProgress(expenditureList.this);
@@ -311,7 +313,7 @@ public class expenditureList extends AppCompatActivity {
                         .show();
                 return;
             }
-            DatabaseReference mExpRef = mRootRef.child(user.getUid()+"/Expenditure");
+            DatabaseReference mExpRef = mRootRef.child(userIdMainStatic+"/Expenditure");
             List<Date> dates = new ArrayList<>();
             String sDate1 = fday+"/"+fmonth+"/"+fYear;
             String sDate2 = tday+"/"+tmonth+"/"+tYear;
@@ -411,7 +413,7 @@ public class expenditureList extends AppCompatActivity {
                         .show();
                 return;
             }
-            DatabaseReference mExpRef = mRootRef.child(user.getUid()+"/Expenditure");
+            DatabaseReference mExpRef = mRootRef.child(userIdMainStatic+"/Expenditure");
             List<Date> dates = new ArrayList<>();
             String sDate1 = fday+"/"+fmonth+"/"+fYear;
             String sDate2 = tday+"/"+tmonth+"/"+tYear;
