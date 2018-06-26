@@ -980,8 +980,14 @@ public class sellHistory extends AppCompatActivity {
         super.onBackPressed();
 
         android.os.Process.killProcess(android.os.Process.myPid());
+
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+    }
 
     @Override
     public void onResume() {

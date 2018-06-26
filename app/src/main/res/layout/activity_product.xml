@@ -39,7 +39,7 @@
             android:background="@drawable/bluebox"
             android:completionThreshold="1"
             android:cursorVisible="true"
-            android:fontFamily="@font/carter_one"
+            android:fontFamily="@font/acme"
             android:hint="@string/product_text"
             android:paddingLeft="20sp"
             android:paddingRight="20sp"

@@ -65,13 +65,14 @@ public class home extends AppCompatActivity implements RewardedVideoAdListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+
         try{
             Intent intent = getIntent();
             UserIdFromAdmin = intent.getStringExtra("uid");
-            MyUserStaticClass.setUserIdMainStatic(UserIdFromAdmin);
+            if (UserIdFromAdmin!=null){
+                MyUserStaticClass.setUserIdMainStatic(UserIdFromAdmin);
+            }
         }catch (Exception ex){
-
-
 
         }
 

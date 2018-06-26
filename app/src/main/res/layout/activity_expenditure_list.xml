@@ -21,7 +21,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             ads:adSize="BANNER"
-            ads:adUnitId="@string/expHistory"></com.google.android.gms.ads.AdView>
+            ads:adUnitId="@string/expHistory"/>
 
         <AutoCompleteTextView
             android:id="@+id/suggestion_box4"
@@ -31,7 +31,7 @@
             android:background="@drawable/bluebox"
             android:completionThreshold="1"
             android:cursorVisible="true"
-            android:fontFamily="@font/carter_one"
+            android:fontFamily="@font/acme"
             android:hint="@string/remark_text"
             android:paddingLeft="20sp"
             android:paddingRight="20sp"
@@ -87,7 +87,7 @@
                 android:id="@+id/remainAmount"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/carter_one"
+                android:fontFamily="@font/acme"
                 android:text="@string/total_money_text"
                 android:textAlignment="center"
                 android:textColor="#000"
@@ -104,7 +104,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:fontFamily="@font/carter_one"
+                android:fontFamily="@font/acme"
                 android:text="@string/date_text"
                 android:textAlignment="center"
                 android:textColor="#000"
@@ -115,7 +115,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:fontFamily="@font/carter_one"
+                android:fontFamily="@font/acme"
                 android:text="@string/remark_text"
                 android:textAlignment="center"
                 android:textColor="#000"
@@ -126,7 +126,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:fontFamily="@font/carter_one"
+                android:fontFamily="@font/acme"
                 android:text="@string/money_text"
                 android:textAlignment="center"
                 android:textColor="#000"

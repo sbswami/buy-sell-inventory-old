@@ -568,6 +568,12 @@ public class undoSell extends AppCompatActivity {
         });
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+
+        android.os.Process.killProcess(android.os.Process.myPid());
+    }
 
 
     int fday = 0;
