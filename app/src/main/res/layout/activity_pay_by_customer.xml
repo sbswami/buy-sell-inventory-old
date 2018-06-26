@@ -47,7 +47,7 @@
                 android:text="@string/pay_by_customer_text"
                 android:textAlignment="center"
                 android:textAllCaps="true"
-                android:textColor="#71A6BE"
+                android:textColor="@color/colorAccent"
                 android:textSize="32sp" />
 
             <AutoCompleteTextView
@@ -94,7 +94,7 @@
                 android:text="@string/remaining_amount_text"
                 android:textAlignment="center"
                 android:textAllCaps="true"
-                android:textColor="#71A6BE"
+                android:textColor="@color/colorAccent"
                 android:textSize="18sp" />
 
             <LinearLayout

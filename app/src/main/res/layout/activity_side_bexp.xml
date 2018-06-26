@@ -45,7 +45,7 @@
                 android:text="@string/side_expenditure"
                 android:textAlignment="center"
                 android:textAllCaps="true"
-                android:textColor="#71A6BE"
+                android:textColor="@color/colorAccent"
                 android:textSize="32sp" />
 
             <EditText
