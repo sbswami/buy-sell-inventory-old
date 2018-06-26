@@ -29,9 +29,9 @@
 
 
         <meta-data android:name="firebase_messaging_auto_init_enabled"
-            android:value="false" />
+            android:value="true" />
         <meta-data android:name="firebase_analytics_collection_enabled"
-            android:value="false" />
+            android:value="true" />
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
@@ -113,17 +113,28 @@
         <activity
             android:name=".undoSell"
             android:parentActivityName=".Sell" />
-        <activity android:name=".UndoBuy" />
-        <activity android:name=".SideBusinessWork" />
-        <activity android:name=".SideBExp" />
-        <activity android:name=".SideBIncome" />
-        <activity android:name=".SideBStatement" />
-        <activity android:name=".SideBExpList" />
-        <activity android:name=".SideBExpIncomeList" />
-        <activity android:name=".SideBStatementView" />
-        <activity android:name=".UndoExp" />
-        <activity android:name=".UndoSideExp" />
-        <activity android:name=".UndoSideIncome"/>
+        <activity android:name=".UndoBuy"
+            android:parentActivityName=".Buy"/>
+        <activity android:name=".SideBusinessWork"
+            android:parentActivityName=".home"/>
+        <activity android:name=".SideBExp"
+            android:parentActivityName=".SideBusinessWork"/>
+        <activity android:name=".SideBIncome"
+            android:parentActivityName=".SideBusinessWork" />
+        <activity android:name=".SideBStatement"
+            android:parentActivityName=".SideBusinessWork" />
+        <activity android:name=".SideBExpList"
+            android:parentActivityName=".SideBExp"/>
+        <activity android:name=".SideBExpIncomeList"
+            android:parentActivityName=".SideBIncome"/>
+        <activity android:name=".SideBStatementView"
+            android:parentActivityName=".SideBStatement"/>
+        <activity android:name=".UndoExp"
+            android:parentActivityName=".Expenditure"/>
+        <activity android:name=".UndoSideExp"
+            android:parentActivityName=".SideBExp"/>
+        <activity android:name=".UndoSideIncome"
+            android:parentActivityName=".SideBIncome"/>
 
 
         <service

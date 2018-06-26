@@ -26,6 +26,7 @@
                 android:id="@+id/imageView2"
                 android:layout_width="match_parent"
                 android:layout_height="80sp"
+                android:visibility="gone"
                 app:srcCompat="@drawable/logo"
                 android:contentDescription="@string/img_description_logo"/>
 
@@ -46,7 +47,7 @@
                 android:text="@string/buy_text"
                 android:textAlignment="center"
                 android:textAllCaps="true"
-                android:textColor="#71A6BE"
+                android:textColor="@color/colorAccent"
                 android:textSize="32sp" />
 
             <AutoCompleteTextView
@@ -113,7 +114,7 @@
                     android:layout_weight="1"
                     android:fontFamily="@font/acme"
                     android:text="@string/cash_text"
-                    android:textColor="#7B99BE"
+                    android:textColor="@color/colorAccent"
                     android:textSize="24sp" />
 
                 <RadioButton
@@ -123,7 +124,7 @@
                     android:layout_weight="1"
                     android:fontFamily="@font/acme"
                     android:text="@string/on_hold_text"
-                    android:textColor="#7B99BE"
+                    android:textColor="@color/colorAccent"
                     android:textSize="24sp" />
 
             </RadioGroup>

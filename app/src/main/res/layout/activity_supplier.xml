@@ -17,7 +17,8 @@
             android:layout_width="match_parent"
             android:layout_height="80sp"
             android:layout_margin="5sp"
-            app:srcCompat="@drawable/logo"
+            android:visibility="gone"
+                app:srcCompat="@drawable/logo"
             android:contentDescription="@string/img_description_logo"/>
 
         <com.google.android.gms.ads.AdView
@@ -37,7 +38,7 @@
             android:text="@string/supplier_text"
             android:textAlignment="center"
             android:textAllCaps="true"
-            android:textColor="#71A6BE"
+            android:textColor="@color/colorAccent"
             android:textSize="32sp" />
 
         <ListView

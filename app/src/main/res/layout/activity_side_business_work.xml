@@ -27,6 +27,7 @@
                 android:layout_height="80sp"
                 android:layout_margin="5sp"
                 android:contentDescription="@string/img_description_logo"
+                android:visibility="gone"
                 app:srcCompat="@drawable/logo" />
 
             <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
@@ -44,7 +45,7 @@
                 android:text="@string/side_business"
                 android:textAlignment="center"
                 android:textAllCaps="true"
-                android:textColor="#71A6BE"
+                android:textColor="@color/colorAccent"
                 android:textSize="32sp" />
 
             <Button
