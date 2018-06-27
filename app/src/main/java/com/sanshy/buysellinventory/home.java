@@ -53,7 +53,6 @@ public class home extends AppCompatActivity implements RewardedVideoAdListener {
     private FirebaseAuth mAuth;
     private DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
     TextView profile;
-    Button Share;
     InterstitialAd mInterstitialAd,mInterstitialAd2;
 
     String UserIdFromAdmin;
@@ -113,7 +112,6 @@ public class home extends AppCompatActivity implements RewardedVideoAdListener {
 
         profile = findViewById(R.id.profile);
 
-        Share = findViewById(R.id.share);
 
         AdView adView1,adView2;
         adView1 = findViewById(R.id.adView);
@@ -290,7 +288,7 @@ public class home extends AppCompatActivity implements RewardedVideoAdListener {
     public void stock(View view)   {
         connectionCheck();startActivity(new Intent(this,Stock.class));
     }
-    public void payment(View view)    {
+    public void holders(View view)    {
         connectionCheck();startActivity(new Intent(this,Payment.class));
     }
     public void exp(View view)    {
@@ -340,7 +338,7 @@ public class home extends AppCompatActivity implements RewardedVideoAdListener {
 
         startActivity(new Intent(this,help.class));
     }
-    public void ad(View view){
+    public void SideBusiness(View view){
         startActivity(new Intent(this,SideBusinessWork.class));
     }
 

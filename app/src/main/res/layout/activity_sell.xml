@@ -114,7 +114,7 @@
                     android:layout_weight="1"
                     android:fontFamily="@font/acme"
                     android:text="@string/cash_text"
-                    android:textColor="#7B99BE"
+                    android:textColor="@color/colorAccent"
                     android:textSize="24sp" />
 
                 <RadioButton
@@ -124,7 +124,7 @@
                     android:layout_weight="1"
                     android:fontFamily="@font/acme"
                     android:text="@string/on_hold_text"
-                    android:textColor="#7B99BE"
+                    android:textColor="@color/colorAccent"
                     android:textSize="24sp" />
 
             </RadioGroup>

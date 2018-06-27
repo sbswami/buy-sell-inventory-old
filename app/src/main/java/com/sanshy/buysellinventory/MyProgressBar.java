@@ -23,6 +23,7 @@ public class MyProgressBar {
     public static void ShowProgress(Context myContext){
         mProgress = new ProgressDialog(myContext);
         mProgress.setMessage("Loading Data...");
+
         mProgress.show();
     }
 

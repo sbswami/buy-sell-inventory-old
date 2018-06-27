@@ -48,11 +48,13 @@ public class Stock extends AppCompatActivity {
         setContentView(R.layout.activity_stock);
 
         remainStock = findViewById(R.id.remainStock);
-        AdView adView1;
-        adView1 = findViewById(R.id.adView);
         suggestion_box4 = findViewById(R.id.suggestion_box4);
 
-        adView1.loadAd(new AdRequest.Builder().build());
+
+//        AdView adView1;
+//        adView1 = findViewById(R.id.adView);
+//
+//        adView1.loadAd(new AdRequest.Builder().build());
     }
 
     @Override

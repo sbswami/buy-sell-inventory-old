@@ -174,7 +174,7 @@
                         android:layout_marginBottom="5dp"
                         android:layout_marginTop="5dp"
                         android:layout_weight="1"
-                        android:background="@drawable/blueb"
+                        android:background="@drawable/buttonorange"
                         android:fontFamily="@font/acme"
                         android:onClick="fromSt"
                         android:paddingBottom="4sp"
@@ -191,7 +191,7 @@
                         android:layout_marginBottom="5dp"
                         android:layout_marginTop="5dp"
                         android:layout_weight="1"
-                        android:background="@drawable/blueb"
+                        android:background="@drawable/buttonorange"
                         android:fontFamily="@font/acme"
                         android:onClick="toSt"
                         android:paddingBottom="4sp"
@@ -229,7 +229,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     ads:adSize="BANNER"
-                    ads:adUnitId="@string/statement2"></com.google.android.gms.ads.AdView>
+                    ads:adUnitId="@string/statement2"/>
 
             </LinearLayout>
 

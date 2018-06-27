@@ -91,7 +91,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="70sp"
                 android:layout_margin="15sp"
-                android:background="@drawable/bluebox"
+                android:background="@drawable/blueb"
                 android:fontFamily="@font/acme"
                 android:paddingLeft="20sp"
                 android:paddingRight="20sp"

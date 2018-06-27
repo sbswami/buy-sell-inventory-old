@@ -7,4 +7,8 @@
     <dimen name="extra_large_text">30sp</dimen>
     <dimen name="super_large_text">35sp</dimen>
 
+    <dimen name="home_word">21sp</dimen>
+    <dimen name="padding_home">5sp</dimen>
+    <dimen name="margin_home">10sp</dimen>
+
 </resources>

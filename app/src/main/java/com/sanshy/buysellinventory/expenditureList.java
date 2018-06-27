@@ -64,10 +64,10 @@ public class expenditureList extends AppCompatActivity {
         listView = findViewById(R.id.listView);
         progressBar = findViewById(R.id.progressBar);
         remainAmount = findViewById(R.id.remainAmount);
-        AdView adView1;
-        adView1 = findViewById(R.id.adView);
-
-        adView1.loadAd(new AdRequest.Builder().build());
+//        AdView adView1;
+//        adView1 = findViewById(R.id.adView);
+//
+//        adView1.loadAd(new AdRequest.Builder().build());
     }
 
     @Override

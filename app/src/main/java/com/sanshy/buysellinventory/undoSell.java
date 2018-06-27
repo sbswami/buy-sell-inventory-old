@@ -79,10 +79,10 @@ public class undoSell extends AppCompatActivity {
 
         suggestion_box4 = findViewById(R.id.suggestion_box4);
         listView = findViewById(R.id.listView);
-        AdView adView1;
-        adView1 = findViewById(R.id.adView);
-
-        adView1.loadAd(new AdRequest.Builder().build());
+//        AdView adView1;
+//        adView1 = findViewById(R.id.adView);
+//
+//        adView1.loadAd(new AdRequest.Builder().build());
 
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
