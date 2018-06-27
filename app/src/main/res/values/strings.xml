@@ -277,5 +277,7 @@
      -->
     <string name="default_notification_channel_name" translatable="true">News</string>
     <string name="msg_subscribe_failed">Failed to subscribe to news topic</string>
+    <string name="get_started">Get Started</string>
+    <string name="app_intro">Start With Us and Store Your Inventory Data Online Free And Scure.</string>
 
 </resources>
