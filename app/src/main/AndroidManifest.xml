@@ -97,8 +97,7 @@
             android:name=".buyHistoryByProduct"
             android:parentActivityName=".Buy" />
         <activity
-            android:name=".sellHistory"
-            android:parentActivityName=".Sell" />
+            android:name=".sellHistory" />
         <activity
             android:name=".historyCustomerSell"
             android:parentActivityName=".payByCustomer" />

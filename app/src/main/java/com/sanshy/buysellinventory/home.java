@@ -180,9 +180,12 @@ public class home extends AppCompatActivity implements RewardedVideoAdListener {
        if (mRewardedVideoAd.isLoaded()) {
            mRewardedVideoAd.show();
        }
-       Intent emailIntent = new Intent(Intent.ACTION_SENDTO);
-       emailIntent.setData(Uri.parse("mailto: sbswami24@gmail.com"));
-       startActivity(Intent.createChooser(emailIntent, "Send feedback"));
+
+       startActivity(new Intent(this,help.class));
+
+//       Intent emailIntent = new Intent(Intent.ACTION_SENDTO);
+//       emailIntent.setData(Uri.parse("mailto: sbswami24@gmail.com"));
+//       startActivity(Intent.createChooser(emailIntent, "Send feedback"));
    }
 
     @Override

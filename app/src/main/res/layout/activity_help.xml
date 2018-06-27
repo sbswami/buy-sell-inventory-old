@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:background="@drawable/log_in_bg"
     tools:context="com.sanshy.buysellinventory.help">
 
@@ -19,8 +20,108 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal"></LinearLayout>
+        android:layout_height="wrap_content"
+        android:layout_margin="10sp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        tools:layout_editor_absoluteX="16dp">
+
+        <ImageView
+            android:layout_width="50sp"
+            android:layout_height="50sp"
+            app:srcCompat="@drawable/whats_icon" />
+
+        <TextView
+            android:id="@+id/whats_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_home"
+            android:layout_weight="1"
+            android:text="@string/mobile_number"
+            android:textColor="@color/colorAccent"
+            android:textSize="@dimen/home_word"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10sp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        tools:layout_editor_absoluteX="16dp">
+
+        <ImageView
+            android:layout_width="50sp"
+            android:layout_height="50sp"
+            app:srcCompat="@drawable/insta_icon" />
+
+        <TextView
+            android:id="@+id/insta_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_margin="@dimen/margin_home"
+            android:text="@string/insta_id"
+            android:textColor="@color/colorAccent"
+            android:textSize="@dimen/home_word"
+            android:textStyle="bold"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10sp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        tools:layout_editor_absoluteX="16dp">
+
+        <ImageView
+            android:layout_width="50sp"
+            android:layout_height="50sp"
+            app:srcCompat="@drawable/gmail_icon" />
+
+        <TextView
+            android:id="@+id/gamil_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_margin="@dimen/margin_home"
+            android:text="@string/my_email"
+            android:textColor="@color/colorAccent"
+            android:textSize="@dimen/home_word"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10sp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        tools:layout_editor_absoluteX="16dp">
+
+        <ImageView
+            android:layout_width="50sp"
+            android:layout_height="50sp"
+            app:srcCompat="@drawable/message_icon"
+            android:contentDescription="@string/message_icon_description" />
+
+        <TextView
+            android:id="@+id/message_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_margin="@dimen/margin_home"
+            android:text="@string/mobile_number"
+            android:textColor="@color/colorAccent"
+            android:textSize="@dimen/home_word"
+            android:textStyle="bold" />
+
+    </LinearLayout>
 
 
-</android.support.constraint.ConstraintLayout>
+</LinearLayout>

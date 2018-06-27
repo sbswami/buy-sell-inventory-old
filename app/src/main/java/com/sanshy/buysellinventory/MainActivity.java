@@ -33,18 +33,12 @@ public class MainActivity extends AppCompatActivity {
     private static final int RC_SIGN_IN = 123;
     private DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
 
-    TextView mini,learnMore,all;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 //        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
 //                WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
-
-        mini = findViewById(R.id.mini);
-        learnMore = findViewById(R.id.learnMore);
-        all = findViewById(R.id.all);
 
     }
 
@@ -140,10 +134,9 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void learnmore(View view){
-        mini.setVisibility(View.GONE);
-        learnMore.setVisibility(View.GONE);
-        all.setVisibility(View.VISIBLE);
+
+    public void helpMain(View view){
+        startActivity(new Intent(this,help.class));
     }
 
     public void loginView(View view)

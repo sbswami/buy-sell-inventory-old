@@ -47,6 +47,7 @@ public class sellHistory extends AppCompatActivity {
 
     private DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    DatabaseReference mSellRef = mRootRef.child(userIdMainStatic+"/sell");
     private FirebaseUser user = mAuth.getCurrentUser();
 
     ArrayList<String> Product = new ArrayList<>();
@@ -269,6 +270,11 @@ public class sellHistory extends AppCompatActivity {
 
     }
 
+    Query queryAll;
+    ValueEventListener myValue;
+    final ArrayList<String> Dates = new ArrayList<>();
+
+
     int fday = 0;
     int fmonth = 0;
     int fYear = 0;
@@ -349,7 +355,6 @@ public class sellHistory extends AppCompatActivity {
                         .show();
                 return;
             }
-            DatabaseReference mSellRef = mRootRef.child(userIdMainStatic+"/sell");
             List<Date> dates = new ArrayList<>();
             String sDate1 = fday+"/"+fmonth+"/"+fYear;
             String sDate2 = tday+"/"+tmonth+"/"+tYear;
@@ -359,7 +364,6 @@ public class sellHistory extends AppCompatActivity {
                 Date date1=new SimpleDateFormat("dd/MM/yyyy").parse(sDate1);
                 Date date2=new SimpleDateFormat("dd/MM/yyyy").parse(sDate2);
                 dates = dateInterval(date1,date2);
-                final ArrayList<String> Dates = new ArrayList<>();
                 for (int i = 0; i< dates.size(); i++)
                 {
                     Dates.add(simple.format(dates.get(i)));
@@ -380,8 +384,8 @@ public class sellHistory extends AppCompatActivity {
                 for (int i = 0; i < Dates.size(); i++)
                 {
                     final int iFinal = i;
-                    Query query = mSellRef.orderByChild("date").equalTo(betweenDates[i]);
-                    query.addListenerForSingleValueEvent(new ValueEventListener() {
+                    queryAll = mSellRef.orderByChild("date").equalTo(betweenDates[i]);
+                    myValue = new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
@@ -464,7 +468,8 @@ public class sellHistory extends AppCompatActivity {
                         public void onCancelled(@NonNull DatabaseError databaseError) {
                             MyProgressBar.HideProgress();
                         }
-                    });
+                    };
+                    queryAll.addListenerForSingleValueEvent(myValue);
 
                 }
             }
