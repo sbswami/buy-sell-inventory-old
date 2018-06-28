@@ -89,6 +89,7 @@ public class buyHistoryByProduct extends AppCompatActivity {
 
 
         MyProgressBar.ShowProgress(this);
+tempo.clear();
 
         holdQuery.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -147,6 +148,7 @@ public class buyHistoryByProduct extends AppCompatActivity {
 
                 remainAmount.setText("Total Money : "+total);
                 MyProgressBar.HideProgress();
+tempo.add(1);
             }
 
             @Override
@@ -180,6 +182,7 @@ public class buyHistoryByProduct extends AppCompatActivity {
 
                         Query query = mSearchRef.orderByChild("productName").equalTo(suggestion_box4.getText().toString());
                         MyProgressBar.ShowProgress(buyHistoryByProduct.this);
+tempo.clear();
                         query.addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -238,6 +241,7 @@ public class buyHistoryByProduct extends AppCompatActivity {
                                 remainAmount.setText("Total Money : "+total);
 
                                 MyProgressBar.HideProgress();
+tempo.add(1);
 
                             }
 
@@ -370,6 +374,7 @@ public class buyHistoryByProduct extends AppCompatActivity {
                 quantity.clear();
                 supplier.clear();
                 MyProgressBar.ShowProgress(buyHistoryByProduct.this);
+tempo.clear();
                 for (int i = 0; i < Dates.size(); i++)
                 {
                     final int iFinal = i;
@@ -452,12 +457,14 @@ public class buyHistoryByProduct extends AppCompatActivity {
                             if (iFinal==(Dates.size()-1)){
 
                                 MyProgressBar.HideProgress();
+tempo.add(1);
                             }
                         }
 
                         @Override
                         public void onCancelled(@NonNull DatabaseError databaseError) {
                             MyProgressBar.HideProgress();
+tempo.add(1);
                         }
                     });
 
@@ -509,6 +516,7 @@ public class buyHistoryByProduct extends AppCompatActivity {
                 mode.clear();
                 quantity.clear();
                 MyProgressBar.ShowProgress(buyHistoryByProduct.this);
+tempo.clear();
                 for (int i = 0; i < Dates.size(); i++)
                 {
                     final int iFinal = i;
@@ -590,6 +598,7 @@ public class buyHistoryByProduct extends AppCompatActivity {
 
                             if (iFinal==(Dates.size()-1)){
                                 MyProgressBar.HideProgress();
+tempo.add(1);
                             }
 
 
@@ -598,6 +607,7 @@ public class buyHistoryByProduct extends AppCompatActivity {
                         @Override
                         public void onCancelled(@NonNull DatabaseError databaseError) {
                             MyProgressBar.HideProgress();
+tempo.add(1);
                         }
                     });
 
@@ -614,12 +624,16 @@ public class buyHistoryByProduct extends AppCompatActivity {
 
 
     }
-
+    ArrayList<Integer> tempo = new ArrayList<>();
     @Override
     protected void onPause() {
         super.onPause();
-        android.os.Process.killProcess(android.os.Process.myPid());
+
+        if (tempo.size()==0){
+            android.os.Process.killProcess(android.os.Process.myPid());
+        }
     }
+
 
     @Override
     public void onResume() {

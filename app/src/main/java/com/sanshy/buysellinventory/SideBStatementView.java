@@ -71,6 +71,7 @@ public class SideBStatementView extends AppCompatActivity {
         incomeList.clear();
         profitList.clear();
         MyProgressBar.ShowProgress(this);
+tempo.clear();
         for (int x = 0; x < datesList.size(); x++){
             final int xFinal = x;
             String date = datesList.get(x);
@@ -106,24 +107,30 @@ public class SideBStatementView extends AppCompatActivity {
                         incomeText.setText("Total Income : "+totalIncome);
                         profitText.setText("Total Profit : "+totalProfit);
                         MyProgressBar.HideProgress();
+tempo.add(1);
                     }
                 }
 
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
                     MyProgressBar.HideProgress();
+tempo.add(1);
                 }
             });
         }
 
     }
 
+    ArrayList<Integer> tempo = new ArrayList<>();
     @Override
-    public void onPause() {
+    protected void onPause() {
         super.onPause();
 
-        android.os.Process.killProcess(android.os.Process.myPid());
+        if (tempo.size()==0){
+            android.os.Process.killProcess(android.os.Process.myPid());
+        }
     }
+
 
     @Override
     protected void onResume() {

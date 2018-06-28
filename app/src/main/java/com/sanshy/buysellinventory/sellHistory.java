@@ -1,10 +1,9 @@
 package com.sanshy.buysellinventory;
 
+import android.app.ActivityManager;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.net.ConnectivityManager;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -80,6 +79,7 @@ public class sellHistory extends AppCompatActivity {
 
         Query query = mSellRef.limitToLast(50);
         MyProgressBar.ShowProgress(sellHistory.this);
+tempo.clear();
 
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -136,11 +136,13 @@ public class sellHistory extends AppCompatActivity {
                 remainAmount.setText("Total Money : "+total);
 
                 MyProgressBar.HideProgress();
+tempo.add(1);
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 MyProgressBar.HideProgress();
+tempo.add(1);
             }
         });
 
@@ -170,6 +172,7 @@ public class sellHistory extends AppCompatActivity {
 
                         Query query = mSearchRef.orderByChild("productName").equalTo(suggestion_box4.getText().toString());
                         MyProgressBar.ShowProgress(sellHistory.this);
+tempo.clear();
                         query.addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -234,6 +237,7 @@ public class sellHistory extends AppCompatActivity {
                                 intent.putExtra("total","Total Money : "+total);
 
                                 MyProgressBar.HideProgress();
+tempo.add(1);
 
                                 startActivity(intent);
 
@@ -248,6 +252,7 @@ public class sellHistory extends AppCompatActivity {
                             @Override
                             public void onCancelled(@NonNull DatabaseError databaseError) {
                                 MyProgressBar.HideProgress();
+tempo.add(1);
                             }
                         });
 
@@ -271,9 +276,22 @@ public class sellHistory extends AppCompatActivity {
     }
 
     Query queryAll;
+    Query query2;
     ValueEventListener myValue;
     final ArrayList<String> Dates = new ArrayList<>();
 
+    ArrayList<Query> queryArrayList = new ArrayList<>();
+    ArrayList<ValueEventListener> valueEvents = new ArrayList<>();
+
+    ArrayList<Integer> tempo = new ArrayList<>();
+    @Override
+    protected void onPause() {
+        super.onPause();
+        
+        if (tempo.size()==0){
+            android.os.Process.killProcess(android.os.Process.myPid());
+        }
+    }
 
     int fday = 0;
     int fmonth = 0;
@@ -381,55 +399,58 @@ public class sellHistory extends AppCompatActivity {
                 mode.clear();
                 quantity.clear();
                 MyProgressBar.ShowProgress(sellHistory.this);
+tempo.clear();
                 for (int i = 0; i < Dates.size(); i++)
                 {
                     final int iFinal = i;
                     queryAll = mSellRef.orderByChild("date").equalTo(betweenDates[i]);
+                    queryArrayList.add(queryAll);
                     myValue = new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                            for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren())
-                            {
-                                Product.add(dataSnapshot1.child("productName").getValue(String.class));
-                                date.add(dataSnapshot1.child("date").getValue(String.class));
-                                money.add(dataSnapshot1.child("price").getValue(String.class));
-                                mode.add(dataSnapshot1.child("mode").getValue(String.class));
-                                quantity.add(dataSnapshot1.child("quantity").getValue(String.class));
-
-                            }
-                            final String productList[] = new String[Product.size()+1];
-                            String Date[] = new String[date.size()+1];
-                            String Amount[] = new String[money.size()+1];
-                            String Mode[] = new String[mode.size()+1];
-                            String Quantity[] = new String[quantity.size()+1];
-
-                            double total = 0;
-                            int quant = 0;
-                            int count = 0;
-                            for (int i = 0; i < Product.size(); i++)
-                            {
-                                productList[i] = Product.get(i);
-                                Date[i] = date.get(i);
-                                Amount[i] = money.get(i);
-                                Quantity[i] = quantity.get(i);
-                                Mode[i] = mode.get(i);
-                                count++;
-                                try
+                            if (dataSnapshot.exists()){
+                                for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren())
                                 {
-                                    total += Double.parseDouble(Amount[i]);
-                                    quant += (int)Double.parseDouble(Quantity[i]);
-                                }catch (Exception es)
-                                {
+                                    Product.add(dataSnapshot1.child("productName").getValue(String.class));
+                                    date.add(dataSnapshot1.child("date").getValue(String.class));
+                                    money.add(dataSnapshot1.child("price").getValue(String.class));
+                                    mode.add(dataSnapshot1.child("mode").getValue(String.class));
+                                    quantity.add(dataSnapshot1.child("quantity").getValue(String.class));
 
                                 }
-                            }
+                                final String productList[] = new String[Product.size()+1];
+                                String Date[] = new String[date.size()+1];
+                                String Amount[] = new String[money.size()+1];
+                                String Mode[] = new String[mode.size()+1];
+                                String Quantity[] = new String[quantity.size()+1];
 
-                            Date[Product.size()] = count+" Total";
-                            Amount[money.size()] = total+"";
-                            Quantity[quantity.size()] = quant+"";
+                                double total = 0;
+                                int quant = 0;
+                                int count = 0;
+                                for (int i = 0; i < Product.size(); i++)
+                                {
+                                    productList[i] = Product.get(i);
+                                    Date[i] = date.get(i);
+                                    Amount[i] = money.get(i);
+                                    Quantity[i] = quantity.get(i);
+                                    Mode[i] = mode.get(i);
+                                    count++;
+                                    try
+                                    {
+                                        total += Double.parseDouble(Amount[i]);
+                                        quant += (int)Double.parseDouble(Quantity[i]);
+                                    }catch (Exception es)
+                                    {
 
-                            /*TODO : change Page */
+                                    }
+                                }
+
+                                Date[Product.size()] = count+" Total";
+                                Amount[money.size()] = total+"";
+                                Quantity[quantity.size()] = quant+"";
+
+                                /*TODO : change Page */
 //                            try{
 //                                if (Date[Product.size()].equals(betweenDates[Dates.size()])){
 //                                    Intent intent = new Intent(sellHistory.this,fiveItemLister.class);
@@ -453,13 +474,16 @@ public class sellHistory extends AppCompatActivity {
 //                            }catch (Exception ex){}
 
 
-                            mySellListAdapter historyPayList = new mySellListAdapter(sellHistory.this,Date,productList,Quantity,Amount,Mode);
-                            listView.setAdapter(historyPayList);
+                                mySellListAdapter historyPayList = new mySellListAdapter(sellHistory.this,Date,productList,Quantity,Amount,Mode);
+                                listView.setAdapter(historyPayList);
 
-                            remainAmount.setText("Total Money : "+total);
+                                remainAmount.setText("Total Money : "+total);
 
+                            }
+                            queryAll.removeEventListener(this);
                             if (iFinal==(Dates.size()-1)){
                                 MyProgressBar.HideProgress();
+tempo.add(1);
                             }
 
                         }
@@ -467,9 +491,11 @@ public class sellHistory extends AppCompatActivity {
                         @Override
                         public void onCancelled(@NonNull DatabaseError databaseError) {
                             MyProgressBar.HideProgress();
+tempo.add(1);
                         }
                     };
                     queryAll.addListenerForSingleValueEvent(myValue);
+                    valueEvents.add(myValue);
 
                 }
             }
@@ -518,56 +544,60 @@ public class sellHistory extends AppCompatActivity {
                 mode.clear();
                 quantity.clear();
                 MyProgressBar.ShowProgress(sellHistory.this);
+tempo.clear();
                 for (int i = 0; i < Dates.size(); i++)
                 {
                     final int iFinal = i;
 
-                    Query query = mSellRef.orderByChild("date_productName").equalTo(betweenDates[i]+"_"+searchProduct);
-                    query.addListenerForSingleValueEvent(new ValueEventListener() {
+                    query2 = mSellRef.orderByChild("date_productName").equalTo(betweenDates[i]+"_"+searchProduct);
+                    queryArrayList.add(query2);
+                    myValue = new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                            for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren())
-                            {
-                                Product.add(dataSnapshot1.child("productName").getValue(String.class));
-                                date.add(dataSnapshot1.child("date").getValue(String.class));
-                                money.add(dataSnapshot1.child("price").getValue(String.class));
-                                mode.add(dataSnapshot1.child("mode").getValue(String.class));
-                                quantity.add(dataSnapshot1.child("quantity").getValue(String.class));
+                            if(dataSnapshot.exists()){
 
-                            }
-                            final String productList[] = new String[Product.size()+1];
-                            String Date[] = new String[date.size()+1];
-                            String Amount[] = new String[money.size()+1];
-                            String Mode[] = new String[mode.size()+1];
-                            String Quantity[] = new String[quantity.size()+1];
-
-                            double total = 0;
-                            int quant = 0;
-                            int count = 0;
-                            for (int i = 0; i < Product.size(); i++)
-                            {
-                                productList[i] = Product.get(i);
-                                Date[i] = date.get(i);
-                                Amount[i] = money.get(i);
-                                Quantity[i] = quantity.get(i);
-                                Mode[i] = mode.get(i);
-                                count++;
-                                try
+                                for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren())
                                 {
-                                    total += Double.parseDouble(Amount[i]);
-                                    quant += (int)Double.parseDouble(Quantity[i]);
-                                }catch (Exception es)
-                                {
+                                    Product.add(dataSnapshot1.child("productName").getValue(String.class));
+                                    date.add(dataSnapshot1.child("date").getValue(String.class));
+                                    money.add(dataSnapshot1.child("price").getValue(String.class));
+                                    mode.add(dataSnapshot1.child("mode").getValue(String.class));
+                                    quantity.add(dataSnapshot1.child("quantity").getValue(String.class));
 
                                 }
-                            }
+                                final String productList[] = new String[Product.size()+1];
+                                String Date[] = new String[date.size()+1];
+                                String Amount[] = new String[money.size()+1];
+                                String Mode[] = new String[mode.size()+1];
+                                String Quantity[] = new String[quantity.size()+1];
 
-                            Date[Product.size()] = count+" Total";
-                            Amount[money.size()] = total+"";
-                            Quantity[quantity.size()] = quant+"";
+                                double total = 0;
+                                int quant = 0;
+                                int count = 0;
+                                for (int i = 0; i < Product.size(); i++)
+                                {
+                                    productList[i] = Product.get(i);
+                                    Date[i] = date.get(i);
+                                    Amount[i] = money.get(i);
+                                    Quantity[i] = quantity.get(i);
+                                    Mode[i] = mode.get(i);
+                                    count++;
+                                    try
+                                    {
+                                        total += Double.parseDouble(Amount[i]);
+                                        quant += (int)Double.parseDouble(Quantity[i]);
+                                    }catch (Exception es)
+                                    {
 
-                            /*TODO : Change Page*/
+                                    }
+                                }
+
+                                Date[Product.size()] = count+" Total";
+                                Amount[money.size()] = total+"";
+                                Quantity[quantity.size()] = quant+"";
+
+                                /*TODO : Change Page*/
 //                            try{
 //                                if (Date[Product.size()].equals(betweenDates[Dates.size()])){
 //                                    Intent intent = new Intent(sellHistory.this,fiveItemLister.class);
@@ -590,13 +620,16 @@ public class sellHistory extends AppCompatActivity {
 //                                }
 //                            }catch (Exception ex){}
 
-                            mySellListAdapter historyPayList = new mySellListAdapter(sellHistory.this,Date,productList,Quantity,Amount,Mode);
-                            listView.setAdapter(historyPayList);
+                                mySellListAdapter historyPayList = new mySellListAdapter(sellHistory.this,Date,productList,Quantity,Amount,Mode);
+                                listView.setAdapter(historyPayList);
 
-                            remainAmount.setText("Total Money : "+total);
+                                remainAmount.setText("Total Money : "+total);
 
+                            }
+                            query2.removeEventListener(this);
                             if (iFinal==(Dates.size()-1)){
                                 MyProgressBar.HideProgress();
+tempo.add(1);
                             }
 
                         }
@@ -604,8 +637,12 @@ public class sellHistory extends AppCompatActivity {
                         @Override
                         public void onCancelled(@NonNull DatabaseError databaseError) {
                             MyProgressBar.HideProgress();
+tempo.add(1);
                         }
-                    });
+                    };
+
+                    query2.addListenerForSingleValueEvent(myValue);
+                    valueEvents.add(myValue);
 
                 }
             }
@@ -623,15 +660,19 @@ public class sellHistory extends AppCompatActivity {
 
     public void today(View view)
     {
+
+
         String searchProduct = suggestion_box4.getText().toString();
         if (searchProduct.isEmpty())
         {
+
             DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
             Date date2 = new Date();
             final String Date = dateFormat.format(date2);
             DatabaseReference mSellRef = mRootRef.child(userIdMainStatic+"/sell");
             Query query = mSellRef.orderByChild("date").equalTo(Date);
             MyProgressBar.ShowProgress(sellHistory.this);
+tempo.clear();
             query.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -695,6 +736,7 @@ public class sellHistory extends AppCompatActivity {
                     intent.putExtra("total","Total Money : "+total);
 
                     MyProgressBar.HideProgress();
+tempo.add(1);
                     startActivity(intent);
 
 //                    mySellListAdapter historyPayList = new mySellListAdapter(sellHistory.this,Date,productList,Quantity,Amount,Mode);
@@ -720,6 +762,7 @@ public class sellHistory extends AppCompatActivity {
             DatabaseReference mSellRef = mRootRef.child(userIdMainStatic+"/sell");
             Query query = mSellRef.orderByChild("date_productName").equalTo(Date+"_"+searchProduct);
             MyProgressBar.ShowProgress(sellHistory.this);
+tempo.clear();
             query.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -782,6 +825,7 @@ public class sellHistory extends AppCompatActivity {
 
                     intent.putExtra("total","Total Money : "+total);
                     MyProgressBar.HideProgress();
+tempo.add(1);
                     startActivity(intent);
 //                    mySellListAdapter historyPayList = new mySellListAdapter(sellHistory.this,Date,productList,Quantity,Amount,Mode);
 //                    listView.setAdapter(historyPayList);
@@ -795,6 +839,7 @@ public class sellHistory extends AppCompatActivity {
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
                     MyProgressBar.HideProgress();
+tempo.add(1);
                 }
             });
         }
@@ -812,6 +857,7 @@ public class sellHistory extends AppCompatActivity {
             DatabaseReference mSellRef = mRootRef.child(userIdMainStatic+"/sell");
             Query query = mSellRef.orderByChild("date").equalTo(Date);
             MyProgressBar.ShowProgress(sellHistory.this);
+tempo.clear();
             query.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -874,6 +920,7 @@ public class sellHistory extends AppCompatActivity {
 
                     intent.putExtra("total","Total Money : "+total);
                     MyProgressBar.HideProgress();
+tempo.add(1);
                     startActivity(intent);
 //                    mySellListAdapter historyPayList = new mySellListAdapter(sellHistory.this,Date,productList,Quantity,Amount,Mode);
 //                    listView.setAdapter(historyPayList);
@@ -898,6 +945,7 @@ public class sellHistory extends AppCompatActivity {
             DatabaseReference mSellRef = mRootRef.child(userIdMainStatic+"/sell");
             Query query = mSellRef.orderByChild("date_productName").equalTo(Date+"_"+searchProduct);
             MyProgressBar.ShowProgress(sellHistory.this);
+tempo.clear();
             query.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -960,6 +1008,7 @@ public class sellHistory extends AppCompatActivity {
 
                     intent.putExtra("total","Total Money : "+total);
                     MyProgressBar.HideProgress();
+tempo.add(1);
                     startActivity(intent);
 //                    mySellListAdapter historyPayList = new mySellListAdapter(sellHistory.this,Date,productList,Quantity,Amount,Mode);
 //                    listView.setAdapter(historyPayList);
@@ -983,8 +1032,6 @@ public class sellHistory extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-
-        android.os.Process.killProcess(android.os.Process.myPid());
 
     }
 

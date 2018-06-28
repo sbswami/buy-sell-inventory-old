@@ -97,10 +97,12 @@ public class UndoBuy extends AppCompatActivity {
                                 @Override
                                 public void onClick(DialogInterface dialogInterface, int i) {
                                     MyProgressBar.ShowProgress(UndoBuy.this);
+tempo.clear();
                                     if (ModeText.equals("Cash")){
                                         final DatabaseReference mStockRef = mRootRef.child(userIdMainStatic+"/stock/"+ProductText);
                                         final String[] temp = new String[1];
                                         MyProgressBar.ShowProgress(UndoBuy.this);
+tempo.clear();
                                         mStockRef.child("quantity").addListenerForSingleValueEvent(new ValueEventListener() {
 
                                             @Override
@@ -161,11 +163,13 @@ public class UndoBuy extends AppCompatActivity {
 
                                                             }
                                                             MyProgressBar.HideProgress();
+tempo.add(1);
                                                         }
 
                                                         @Override
                                                         public void onCancelled(@NonNull DatabaseError databaseError) {
                                                             MyProgressBar.HideProgress();
+tempo.add(1);
                                                         }
                                                     });
                                                 }
@@ -175,6 +179,7 @@ public class UndoBuy extends AppCompatActivity {
                                             @Override
                                             public void onCancelled(@NonNull DatabaseError databaseError) {
                                                 MyProgressBar.HideProgress();
+tempo.add(1);
                                             }
                                         });
 
@@ -184,6 +189,7 @@ public class UndoBuy extends AppCompatActivity {
                                         final DatabaseReference mStockRef = mRootRef.child(userIdMainStatic+"/stock/"+ProductText);
                                         final String[] temp = new String[1];
                                         MyProgressBar.ShowProgress(UndoBuy.this);
+tempo.clear();
                                         mStockRef.child("quantity").addListenerForSingleValueEvent(new ValueEventListener() {
 
                                             @Override
@@ -206,6 +212,7 @@ public class UndoBuy extends AppCompatActivity {
                                                 }
                                                 double New = Double.parseDouble(QuantityText);
                                                 MyProgressBar.HideProgress();
+tempo.add(1);
                                                 if (Old < New){
                                                     String canUndoText = getResources().getString(R.string.can_not_undo_text);
                                                     AlertDialog.Builder builder1 = new AlertDialog.Builder(UndoBuy.this);
@@ -214,12 +221,14 @@ public class UndoBuy extends AppCompatActivity {
                                                             .setPositiveButton("OK",null)
                                                             .create().show();
                                                     MyProgressBar.HideProgress();
+tempo.add(1);
                                                 }
                                                 else{
                                                     final double finalOld = Old;
                                                     final double finalNew = New;
 
                                                     MyProgressBar.ShowProgress(UndoBuy.this);
+tempo.clear();
                                                     final DatabaseReference mOnHoldSupplierRef = mRootRef.child(userIdMainStatic+"/onHoldSupplier/"+SupplierText);
                                                     mOnHoldSupplierRef.child("onHoldMoney").addListenerForSingleValueEvent(new ValueEventListener() {
                                                         @Override
@@ -271,11 +280,13 @@ public class UndoBuy extends AppCompatActivity {
 
                                                                             }
                                                                             MyProgressBar.HideProgress();
+tempo.add(1);
                                                                         }
 
                                                                         @Override
                                                                         public void onCancelled(@NonNull DatabaseError databaseError) {
                                                                             MyProgressBar.HideProgress();
+tempo.add(1);
                                                                         }
                                                                     });
                                                                 }
@@ -285,6 +296,7 @@ public class UndoBuy extends AppCompatActivity {
                                                             {
                                                                 System.out.println(ex);
                                                                 MyProgressBar.HideProgress();
+tempo.add(1);
                                                             }
 
                                                         }
@@ -292,6 +304,7 @@ public class UndoBuy extends AppCompatActivity {
                                                         @Override
                                                         public void onCancelled(@NonNull DatabaseError databaseError) {
                                                             MyProgressBar.HideProgress();
+tempo.add(1);
                                                         }
                                                     });
 
@@ -299,6 +312,7 @@ public class UndoBuy extends AppCompatActivity {
                                                 }
 
                                                 MyProgressBar.HideProgress();
+tempo.add(1);
 
                                             }
 
@@ -329,6 +343,7 @@ public class UndoBuy extends AppCompatActivity {
 
         DatabaseReference mOnHoldSupplier = mRootRef.child(userIdMainStatic+"/buy");
         MyProgressBar.ShowProgress(this);
+tempo.clear();
         mOnHoldSupplier.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -387,12 +402,14 @@ public class UndoBuy extends AppCompatActivity {
                 listView.setAdapter(historyPayList);
 
                 MyProgressBar.HideProgress();
+tempo.add(1);
 
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 MyProgressBar.HideProgress();
+tempo.add(1);
             }
         });
 
@@ -422,10 +439,12 @@ public class UndoBuy extends AppCompatActivity {
 
                         Query query = mSearchRef.orderByChild("productName").equalTo(suggestion_box4.getText().toString());
                         MyProgressBar.ShowProgress(UndoBuy.this);
+tempo.clear();
                         query.addValueEventListener(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                 MyProgressBar.ShowProgress(UndoBuy.this);
+tempo.clear();
                                 Product.clear();
                                 date.clear();
                                 money.clear();
@@ -480,11 +499,13 @@ public class UndoBuy extends AppCompatActivity {
                                 listView.setAdapter(historyPayList);
 
                                 MyProgressBar.HideProgress();
+tempo.add(1);
                             }
 
                             @Override
                             public void onCancelled(@NonNull DatabaseError databaseError) {
                                 MyProgressBar.HideProgress();
+tempo.add(1);
                             }
                         });
 
@@ -611,6 +632,7 @@ public class UndoBuy extends AppCompatActivity {
                 supplier.clear();
                 keyId.clear();
                 MyProgressBar.ShowProgress(UndoBuy.this);
+tempo.clear();
                 for (int i = 0; i < Dates.size(); i++)
                 {
                     final int iFinal = i;
@@ -692,6 +714,7 @@ public class UndoBuy extends AppCompatActivity {
 
                             if (iFinal==(Dates.size()-1)){
                                 MyProgressBar.HideProgress();
+tempo.add(1);
                             }
 
                         }
@@ -699,6 +722,7 @@ public class UndoBuy extends AppCompatActivity {
                         @Override
                         public void onCancelled(@NonNull DatabaseError databaseError) {
                             MyProgressBar.HideProgress();
+tempo.add(1);
                         }
                     });
 
@@ -751,6 +775,7 @@ public class UndoBuy extends AppCompatActivity {
                 quantity.clear();
                 keyId.clear();
                 MyProgressBar.ShowProgress(this);
+tempo.clear();
                 for (int i = 0; i < Dates.size(); i++)
                 {
                     final int iFinal = i;
@@ -831,6 +856,7 @@ public class UndoBuy extends AppCompatActivity {
 
                             if (iFinal==(Dates.size()-1)){
                                 MyProgressBar.HideProgress();
+tempo.add(1);
                             }
 
                         }
@@ -838,6 +864,7 @@ public class UndoBuy extends AppCompatActivity {
                         @Override
                         public void onCancelled(@NonNull DatabaseError databaseError) {
                             MyProgressBar.HideProgress();
+tempo.add(1);
                         }
                     });
 
@@ -849,13 +876,16 @@ public class UndoBuy extends AppCompatActivity {
             }
         }
     }
-
+    ArrayList<Integer> tempo = new ArrayList<>();
     @Override
-    public void onPause() {
+    protected void onPause() {
         super.onPause();
 
-        android.os.Process.killProcess(android.os.Process.myPid());
+        if (tempo.size()==0){
+            android.os.Process.killProcess(android.os.Process.myPid());
+        }
     }
+
 
 
     @Override

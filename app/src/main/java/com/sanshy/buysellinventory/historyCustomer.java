@@ -75,6 +75,7 @@ public class historyCustomer extends AppCompatActivity {
 
         Query query = mOnHoldCustomerPayRef.limitToLast(50);
         MyProgressBar.ShowProgress(historyCustomer.this);
+tempo.clear();
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -115,6 +116,7 @@ public class historyCustomer extends AppCompatActivity {
                 listView.setAdapter(historyPayList);
 
                 MyProgressBar.HideProgress();
+tempo.add(1);
             }
 
             @Override
@@ -148,6 +150,7 @@ public class historyCustomer extends AppCompatActivity {
 
                         Query query = mSearchRef.orderByChild("name").equalTo(suggestion_box4.getText().toString());
                         MyProgressBar.ShowProgress(historyCustomer.this);
+tempo.clear();
                         query.addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -202,12 +205,14 @@ public class historyCustomer extends AppCompatActivity {
                                 listView.setAdapter(historyPayList);
 
                                 MyProgressBar.HideProgress();
+tempo.add(1);
                             }
 
                             @Override
                             public void onCancelled(@NonNull DatabaseError databaseError) {
 
                                 MyProgressBar.HideProgress();
+tempo.add(1);
                             }
                         });
 
@@ -331,6 +336,7 @@ public class historyCustomer extends AppCompatActivity {
                 date.clear();
                 amount.clear();
                 MyProgressBar.ShowProgress(historyCustomer.this);
+tempo.clear();
                 for (int i = 0; i < Dates.size(); i++)
                 {
                     final int iFinal = i;
@@ -374,12 +380,14 @@ public class historyCustomer extends AppCompatActivity {
 
                             if (iFinal==(Dates.size()-1)){
                                 MyProgressBar.HideProgress();
+tempo.add(1);
                             }
                         }
 
                         @Override
                         public void onCancelled(DatabaseError databaseError) {
                             MyProgressBar.HideProgress();
+tempo.add(1);
                         }
                     });
 
@@ -428,6 +436,7 @@ public class historyCustomer extends AppCompatActivity {
                 date.clear();
                 amount.clear();
                 MyProgressBar.ShowProgress(historyCustomer.this);
+tempo.clear();
                 for (int i = 0; i < Dates.size(); i++)
                 {
                     final int iFinal = i;
@@ -470,6 +479,7 @@ public class historyCustomer extends AppCompatActivity {
 
                             if (iFinal==(Dates.size()-1)){
                                 MyProgressBar.HideProgress();
+tempo.add(1);
                             }
                         }
 
@@ -493,11 +503,14 @@ public class historyCustomer extends AppCompatActivity {
 
     }
 
+    ArrayList<Integer> tempo = new ArrayList<>();
     @Override
-    public void onPause() {
+    protected void onPause() {
         super.onPause();
 
-        android.os.Process.killProcess(android.os.Process.myPid());
+        if (tempo.size()==0){
+            android.os.Process.killProcess(android.os.Process.myPid());
+        }
     }
 
     @Override

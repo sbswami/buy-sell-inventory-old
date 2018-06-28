@@ -64,11 +64,16 @@ public class StatementSearch extends AppCompatActivity {
     TextView totalExp,totalNetProfit,totalNetProfitCash,totalNetProfitOnHold,totalNetProfitWithHoldPay,totalNetProfitRemainAfterPay;
 
     ArrayList<String> datesList = new ArrayList<>();
+    ArrayList<Integer> tempo = new ArrayList<>();
     @Override
     protected void onPause() {
         super.onPause();
-        android.os.Process.killProcess(android.os.Process.myPid());
+
+        if (tempo.size()==0){
+            android.os.Process.killProcess(android.os.Process.myPid());
+        }
     }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -120,6 +125,7 @@ public class StatementSearch extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         MyProgressBar.ShowProgress(this);
+tempo.clear();
         for(int i = 0; i < datesList.size() ; i++ ){
 
             final int iFinal = i;
@@ -252,12 +258,14 @@ public class StatementSearch extends AppCompatActivity {
 
                         totalNetProfit.setText(getString(R.string.net_profit_text)+totalNetProfitD);
                         MyProgressBar.HideProgress();
+tempo.add(1);
                     }
                 }
 
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
                     MyProgressBar.HideProgress();
+tempo.add(1);
                 }
             });
         }

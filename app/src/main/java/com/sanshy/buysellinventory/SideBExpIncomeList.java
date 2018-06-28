@@ -78,6 +78,7 @@ public class SideBExpIncomeList extends AppCompatActivity {
 
         Query query = mExp.limitToLast(50);
         MyProgressBar.ShowProgress(this);
+tempo.clear();
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -120,12 +121,14 @@ public class SideBExpIncomeList extends AppCompatActivity {
                 remainAmount.setText("Total Money : "+total);
 
                 MyProgressBar.HideProgress();
+tempo.add(1);
 
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 MyProgressBar.HideProgress();
+tempo.add(1);
             }
         });
 
@@ -157,6 +160,7 @@ public class SideBExpIncomeList extends AppCompatActivity {
 
                         Query query = mSearchRef.orderByChild("remark").equalTo(suggestion_box4.getText().toString());
                         MyProgressBar.ShowProgress(SideBExpIncomeList.this);
+tempo.clear();
                         query.addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -211,11 +215,13 @@ public class SideBExpIncomeList extends AppCompatActivity {
                                 remainAmount.setText("Total Money : "+total);
                                 progressBar.setVisibility(View.INVISIBLE);
                                 MyProgressBar.HideProgress();
+tempo.add(1);
                             }
 
                             @Override
                             public void onCancelled(@NonNull DatabaseError databaseError) {
                                 MyProgressBar.HideProgress();
+tempo.add(1);
                             }
                         });
 
@@ -339,6 +345,7 @@ public class SideBExpIncomeList extends AppCompatActivity {
                 date.clear();
                 money.clear();
                 MyProgressBar.ShowProgress(this);
+tempo.clear();
                 for (int i = 0; i < Dates.size(); i++)
                 {
                     final int iFinal = i;
@@ -383,12 +390,14 @@ public class SideBExpIncomeList extends AppCompatActivity {
 
                             if (iFinal==(Dates.size()-1)){
                                 MyProgressBar.HideProgress();
+tempo.add(1);
                             }
                         }
 
                         @Override
                         public void onCancelled(@NonNull DatabaseError databaseError) {
                             MyProgressBar.HideProgress();
+tempo.add(1);
                         }
                     });
 
@@ -438,6 +447,7 @@ public class SideBExpIncomeList extends AppCompatActivity {
                 date.clear();
                 money.clear();
                 MyProgressBar.ShowProgress(SideBExpIncomeList.this);
+tempo.clear();
                 for (int i = 0; i < Dates.size(); i++)
                 {
                     Query query = mExpRef.orderByChild("date_remark").equalTo(betweenDates[i]+"_"+searchProduct);
@@ -480,12 +490,14 @@ public class SideBExpIncomeList extends AppCompatActivity {
                             remainAmount.setText("Total Money : "+total);
 
                             MyProgressBar.HideProgress();
+tempo.add(1);
 
                         }
 
                         @Override
                         public void onCancelled(@NonNull DatabaseError databaseError) {
                             MyProgressBar.HideProgress();
+tempo.add(1);
                         }
                     });
 
@@ -500,12 +512,16 @@ public class SideBExpIncomeList extends AppCompatActivity {
 
         progressBar.setVisibility(View.INVISIBLE);
     }
+    ArrayList<Integer> tempo = new ArrayList<>();
     @Override
-    public void onPause() {
+    protected void onPause() {
         super.onPause();
 
-        android.os.Process.killProcess(android.os.Process.myPid());
+        if (tempo.size()==0){
+            android.os.Process.killProcess(android.os.Process.myPid());
+        }
     }
+
 
 
     @Override

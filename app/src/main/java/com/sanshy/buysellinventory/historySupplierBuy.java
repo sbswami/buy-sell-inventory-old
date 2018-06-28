@@ -77,6 +77,7 @@ public class historySupplierBuy extends AppCompatActivity {
         DatabaseReference mOnHoldSupplier = mRootRef.child(userIdMainStatic+"/buy");
         Query query =mOnHoldSupplier.orderByChild("mode").equalTo("On Hold").limitToLast(50);
         MyProgressBar.ShowProgress(this);
+tempo.clear();
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -130,11 +131,13 @@ public class historySupplierBuy extends AppCompatActivity {
 
                 remainAmount.setText("Total Money : "+total);
                 MyProgressBar.HideProgress();
+tempo.add(1);
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 MyProgressBar.HideProgress();
+tempo.add(1);
             }
         });
 
@@ -164,6 +167,7 @@ public class historySupplierBuy extends AppCompatActivity {
 
                         Query query = mSearchRef.orderByChild("modeSupplierName").equalTo("On Hold_"+suggestion_box4.getText().toString());
                         MyProgressBar.ShowProgress(historySupplierBuy.this);
+tempo.clear();
                         query.addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -218,12 +222,14 @@ public class historySupplierBuy extends AppCompatActivity {
                                 remainAmount.setText("Total Money : "+total);
 
                                 MyProgressBar.HideProgress();
+tempo.add(1);
 
                             }
 
                             @Override
                             public void onCancelled(@NonNull DatabaseError databaseError) {
                                 MyProgressBar.HideProgress();
+tempo.add(1);
                             }
                         });
                     }
@@ -347,6 +353,7 @@ public class historySupplierBuy extends AppCompatActivity {
                 mode.clear();
                 quantity.clear();
                 MyProgressBar.ShowProgress(this);
+tempo.clear();
                 for (int i = 0; i < Dates.size(); i++)
                 {
                     final int iFinal = i;
@@ -401,6 +408,7 @@ public class historySupplierBuy extends AppCompatActivity {
 
                             if (iFinal==(Dates.size()-1)){
                                 MyProgressBar.HideProgress();
+tempo.add(1);
                             }
 
                         }
@@ -408,6 +416,7 @@ public class historySupplierBuy extends AppCompatActivity {
                         @Override
                         public void onCancelled(@NonNull DatabaseError databaseError) {
                             MyProgressBar.HideProgress();
+tempo.add(1);
                         }
                     });
 
@@ -458,6 +467,7 @@ public class historySupplierBuy extends AppCompatActivity {
                 mode.clear();
                 quantity.clear();
                 MyProgressBar.ShowProgress(this);
+tempo.clear();
                 for (int i = 0; i < Dates.size(); i++)
                 {
                     final int iFinal = i;
@@ -512,6 +522,7 @@ public class historySupplierBuy extends AppCompatActivity {
 
                             if (iFinal==(Dates.size()-1)){
                                 MyProgressBar.HideProgress();
+tempo.add(1);
                             }
 
                         }
@@ -519,6 +530,7 @@ public class historySupplierBuy extends AppCompatActivity {
                         @Override
                         public void onCancelled(@NonNull DatabaseError databaseError) {
                             MyProgressBar.HideProgress();
+tempo.add(1);
                         }
                     });
 
@@ -535,11 +547,14 @@ public class historySupplierBuy extends AppCompatActivity {
 
 
     }
+    ArrayList<Integer> tempo = new ArrayList<>();
     @Override
-    public void onPause() {
+    protected void onPause() {
         super.onPause();
 
-        android.os.Process.killProcess(android.os.Process.myPid());
+        if (tempo.size()==0){
+            android.os.Process.killProcess(android.os.Process.myPid());
+        }
     }
 
 

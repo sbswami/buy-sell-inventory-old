@@ -70,6 +70,7 @@ public class buyList extends AppCompatActivity {
         final ArrayList<String> DateSupplier = new ArrayList<>();
         final Set<String> hs = new HashSet<>();
         MyProgressBar.ShowProgress(buyList.this);
+tempo.clear();
         mBuyRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -154,6 +155,7 @@ public class buyList extends AppCompatActivity {
                                 listView.setAdapter(historyPayList);
                                 if (iFinal==(DateSupplier.size()-1)){
                                     MyProgressBar.HideProgress();
+tempo.add(1);
 
                                 }
                             }catch (Exception ex)
@@ -162,6 +164,7 @@ public class buyList extends AppCompatActivity {
                             }finally {
                                 if (iFinal==(DateSupplier.size()-1)){
                                     MyProgressBar.HideProgress();
+tempo.add(1);
                                 }
                             }
 
@@ -260,6 +263,7 @@ public class buyList extends AppCompatActivity {
                         final ArrayList<String> DateSupplier = new ArrayList<>();
                         final Set<String> hs = new HashSet<>();
                         MyProgressBar.ShowProgress(buyList.this);
+tempo.clear();
                         Query query = mBuyRef.orderByChild("supplierName").equalTo(text);
                         query.addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
@@ -346,6 +350,7 @@ public class buyList extends AppCompatActivity {
 
                                                 if (iFinal==(DateSupplier.size()-1)){
                                                     MyProgressBar.HideProgress();
+tempo.add(1);
                                                     }
                                             }catch (Exception ex)
                                             {
@@ -355,6 +360,7 @@ public class buyList extends AppCompatActivity {
                                             finally {
                                                 if (iFinal==(DateSupplier.size()-1)){
                                                     MyProgressBar.HideProgress();
+tempo.add(1);
                                                 }
                                             }
                                         }
@@ -490,11 +496,14 @@ public class buyList extends AppCompatActivity {
         });
 
     }
-
+    ArrayList<Integer> tempo = new ArrayList<>();
     @Override
     protected void onPause() {
         super.onPause();
-        android.os.Process.killProcess(android.os.Process.myPid());
+
+        if (tempo.size()==0){
+            android.os.Process.killProcess(android.os.Process.myPid());
+        }
     }
 
     @Override

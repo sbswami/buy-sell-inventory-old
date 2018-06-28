@@ -103,6 +103,7 @@ public class UndoExp extends AppCompatActivity {
                                 @Override
                                 public void onClick(DialogInterface dialogInterface, int i) {
                                     MyProgressBar.ShowProgress(UndoExp.this);
+tempo.clear();
                                     DatabaseReference mExp = mRootRef.child(userIdMainStatic+"/Expenditure/"+EidS);
                                     mExp.removeValue();
 
@@ -131,11 +132,13 @@ public class UndoExp extends AppCompatActivity {
 
                                             }
                                             MyProgressBar.HideProgress();
+tempo.add(1);
                                         }
 
                                         @Override
                                         public void onCancelled(@NonNull DatabaseError databaseError) {
                                             MyProgressBar.HideProgress();
+tempo.add(1);
                                         }
                                     });
                                 }
@@ -156,6 +159,7 @@ public class UndoExp extends AppCompatActivity {
 
         Query query = mExp.limitToLast(50);
         MyProgressBar.ShowProgress(this);
+tempo.clear();
         query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -200,12 +204,14 @@ public class UndoExp extends AppCompatActivity {
                 remainAmount.setText("Total Money : "+total);
 
                 MyProgressBar.HideProgress();
+tempo.add(1);
 
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 MyProgressBar.HideProgress();
+tempo.add(1);
             }
         });
 
@@ -237,6 +243,7 @@ public class UndoExp extends AppCompatActivity {
 
                         Query query = mSearchRef.orderByChild("remark").equalTo(suggestion_box4.getText().toString());
                         MyProgressBar.ShowProgress(UndoExp.this);
+tempo.clear();
                         query.addValueEventListener(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -294,11 +301,13 @@ public class UndoExp extends AppCompatActivity {
                                 progressBar.setVisibility(View.INVISIBLE);
 
                                 MyProgressBar.HideProgress();
+tempo.add(1);
                             }
 
                             @Override
                             public void onCancelled(@NonNull DatabaseError databaseError) {
                                 MyProgressBar.HideProgress();
+tempo.add(1);
                             }
                         });
 
@@ -422,6 +431,7 @@ public class UndoExp extends AppCompatActivity {
                 money.clear();
                 Eid.clear();
                 MyProgressBar.ShowProgress(this);
+tempo.clear();
                 for (int i = 0; i < Dates.size(); i++)
                 {
                     final int iFinal = i;
@@ -467,6 +477,7 @@ public class UndoExp extends AppCompatActivity {
 
                             if (iFinal==(Dates.size()-1)){
                                 MyProgressBar.HideProgress();
+tempo.add(1);
                             }
 
                         }
@@ -474,6 +485,7 @@ public class UndoExp extends AppCompatActivity {
                         @Override
                         public void onCancelled(@NonNull DatabaseError databaseError) {
                             MyProgressBar.HideProgress();
+tempo.add(1);
                         }
                     });
 
@@ -524,6 +536,7 @@ public class UndoExp extends AppCompatActivity {
                 money.clear();
                 Eid.clear();
                 MyProgressBar.ShowProgress(this);
+tempo.clear();
                 for (int i = 0; i < Dates.size(); i++)
                 {
                     final int iFinal = i;
@@ -569,6 +582,7 @@ public class UndoExp extends AppCompatActivity {
 
                             if (iFinal==(Dates.size()-1)){
                                 MyProgressBar.HideProgress();
+tempo.add(1);
                             }
 
                         }
@@ -590,12 +604,16 @@ public class UndoExp extends AppCompatActivity {
 
         progressBar.setVisibility(View.INVISIBLE);
     }
+    ArrayList<Integer> tempo = new ArrayList<>();
     @Override
-    public void onPause() {
+    protected void onPause() {
         super.onPause();
 
-        android.os.Process.killProcess(android.os.Process.myPid());
+        if (tempo.size()==0){
+            android.os.Process.killProcess(android.os.Process.myPid());
+        }
     }
+
 
 
     @Override

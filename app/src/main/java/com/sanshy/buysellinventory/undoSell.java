@@ -120,6 +120,7 @@ public class undoSell extends AppCompatActivity {
                                         final DatabaseReference mStockRef = mRootRef.child(userIdMainStatic+"/stock/"+ProductText);
                                         final String[] temp = new String[1];
                                         MyProgressBar.ShowProgress(undoSell.this);
+tempo.clear();
                                         mStockRef.child("quantity").addListenerForSingleValueEvent(new ValueEventListener() {
 
                                             @Override
@@ -198,11 +199,13 @@ public class undoSell extends AppCompatActivity {
 
                                                         }
                                                         MyProgressBar.HideProgress();
+tempo.add(1);
                                                     }
 
                                                     @Override
                                                     public void onCancelled(@NonNull DatabaseError databaseError) {
                                                         MyProgressBar.HideProgress();
+tempo.add(1);
                                                     }
                                                 });
                                             }
@@ -210,6 +213,7 @@ public class undoSell extends AppCompatActivity {
                                             @Override
                                             public void onCancelled(@NonNull DatabaseError databaseError) {
                                                 MyProgressBar.HideProgress();
+tempo.add(1);
                                             }
                                         });
 
@@ -219,6 +223,7 @@ public class undoSell extends AppCompatActivity {
                                         final DatabaseReference mStockRef = mRootRef.child(userIdMainStatic+"/stock/"+ProductText);
                                         final String[] temp = new String[1];
                                         MyProgressBar.ShowProgress(undoSell.this);
+tempo.clear();
                                         mStockRef.child("quantity").addListenerForSingleValueEvent(new ValueEventListener() {
 
                                             @Override
@@ -251,6 +256,7 @@ public class undoSell extends AppCompatActivity {
                                                 final double finalOld = Old;
                                                 final double finalNew = New;
                                                 MyProgressBar.ShowProgress(undoSell.this);
+tempo.clear();
                                                 final DatabaseReference mOnHoldCustomerRef = mRootRef.child(userIdMainStatic+"/onHoldCustomer/"+CustomerText);
                                                 mOnHoldCustomerRef.addListenerForSingleValueEvent(new ValueEventListener() {
                                                     @Override
@@ -267,6 +273,7 @@ public class undoSell extends AppCompatActivity {
                                                                         .setPositiveButton("OK",null)
                                                                         .create().show();
                                                                 MyProgressBar.HideProgress();
+tempo.add(1);
                                                             }
                                                             else {
                                                                 double OldProfit = Double.parseDouble(dataSnapshot.child("grossProfit").getValue(String.class));
@@ -332,11 +339,13 @@ public class undoSell extends AppCompatActivity {
                                                                         }
 
                                                                         MyProgressBar.HideProgress();
+tempo.add(1);
                                                                     }
 
                                                                     @Override
                                                                     public void onCancelled(@NonNull DatabaseError databaseError) {
                                                                         MyProgressBar.HideProgress();
+tempo.add(1);
                                                                     }
                                                                 });
                                                             }
@@ -348,15 +357,18 @@ public class undoSell extends AppCompatActivity {
                                                         }
                                                         finally {
                                                             MyProgressBar.HideProgress();
+tempo.add(1);
                                                         }
 
                                                         MyProgressBar.HideProgress();
+tempo.add(1);
 
                                                     }
 
                                                     @Override
                                                     public void onCancelled(@NonNull DatabaseError databaseError) {
                                                         MyProgressBar.HideProgress();
+tempo.add(1);
                                                     }
                                                 });
                                             }
@@ -388,6 +400,7 @@ public class undoSell extends AppCompatActivity {
 
         DatabaseReference mOnHoldSupplier = mRootRef.child(userIdMainStatic+"/sell");
         MyProgressBar.ShowProgress(this);
+tempo.clear();
         mOnHoldSupplier.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -450,12 +463,14 @@ public class undoSell extends AppCompatActivity {
                 listView.setAdapter(historyPayList);
 
                 MyProgressBar.HideProgress();
+tempo.add(1);
 
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 MyProgressBar.HideProgress();
+tempo.add(1);
             }
         });
 
@@ -485,6 +500,7 @@ public class undoSell extends AppCompatActivity {
 
                         Query query = mSearchRef.orderByChild("productName").equalTo(suggestion_box4.getText().toString());
                         MyProgressBar.ShowProgress(undoSell.this);
+tempo.clear();
                         query.addValueEventListener(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -546,11 +562,13 @@ public class undoSell extends AppCompatActivity {
                                 listView.setAdapter(historyPayList);
 
                                 MyProgressBar.HideProgress();
+tempo.add(1);
                             }
 
                             @Override
                             public void onCancelled(@NonNull DatabaseError databaseError) {
                                 MyProgressBar.HideProgress();
+tempo.add(1);
                             }
                         });
 
@@ -568,11 +586,14 @@ public class undoSell extends AppCompatActivity {
         });
     }
 
+    ArrayList<Integer> tempo = new ArrayList<>();
     @Override
-    public void onPause() {
+    protected void onPause() {
         super.onPause();
 
-        android.os.Process.killProcess(android.os.Process.myPid());
+        if (tempo.size()==0){
+            android.os.Process.killProcess(android.os.Process.myPid());
+        }
     }
 
 
@@ -687,6 +708,7 @@ public class undoSell extends AppCompatActivity {
                 buyPrice.clear();
                 sellPrice.clear();
                 MyProgressBar.ShowProgress(this);
+tempo.clear();
                 for (int i = 0; i < Dates.size(); i++)
                 {
                     final int iFinal = i;
@@ -769,11 +791,13 @@ public class undoSell extends AppCompatActivity {
 
                             if (iFinal==(Dates.size()-1)){
                                 MyProgressBar.HideProgress();
+tempo.add(1);
                             }
                         }
                         @Override
                         public void onCancelled(@NonNull DatabaseError databaseError) {
                             MyProgressBar.HideProgress();
+tempo.add(1);
                         }
                     });
 
@@ -828,6 +852,7 @@ public class undoSell extends AppCompatActivity {
                 buyPrice.clear();
                 sellPrice.clear();
                 MyProgressBar.ShowProgress(this);
+tempo.clear();
                 for (int i = 0; i < Dates.size(); i++)
                 {
                     final int iFinal = i;
@@ -910,6 +935,7 @@ public class undoSell extends AppCompatActivity {
 
                            if (iFinal==(Dates.size()-1)){
                                MyProgressBar.HideProgress();
+tempo.add(1);
                            }
 
                         }
@@ -917,6 +943,7 @@ public class undoSell extends AppCompatActivity {
                         @Override
                         public void onCancelled(@NonNull DatabaseError databaseError) {
                             MyProgressBar.HideProgress();
+tempo.add(1);
                         }
                     });
 

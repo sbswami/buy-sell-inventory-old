@@ -92,6 +92,7 @@ public class UndoSideIncome extends AppCompatActivity {
                                 @Override
                                 public void onClick(DialogInterface dialogInterface, int i) {
                                     MyProgressBar.ShowProgress(UndoSideIncome.this);
+tempo.clear();
                                     DatabaseReference mExp = mRootRef.child(userIdMainStatic+"/SideBusiness/Income/"+EidS);
                                     mExp.removeValue();
                                     final DatabaseReference mSideStatementRef = mRootRef.child(userIdMainStatic+"/Statement/SideBStatement/"+DateS);
@@ -118,11 +119,13 @@ public class UndoSideIncome extends AppCompatActivity {
                                                 mSideStatementRef.child(PROFIT).setValue(SaveProfit);
                                             }
                                             MyProgressBar.HideProgress();
+tempo.add(1);
                                         }
 
                                         @Override
                                         public void onCancelled(@NonNull DatabaseError databaseError) {
                                             MyProgressBar.HideProgress();
+tempo.add(1);
                                         }
                                     });
                                 }
@@ -143,6 +146,7 @@ public class UndoSideIncome extends AppCompatActivity {
 
         Query query = mExp.limitToLast(50);
         MyProgressBar.ShowProgress(this);
+tempo.clear();
         query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -187,6 +191,7 @@ public class UndoSideIncome extends AppCompatActivity {
                 remainAmount.setText("Total Money : "+total);
 
                 MyProgressBar.HideProgress();
+tempo.add(1);
 
             }
 
@@ -224,6 +229,7 @@ public class UndoSideIncome extends AppCompatActivity {
 
                         Query query = mSearchRef.orderByChild("remark").equalTo(suggestion_box4.getText().toString());
                         MyProgressBar.ShowProgress(UndoSideIncome.this);
+tempo.clear();
                         query.addValueEventListener(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -280,12 +286,14 @@ public class UndoSideIncome extends AppCompatActivity {
                                 remainAmount.setText("Total Money : "+total);
                                 progressBar.setVisibility(View.INVISIBLE);
                                 MyProgressBar.HideProgress();
+tempo.add(1);
 
                             }
 
                             @Override
                             public void onCancelled(@NonNull DatabaseError databaseError) {
                                 MyProgressBar.HideProgress();
+tempo.add(1);
                             }
                         });
 
@@ -409,6 +417,7 @@ public class UndoSideIncome extends AppCompatActivity {
                 money.clear();
                 Eid.clear();
                 MyProgressBar.ShowProgress(this);
+tempo.clear();
                 for (int i = 0; i < Dates.size(); i++)
                 {
                     final int iFinal = i;
@@ -454,6 +463,7 @@ public class UndoSideIncome extends AppCompatActivity {
 
                             if (iFinal==(Dates.size()-1)){
                                 MyProgressBar.HideProgress();
+tempo.add(1);
                             }
 
                         }
@@ -461,6 +471,7 @@ public class UndoSideIncome extends AppCompatActivity {
                         @Override
                         public void onCancelled(@NonNull DatabaseError databaseError) {
                             MyProgressBar.HideProgress();
+tempo.add(1);
                         }
                     });
 
@@ -511,6 +522,7 @@ public class UndoSideIncome extends AppCompatActivity {
                 money.clear();
                 Eid.clear();
                 MyProgressBar.ShowProgress(this);
+tempo.clear();
                 for (int i = 0; i < Dates.size(); i++)
                 {
                     final int iFinal = i;
@@ -556,6 +568,7 @@ public class UndoSideIncome extends AppCompatActivity {
 
                             if (iFinal==(Dates.size()-1)){
                                 MyProgressBar.HideProgress();
+tempo.add(1);
                             }
 
                         }
@@ -563,6 +576,7 @@ public class UndoSideIncome extends AppCompatActivity {
                         @Override
                         public void onCancelled(@NonNull DatabaseError databaseError) {
                             MyProgressBar.HideProgress();
+tempo.add(1);
                         }
                     });
 
@@ -577,12 +591,15 @@ public class UndoSideIncome extends AppCompatActivity {
 
         progressBar.setVisibility(View.INVISIBLE);
     }
+    ArrayList<Integer> tempo = new ArrayList<>();
     @Override
-    public void onPause() {
+    protected void onPause() {
         super.onPause();
-        android.os.Process.killProcess(android.os.Process.myPid());
-    }
 
+        if (tempo.size()==0){
+            android.os.Process.killProcess(android.os.Process.myPid());
+        }
+    }
 
     @Override
     public void onResume() {

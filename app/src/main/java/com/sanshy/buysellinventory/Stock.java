@@ -42,6 +42,17 @@ public class Stock extends AppCompatActivity {
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
     private FirebaseUser user = mAuth.getCurrentUser();
 
+    ArrayList<Integer> tempo = new ArrayList<>();
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        if (tempo.size()==0){
+            android.os.Process.killProcess(android.os.Process.myPid());
+        }
+    }
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,6 +73,7 @@ public class Stock extends AppCompatActivity {
         super.onStart();
 
         MyProgressBar.ShowProgress(this);
+tempo.clear();
         DatabaseReference mStockRef = mRootRef.child(userIdMainStatic+"/stock");
         mStockRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -137,11 +149,13 @@ public class Stock extends AppCompatActivity {
 
                 }
                 MyProgressBar.HideProgress();
+tempo.add(1);
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 MyProgressBar.HideProgress();
+tempo.add(1);
             }
         });
 
@@ -168,6 +182,7 @@ public class Stock extends AppCompatActivity {
                     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                         DatabaseReference mStockRef = mRootRef.child(userIdMainStatic+"/stock/"+suggestion_box4.getText().toString());
                         MyProgressBar.ShowProgress(Stock.this);
+tempo.clear();
                         mStockRef.addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -239,11 +254,13 @@ public class Stock extends AppCompatActivity {
 
                                 }
                                 MyProgressBar.HideProgress();
+tempo.add(1);
                             }
 
                             @Override
                             public void onCancelled(@NonNull DatabaseError databaseError) {
                                 MyProgressBar.HideProgress();
+tempo.add(1);
                             }
                         });
 

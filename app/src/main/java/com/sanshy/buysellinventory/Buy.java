@@ -97,6 +97,8 @@ public class Buy extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
+        MyProgressBar.ShowProgress(this);
+
         final DatabaseReference mProductRef = mRootRef.child(userIdMainStatic+"/product");
         final DatabaseReference mSupplierRef = mRootRef.child(userIdMainStatic+"/supplier");
 
@@ -189,12 +191,13 @@ public class Buy extends AppCompatActivity {
                     }
                 });
 
+                MyProgressBar.HideProgress();
 
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-
+                MyProgressBar.HideProgress();
             }
         });
 
