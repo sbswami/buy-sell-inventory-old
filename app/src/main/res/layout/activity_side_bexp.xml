@@ -52,7 +52,7 @@
                 android:id="@+id/money"
                 android:layout_width="match_parent"
                 android:layout_height="70sp"
-                android:layout_margin="10sp"
+                
                 android:background="@drawable/bluebox"
                 android:cursorVisible="true"
                 android:ems="10"
@@ -70,7 +70,7 @@
                 android:id="@+id/remark"
                 android:layout_width="match_parent"
                 android:layout_height="70sp"
-                android:layout_margin="10sp"
+                
                 android:background="@drawable/bluebox"
                 android:completionThreshold="1"
                 android:cursorVisible="true"

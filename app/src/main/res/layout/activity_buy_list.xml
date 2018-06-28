@@ -27,7 +27,7 @@
             android:id="@+id/suggestion_box4"
             android:layout_width="match_parent"
             android:layout_height="70sp"
-            android:layout_margin="10sp"
+
             android:background="@drawable/bluebox"
             android:completionThreshold="1"
             android:fontFamily="@font/acme"

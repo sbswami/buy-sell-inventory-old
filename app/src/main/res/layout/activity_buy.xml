@@ -54,7 +54,7 @@
                 android:id="@+id/suggestion_box"
                 android:layout_width="match_parent"
                 android:layout_height="70sp"
-                android:layout_margin="10sp"
+                
                 android:background="@drawable/bluebox"
                 android:completionThreshold="1"
                 android:cursorVisible="true"
@@ -72,7 +72,7 @@
                 android:id="@+id/quantity"
                 android:layout_width="match_parent"
                 android:layout_height="70sp"
-                android:layout_margin="10sp"
+                
                 android:background="@drawable/bluebox"
                 android:ems="10"
                 android:fontFamily="@font/acme"
@@ -90,8 +90,7 @@
                 android:id="@+id/price"
                 android:layout_width="match_parent"
                 android:layout_height="70sp"
-                android:layout_margin="15sp"
-                android:background="@drawable/blueb"
+                android:background="@drawable/bluebox"
                 android:fontFamily="@font/acme"
                 android:paddingLeft="20sp"
                 android:paddingRight="20sp"
@@ -133,7 +132,7 @@
                 android:id="@+id/suggestion_box2"
                 android:layout_width="match_parent"
                 android:layout_height="70sp"
-                android:layout_margin="10sp"
+                
                 android:background="@drawable/bluebox"
                 android:completionThreshold="1"
                 android:cursorVisible="true"
@@ -162,7 +161,7 @@
                     android:onClick="supplierHistory"
                     android:text="@string/history_by_supplier_text"
                     android:textColor="#fff"
-                    android:textSize="14sp" />
+                    android:textSize="@dimen/between_small_and_medium" />
 
                 <Button
                     android:id="@+id/cancel9"
@@ -174,7 +173,7 @@
                     android:onClick="productHistory"
                     android:text="@string/history_by_product_text"
                     android:textColor="#fff"
-                    android:textSize="14sp" />
+                    android:textSize="@dimen/between_small_and_medium" />
             </LinearLayout>
 
             <Button

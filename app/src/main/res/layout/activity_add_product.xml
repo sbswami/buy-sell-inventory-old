@@ -54,7 +54,7 @@
                 android:id="@+id/name"
                 android:layout_width="match_parent"
                 android:layout_height="70sp"
-                android:layout_margin="10sp"
+
                 android:background="@drawable/bluebox"
                 android:cursorVisible="true"
                 android:ems="10"
@@ -72,7 +72,7 @@
                 android:id="@+id/sellPrice"
                 android:layout_width="match_parent"
                 android:layout_height="70sp"
-                android:layout_margin="10sp"
+
                 android:background="@drawable/bluebox"
                 android:cursorVisible="true"
                 android:ems="10"
@@ -90,7 +90,7 @@
                 android:id="@+id/buyMargin"
                 android:layout_width="match_parent"
                 android:layout_height="70sp"
-                android:layout_margin="10sp"
+
                 android:background="@drawable/bluebox"
                 android:cursorVisible="true"
                 android:ems="10"
@@ -117,7 +117,7 @@
                 android:id="@+id/buyPrice"
                 android:layout_width="match_parent"
                 android:layout_height="70sp"
-                android:layout_margin="10sp"
+
                 android:background="@drawable/bluebox"
                 android:cursorVisible="true"
                 android:ems="10"
@@ -135,7 +135,7 @@
                 android:id="@+id/company"
                 android:layout_width="match_parent"
                 android:layout_height="70sp"
-                android:layout_margin="10sp"
+
                 android:background="@drawable/bluebox"
                 android:completionThreshold="1"
                 android:cursorVisible="true"

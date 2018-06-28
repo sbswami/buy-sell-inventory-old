@@ -54,7 +54,7 @@
                 android:id="@+id/suggestion_box3"
                 android:layout_width="match_parent"
                 android:layout_height="70sp"
-                android:layout_margin="10sp"
+                
                 android:background="@drawable/bluebox"
                 android:completionThreshold="1"
                 android:fontFamily="@font/acme"
@@ -72,7 +72,7 @@
                 android:id="@+id/amount"
                 android:layout_width="match_parent"
                 android:layout_height="70sp"
-                android:layout_margin="10sp"
+                
                 android:background="@drawable/bluebox"
                 android:cursorVisible="true"
                 android:ems="10"
@@ -107,26 +107,26 @@
                     android:layout_width="wrap_content"
                     android:layout_height="80sp"
                     android:layout_weight="1"
-                    android:background="@drawable/blueb"
+                    android:background="@drawable/buttonorange"
                     android:fontFamily="@font/acme"
                     android:gravity="center_vertical|center_horizontal"
                     android:onClick="historyPay"
                     android:text="@string/history_of_pay_text"
                     android:textColor="#fff"
-                    android:textSize="14sp" />
+                    android:textSize="@dimen/medium_text" />
 
                 <Button
                     android:id="@+id/save2"
                     android:layout_width="wrap_content"
                     android:layout_height="80sp"
                     android:layout_weight="1"
-                    android:background="@drawable/blueb"
+                    android:background="@drawable/buttonorange"
                     android:fontFamily="@font/acme"
                     android:gravity="center_vertical|center_horizontal"
                     android:onClick="historyBuy"
                     android:text="@string/history_of_buy_text"
                     android:textColor="#fff"
-                    android:textSize="14sp" />
+                    android:textSize="@dimen/medium_text" />
             </LinearLayout>
 
             <Button

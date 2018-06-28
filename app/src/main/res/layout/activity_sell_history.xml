@@ -27,8 +27,6 @@
             android:id="@+id/suggestion_box4"
             android:layout_width="match_parent"
             android:layout_height="70sp"
-            android:layout_marginLeft="10sp"
-            android:layout_marginRight="10sp"
             android:background="@drawable/bluebox"
             android:completionThreshold="1"
             android:fontFamily="@font/acme"
@@ -77,7 +75,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <TextView
+            <Button
                 android:id="@+id/textView4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -85,10 +83,13 @@
                 android:gravity="center"
                 android:onClick="from"
                 android:text="@string/from_text"
-                android:textColor="#000"
-                android:textSize="20sp" />
+                android:layout_marginStart="@dimen/margin_home"
+                android:layout_marginEnd="@dimen/margin_home"
+                android:textColor="@color/white_color"
+                android:background="@color/colorPrimary"
+                android:textSize="@dimen/medium_text" />
 
-            <TextView
+            <Button
                 android:id="@+id/textView6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -96,8 +97,10 @@
                 android:gravity="center"
                 android:onClick="to"
                 android:text="@string/to_text"
-                android:textColor="#000"
-                android:textSize="20sp" />
+                android:layout_marginEnd="@dimen/margin_home"
+                android:textColor="@color/white_color"
+                android:background="@color/colorPrimary"
+                android:textSize="@dimen/medium_text" />
 
             <Button
                 android:id="@+id/button2"
@@ -106,6 +109,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:onClick="search"
+                android:layout_marginEnd="@dimen/margin_home"
+                android:background="@color/colorAccent"
                 android:text="@string/search_text"
                 android:textSize="18sp" />
         </LinearLayout>
