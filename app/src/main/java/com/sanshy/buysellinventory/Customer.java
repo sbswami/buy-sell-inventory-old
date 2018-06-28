@@ -96,12 +96,12 @@ public class Customer extends AppCompatActivity {
                         @Override
                         public void onItemClick(AdapterView<?> adapterView, View view, final int i, long l) {
                             final AlertDialog.Builder builder = new AlertDialog.Builder(Customer.this);
-                            builder.setTitle("Customer")
-                                    .setMessage("Name : " + Name[i] + "\n" +
-                                            "Phone : " + Phone[i] + "\n" +
-                                            "City : " + City[i] + "\n" +
-                                            "Address " + Address[i])
-                                    .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+                            builder.setTitle(getString(R.string.customer_text))
+                                    .setMessage(getString(R.string.name__) + Name[i] + "\n" +
+                                            getString(R.string.phone__) + Phone[i] + "\n" +
+                                            getString(R.string.city__) + City[i] + "\n" +
+                                            getString(R.string.address_) + Address[i])
+                                    .setPositiveButton(getString(R.string.delete_), new DialogInterface.OnClickListener() {
                                         @Override
                                         public void onClick(DialogInterface dialogInterface, int i2) {
 
@@ -165,9 +165,9 @@ public class Customer extends AppCompatActivity {
                                                     else
                                                     {
                                                         AlertDialog.Builder builder1 = new AlertDialog.Builder(Customer.this);
-                                                        builder1.setTitle("Can't Delete")
-                                                                .setMessage("Payment Still Remaining")
-                                                                .setPositiveButton("OK",null)
+                                                        builder1.setTitle(R.string.can_not_delete)
+                                                                .setMessage(R.string.payment_still_remaining_)
+                                                                .setPositiveButton(getString(R.string.ok_),null)
                                                                 .create()
                                                                 .show();
                                                     }
@@ -181,7 +181,7 @@ public class Customer extends AppCompatActivity {
 
                                         }
                                     })
-                                    .setNegativeButton("Cancel", null);
+                                    .setNegativeButton(getString(R.string.cancel_text), null);
                             builder.create().show();
 
 

@@ -98,12 +98,12 @@ public class Product extends AppCompatActivity {
                         @Override
                         public void onItemClick(AdapterView<?> adapterView, View view, final int i, long l) {
                             final AlertDialog.Builder builder = new AlertDialog.Builder(Product.this);
-                            builder.setTitle("Product")
-                                    .setMessage("Name : " + Name[i] + "\n" +
-                                                "Buy Price : " + BuyPrice[i] + "\n" +
-                                                "Sell Price : " + SellPrice[i] + "\n" +
-                                                "Company : " + Company[i])
-                                    .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+                            builder.setTitle(getString(R.string.product_text))
+                                    .setMessage(getString(R.string.name__) + Name[i] + "\n" +
+                                                getString(R.string.buy_price__) + BuyPrice[i] + "\n" +
+                                                getString(R.string.sell_price__) + SellPrice[i] + "\n" +
+                                                getString(R.string.company__) + Company[i])
+                                    .setPositiveButton(getString(R.string.delete_), new DialogInterface.OnClickListener() {
                                         @Override
                                         public void onClick(DialogInterface dialogInterface, int i2) {
                                             final DatabaseReference mStockRef = mRootRef.child(userIdMainStatic+"/stock");
@@ -167,9 +167,9 @@ public class Product extends AppCompatActivity {
                                                     else
                                                     {
                                                         AlertDialog.Builder builder1 = new AlertDialog.Builder(Product.this);
-                                                        builder1.setTitle("Can't Delete")
-                                                                .setMessage("Product Still Remaining")
-                                                                .setPositiveButton("OK",null)
+                                                        builder1.setTitle(getString(R.string.can_not_save))
+                                                                .setMessage(getString(R.string.product_still_remaining_))
+                                                                .setPositiveButton(getString(R.string.ok_),null)
                                                                 .create()
                                                                 .show();
                                                     }
@@ -182,7 +182,7 @@ public class Product extends AppCompatActivity {
                                             });
                                         }
                                     })
-                                    .setNegativeButton("Cancel", null);
+                                    .setNegativeButton(getString(R.string.cancel_text), null);
                             builder.create().show();
 
 
@@ -256,12 +256,12 @@ public class Product extends AppCompatActivity {
                                         @Override
                                         public void onItemClick(AdapterView<?> adapterView, View view, final int i, long l) {
                                             final AlertDialog.Builder builder = new AlertDialog.Builder(Product.this);
-                                            builder.setTitle("Product")
-                                                    .setMessage("Name : " + Name[i] + "\n" +
-                                                            "Buy Price : " + BuyPrice[i] + "\n" +
-                                                            "Sell Price : " + SellPrice[i] + "\n" +
-                                                            "Company : " + Company[i])
-                                                    .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+                                            builder.setTitle(getString(R.string.product_text))
+                                                    .setMessage(getString(R.string.name__) + Name[i] + "\n" +
+                                                            getString(R.string.buy_price__) + BuyPrice[i] + "\n" +
+                                                            getString(R.string.sell_price__) + SellPrice[i] + "\n" +
+                                                            getString(R.string.company__) + Company[i])
+                                                    .setPositiveButton(getString(R.string.delete_), new DialogInterface.OnClickListener() {
                                                         @Override
                                                         public void onClick(DialogInterface dialogInterface, int i2) {
                                                             final DatabaseReference mStockRef = mRootRef.child(userIdMainStatic+"/stock");
@@ -325,9 +325,9 @@ public class Product extends AppCompatActivity {
                                                                     else
                                                                     {
                                                                         AlertDialog.Builder builder1 = new AlertDialog.Builder(Product.this);
-                                                                        builder1.setTitle("Can't Delete")
-                                                                                .setMessage("Product Still Remaining")
-                                                                                .setPositiveButton("OK",null)
+                                                                        builder1.setTitle(getString(R.string.can_not_save))
+                                                                                .setMessage(getString(R.string.product_still_remaining_))
+                                                                                .setPositiveButton(getString(R.string.ok_),null)
                                                                                 .create()
                                                                                 .show();
                                                                     }
@@ -340,7 +340,7 @@ public class Product extends AppCompatActivity {
                                                             });
                                                         }
                                                     })
-                                                    .setNegativeButton("Cancel", null);
+                                                    .setNegativeButton(getString(R.string.cancel_text), null);
                                             builder.create().show();
 
 

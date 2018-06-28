@@ -82,8 +82,8 @@ public class Sell extends AppCompatActivity {
         quantity = findViewById(R.id.quantity);
         price = findViewById(R.id.price);
 
-        cash = findViewById(R.id.cash);
-        onHold = findViewById(R.id.onHold);
+        cash = findViewById(R.id.cash_sell);
+        onHold = findViewById(R.id.on_hold_sell);
         group = findViewById(R.id.radioGroup);
 
         cash.setChecked(true);
@@ -106,7 +106,7 @@ public class Sell extends AppCompatActivity {
 
         mCustomerRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 customerList.clear();
                 for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren())
                 {
@@ -126,14 +126,14 @@ public class Sell extends AppCompatActivity {
             }
 
             @Override
-            public void onCancelled(DatabaseError databaseError) {
+            public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
         });
 
         mProductRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 productList.clear();
                 for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren())
                 {
@@ -164,6 +164,7 @@ public class Sell extends AppCompatActivity {
                         productBuyPrice = BuyPrice[index[0]];
                         productSellPrice = SellPrice[index[0]];
                         quantity.setText("");
+                        price.setText(R.string.price_text);
 
                     }
                 });
@@ -177,8 +178,11 @@ public class Sell extends AppCompatActivity {
                             String QuantityValue = quantity.getText().toString();
                             if (QuantityValue.isEmpty())
                             {
-                                quantity.setError("Fill It");
-                                price.setText("Price");
+                                quantity.setError(getString(R.string.fill_it));
+                                price.setText(R.string.price_text);
+                            }
+                            else if (suggestion_box.getText().toString().isEmpty()){
+                                suggestion_box.setError(getString(R.string.fill_it));
                             }
                             else
                             {
@@ -242,39 +246,45 @@ try
         if (checkProduct == 0)
         {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setTitle("Can't Save")
-                    .setMessage("Please Select From Product List")
-                    .setPositiveButton("OK",null)
+            builder.setTitle(getString(R.string.can_not_save))
+                    .setMessage(getString(R.string.please_select_from_product_list_))
+                    .setPositiveButton(getString(R.string.ok_),null)
                     .create()
                     .show();
             MyProgressBar.HideProgress();
 return;
         }
-
-
-
         int id = group.getCheckedRadioButtonId();
+
+        String tempPayType;
+
+        if (id==R.id.cash_sell){
+            tempPayType = "Cash";
+        }else{
+            tempPayType = "On Hold";
+        }
+
 
         payType = findViewById(id);
 
-        final String PayType = payType.getText().toString();
+        final String PayType = tempPayType;
 
 
         if (ProductName.isEmpty())
         {
-            suggestion_box.setError("Select Item");
+            suggestion_box.setError(getString(R.string.select_item));
             MyProgressBar.HideProgress();
 return;
         }
         if (Quantity.isEmpty())
         {
-            quantity.setError("Enter Quantity");
+            quantity.setError(getString(R.string.select_quantity));
             MyProgressBar.HideProgress();
 return;
         }
         if (CustomerName.isEmpty() && PayType.equals("On Hold"))
         {
-            suggestion_box2.setError("Select Customer Name");
+            suggestion_box2.setError(getString(R.string.select_customer_name));
             MyProgressBar.HideProgress();
 return;
         }
@@ -292,16 +302,16 @@ return;
             if (checkCustomer == 0)
             {
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                builder.setTitle("Can't Save")
-                        .setMessage("Please Select From Customer List")
-                        .setPositiveButton("OK",null)
+                builder.setTitle(getString(R.string.can_not_save))
+                        .setMessage(getString(R.string.please_select_from_customer_list_))
+                        .setPositiveButton(getString(R.string.ok_),null)
                         .create()
                         .show();
                 MyProgressBar.HideProgress();
 return;
             }
         }
-        if (Price.equals("Price"))
+        if (Price.equals(getString(R.string.price_text)))
         {
             String feedbackText = getResources().getString(R.string.feedback_request_text);
             Toast.makeText(Sell.this, feedbackText, Toast.LENGTH_SHORT).show();
@@ -333,9 +343,9 @@ return;
                     try
                     {
                         AlertDialog.Builder builder = new AlertDialog.Builder(Sell.this);
-                        builder.setTitle("Stock")
-                                .setMessage("Out of Stock")
-                                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                        builder.setTitle(getString(R.string.stock_text))
+                                .setMessage(getString(R.string.out_of_stock_))
+                                .setPositiveButton(getString(R.string.ok_), new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialogInterface, int i) {
 
@@ -360,9 +370,9 @@ return;
                     try
                     {
                         AlertDialog.Builder builder = new AlertDialog.Builder(Sell.this);
-                        builder.setTitle("Stock")
-                                .setMessage("Select Quantity")
-                                .setPositiveButton("Ok", null)
+                        builder.setTitle(getString(R.string.stock_text))
+                                .setMessage(getString(R.string.select_quantity))
+                                .setPositiveButton(getString(R.string.ok_), null)
                                 .create()
                                 .show();
                         MyProgressBar.HideProgress();
@@ -511,8 +521,8 @@ return;
                         MyProgressBar.HideProgress();
                     }
                 });
-                MyDialogBox.ShowDialog(Sell.this,"Sell Done");
-                Toast.makeText(Sell.this, "Product Sell Done", Toast.LENGTH_SHORT).show();
+                MyDialogBox.ShowDialog(Sell.this,getString(R.string.product_sell_done));
+                Toast.makeText(Sell.this, getString(R.string.product_sell_done), Toast.LENGTH_SHORT).show();
                 finish();
             }
 

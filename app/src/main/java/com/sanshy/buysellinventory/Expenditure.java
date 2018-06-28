@@ -121,13 +121,13 @@ public class Expenditure extends AppCompatActivity {
 
         if (Money.isEmpty())
         {
-            money.setError("Please Fill It");
+            money.setError(getString(R.string.fill_it));
             MyProgressBar.HideProgress();
 return;
         }
         if (Remark.isEmpty())
         {
-            remark.setError("Please Fill It");
+            remark.setError(getString(R.string.fill_it));
             MyProgressBar.HideProgress();
 return;
         }
@@ -212,8 +212,8 @@ return;
             }
         });
         
-        MyDialogBox.ShowDialog(Expenditure.this,"Saved");
-        Toast.makeText(this, "Saved", Toast.LENGTH_SHORT).show();
+        MyDialogBox.ShowDialog(Expenditure.this,getString(R.string.saved));
+        Toast.makeText(this, getString(R.string.saved), Toast.LENGTH_SHORT).show();
         finish();
     }
     public void list(View view)

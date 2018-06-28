@@ -10,6 +10,8 @@ import android.widget.TextView;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 
+import static com.sanshy.buysellinventory.MyDialogBox.ErrorFeedbackDialog;
+
 public class fiveItemLister extends AppCompatActivity {
 
     @Override
@@ -59,12 +61,7 @@ public class fiveItemLister extends AppCompatActivity {
             listView.setAdapter(historyPayList);
 
         }catch (Exception ex){
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setTitle("Error!!")
-                    .setMessage("Something is Wrong!!\n" +
-                            "Try Again Later or Send Feedback!!")
-                    .setPositiveButton("OK",null)
-                    .create().show();
+            ErrorFeedbackDialog(this);
         }
 
 

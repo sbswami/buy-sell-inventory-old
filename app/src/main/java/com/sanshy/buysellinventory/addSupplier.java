@@ -127,7 +127,7 @@ public class addSupplier extends AppCompatActivity {
             }
 
             @Override
-            public void onCancelled(DatabaseError databaseError) {
+            public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
         });
@@ -234,22 +234,22 @@ public class addSupplier extends AppCompatActivity {
 
         if (Name.isEmpty())
         {
-            name.setError("Required Field");
+            name.setError(getString(R.string.required_field));
             return;
         }
         if (Company.isEmpty())
         {
-            company.setError("Required Field");
+            company.setError(getString(R.string.required_field));
             return;
         }
         if (Phone.isEmpty())
         {
-            phone.setError("Required Field");
+            phone.setError(getString(R.string.required_field));
             return;
         }
         if (City.isEmpty())
         {
-            city.setError("Required Field");
+            city.setError(getString(R.string.required_field));
             return;
         }
         if (Address.isEmpty())
@@ -287,7 +287,7 @@ public class addSupplier extends AppCompatActivity {
                     mOnHoldSupplierRef.child("id").setValue(Name+"_"+Phone);
                     mOnHoldSupplierRef.child("name").setValue(Name);
                     mOnHoldSupplierRef.child("onHoldMoney").setValue("0");
-                    Toast.makeText(addSupplier.this, "Supplier Saved", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(addSupplier.this, R.string.supplier_saved, Toast.LENGTH_SHORT).show();
 
                     startActivity(new Intent(addSupplier.this, Supplier.class));
                     addSupplier.this.finish();
@@ -297,9 +297,9 @@ public class addSupplier extends AppCompatActivity {
                     try
                     {
                         AlertDialog.Builder builder = new AlertDialog.Builder(addSupplier.this);
-                        builder.setTitle("Can't Save")
-                                .setMessage("Supplier Already Exist")
-                                .setPositiveButton("OK",null)
+                        builder.setTitle(R.string.can_not_save)
+                                .setMessage(getString(R.string.supplier_already_exist_))
+                                .setPositiveButton(getString(R.string.ok_),null)
                                 .create()
                                 .show();
                     }

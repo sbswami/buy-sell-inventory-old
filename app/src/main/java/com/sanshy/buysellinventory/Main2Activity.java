@@ -47,7 +47,7 @@ public class Main2Activity extends AppCompatActivity {
 
         if (Name.isEmpty())
         {
-            name.setError("Fill It");
+            name.setError(getString(R.string.fill_it));
             return;
         }
 
@@ -61,12 +61,12 @@ public class Main2Activity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
-                            Toast.makeText(Main2Activity.this, "Profile Updated!!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(Main2Activity.this, R.string.profile_updated, Toast.LENGTH_SHORT).show();
                             Main2Activity.this.finish();
                         }
                         else
                         {
-                            Toast.makeText(Main2Activity.this, "Something is Wrong!!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(Main2Activity.this, getString(R.string.something_is_wrong_), Toast.LENGTH_SHORT).show();
                             Main2Activity.this.finish();
                         }
                     }

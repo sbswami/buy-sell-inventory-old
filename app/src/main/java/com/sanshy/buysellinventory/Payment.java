@@ -11,6 +11,8 @@ import android.view.View;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 
+import static com.sanshy.buysellinventory.NetworkConnectivityCheck.connectionCheck;
+
 public class Payment extends AppCompatActivity {
 
     @Override
@@ -39,63 +41,8 @@ public class Payment extends AppCompatActivity {
     public void onResume() {
         super.onResume();  // Always call the superclass method first
 
-        connectionCheck();
+        connectionCheck(this);
 
-    }
-
-    public void connectionCheck()
-    {
-
-        if (isInternetOn())
-        {
-
-        }
-        else {
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setTitle("Connection Problem")
-                    .setMessage("Please Connect To Internet and Click OK!!!")
-                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            connectionCheck();
-                        }
-                    })
-                    .setCancelable(false)
-                    .setNegativeButton("Close App", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            android.os.Process.killProcess(android.os.Process.myPid());
-                        }
-                    });
-            builder.create().show();
-        }
-    }
-
-    public final boolean isInternetOn() {
-
-        // get Connectivity Manager object to check connection
-        ConnectivityManager connec =
-                (ConnectivityManager)getSystemService(getBaseContext().CONNECTIVITY_SERVICE);
-
-        // Check for network connections
-        if ( connec.getNetworkInfo(0).getState() == android.net.NetworkInfo.State.CONNECTED ||
-                connec.getNetworkInfo(0).getState() == android.net.NetworkInfo.State.CONNECTING ||
-                connec.getNetworkInfo(1).getState() == android.net.NetworkInfo.State.CONNECTING ||
-                connec.getNetworkInfo(1).getState() == android.net.NetworkInfo.State.CONNECTED ) {
-
-            // if connected with internet
-
-
-            return true;
-
-        } else if (
-                connec.getNetworkInfo(0).getState() == android.net.NetworkInfo.State.DISCONNECTED ||
-                        connec.getNetworkInfo(1).getState() == android.net.NetworkInfo.State.DISCONNECTED  ) {
-
-
-            return false;
-        }
-        return false;
     }
 
 }

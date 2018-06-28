@@ -44,6 +44,7 @@ import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.messaging.FirebaseMessaging;
 
 import static com.sanshy.buysellinventory.MyUserStaticClass.userIdMainStatic;
+import static com.sanshy.buysellinventory.NetworkConnectivityCheck.connectionCheck;
 
 
 public class home extends AppCompatActivity implements RewardedVideoAdListener {
@@ -156,7 +157,7 @@ public class home extends AppCompatActivity implements RewardedVideoAdListener {
 //            }
 //        });
 
-        isInternetOn();
+        connectionCheck(this);
 
         loadRewardedVideoAd();
 
@@ -218,7 +219,7 @@ public class home extends AppCompatActivity implements RewardedVideoAdListener {
 
             mRootRef.child("update").addValueEventListener(new ValueEventListener() {
                 @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     try{
                         int playVersion = dataSnapshot.getValue(Integer.class);
 
@@ -230,9 +231,9 @@ public class home extends AppCompatActivity implements RewardedVideoAdListener {
                         if (playVersion>code)
                         {
                             AlertDialog.Builder builder = new AlertDialog.Builder(home.this);
-                            builder.setTitle("Update!!")
-                                    .setMessage("Wow!! New Version Available!!")
-                                    .setPositiveButton("Update Now!!", new DialogInterface.OnClickListener() {
+                            builder.setTitle(R.string.update)
+                                    .setMessage(getString(R.string.wow_new_version_))
+                                    .setPositiveButton(getString(R.string.update_now_), new DialogInterface.OnClickListener() {
                                         @Override
                                         public void onClick(DialogInterface dialogInterface, int i) {
                                             Intent intent = new Intent(Intent.ACTION_VIEW);
@@ -250,7 +251,7 @@ public class home extends AppCompatActivity implements RewardedVideoAdListener {
                 }
 
                 @Override
-                public void onCancelled(DatabaseError databaseError) {
+                public void onCancelled(@NonNull DatabaseError databaseError) {
 
                 }
             });
@@ -259,10 +260,10 @@ public class home extends AppCompatActivity implements RewardedVideoAdListener {
             String name = currentUser.getDisplayName();
             if (name.isEmpty())
             {
-                profile.setText("Click To Complete Profile!!!");
+                profile.setText(R.string.click_to_complete);
             }
             else {
-                profile.setText("Welcome!! "+name);
+                profile.setText(getString(R.string.welcome)+name);
             }
         }catch (Exception ex){}
     }
@@ -272,45 +273,45 @@ public class home extends AppCompatActivity implements RewardedVideoAdListener {
     }
 
     public void product(View view){
-        connectionCheck();startActivity(new Intent(this,Product.class));
+        connectionCheck(this);startActivity(new Intent(this,Product.class));
     }
     public void customer(View view)    {
-        connectionCheck();startActivity(new Intent(this,Customer.class));
+        connectionCheck(this);startActivity(new Intent(this,Customer.class));
     }
     public void supplier(View view)    {
-        connectionCheck();startActivity(new Intent(this,Supplier.class));
+        connectionCheck(this);startActivity(new Intent(this,Supplier.class));
     }
     public void buy(View view)    {
-        connectionCheck();startActivity(new Intent(this,Buy.class));
+        connectionCheck(this);startActivity(new Intent(this,Buy.class));
     }
     public void sell(View view)    {
-        connectionCheck();startActivity(new Intent(this,Sell.class));
+        connectionCheck(this);startActivity(new Intent(this,Sell.class));
     }
-    public void statement(View view)    {        connectionCheck();startActivity(new Intent(this, Statement.class));
+    public void statement(View view)    {        connectionCheck(this);startActivity(new Intent(this, Statement.class));
     }
     public void stock(View view)   {
-        connectionCheck();startActivity(new Intent(this,Stock.class));
+        connectionCheck(this);startActivity(new Intent(this,Stock.class));
     }
     public void holders(View view)    {
-        connectionCheck();startActivity(new Intent(this,Payment.class));
+        connectionCheck(this);startActivity(new Intent(this,Payment.class));
     }
     public void exp(View view)    {
-        connectionCheck();startActivity(new Intent(this,Expenditure.class));
+        connectionCheck(this);startActivity(new Intent(this,Expenditure.class));
     }
     public void share(View view){
-        String shareText = "Buy Sell Inventory Application Online Data Store.\n" +
-                "A to Z Work of Shop. Like Supplier Detail, Stock, On Hold Payments Detail, Expenditure System etc. \n" +
-                "All Inventory Work In Simple Way.\n" +
-                "Download Now!! Click Below!!" +
-                "दुकान का पूरा हिसाब, बही खाते का पूरा हिसाब, घरेलु एंव अन्य खर्च का हिसाब और भी अन्य बहुत सारी विशेषताएं आसन तरीके से एंव ऑनलाइन डाटा स्टोर|\n" +
-                "अभी डाउनलोड करें !! \n"+
+        String shareText = getString(R.string.buy_sell_name)+"\n" +
+                getString(R.string.share_line_one)+"\n" +
+                getString(R.string.share_line_two)+"\n" +
+                getString(R.string.share_line_three)+"\n" +
+                getString(R.string.share_line_hindi_1)+"\n" +
+                getString(R.string.share_line_hindi_two)+
                 "https://play.google.com/store/apps/details?id=com.sanshy.buysellinventory";
-        String shareSubject ="Buy Sell Inventory | खरीद बेच का हिसाब ";
+        String shareSubject =getString(R.string.share_subject);
         Intent intent = new Intent(Intent.ACTION_SEND);
         intent.setType("text/plain");
         intent.putExtra(Intent.EXTRA_TEXT,shareText);
         intent.putExtra(Intent.EXTRA_SUBJECT,shareSubject);
-        startActivity(Intent.createChooser(intent, "Share App Via"));
+        startActivity(Intent.createChooser(intent, getString(R.string.share_app_via)));
 
     }
 
@@ -347,26 +348,26 @@ public class home extends AppCompatActivity implements RewardedVideoAdListener {
 
     public void resetB(View view){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Warning !! चेतावनी !!")
-                .setMessage("Do You Really Want To Clear Your All Products, Supplier, Customer, Stock, History and Other all Data You Will Not Able to Restore this!!" +
-                        "\n क्या आप सभी उत्पाद, वितरक, ग्राहक, Stock, History और अन्य को मिटाना चाहते हैं | आप इसे हमेसा के लिए खो देंगे | ")
-                .setPositiveButton("Cancel|छोड़े",null)
-                .setNegativeButton("Reset|मिटाएँ", new DialogInterface.OnClickListener() {
+        builder.setTitle(R.string.warning)
+                .setMessage(getString(R.string.warning_line_english) +
+                        "\n"+getString(R.string.warning_line_hindi))
+                .setPositiveButton(getString(R.string.cancel_text),null)
+                .setNegativeButton(getString(R.string.reset_text), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         final AlertDialog.Builder builder1 = new AlertDialog.Builder(home.this);
                         LayoutInflater inflater = home.this.getLayoutInflater();
                         final View myD = inflater.inflate(R.layout.reset_q, null);
                         builder1.setView(myD)
-                                .setPositiveButton("Cancel|छोड़े",null)
-                                .setNegativeButton("Reset|मिटाएँ", new DialogInterface.OnClickListener() {
+                                .setPositiveButton(getString(R.string.cancel_text),null)
+                                .setNegativeButton(R.string.reset_text, new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialogInterface, int i) {
                                         EditText ans = myD.findViewById(R.id.ans);
                                         String Ans = ans.getText().toString();
                                         if (Ans.isEmpty())
                                         {
-                                            ans.setError("Solve It!");
+                                            ans.setError(getString(R.string.solve_it));
                                         }
                                         else{
                                             try{
@@ -380,14 +381,14 @@ public class home extends AppCompatActivity implements RewardedVideoAdListener {
                                                     DatabaseReference mUserRef = mRootRef.child(userIdMainStatic);
                                                     mUserRef.removeValue();
 
-                                                    Toast.makeText(home.this, "App Reset Done!!", Toast.LENGTH_SHORT).show();
+                                                    Toast.makeText(home.this, R.string.app_reset_done, Toast.LENGTH_SHORT).show();
 
                                                 }
                                                 else {
                                                     dialogInterface.cancel();
                                                 }
                                             }catch (Exception ex){
-                                                Toast.makeText(home.this, "Feedback Developer With ->"+ex, Toast.LENGTH_SHORT).show();
+                                                Toast.makeText(home.this, getString(R.string.feedback_developer_with)+ex, Toast.LENGTH_SHORT).show();
                                             }
                                         }
                                     }
@@ -407,64 +408,10 @@ public class home extends AppCompatActivity implements RewardedVideoAdListener {
     public void onResume() {
         super.onResume();  // Always call the superclass method first
 
-        connectionCheck();
+        connectionCheck(this);
 
     }
 
-    public void connectionCheck()
-    {
-
-        if (isInternetOn())
-        {
-
-        }
-        else {
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setTitle("Connection Problem")
-                    .setMessage("Please Connect To Internet and Click OK!!!")
-                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            connectionCheck();
-                        }
-                    })
-                    .setCancelable(false)
-                    .setNegativeButton("Close App", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            android.os.Process.killProcess(android.os.Process.myPid());
-                        }
-                    });
-            builder.create().show();
-        }
-    }
-
-    public final boolean isInternetOn() {
-
-        // get Connectivity Manager object to check connection
-        ConnectivityManager connec =
-                (ConnectivityManager)getSystemService(getBaseContext().CONNECTIVITY_SERVICE);
-
-        // Check for network connections
-        if ( connec.getNetworkInfo(0).getState() == android.net.NetworkInfo.State.CONNECTED ||
-                connec.getNetworkInfo(0).getState() == android.net.NetworkInfo.State.CONNECTING ||
-                connec.getNetworkInfo(1).getState() == android.net.NetworkInfo.State.CONNECTING ||
-                connec.getNetworkInfo(1).getState() == android.net.NetworkInfo.State.CONNECTED ) {
-
-            // if connected with internet
-
-
-            return true;
-
-        } else if (
-                connec.getNetworkInfo(0).getState() == android.net.NetworkInfo.State.DISCONNECTED ||
-                        connec.getNetworkInfo(1).getState() == android.net.NetworkInfo.State.DISCONNECTED  ) {
-
-
-            return false;
-        }
-        return false;
-    }
 
     @Override
     public void onRewardedVideoAdLoaded() {

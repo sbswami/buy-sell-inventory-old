@@ -147,9 +147,9 @@ tempo.clear();
                                     grandTotal += Double.parseDouble(fm[k]);
                                 }
 
-                                sl[supplierList.size()] = "Total";
+                                sl[supplierList.size()] = getString(R.string.total);
                                 fm[supplierList.size()] = grandTotal+"";
-                                remainAmount.setText("Total Amount "+grandTotal);
+                                remainAmount.setText(getString(R.string.total_amount_)+grandTotal);
 
                                 historyPayListAdapter historyPayList = new historyPayListAdapter(buyList.this,fd,sl,fm);
                                 listView.setAdapter(historyPayList);
@@ -341,9 +341,9 @@ tempo.clear();
                                                     grandTotal += Double.parseDouble(fm[k]);
                                                 }
 
-                                                sl[supplierList.size()] = "Total";
+                                                sl[supplierList.size()] = getString(R.string.total);
                                                 fm[supplierList.size()] = grandTotal+"";
-                                                remainAmount.setText("Total Amount "+grandTotal);
+                                                remainAmount.setText(getString(R.string.total_amount_)+grandTotal);
 
                                                 historyPayListAdapter historyPayList = new historyPayListAdapter(buyList.this,fd,sl,fm);
                                                 listView.setAdapter(historyPayList);

@@ -1,8 +1,7 @@
 package com.sanshy.buysellinventory;
 
-import android.content.DialogInterface;
+
 import android.content.Intent;
-import android.net.ConnectivityManager;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -21,12 +20,10 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.concurrent.TimeUnit;
 
 import static com.sanshy.buysellinventory.MyUserStaticClass.userIdMainStatic;
 
@@ -184,17 +181,17 @@ public class addCustomer extends AppCompatActivity {
 
         if (Name.isEmpty())
         {
-            name.setError("Required Field");
+            name.setError(getString(R.string.required_field));
             return;
         }
         if (Phone.isEmpty())
         {
-            phone.setError("Required Field");
+            phone.setError(getString(R.string.required_field));
             return;
         }
         if (City.isEmpty())
         {
-            city.setError("Required Field");
+            city.setError(getString(R.string.required_field));
             return;
         }
         if (Address.isEmpty())
@@ -230,7 +227,7 @@ public class addCustomer extends AppCompatActivity {
                     mOnHoldCustomerRef.child("name").setValue(Name);
                     mOnHoldCustomerRef.child("onHoldMoney").setValue("0");
                     mOnHoldCustomerRef.child("grossProfit").setValue("0");
-                    Toast.makeText(addCustomer.this, "Customer Saved", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(addCustomer.this, R.string.customer_saved, Toast.LENGTH_SHORT).show();
 
                     startActivity(new Intent(addCustomer.this, Customer.class));
                     addCustomer.this.finish();
@@ -240,9 +237,9 @@ public class addCustomer extends AppCompatActivity {
                     try
                     {
                         AlertDialog.Builder builder = new AlertDialog.Builder(addCustomer.this);
-                        builder.setTitle("Can't Save")
-                                .setMessage("Customer Already Exist")
-                                .setPositiveButton("OK",null)
+                        builder.setTitle(R.string.can_not_save)
+                                .setMessage(getString(R.string.customer_already_exist_))
+                                .setPositiveButton(getString(R.string.ok_),null)
                                 .create()
                                 .show();
                     }

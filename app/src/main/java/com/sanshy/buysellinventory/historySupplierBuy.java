@@ -34,6 +34,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import static com.sanshy.buysellinventory.MyDialogBox.DateRequestDialog;
 import static com.sanshy.buysellinventory.MyUserStaticClass.userIdMainStatic;
 
 public class historySupplierBuy extends AppCompatActivity {
@@ -122,14 +123,14 @@ tempo.clear();
                     }
                 }
 
-                Date[Product.size()] = count+" Total";
+                Date[Product.size()] = count+getString(R.string._total);
                 Amount[money.size()] = total+"";
                 Quantity[quantity.size()] = quant+"";
 
                 mySellListAdapter historyPayList = new mySellListAdapter(historySupplierBuy.this,Date,productList,Mode,Quantity,Amount);
                 listView.setAdapter(historyPayList);
 
-                remainAmount.setText("Total Money : "+total);
+                remainAmount.setText(getString(R.string.total_money__)+total);
                 MyProgressBar.HideProgress();
 tempo.add(1);
             }
@@ -212,14 +213,14 @@ tempo.clear();
                                     }
                                 }
 
-                                Date[Product.size()] = count+" Total";
+                                Date[Product.size()] = count+getString(R.string._total);
                                 Amount[money.size()] = total+"";
                                 Quantity[quantity.size()] = quant+"";
 
                                 mySellListAdapter historyPayList = new mySellListAdapter(historySupplierBuy.this,Date,productList,Mode,Quantity,Amount);
                                 listView.setAdapter(historyPayList);
 
-                                remainAmount.setText("Total Money : "+total);
+                                remainAmount.setText(getString(R.string.total_money__)+total);
 
                                 MyProgressBar.HideProgress();
 tempo.add(1);
@@ -317,12 +318,7 @@ tempo.add(1);
         {
             if ((fday == 0) && (fmonth == 0) && (fYear == 0) && (tday == 0) && (tmonth == 0) && (tYear == 0))
             {
-                android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(this);
-                builder.setTitle("Choose Date")
-                        .setMessage("Please Choose Any Date")
-                        .setPositiveButton("OK",null)
-                        .create()
-                        .show();
+                DateRequestDialog(this);
                 return;
             }
             DatabaseReference mOnHoldSupplier = mRootRef.child(userIdMainStatic+"/buy");
@@ -357,7 +353,8 @@ tempo.clear();
                 for (int i = 0; i < Dates.size(); i++)
                 {
                     final int iFinal = i;
-                    Query query = mOnHoldSupplier.orderByChild("date").equalTo(betweenDates[i]);
+
+                    Query query = mOnHoldSupplier.orderByChild("date_mode").equalTo(betweenDates[i]+"_"+"On Hold");
                     query.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -397,14 +394,14 @@ tempo.clear();
                                 }
                             }
 
-                            Date[Product.size()] = count+" Total";
+                            Date[Product.size()] = count+getString(R.string._total);
                             Amount[money.size()] = total+"";
                             Quantity[quantity.size()] = quant+"";
 
                             mySellListAdapter historyPayList = new mySellListAdapter(historySupplierBuy.this,Date,productList,Mode,Quantity,Amount);
                             listView.setAdapter(historyPayList);
 
-                            remainAmount.setText("Total Money : "+total);
+                            remainAmount.setText(getString(R.string.total_money__)+total);
 
                             if (iFinal==(Dates.size()-1)){
                                 MyProgressBar.HideProgress();
@@ -431,12 +428,7 @@ tempo.add(1);
         else {
             if ((fday == 0) && (fmonth == 0) && (fYear == 0) && (tday == 0) && (tmonth == 0) && (tYear == 0))
             {
-                android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(this);
-                builder.setTitle("Choose Date")
-                        .setMessage("Please Choose Any Date")
-                        .setPositiveButton("OK",null)
-                        .create()
-                        .show();
+                DateRequestDialog(this);
                 return;
             }
             DatabaseReference mOnHoldSupplier = mRootRef.child(userIdMainStatic+"/buy");
@@ -475,54 +467,60 @@ tempo.clear();
                     query.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren())
-                            {
-                                Product.add(dataSnapshot1.child("productName").getValue(String.class));
-                                date.add(dataSnapshot1.child("date").getValue(String.class));
-                                money.add(dataSnapshot1.child("price").getValue(String.class));
-                                mode.add(dataSnapshot1.child("supplierName").getValue(String.class));
-                                quantity.add(dataSnapshot1.child("quantity").getValue(String.class));
-
-                            }
-                            final String productList[] = new String[Product.size()+1];
-                            String Date[] = new String[date.size()+1];
-                            String Amount[] = new String[money.size()+1];
-                            String Mode[] = new String[mode.size()+1];
-                            String Quantity[] = new String[quantity.size()+1];
-
-                            double total = 0;
-                            int quant = 0;
-                            int count = 0;
-                            for (int i = 0; i < Product.size(); i++)
-                            {
-                                productList[i] = Product.get(i);
-                                Date[i] = date.get(i);
-                                Amount[i] = money.get(i);
-                                Quantity[i] = quantity.get(i);
-                                Mode[i] = mode.get(i);
-                                count++;
-                                try
+                            if (dataSnapshot.exists()){
+                                for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren())
                                 {
-                                    total += Double.parseDouble(Amount[i]);
-                                    quant += (int)Double.parseDouble(Quantity[i]);
-                                }catch (Exception es)
-                                {
+                                    if (dataSnapshot1.child("mode").getValue(String.class).equals("Cash")){
+                                        continue;
+                                    }
+                                    Product.add(dataSnapshot1.child("productName").getValue(String.class));
+                                    date.add(dataSnapshot1.child("date").getValue(String.class));
+                                    money.add(dataSnapshot1.child("price").getValue(String.class));
+                                    mode.add(dataSnapshot1.child("supplierName").getValue(String.class));
+                                    quantity.add(dataSnapshot1.child("quantity").getValue(String.class));
 
                                 }
+                                final String productList[] = new String[Product.size()+1];
+                                String Date[] = new String[date.size()+1];
+                                String Amount[] = new String[money.size()+1];
+                                String Mode[] = new String[mode.size()+1];
+                                String Quantity[] = new String[quantity.size()+1];
+
+                                double total = 0;
+                                int quant = 0;
+                                int count = 0;
+                                for (int i = 0; i < Product.size(); i++)
+                                {
+                                    productList[i] = Product.get(i);
+                                    Date[i] = date.get(i);
+                                    Amount[i] = money.get(i);
+                                    Quantity[i] = quantity.get(i);
+                                    Mode[i] = mode.get(i);
+                                    count++;
+                                    try
+                                    {
+                                        total += Double.parseDouble(Amount[i]);
+                                        quant += (int)Double.parseDouble(Quantity[i]);
+                                    }catch (Exception es)
+                                    {
+
+                                    }
+                                }
+
+                                Date[Product.size()] = count+getString(R.string._total);
+                                Amount[money.size()] = total+"";
+                                Quantity[quantity.size()] = quant+"";
+
+                                mySellListAdapter historyPayList = new mySellListAdapter(historySupplierBuy.this,Date,productList,Mode,Quantity,Amount);
+                                listView.setAdapter(historyPayList);
+
+                                remainAmount.setText(getString(R.string.total_money__)+total);
+
+
                             }
-
-                            Date[Product.size()] = count+" Total";
-                            Amount[money.size()] = total+"";
-                            Quantity[quantity.size()] = quant+"";
-
-                            mySellListAdapter historyPayList = new mySellListAdapter(historySupplierBuy.this,Date,productList,Mode,Quantity,Amount);
-                            listView.setAdapter(historyPayList);
-
-                            remainAmount.setText("Total Money : "+total);
-
                             if (iFinal==(Dates.size()-1)){
                                 MyProgressBar.HideProgress();
-tempo.add(1);
+                                tempo.add(1);
                             }
 
                         }

@@ -135,23 +135,23 @@ public class addProduct extends AppCompatActivity {
 
         if (Name.isEmpty())
         {
-            name.setError("Required Field");
+            name.setError(getString(R.string.required_field));
             return;
         }
         if (BuyP.isEmpty()&&Margin.isEmpty())
         {
-            buyMargin.setError("Required Field");
+            buyMargin.setError(getString(R.string.required_field));
             return;
         }
         if (!(BuyP.isEmpty()||Margin.isEmpty()))
         {
-            MyDialogBox.ShowDialog(addProduct.this,"Please Enter in Any one.\n" +
-                    "Buy Price or Margin Percentage");
+            MyDialogBox.ShowDialog(addProduct.this,getString(R.string.enter_any_one)+"\n" +
+                    getString(R.string.price_or_margin));
             return;
         }
         if (SellPrice.isEmpty())
         {
-            sellPrice.setError("Required Field");
+            sellPrice.setError(getString(R.string.required_field));
             return;
         }
 
@@ -192,7 +192,7 @@ public class addProduct extends AppCompatActivity {
                     DatabaseReference mStockRef = mRootRef.child(userIdMainStatic+"/stock/"+Name);
                     stockitem stocki = new stockitem(Name,"0",BuyPrice,SellPrice);
                     mStockRef.setValue(stocki);
-                    Toast.makeText(addProduct.this, "Product Saved", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(addProduct.this, R.string.product_saved, Toast.LENGTH_SHORT).show();
 
                     startActivity(new Intent(addProduct.this, Product.class));
                     addProduct.this.finish();
@@ -202,9 +202,9 @@ public class addProduct extends AppCompatActivity {
                     try
                     {
                         AlertDialog.Builder builder = new AlertDialog.Builder(addProduct.this);
-                        builder.setTitle("Can't Save")
-                                .setMessage("Product Already Exist")
-                                .setPositiveButton("OK",null)
+                        builder.setTitle(getString(R.string.can_not_save))
+                                .setMessage(R.string.product_already_exist_)
+                                .setPositiveButton(getString(R.string.ok_),null)
                                 .create()
                                 .show();
                     }

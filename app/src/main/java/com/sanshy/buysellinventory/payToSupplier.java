@@ -111,7 +111,7 @@ public class payToSupplier extends AppCompatActivity {
                     @Override
                     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                         index[0] = Arrays.asList(Name).indexOf(suggestion_box3.getText().toString());
-                        remainAmount.setText("Total : "+OnHoldMoney[index[0]]);
+                        remainAmount.setText(getString(R.string.total_amount_)+OnHoldMoney[index[0]]);
                         amount.setText(OnHoldMoney[index[0]]);
                         Amount = OnHoldMoney[index[0]];
                     }
@@ -136,23 +136,23 @@ public class payToSupplier extends AppCompatActivity {
 
         if (Name.isEmpty())
         {
-            suggestion_box3.setError("Please Select Supplier Name");
+            suggestion_box3.setError(getString(R.string.please_select_supplier_name));
             MyProgressBar.HideProgress();
 return;
         }
         if (PayMoney.equals("0")){
-            MyDialogBox.ShowDialog(this,"You Can't Pay 0");
+            MyDialogBox.ShowDialog(this,getString(R.string.can_not_pay_zero));
             MyProgressBar.HideProgress();
             return;
         }
         if (PayMoney.equals("0")){
-            amount.setError("Please Enter");
+            amount.setError(getString(R.string.please_enter_amount));
             MyProgressBar.HideProgress();
             return;
         }
         if (Double.parseDouble(PayMoney) > Double.parseDouble(Amount))
         {
-            Toast.makeText(this, "You Are Paying In Advance", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.you_are_paying_in_advance), Toast.LENGTH_SHORT).show();
         }
         int checkSupplier = 0;
         for (int i = 0; i < supplierList.size(); i++)
@@ -166,18 +166,18 @@ return;
         if (checkSupplier == 0)
         {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setTitle("Can't Save")
-                    .setMessage("Please Select From Supplier List")
-                    .setPositiveButton("OK",null)
+            builder.setTitle(getString(R.string.can_not_save))
+                    .setMessage(getString(R.string.please_select_from_supplier_list_))
+                    .setPositiveButton(getString(R.string.ok_),null)
                     .create()
                     .show();
             MyProgressBar.HideProgress();
 return;
         }
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Are You Sure!!")
-                .setMessage("After Paying You Will Not Able To Edit||")
-                .setPositiveButton("Pay", new DialogInterface.OnClickListener() {
+        builder.setTitle(getString(R.string.are_you_sure))
+                .setMessage(getString(R.string.can_not_undo_))
+                .setPositiveButton(getString(R.string.pay_text), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
@@ -242,11 +242,11 @@ return;
                             }
                         });
 
-                        Toast.makeText(payToSupplier.this, "Payment Done", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(payToSupplier.this, getString(R.string.payment_done), Toast.LENGTH_SHORT).show();
                         finish();
                     }
                 })
-                .setNegativeButton("Cancel",new DialogInterface.OnClickListener() {
+                .setNegativeButton(getString(R.string.cancel_text),new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         MyProgressBar.HideProgress();

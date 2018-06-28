@@ -24,16 +24,16 @@ public class NetworkConnectivityCheck {
 
         if (!isDeviceOnline(context)){
             AlertDialog.Builder builder = new AlertDialog.Builder(context);
-            builder.setTitle("Connection Problem")
-                    .setMessage("Please Connect To Internet and Click OK!!!")
-                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            builder.setTitle(R.string.connection_problem_)
+                    .setMessage(context.getString(R.string.connect_request_))
+                    .setPositiveButton(context.getString(R.string.ok_), new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
                             connectionCheck(context);
                         }
                     })
                     .setCancelable(false)
-                    .setNegativeButton("Close App", new DialogInterface.OnClickListener() {
+                    .setNegativeButton(context.getString(R.string.close_app), new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
                             android.os.Process.killProcess(android.os.Process.myPid());

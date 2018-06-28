@@ -120,7 +120,7 @@ public class payByCustomer extends AppCompatActivity {
                     @Override
                     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                         index[0] = Arrays.asList(Name).indexOf(suggestion_box3.getText().toString());
-                        remainAmount.setText("Total : "+OnHoldMoney[index[0]]);
+                        remainAmount.setText(getString(R.string.total_money__)+OnHoldMoney[index[0]]);
                         amount.setText(OnHoldMoney[index[0]]);
                         Amount = OnHoldMoney[index[0]];
                         Profit = GrossProfit[index[0]];
@@ -146,18 +146,18 @@ public class payByCustomer extends AppCompatActivity {
 
         if (Name.isEmpty())
         {
-            suggestion_box3.setError("Please Select Customer Name");
+            suggestion_box3.setError(getString(R.string.please_select_customer_name));
             MyProgressBar.HideProgress();
 return;
         }
         if (PayMoney.isEmpty())
         {
-            amount.setError("Please Enter");
+            amount.setError(getString(R.string.please_enter_amount));
             MyProgressBar.HideProgress();
 return;
         }
         if (PayMoney.equals("0")){
-            MyDialogBox.ShowDialog(this,"You Can't Pay 0");
+            MyDialogBox.ShowDialog(this,getString(R.string.can_not_pay_zero));
             MyProgressBar.HideProgress();
             return;
         }
@@ -173,9 +173,9 @@ return;
         if (checkCustomer == 0)
         {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setTitle("Can't Save")
-                    .setMessage("Please Select From Customer List")
-                    .setPositiveButton("OK",null)
+            builder.setTitle(getString(R.string.can_not_save))
+                    .setMessage(getString(R.string.please_select_customer_name))
+                    .setPositiveButton(getString(R.string.ok_),null)
                     .create()
                     .show();
             MyProgressBar.HideProgress();
@@ -183,14 +183,14 @@ return;
         }
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Are You Sure!!")
-                .setMessage("After Paying You Will Not Able To Edit It!!!")
-                .setPositiveButton("Pay", new DialogInterface.OnClickListener() {
+        builder.setTitle(R.string.are_you_sure)
+                .setMessage(R.string.can_not_undo_)
+                .setPositiveButton(getString(R.string.pay_text), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         if (Double.parseDouble(PayMoney) > Double.parseDouble(Amount))
                         {
-                            MyDialogBox.ShowDialog(payByCustomer.this,"You Are Paying In Advance");
+                            MyDialogBox.ShowDialog(payByCustomer.this,getString(R.string.you_are_paying_in_advance));
                         }
                         double PayProfit = 0;
                         try
@@ -279,12 +279,12 @@ return;
                             }
                         });
 
-                        Toast.makeText(payByCustomer.this, "Payment Done", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(payByCustomer.this, R.string.payment_done, Toast.LENGTH_SHORT).show();
                         finish();
 
                     }
                 })
-                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                .setNegativeButton(getString(R.string.cancel_text), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         MyProgressBar.HideProgress();

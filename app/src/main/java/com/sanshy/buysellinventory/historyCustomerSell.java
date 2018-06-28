@@ -34,6 +34,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import static com.sanshy.buysellinventory.MyDialogBox.DateRequestDialog;
 import static com.sanshy.buysellinventory.MyUserStaticClass.userIdMainStatic;
 
 public class historyCustomerSell extends AppCompatActivity {
@@ -121,14 +122,14 @@ tempo.clear();
                     }
                 }
 
-                Date[Product.size()] = count+" Total";
+                Date[Product.size()] = count+getString(R.string._total);
                 Amount[money.size()] = total+"";
                 Quantity[quantity.size()] = quant+"";
 
                 mySellListAdapter historyPayList = new mySellListAdapter(historyCustomerSell.this,Date,productList,Mode,Quantity,Amount);
                 listView.setAdapter(historyPayList);
 
-                remainAmount.setText("Total Money : "+total);
+                remainAmount.setText(getString(R.string.total_money__)+total);
 
                 MyProgressBar.HideProgress();
 tempo.add(1);
@@ -136,7 +137,7 @@ tempo.add(1);
             }
 
             @Override
-            public void onCancelled(DatabaseError databaseError) {
+            public void onCancelled(@NonNull DatabaseError databaseError) {
                 MyProgressBar.HideProgress();
 tempo.add(1);
             }
@@ -213,14 +214,14 @@ tempo.clear();
                                     }
                                 }
 
-                                Date[Product.size()] = count+" Total";
+                                Date[Product.size()] = count+getString(R.string._total);
                                 Amount[money.size()] = total+"";
                                 Quantity[quantity.size()] = quant+"";
 
                                 mySellListAdapter historyPayList = new mySellListAdapter(historyCustomerSell.this,Date,productList,Mode,Quantity,Amount);
                                 listView.setAdapter(historyPayList);
 
-                                remainAmount.setText("Total Money : "+total);
+                                remainAmount.setText(getString(R.string.total_money__)+total);
 
                                 MyProgressBar.HideProgress();
 tempo.add(1);
@@ -320,12 +321,7 @@ tempo.add(1);
         {
             if ((fday == 0) && (fmonth == 0) && (fYear == 0) && (tday == 0) && (tmonth == 0) && (tYear == 0))
             {
-                android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(this);
-                builder.setTitle("Choose Date")
-                        .setMessage("Please Choose Any Date")
-                        .setPositiveButton("OK",null)
-                        .create()
-                        .show();
+                DateRequestDialog(this);
                 return;
             }
             DatabaseReference mOnHoldCustomer = mRootRef.child(userIdMainStatic+"/sell");
@@ -361,7 +357,7 @@ tempo.clear();
                 {
                     final int iFinal = i;
 
-                    Query query = mOnHoldCustomer.orderByChild("date").equalTo(betweenDates[i]);
+                    Query query = mOnHoldCustomer.orderByChild("date_mode").equalTo(betweenDates[i]+"_"+"On Hold");
                     query.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -401,14 +397,14 @@ tempo.clear();
                                 }
                             }
 
-                            Date[Product.size()] = count+" Total";
+                            Date[Product.size()] = count+getString(R.string._total);
                             Amount[money.size()] = total+"";
                             Quantity[quantity.size()] = quant+"";
 
                             mySellListAdapter historyPayList = new mySellListAdapter(historyCustomerSell.this,Date,productList,Mode,Quantity,Amount);
                             listView.setAdapter(historyPayList);
 
-                            remainAmount.setText("Total Money : "+total);
+                            remainAmount.setText(getString(R.string.total_money__)+total);
 
                             if (iFinal==(Dates.size()-1)){
                                 MyProgressBar.HideProgress();
@@ -435,12 +431,7 @@ tempo.add(1);
         else {
             if ((fday == 0) && (fmonth == 0) && (fYear == 0) && (tday == 0) && (tmonth == 0) && (tYear == 0))
             {
-                android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(this);
-                builder.setTitle("Choose Date")
-                        .setMessage("Please Choose Any Date")
-                        .setPositiveButton("OK",null)
-                        .create()
-                        .show();
+                DateRequestDialog(this);
                 return;
             }
             DatabaseReference mOnHoldCustomer = mRootRef.child(userIdMainStatic+"/sell");
@@ -482,6 +473,10 @@ tempo.clear();
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren())
                             {
+                                if (dataSnapshot1.child("mode").getValue(String.class).equals("Cash")){
+                                    continue;
+                                }
+
                                 Product.add(dataSnapshot1.child("productName").getValue(String.class));
                                 date.add(dataSnapshot1.child("date").getValue(String.class));
                                 money.add(dataSnapshot1.child("price").getValue(String.class));
@@ -516,14 +511,14 @@ tempo.clear();
                                 }
                             }
 
-                            Date[Product.size()] = count+" Total";
+                            Date[Product.size()] = count+getString(R.string._total);
                             Amount[money.size()] = total+"";
                             Quantity[quantity.size()] = quant+"";
 
                             mySellListAdapter historyPayList = new mySellListAdapter(historyCustomerSell.this,Date,productList,Mode,Quantity,Amount);
                             listView.setAdapter(historyPayList);
 
-                            remainAmount.setText("Total Money : "+total);
+                            remainAmount.setText(getString(R.string.total_money__)+total);
 
                             if (iFinal==(Dates.size()-1)){
                                 MyProgressBar.HideProgress();

@@ -34,6 +34,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import static com.sanshy.buysellinventory.MyDialogBox.DateRequestDialog;
 import static com.sanshy.buysellinventory.MyUserStaticClass.userIdMainStatic;
 
 public class historyCustomer extends AppCompatActivity {
@@ -109,9 +110,9 @@ tempo.clear();
                     }
                 }
 
-                SupplierName[supplierName.size()] = count+" Total";
+                SupplierName[supplierName.size()] = count+getString(R.string._total);
                 Amount[amount.size()] = total+"";
-                remainAmount.setText("Total Amount : "+total);
+                remainAmount.setText(getString(R.string.total_amount_)+total);
                 historyPayListAdapter historyPayList = new historyPayListAdapter(historyCustomer.this,SupplierName,Date,Amount);
                 listView.setAdapter(historyPayList);
 
@@ -153,7 +154,7 @@ tempo.add(1);
 tempo.clear();
                         query.addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
-                            public void onDataChange(DataSnapshot dataSnapshot) {
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                 supplierName.clear();
                                 date.clear();
                                 amount.clear();
@@ -186,7 +187,7 @@ tempo.clear();
 
                                 try
                                 {
-                                    SupplierName[supplierName.size()] = count+" Total";
+                                    SupplierName[supplierName.size()] = count+getString(R.string._total);
                                 }catch (Exception ex)
                                 {
 
@@ -195,7 +196,7 @@ tempo.clear();
                                 {
                                     Amount[amount.size()] = total+"";
 
-                                    remainAmount.setText("Total Amount : "+total);
+                                    remainAmount.setText(getString(R.string.total_amount_)+total);
                                 }catch (Exception ex)
                                 {
 
@@ -302,12 +303,7 @@ tempo.add(1);
         {
             if ((fday == 0) && (fmonth == 0) && (fYear == 0) && (tday == 0) && (tmonth == 0) && (tYear == 0))
             {
-                android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(this);
-                builder.setTitle("Choose Date")
-                        .setMessage("Please Choose Any Date")
-                        .setPositiveButton("OK",null)
-                        .create()
-                        .show();
+                DateRequestDialog(this);
                 return;
             }
             DatabaseReference payByCustomerRef = mRootRef.child(userIdMainStatic+"/payByCustomer");
@@ -372,9 +368,9 @@ tempo.clear();
                                 }
                             }
 
-                            SupplierName[supplierName.size()] = count+" Total";
+                            SupplierName[supplierName.size()] = count+getString(R.string._total);
                             Amount[amount.size()] = total+"";
-                            remainAmount.setText("Total Amount : "+total);
+                            remainAmount.setText(getString(R.string.total_amount_)+total);
                             historyPayListAdapter historyPayList = new historyPayListAdapter(historyCustomer.this,SupplierName,Date,Amount);
                             listView.setAdapter(historyPayList);
 
@@ -402,12 +398,7 @@ tempo.add(1);
         else {
             if ((fday == 0) && (fmonth == 0) && (fYear == 0) && (tday == 0) && (tmonth == 0) && (tYear == 0))
             {
-                android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(this);
-                builder.setTitle("Choose Date")
-                        .setMessage("Please Choose Any Date")
-                        .setPositiveButton("OK",null)
-                        .create()
-                        .show();
+                DateRequestDialog(this);
                 return;
             }
             DatabaseReference payByCustomerRef = mRootRef.child(userIdMainStatic+"/payByCustomer");
@@ -471,9 +462,9 @@ tempo.clear();
                                 }
                             }
 
-                            SupplierName[supplierName.size()] = count+" Total";
+                            SupplierName[supplierName.size()] = count+getString(R.string._total);
                             Amount[amount.size()] = total+"";
-                            remainAmount.setText("Total Amount : "+total);
+                            remainAmount.setText(getString(R.string.total_amount_)+total);
                             historyPayListAdapter historyPayList = new historyPayListAdapter(historyCustomer.this,SupplierName,Date,Amount);
                             listView.setAdapter(historyPayList);
 

@@ -129,7 +129,7 @@ public class MainActivity extends AppCompatActivity {
                 this.finish();
                 // ...
             } else {
-                Toast.makeText(this, "Sign In Failed Try Again", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.sign_failed_text, Toast.LENGTH_SHORT).show();
             }
         }
     }
