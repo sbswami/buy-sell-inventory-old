@@ -16,7 +16,7 @@
         android:fontFamily="@font/karla"
         android:gravity="center"
         android:padding="5sp"
-        android:text="Loading...."
+        android:text="@string/loading"
         android:textColor="#000"
         android:textSize="19sp"
         android:textStyle="bold" />
@@ -29,7 +29,7 @@
         android:fontFamily="@font/karla"
         android:gravity="center"
         android:padding="5sp"
-        android:text="Loading...."
+        android:text="@string/loading"
         android:textColor="#000"
         android:textSize="19sp"
         android:textStyle="bold" />
@@ -42,7 +42,7 @@
         android:fontFamily="@font/karla"
         android:gravity="center"
         android:padding="5sp"
-        android:text="Loading...."
+        android:text="@string/loading"
         android:textColor="#000"
         android:textSize="19sp"
         android:textStyle="bold" />

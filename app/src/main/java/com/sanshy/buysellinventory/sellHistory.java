@@ -95,7 +95,13 @@ tempo.clear();
                     Product.add(dataSnapshot1.child("productName").getValue(String.class));
                     date.add(dataSnapshot1.child("date").getValue(String.class));
                     money.add(dataSnapshot1.child("price").getValue(String.class));
-                    mode.add(dataSnapshot1.child("mode").getValue(String.class));
+                    String tempMode = dataSnapshot1.child("mode").getValue(String.class);
+                    if (tempMode.equals("On Hold")){
+                        tempMode = getString(R.string.on_hold_text);
+                    }else{
+                        tempMode = getString(R.string.cash_text);
+                    }
+                    mode.add(tempMode);
                     quantity.add(dataSnapshot1.child("quantity").getValue(String.class));
 
                 }
@@ -187,7 +193,13 @@ tempo.clear();
                                     Product.add(dataSnapshot1.child("productName").getValue(String.class));
                                     date.add(dataSnapshot1.child("date").getValue(String.class));
                                     money.add(dataSnapshot1.child("price").getValue(String.class));
-                                    mode.add(dataSnapshot1.child("mode").getValue(String.class));
+                                    String tempMode = dataSnapshot1.child("mode").getValue(String.class);
+                    if (tempMode.equals("On Hold")){
+                        tempMode = getString(R.string.on_hold_text);
+                    }else{
+                        tempMode = getString(R.string.cash_text);
+                    }
+                    mode.add(tempMode);
                                     quantity.add(dataSnapshot1.child("quantity").getValue(String.class));
 
                                 }
@@ -411,7 +423,13 @@ tempo.clear();
                                     Product.add(dataSnapshot1.child("productName").getValue(String.class));
                                     date.add(dataSnapshot1.child("date").getValue(String.class));
                                     money.add(dataSnapshot1.child("price").getValue(String.class));
-                                    mode.add(dataSnapshot1.child("mode").getValue(String.class));
+                                    String tempMode = dataSnapshot1.child("mode").getValue(String.class);
+                    if (tempMode.equals("On Hold")){
+                        tempMode = getString(R.string.on_hold_text);
+                    }else{
+                        tempMode = getString(R.string.cash_text);
+                    }
+                    mode.add(tempMode);
                                     quantity.add(dataSnapshot1.child("quantity").getValue(String.class));
 
                                 }
@@ -554,7 +572,13 @@ tempo.clear();
                                     Product.add(dataSnapshot1.child("productName").getValue(String.class));
                                     date.add(dataSnapshot1.child("date").getValue(String.class));
                                     money.add(dataSnapshot1.child("price").getValue(String.class));
-                                    mode.add(dataSnapshot1.child("mode").getValue(String.class));
+                                    String tempMode = dataSnapshot1.child("mode").getValue(String.class);
+                    if (tempMode.equals("On Hold")){
+                        tempMode = getString(R.string.on_hold_text);
+                    }else{
+                        tempMode = getString(R.string.cash_text);
+                    }
+                    mode.add(tempMode);
                                     quantity.add(dataSnapshot1.child("quantity").getValue(String.class));
 
                                 }
@@ -678,7 +702,13 @@ tempo.clear();
                         Product.add(dataSnapshot1.child("productName").getValue(String.class));
                         date.add(dataSnapshot1.child("date").getValue(String.class));
                         money.add(dataSnapshot1.child("price").getValue(String.class));
-                        mode.add(dataSnapshot1.child("mode").getValue(String.class));
+                        String tempMode = dataSnapshot1.child("mode").getValue(String.class);
+                    if (tempMode.equals("On Hold")){
+                        tempMode = getString(R.string.on_hold_text);
+                    }else{
+                        tempMode = getString(R.string.cash_text);
+                    }
+                    mode.add(tempMode);
                         quantity.add(dataSnapshot1.child("quantity").getValue(String.class));
 
                     }
@@ -768,7 +798,13 @@ tempo.clear();
                         Product.add(dataSnapshot1.child("productName").getValue(String.class));
                         date.add(dataSnapshot1.child("date").getValue(String.class));
                         money.add(dataSnapshot1.child("price").getValue(String.class));
-                        mode.add(dataSnapshot1.child("mode").getValue(String.class));
+                        String tempMode = dataSnapshot1.child("mode").getValue(String.class);
+                    if (tempMode.equals("On Hold")){
+                        tempMode = getString(R.string.on_hold_text);
+                    }else{
+                        tempMode = getString(R.string.cash_text);
+                    }
+                    mode.add(tempMode);
                         quantity.add(dataSnapshot1.child("quantity").getValue(String.class));
 
                     }
@@ -863,7 +899,13 @@ tempo.clear();
                         Product.add(dataSnapshot1.child("productName").getValue(String.class));
                         date.add(dataSnapshot1.child("date").getValue(String.class));
                         money.add(dataSnapshot1.child("price").getValue(String.class));
-                        mode.add(dataSnapshot1.child("mode").getValue(String.class));
+                        String tempMode = dataSnapshot1.child("mode").getValue(String.class);
+                    if (tempMode.equals("On Hold")){
+                        tempMode = getString(R.string.on_hold_text);
+                    }else{
+                        tempMode = getString(R.string.cash_text);
+                    }
+                    mode.add(tempMode);
                         quantity.add(dataSnapshot1.child("quantity").getValue(String.class));
 
                     }
@@ -951,7 +993,13 @@ tempo.clear();
                         Product.add(dataSnapshot1.child("productName").getValue(String.class));
                         date.add(dataSnapshot1.child("date").getValue(String.class));
                         money.add(dataSnapshot1.child("price").getValue(String.class));
-                        mode.add(dataSnapshot1.child("mode").getValue(String.class));
+                        String tempMode = dataSnapshot1.child("mode").getValue(String.class);
+                    if (tempMode.equals("On Hold")){
+                        tempMode = getString(R.string.on_hold_text);
+                    }else{
+                        tempMode = getString(R.string.cash_text);
+                    }
+                    mode.add(tempMode);
                         quantity.add(dataSnapshot1.child("quantity").getValue(String.class));
 
                     }

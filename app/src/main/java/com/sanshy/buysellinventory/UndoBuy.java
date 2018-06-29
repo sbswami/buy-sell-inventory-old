@@ -97,9 +97,7 @@ public class UndoBuy extends AppCompatActivity {
                             .setPositiveButton(getString(R.string.undo), new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialogInterface, int i) {
-                                    MyProgressBar.ShowProgress(UndoBuy.this);
-tempo.clear();
-                                    if (ModeText.equals("Cash")){
+                                    if (ModeText.equals(getString(R.string.cash_text))){
                                         final DatabaseReference mStockRef = mRootRef.child(userIdMainStatic+"/stock/"+ProductText);
                                         final String[] temp = new String[1];
                                         MyProgressBar.ShowProgress(UndoBuy.this);
@@ -174,6 +172,8 @@ tempo.add(1);
                                                         }
                                                     });
                                                 }
+                                                MyProgressBar.HideProgress();
+                                                tempo.add(1);
 
                                             }
 
@@ -185,7 +185,7 @@ tempo.add(1);
                                         });
 
                                     }
-                                    else if (ModeText.equals("On Hold"))
+                                    else if (ModeText.equals(getString(R.string.on_hold_text)))
                                     {
                                         final DatabaseReference mStockRef = mRootRef.child(userIdMainStatic+"/stock/"+ProductText);
                                         final String[] temp = new String[1];
@@ -328,6 +328,7 @@ tempo.add(1);
                                         String feedbackText = getResources().getString(R.string.feedback_request_text);
                                         Toast.makeText(UndoBuy.this, feedbackText, Toast.LENGTH_SHORT).show();
                                     }
+
                                 }
                             })
                             .setNegativeButton(getString(R.string.cancel_text),null)
@@ -361,7 +362,13 @@ tempo.clear();
                     date.add(dataSnapshot1.child("date").getValue(String.class));
                     money.add(dataSnapshot1.child("price").getValue(String.class));
                     supplier.add(dataSnapshot1.child("supplierName").getValue(String.class));
-                    mode.add(dataSnapshot1.child("mode").getValue(String.class));
+                    String tempMode = dataSnapshot1.child("mode").getValue(String.class);
+                    if (tempMode.equals("On Hold")){
+                        tempMode = getString(R.string.on_hold_text);
+                    }else{
+                        tempMode = getString(R.string.cash_text);
+                    }
+                    mode.add(tempMode);
                     quantity.add(dataSnapshot1.child("quantity").getValue(String.class));
                     keyId.add(dataSnapshot1.child("bid").getValue(String.class));
 
@@ -459,7 +466,13 @@ tempo.clear();
                                     date.add(dataSnapshot1.child("date").getValue(String.class));
                                     money.add(dataSnapshot1.child("price").getValue(String.class));
                                     supplier.add(dataSnapshot1.child("supplierName").getValue(String.class));
-                                    mode.add(dataSnapshot1.child("mode").getValue(String.class));
+                                    String tempMode = dataSnapshot1.child("mode").getValue(String.class);
+                    if (tempMode.equals("On Hold")){
+                        tempMode = getString(R.string.on_hold_text);
+                    }else{
+                        tempMode = getString(R.string.cash_text);
+                    }
+                    mode.add(tempMode);
                                     quantity.add(dataSnapshot1.child("quantity").getValue(String.class));
                                     keyId.add(dataSnapshot1.child("bid").getValue(String.class));
                                 }
@@ -642,7 +655,13 @@ tempo.clear();
                                 Product.add(dataSnapshot1.child("productName").getValue(String.class));
                                 date.add(dataSnapshot1.child("date").getValue(String.class));
                                 money.add(dataSnapshot1.child("price").getValue(String.class));
-                                mode.add(dataSnapshot1.child("mode").getValue(String.class));
+                                String tempMode = dataSnapshot1.child("mode").getValue(String.class);
+                    if (tempMode.equals("On Hold")){
+                        tempMode = getString(R.string.on_hold_text);
+                    }else{
+                        tempMode = getString(R.string.cash_text);
+                    }
+                    mode.add(tempMode);
                                 quantity.add(dataSnapshot1.child("quantity").getValue(String.class));
                                 supplier.add(dataSnapshot1.child("supplierName").getValue(String.class));
                                 keyId.add(dataSnapshot1.child("bid").getValue(String.class));
@@ -757,7 +776,13 @@ tempo.clear();
                                 Product.add(dataSnapshot1.child("productName").getValue(String.class));
                                 date.add(dataSnapshot1.child("date").getValue(String.class));
                                 money.add(dataSnapshot1.child("price").getValue(String.class));
-                                mode.add(dataSnapshot1.child("mode").getValue(String.class));
+                                String tempMode = dataSnapshot1.child("mode").getValue(String.class);
+                    if (tempMode.equals("On Hold")){
+                        tempMode = getString(R.string.on_hold_text);
+                    }else{
+                        tempMode = getString(R.string.cash_text);
+                    }
+                    mode.add(tempMode);
                                 quantity.add(dataSnapshot1.child("quantity").getValue(String.class));
                                 supplier.add(dataSnapshot1.child("supplierName").getValue(String.class));
                                 keyId.add(dataSnapshot1.child("bid").getValue(String.class));

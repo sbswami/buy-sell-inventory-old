@@ -17,7 +17,8 @@
             android:layout_height="80sp"
             android:layout_margin="5sp"
             android:visibility="gone"
-                app:srcCompat="@drawable/logo" />
+                app:srcCompat="@drawable/logo"
+            android:contentDescription="@string/logo_photo" />
 
 
         <ScrollView

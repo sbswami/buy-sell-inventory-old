@@ -27,7 +27,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="80sp"
                 android:visibility="gone"
-                app:srcCompat="@drawable/logo" />
+                app:srcCompat="@drawable/logo"
+                android:contentDescription="@string/logo_photo" />
 
             <com.google.android.gms.ads.AdView
                 xmlns:ads="http://schemas.android.com/apk/res-auto"

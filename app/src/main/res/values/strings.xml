@@ -39,7 +39,7 @@
     <string name="quantity_text">Quantity</string>
     <string name="price_text">Price</string>
     <string name="cash_text">Cash</string>
-    <string name="on_hold_text">On Hold</string>
+    <string name="on_hold_text">Hold</string>
     <string name="history_by_supplier_text">History By Supplier</string>
     <string name="history_by_product_text">History By Product</string>
     <string name="history_text">History</string>
@@ -377,4 +377,15 @@
     <string name="customer__">Customer :</string>
     <string name="icnome_details">Income Details</string>
     <string name="not_defined">Not Defined</string>
+    <string name="only_on_hold_sell">Only On-Hold Sell</string>
+    <string name="only_on_hold_buy">Only On-Hold Buy</string>
+    <string name="logo_photo">Logo Photo</string>
+    <string name="or">or</string>
+    <string name="whatsapp_icon">whatsapp icon</string>
+    <string name="insta_icon">Insta Icon</string>
+    <string name="gmail_icon">gmail icon</string>
+    <string name="profile">Profile</string>
+    <string name="product_image">Product Image</string>
+    <string name="email">Email</string>
+    <string name="loading">Loading....</string>
 </resources>

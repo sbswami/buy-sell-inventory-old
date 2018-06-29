@@ -1,8 +1,7 @@
 package com.sanshy.buysellinventory;
 
-import android.content.DialogInterface;
+
 import android.content.Intent;
-import android.net.ConnectivityManager;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;

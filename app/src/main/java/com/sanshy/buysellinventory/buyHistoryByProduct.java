@@ -97,7 +97,13 @@ tempo.clear();
                     date.add(dataSnapshot1.child("date").getValue(String.class));
                     money.add(dataSnapshot1.child("price").getValue(String.class));
                     supplier.add(dataSnapshot1.child("supplierName").getValue(String.class));
-                    mode.add(dataSnapshot1.child("mode").getValue(String.class));
+                    String tempMode = dataSnapshot1.child("mode").getValue(String.class);
+                    if (tempMode.equals("On Hold")){
+                        tempMode = getString(R.string.on_hold_text);
+                    }else{
+                        tempMode = getString(R.string.cash_text);
+                    }
+                    mode.add(tempMode);
                     quantity.add(dataSnapshot1.child("quantity").getValue(String.class));
 
                 }
@@ -176,7 +182,7 @@ tempo.add(1);
 tempo.clear();
                         query.addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
-                            public void onDataChange(DataSnapshot dataSnapshot) {
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                 Product.clear();
                                 date.clear();
                                 money.clear();
@@ -189,7 +195,13 @@ tempo.clear();
                                     date.add(dataSnapshot1.child("date").getValue(String.class));
                                     money.add(dataSnapshot1.child("price").getValue(String.class));
                                     supplier.add(dataSnapshot1.child("supplierName").getValue(String.class));
-                                    mode.add(dataSnapshot1.child("mode").getValue(String.class));
+                                    String tempMode = dataSnapshot1.child("mode").getValue(String.class);
+                    if (tempMode.equals("On Hold")){
+                        tempMode = getString(R.string.on_hold_text);
+                    }else{
+                        tempMode = getString(R.string.cash_text);
+                    }
+                    mode.add(tempMode);
                                     quantity.add(dataSnapshot1.child("quantity").getValue(String.class));
 
                                 }
@@ -374,7 +386,13 @@ tempo.clear();
                                 Product.add(dataSnapshot1.child("productName").getValue(String.class));
                                 date.add(dataSnapshot1.child("date").getValue(String.class));
                                 money.add(dataSnapshot1.child("price").getValue(String.class));
-                                mode.add(dataSnapshot1.child("mode").getValue(String.class));
+                                String tempMode = dataSnapshot1.child("mode").getValue(String.class);
+                    if (tempMode.equals("On Hold")){
+                        tempMode = getString(R.string.on_hold_text);
+                    }else{
+                        tempMode = getString(R.string.cash_text);
+                    }
+                    mode.add(tempMode);
                                 quantity.add(dataSnapshot1.child("quantity").getValue(String.class));
                                 supplier.add(dataSnapshot1.child("supplierName").getValue(String.class));
 
@@ -511,7 +529,13 @@ tempo.clear();
                                 Product.add(dataSnapshot1.child("productName").getValue(String.class));
                                 date.add(dataSnapshot1.child("date").getValue(String.class));
                                 money.add(dataSnapshot1.child("price").getValue(String.class));
-                                mode.add(dataSnapshot1.child("mode").getValue(String.class));
+                                String tempMode = dataSnapshot1.child("mode").getValue(String.class);
+                    if (tempMode.equals("On Hold")){
+                        tempMode = getString(R.string.on_hold_text);
+                    }else{
+                        tempMode = getString(R.string.cash_text);
+                    }
+                    mode.add(tempMode);
                                 quantity.add(dataSnapshot1.child("quantity").getValue(String.class));
                                 supplier.add(dataSnapshot1.child("supplierName").getValue(String.class));
 

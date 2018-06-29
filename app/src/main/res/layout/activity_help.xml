@@ -29,7 +29,8 @@
         <ImageView
             android:layout_width="50sp"
             android:layout_height="50sp"
-            app:srcCompat="@drawable/whats_icon" />
+            app:srcCompat="@drawable/whats_icon"
+            android:contentDescription="@string/whatsapp_icon"/>
 
         <TextView
             android:id="@+id/whats_text"
@@ -55,7 +56,8 @@
         <ImageView
             android:layout_width="50sp"
             android:layout_height="50sp"
-            app:srcCompat="@drawable/insta_icon" />
+            app:srcCompat="@drawable/insta_icon"
+            android:contentDescription="@string/insta_icon"/>
 
         <TextView
             android:id="@+id/insta_text"
@@ -81,7 +83,8 @@
         <ImageView
             android:layout_width="50sp"
             android:layout_height="50sp"
-            app:srcCompat="@drawable/gmail_icon" />
+            app:srcCompat="@drawable/gmail_icon"
+            android:contentDescription="@string/gmail_icon"/>
 
         <TextView
             android:id="@+id/gamil_text"

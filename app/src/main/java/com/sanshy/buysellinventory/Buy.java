@@ -169,7 +169,25 @@ public class Buy extends AppCompatActivity {
                         try
                         {
 
-
+                            int checkProduct = 0;
+                            for (int l = 0; l < productList.size(); l++)
+                            {
+                                if (suggestion_box.getText().toString().equals(productList.get(l).getName()))
+                                {
+                                    checkProduct++;
+                                    break;
+                                }
+                            }
+                            if (checkProduct == 0)
+                            {
+                                AlertDialog.Builder builder = new AlertDialog.Builder(Buy.this);
+                                builder.setTitle(R.string.can_not_save)
+                                        .setMessage(R.string.please_select_from_product_list_)
+                                        .setPositiveButton(getString(R.string.ok_),null)
+                                        .create()
+                                        .show();
+                                MyProgressBar.HideProgress();
+                            }
                             String QuantityValue = quantity.getText().toString();
                             if (QuantityValue.isEmpty())
                             {
