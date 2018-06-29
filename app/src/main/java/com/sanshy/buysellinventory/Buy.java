@@ -293,28 +293,28 @@ return;
             MyProgressBar.HideProgress();
 return;
         }
+        int checkSupplier = 0;
+        for (int i = 0; i < supplierList.size(); i++)
+        {
+            if (SupplierName.equals(supplierList.get(i).getName()))
+            {
+                checkSupplier++;
+                break;
+            }
+        }
+        if (checkSupplier == 0)
+        {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle(R.string.can_not_save)
+                    .setMessage(R.string.please_select_from_supplier_list_)
+                    .setPositiveButton(getString(R.string.ok_),null)
+                    .create()
+                    .show();
+            MyProgressBar.HideProgress();
+            return;
+        }
         if (PayType.equals("On Hold"))
         {
-            int checkSupplier = 0;
-            for (int i = 0; i < supplierList.size(); i++)
-            {
-                if (SupplierName.equals(supplierList.get(i).getName()))
-                {
-                    checkSupplier++;
-                    break;
-                }
-            }
-            if (checkSupplier == 0)
-            {
-                AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                builder.setTitle(R.string.can_not_save)
-                        .setMessage(R.string.please_select_from_supplier_list_)
-                        .setPositiveButton(getString(R.string.ok_),null)
-                        .create()
-                        .show();
-                MyProgressBar.HideProgress();
-return;
-            }
             final DatabaseReference mOnHoldSupplierRef = mRootRef.child(userIdMainStatic+"/onHoldSupplier/"+SupplierName);
             mOnHoldSupplierRef.child("onHoldMoney").addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override

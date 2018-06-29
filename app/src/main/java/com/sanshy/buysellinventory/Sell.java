@@ -174,7 +174,25 @@ public class Sell extends AppCompatActivity {
                     public boolean onKey(View view, int i, KeyEvent keyEvent) {
                         try
                         {
-
+                            int checkProduct = 0;
+                            for (int l = 0; l < productList.size(); l++)
+                            {
+                                if (suggestion_box.getText().toString().equals(productList.get(l).getName()))
+                                {
+                                    checkProduct++;
+                                    break;
+                                }
+                            }
+                            if (checkProduct == 0)
+                            {
+                                AlertDialog.Builder builder = new AlertDialog.Builder(Sell.this);
+                                builder.setTitle(getString(R.string.can_not_save))
+                                        .setMessage(getString(R.string.please_select_from_product_list_))
+                                        .setPositiveButton(getString(R.string.ok_),null)
+                                        .create()
+                                        .show();
+                                MyProgressBar.HideProgress();
+                            }
                             String QuantityValue = quantity.getText().toString();
                             if (QuantityValue.isEmpty())
                             {
@@ -287,6 +305,30 @@ return;
             suggestion_box2.setError(getString(R.string.select_customer_name));
             MyProgressBar.HideProgress();
 return;
+        }
+        if (PayType.equals("Cash")){
+            if (!(CustomerName.isEmpty())){
+                int checkCustomer = 0;
+                for (int i = 0; i < customerList.size(); i++)
+                {
+                    if (CustomerName.equals(customerList.get(i).getName()))
+                    {
+                        checkCustomer++;
+                        break;
+                    }
+                }
+                if (checkCustomer == 0)
+                {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                    builder.setTitle(getString(R.string.can_not_save))
+                            .setMessage(getString(R.string.please_select_from_customer_list_))
+                            .setPositiveButton(getString(R.string.ok_),null)
+                            .create()
+                            .show();
+                    MyProgressBar.HideProgress();
+                    return;
+                }
+            }
         }
         if (PayType.equals("On Hold"))
         {

@@ -314,7 +314,6 @@
     <string name="address_">Address </string>
     <string name="delete_">Delete</string>
     <string name="can_not_delete">Can\'t Delete</string>
-    <string name="payment_still_remaining_">Payment Still Remaining</string>
     <string name="saved">Saved</string>
     <string name="error_">Error!!</string>
     <string name="something_is_wrong_">Something is Wrong!!</string>
@@ -359,4 +358,23 @@
     <string name="please_select_from_customer_list_">Please Select From Customer List</string>
     <string name="out_of_stock_">Out of Stock!</string>
     <string name="product_sell_done">Product Sell Done</string>
+    <string name="total_exp_">Total Expenditure : </string>
+    <string name="total_income_">Total Income : </string>
+    <string name="total_profit_">Total Profit : </string>
+    <string name="remain_profit">Remain Profit</string>
+    <string name="payment_still_remaining_">Payment Still Remaining</string>
+    <string name="buy_detail">Buy Detail!</string>
+    <string name="date__">Date : </string>
+    <string name="product_name__">Product Name : </string>
+    <string name="supplier__">Supplier : </string>
+    <string name="quantity__">Quantity : </string>
+    <string name="money__">Money : </string>
+    <string name="mode__">Mode : </string>
+    <string name="unable">Unable</string>
+    <string name="exp_details">Exp. Details</string>
+    <string name="remark__">Remark :</string>
+    <string name="sell_deatail">Sell Detail!</string>
+    <string name="customer__">Customer :</string>
+    <string name="icnome_details">Income Details</string>
+    <string name="not_defined">Not Defined</string>
 </resources>

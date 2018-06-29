@@ -134,12 +134,12 @@ tempo.clear();
 
                 try
                 {
-                    prodList[stockitemList.size()] = "Total";
+                    prodList[stockitemList.size()] = getString(R.string.total);
                     quant[stockitemList.size()] = totelQ + "";
                     sellP[stockitemList.size()] = totelS+"";
                     buyP[stockitemList.size()] = totelB + "";
                     double profit = totelS-totelB;
-                    remainStock.setText("Remain Profit "+ profit);
+                    remainStock.setText(getString(R.string.remain_profit)+ profit);
                     myListAdapter myList = new myListAdapter(Stock.this,prodList,quant,buyP,sellP);
 
                     lv = findViewById(R.id.listView);
@@ -239,12 +239,12 @@ tempo.clear();
 
                                 try
                                 {
-                                    prodList[stockitemList.size()] = "Total";
+                                    prodList[stockitemList.size()] = getString(R.string.total);
                                     quant[stockitemList.size()] = totelQ + "";
                                     sellP[stockitemList.size()] = totelS+"";
                                     buyP[stockitemList.size()] = totelB + "";
                                     double profit = totelS-totelB;
-                                    remainStock.setText("Remain Profit "+ profit);
+                                    remainStock.setText(getString(R.string.remain_profit)+ profit);
                                     myListAdapter myList = new myListAdapter(Stock.this,prodList,quant,buyP,sellP);
 
                                     lv = findViewById(R.id.listView);

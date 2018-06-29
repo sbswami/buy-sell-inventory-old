@@ -196,7 +196,7 @@ public class addCustomer extends AppCompatActivity {
         }
         if (Address.isEmpty())
         {
-            Address = "Not Defined";
+            Address = getString(R.string.not_defined);
         }
 
         DatabaseReference allCus = mRootRef.child(userIdMainStatic+"/customer");

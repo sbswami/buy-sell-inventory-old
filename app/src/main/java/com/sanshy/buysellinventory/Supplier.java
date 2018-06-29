@@ -97,13 +97,13 @@ public class Supplier extends AppCompatActivity {
                         @Override
                         public void onItemClick(AdapterView<?> adapterView, View view, final int i, long l) {
                             final AlertDialog.Builder builder = new AlertDialog.Builder(Supplier.this);
-                            builder.setTitle("Supplier")
-                                    .setMessage("Name : " + Name[i] + "\n" +
-                                            "Company : " + Company[i] + "\n" +
-                                            "Phone : " + Phone[i] + "\n" +
-                                            "City : " + City[i] + "\n" +
-                                            "Address " + Address[i])
-                                    .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+                            builder.setTitle(getString(R.string.supplier_text))
+                                    .setMessage(getString(R.string.name__) + Name[i] + "\n" +
+                                            getString(R.string.company__) + Company[i] + "\n" +
+                                            getString(R.string.phone__) + Phone[i] + "\n" +
+                                            getString(R.string.city__) + City[i] + "\n" +
+                                            getString(R.string.address_) + Address[i])
+                                    .setPositiveButton(getString(R.string.delete_), new DialogInterface.OnClickListener() {
                                         @Override
                                         public void onClick(DialogInterface dialogInterface, int i2) {
                                             final DatabaseReference mOnHoldSupplierRef = mRootRef.child(userIdMainStatic+"/onHoldSupplier");
@@ -166,9 +166,9 @@ public class Supplier extends AppCompatActivity {
                                                     else
                                                     {
                                                         AlertDialog.Builder builder1 = new AlertDialog.Builder(Supplier.this);
-                                                        builder1.setTitle("Can't Delete")
-                                                                .setMessage("Payment Still Remaining")
-                                                                .setPositiveButton("OK",null)
+                                                        builder1.setTitle(getString(R.string.can_not_save))
+                                                                .setMessage(getString(R.string.payment_still_remaining_))
+                                                                .setPositiveButton(getString(R.string.ok_),null)
                                                                 .create()
                                                                 .show();
                                                     }
@@ -183,7 +183,7 @@ public class Supplier extends AppCompatActivity {
 
                                         }
                                     })
-                                    .setNegativeButton("Cancel",null);
+                                    .setNegativeButton(getString(R.string.cancel_text),null);
                             builder.create().show();
 
 

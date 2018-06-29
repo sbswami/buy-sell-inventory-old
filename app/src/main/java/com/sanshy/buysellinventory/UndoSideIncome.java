@@ -35,6 +35,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import static com.sanshy.buysellinventory.MyDialogBox.DateRequestDialog;
 import static com.sanshy.buysellinventory.MyUserStaticClass.userIdMainStatic;
 import static com.sanshy.buysellinventory.SideBExp.EXPEND;
 import static com.sanshy.buysellinventory.SideBExp.INCOME;
@@ -84,11 +85,11 @@ public class UndoSideIncome extends AppCompatActivity {
                     final String EidS = Eid.get(i);
 
                     AlertDialog.Builder builder = new AlertDialog.Builder(UndoSideIncome.this);
-                    builder.setTitle("Income Details")
-                            .setMessage("Remark : "+RemarkS+"\n"+
-                                    "Date : "+DateS+"\n"+
-                                    "Money : "+MoneyS)
-                            .setPositiveButton("Undo!", new DialogInterface.OnClickListener() {
+                    builder.setTitle(R.string.icnome_details)
+                            .setMessage(getString(R.string.remark__)+RemarkS+"\n"+
+                                    getString(R.string.date__)+DateS+"\n"+
+                                    getString(R.string.money__)+MoneyS)
+                            .setPositiveButton(getString(R.string.undo), new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialogInterface, int i) {
                                     MyProgressBar.ShowProgress(UndoSideIncome.this);
@@ -130,7 +131,7 @@ tempo.add(1);
                                     });
                                 }
                             })
-                            .setNeutralButton("Cancel",null);
+                            .setNeutralButton(getString(R.string.cancel_text),null);
                     builder.create().show();
                 }catch (Exception ex){}
 
@@ -182,13 +183,13 @@ tempo.clear();
                     }
                 }
 
-                remarkList[Remark.size()] = count+" Total";
+                remarkList[Remark.size()] = count+getString(R.string._total);
                 Amount[money.size()] = total+"";
 
                 historyPayListAdapter historyPayList = new historyPayListAdapter(UndoSideIncome.this,Date,remarkList,Amount);
                 listView.setAdapter(historyPayList);
 
-                remainAmount.setText("Total Money : "+total);
+                remainAmount.setText(getString(R.string.total_money__)+total);
 
                 MyProgressBar.HideProgress();
 tempo.add(1);
@@ -267,7 +268,7 @@ tempo.clear();
 
                                 try
                                 {
-                                    RemarkList[Remark.size()] = count+" Total";
+                                    RemarkList[Remark.size()] = count+getString(R.string._total);
                                 }catch (Exception ex)
                                 {
 
@@ -283,7 +284,7 @@ tempo.clear();
                                 historyPayListAdapter historyPayList = new historyPayListAdapter(UndoSideIncome.this,Date,RemarkList,Amount);
                                 listView.setAdapter(historyPayList);
 
-                                remainAmount.setText("Total Money : "+total);
+                                remainAmount.setText(getString(R.string.total_money__)+total);
                                 progressBar.setVisibility(View.INVISIBLE);
                                 MyProgressBar.HideProgress();
 tempo.add(1);
@@ -382,12 +383,7 @@ tempo.add(1);
             if ((fday == 0) && (fmonth == 0) && (fYear == 0) && (tday == 0) && (tmonth == 0) && (tYear == 0))
             {
                 progressBar.setVisibility(View.INVISIBLE);
-                android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(this);
-                builder.setTitle("Choose Date")
-                        .setMessage("Please Choose Any Date")
-                        .setPositiveButton("OK",null)
-                        .create()
-                        .show();
+                DateRequestDialog(this);
                 return;
             }
             DatabaseReference mExpRef = mRootRef.child(userIdMainStatic+"/SideBusiness/Income");
@@ -453,13 +449,13 @@ tempo.clear();
                                 }
                             }
 
-                            remarkList[Remark.size()] = count+" Total";
+                            remarkList[Remark.size()] = count+getString(R.string._total);
                             Amount[money.size()] = total+"";
 
                             historyPayListAdapter historyPayList = new historyPayListAdapter(UndoSideIncome.this,Date,remarkList,Amount);
                             listView.setAdapter(historyPayList);
 
-                            remainAmount.setText("Total Money : "+total);
+                            remainAmount.setText(getString(R.string.total_money__)+total);
 
                             if (iFinal==(Dates.size()-1)){
                                 MyProgressBar.HideProgress();
@@ -487,12 +483,7 @@ tempo.add(1);
             if ((fday == 0) && (fmonth == 0) && (fYear == 0) && (tday == 0) && (tmonth == 0) && (tYear == 0))
             {
                 progressBar.setVisibility(View.INVISIBLE);
-                android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(this);
-                builder.setTitle("Choose Date")
-                        .setMessage("Please Choose Any Date")
-                        .setPositiveButton("OK",null)
-                        .create()
-                        .show();
+                DateRequestDialog(this);
                 return;
             }
             DatabaseReference mExpRef = mRootRef.child(userIdMainStatic+"/SideBusiness/Income");
@@ -558,13 +549,13 @@ tempo.clear();
                                 }
                             }
 
-                            remarkList[Remark.size()] = count+" Total";
+                            remarkList[Remark.size()] = count+getString(R.string._total);
                             Amount[money.size()] = total+"";
 
                             historyPayListAdapter historyPayList = new historyPayListAdapter(UndoSideIncome.this,Date,remarkList,Amount);
                             listView.setAdapter(historyPayList);
 
-                            remainAmount.setText("Total Money : "+total);
+                            remainAmount.setText(getString(R.string.total_money__)+total);
 
                             if (iFinal==(Dates.size()-1)){
                                 MyProgressBar.HideProgress();

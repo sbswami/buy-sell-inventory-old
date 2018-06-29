@@ -34,6 +34,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import static com.sanshy.buysellinventory.MyDialogBox.DateRequestDialog;
 import static com.sanshy.buysellinventory.MyUserStaticClass.userIdMainStatic;
 
 public class sellHistory extends AppCompatActivity {
@@ -125,7 +126,7 @@ tempo.clear();
                     }
                 }
 
-                Date[Product.size()] = count+" Total";
+                Date[Product.size()] = count+getString(R.string._total);
                 Amount[money.size()] = total+"";
                 Quantity[quantity.size()] = quant+"";
 
@@ -133,7 +134,7 @@ tempo.clear();
                 mySellListAdapter historyPayList = new mySellListAdapter(sellHistory.this,Date,productList,Quantity,Amount,Mode);
                 listView.setAdapter(historyPayList);
 
-                remainAmount.setText("Total Money : "+total);
+                remainAmount.setText(getString(R.string.total_money__)+total);
 
                 MyProgressBar.HideProgress();
 tempo.add(1);
@@ -150,7 +151,7 @@ tempo.add(1);
         DatabaseReference mCustomerRef = mRootRef.child(userIdMainStatic+"/product");
         mCustomerRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 cList.clear();
                 for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren())
                 {
@@ -217,7 +218,7 @@ tempo.clear();
                                     }
                                 }
 
-                                Date[Product.size()] = count+" Total";
+                                Date[Product.size()] = count+getString(R.string._total);
                                 Amount[money.size()] = total+"";
                                 Quantity[quantity.size()] = quant+"";
 
@@ -320,7 +321,7 @@ tempo.add(1);
                 }, mYear, mMonth, mDay);
         datePickerDialog.show();
 
-        System.out.println(fday+fmonth+fYear+"");
+            System.out.println(fday+fmonth+fYear+"");
     }
     public void to(View view)
     {
@@ -365,12 +366,7 @@ tempo.add(1);
         {
             if ((fday == 0) && (fmonth == 0) && (fYear == 0) && (tday == 0) && (tmonth == 0) && (tYear == 0))
             {
-                AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                builder.setTitle("Choose Date")
-                        .setMessage("Please Choose Any Date")
-                        .setPositiveButton("OK",null)
-                        .create()
-                        .show();
+                DateRequestDialog(this);
                 return;
             }
             List<Date> dates = new ArrayList<>();
@@ -446,7 +442,7 @@ tempo.clear();
                                     }
                                 }
 
-                                Date[Product.size()] = count+" Total";
+                                Date[Product.size()] = count+getString(R.string._total);
                                 Amount[money.size()] = total+"";
                                 Quantity[quantity.size()] = quant+"";
 
@@ -477,7 +473,7 @@ tempo.clear();
                                 mySellListAdapter historyPayList = new mySellListAdapter(sellHistory.this,Date,productList,Quantity,Amount,Mode);
                                 listView.setAdapter(historyPayList);
 
-                                remainAmount.setText("Total Money : "+total);
+                                remainAmount.setText(getString(R.string.total_money__)+total);
 
                             }
                             queryAll.removeEventListener(this);
@@ -508,12 +504,8 @@ tempo.add(1);
         else {
             if ((fday == 0) && (fmonth == 0) && (fYear == 0) && (tday == 0) && (tmonth == 0) && (tYear == 0))
             {
-                AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                builder.setTitle("Choose Date")
-                        .setMessage("Please Choose Any Date")
-                        .setPositiveButton("OK",null)
-                        .create()
-                        .show();
+                DateRequestDialog(this);
+
                 return;
             }
             DatabaseReference mSellRef = mRootRef.child(userIdMainStatic+"/sell");
@@ -593,7 +585,7 @@ tempo.clear();
                                     }
                                 }
 
-                                Date[Product.size()] = count+" Total";
+                                Date[Product.size()] = count+getString(R.string._total);
                                 Amount[money.size()] = total+"";
                                 Quantity[quantity.size()] = quant+"";
 
@@ -623,7 +615,7 @@ tempo.clear();
                                 mySellListAdapter historyPayList = new mySellListAdapter(sellHistory.this,Date,productList,Quantity,Amount,Mode);
                                 listView.setAdapter(historyPayList);
 
-                                remainAmount.setText("Total Money : "+total);
+                                remainAmount.setText(getString(R.string.total_money__)+total);
 
                             }
                             query2.removeEventListener(this);
@@ -717,7 +709,7 @@ tempo.clear();
                         }
                     }
 
-                    Date[Product.size()] = count+" Total";
+                    Date[Product.size()] = count+getString(R.string._total);
                     Amount[money.size()] = total+"";
                     Quantity[quantity.size()] = quant+"";
                     Intent intent = new Intent(sellHistory.this,fiveItemLister.class);
@@ -807,7 +799,7 @@ tempo.clear();
                         }
                     }
 
-                    Date[Product.size()] = count+" Total";
+                    Date[Product.size()] = count+getString(R.string._total);
                     Amount[money.size()] = total+"";
                     Quantity[quantity.size()] = quant+"";
                     Intent intent = new Intent(sellHistory.this,fiveItemLister.class);
@@ -902,7 +894,7 @@ tempo.clear();
                         }
                     }
 
-                    Date[Product.size()] = count+" Total";
+                    Date[Product.size()] = count+getString(R.string._total);
                     Amount[money.size()] = total+"";
                     Quantity[quantity.size()] = quant+"";
                     Intent intent = new Intent(sellHistory.this,fiveItemLister.class);
@@ -990,7 +982,7 @@ tempo.clear();
                         }
                     }
 
-                    Date[Product.size()] = count+" Total";
+                    Date[Product.size()] = count+getString(R.string._total);
                     Amount[money.size()] = total+"";
                     Quantity[quantity.size()] = quant+"";
                     Intent intent = new Intent(sellHistory.this,fiveItemLister.class);

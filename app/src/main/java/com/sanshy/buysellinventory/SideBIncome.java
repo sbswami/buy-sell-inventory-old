@@ -104,13 +104,13 @@ public class SideBIncome extends AppCompatActivity {
 
         if (Money.isEmpty())
         {
-            money.setError("Please Fill It");
+            money.setError(getString(R.string.fill_it));
             MyProgressBar.HideProgress();
             return;
         }
         if (Remark.isEmpty())
         {
-            remark.setError("Please Fill It");
+            remark.setError(getString(R.string.fill_it));
             MyProgressBar.HideProgress();
             return;
         }
@@ -183,7 +183,7 @@ public class SideBIncome extends AppCompatActivity {
             }
         });
 
-        Toast.makeText(this, "Saved", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, getString(R.string.saved), Toast.LENGTH_SHORT).show();
         finish();
     }
     public void undoB(View view){

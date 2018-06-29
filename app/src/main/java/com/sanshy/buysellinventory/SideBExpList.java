@@ -35,6 +35,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import static com.sanshy.buysellinventory.MyDialogBox.DateRequestDialog;
 import static com.sanshy.buysellinventory.MyUserStaticClass.userIdMainStatic;
 
 public class SideBExpList extends AppCompatActivity {
@@ -112,13 +113,13 @@ tempo.clear();
                     }
                 }
 
-                remarkList[Remark.size()] = count+" Total";
+                remarkList[Remark.size()] = count+getString(R.string._total);
                 Amount[money.size()] = total+"";
 
                 historyPayListAdapter historyPayList = new historyPayListAdapter(SideBExpList.this,Date,remarkList,Amount);
                 listView.setAdapter(historyPayList);
 
-                remainAmount.setText("Total Money : "+total);
+                remainAmount.setText(getString(R.string.total_money__)+total);
                 MyProgressBar.HideProgress();
 tempo.add(1);
             }
@@ -194,7 +195,7 @@ tempo.clear();
 
                                 try
                                 {
-                                    RemarkList[Remark.size()] = count+" Total";
+                                    RemarkList[Remark.size()] = count+getString(R.string._total);
                                 }catch (Exception ex)
                                 {
 
@@ -210,7 +211,7 @@ tempo.clear();
                                 historyPayListAdapter historyPayList = new historyPayListAdapter(SideBExpList.this,Date,RemarkList,Amount);
                                 listView.setAdapter(historyPayList);
 
-                                remainAmount.setText("Total Money : "+total);
+                                remainAmount.setText(getString(R.string.total_money__)+total);
                                 progressBar.setVisibility(View.INVISIBLE);
                                 MyProgressBar.HideProgress();
 tempo.add(1);
@@ -310,12 +311,7 @@ tempo.add(1);
             if ((fday == 0) && (fmonth == 0) && (fYear == 0) && (tday == 0) && (tmonth == 0) && (tYear == 0))
             {
                 progressBar.setVisibility(View.INVISIBLE);
-                android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(this);
-                builder.setTitle("Choose Date")
-                        .setMessage("Please Choose Any Date")
-                        .setPositiveButton("OK",null)
-                        .create()
-                        .show();
+                DateRequestDialog(this);
                 return;
             }
             DatabaseReference mExpRef = mRootRef.child(userIdMainStatic+"/SideBusiness/Expenditure");
@@ -379,13 +375,13 @@ tempo.clear();
                                 }
                             }
 
-                            remarkList[Remark.size()] = count+" Total";
+                            remarkList[Remark.size()] = count+getString(R.string._total);
                             Amount[money.size()] = total+"";
 
                             historyPayListAdapter historyPayList = new historyPayListAdapter(SideBExpList.this,Date,remarkList,Amount);
                             listView.setAdapter(historyPayList);
 
-                            remainAmount.setText("Total Money : "+total);
+                            remainAmount.setText(getString(R.string.total_money__)+total);
                             if (iFinal==(Dates.size()-1)){
                                 MyProgressBar.HideProgress();
 tempo.add(1);
@@ -411,12 +407,7 @@ tempo.add(1);
             if ((fday == 0) && (fmonth == 0) && (fYear == 0) && (tday == 0) && (tmonth == 0) && (tYear == 0))
             {
                 progressBar.setVisibility(View.INVISIBLE);
-                android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(this);
-                builder.setTitle("Choose Date")
-                        .setMessage("Please Choose Any Date")
-                        .setPositiveButton("OK",null)
-                        .create()
-                        .show();
+                DateRequestDialog(this);
                 return;
             }
             DatabaseReference mExpRef = mRootRef.child(userIdMainStatic+"/SideBusiness/Expenditure");
@@ -452,7 +443,7 @@ tempo.clear();
                     Query query = mExpRef.orderByChild("date_remark").equalTo(betweenDates[i]+"_"+searchProduct);
                     query.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren())
                             {
                                 Remark.add(dataSnapshot1.child("remark").getValue(String.class));
@@ -480,13 +471,13 @@ tempo.clear();
                                 }
                             }
 
-                            remarkList[Remark.size()] = count+" Total";
+                            remarkList[Remark.size()] = count+getString(R.string._total);
                             Amount[money.size()] = total+"";
 
                             historyPayListAdapter historyPayList = new historyPayListAdapter(SideBExpList.this,Date,remarkList,Amount);
                             listView.setAdapter(historyPayList);
 
-                            remainAmount.setText("Total Money : "+total);
+                            remainAmount.setText(getString(R.string.total_money__)+total);
 
                             if (iFinal==(Dates.size()-1)){
                                 MyProgressBar.HideProgress();

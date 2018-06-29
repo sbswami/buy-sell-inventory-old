@@ -37,6 +37,7 @@ import java.util.List;
 import static com.sanshy.buysellinventory.Buy.TOTAL_BUY;
 import static com.sanshy.buysellinventory.Buy.TOTAL_CASH_BUY;
 import static com.sanshy.buysellinventory.Buy.TOTAL_ON_HOLD_BUY;
+import static com.sanshy.buysellinventory.MyDialogBox.DateRequestDialog;
 import static com.sanshy.buysellinventory.MyUserStaticClass.userIdMainStatic;
 
 public class UndoBuy extends AppCompatActivity {
@@ -86,14 +87,14 @@ public class UndoBuy extends AppCompatActivity {
                     final String KeyIdText = keyId.get(i);
 
                     AlertDialog.Builder builder = new AlertDialog.Builder(UndoBuy.this);
-                    builder.setTitle("Buy Detail!")
-                            .setMessage("Date : "+DateText+"\n" +
-                                    "Product Name : "+ProductText+"\n" +
-                                    "Supplier : " +SupplierText +"\n"+
-                                    "Quantity : " + QuantityText+"\n"+
-                                    "Money : " +MoneyText+"\n"+
-                                    "Mode: "+ModeText)
-                            .setPositiveButton("Undo!!", new DialogInterface.OnClickListener() {
+                    builder.setTitle(R.string.buy_detail)
+                            .setMessage(getString(R.string.date__)+DateText+"\n" +
+                                    getString(R.string.product_name__)+ProductText+"\n" +
+                                    getString(R.string.supplier__) +SupplierText +"\n"+
+                                    getString(R.string.quantity__) + QuantityText+"\n"+
+                                    getString(R.string.money__) +MoneyText+"\n"+
+                                    getString(R.string.mode__)+ModeText)
+                            .setPositiveButton(getString(R.string.undo), new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialogInterface, int i) {
                                     MyProgressBar.ShowProgress(UndoBuy.this);
@@ -127,9 +128,9 @@ tempo.clear();
                                                 if (Old < New){
                                                     String canUndoText = getResources().getString(R.string.can_not_undo_text);
                                                     AlertDialog.Builder builder1 = new AlertDialog.Builder(UndoBuy.this);
-                                                    builder1.setTitle("Unable")
+                                                    builder1.setTitle(R.string.unable)
                                                             .setMessage(canUndoText)
-                                                            .setPositiveButton("OK",null)
+                                                            .setPositiveButton(getString(R.string.ok_),null)
                                                             .create().show();
                                                 }
                                                 else{
@@ -216,9 +217,9 @@ tempo.add(1);
                                                 if (Old < New){
                                                     String canUndoText = getResources().getString(R.string.can_not_undo_text);
                                                     AlertDialog.Builder builder1 = new AlertDialog.Builder(UndoBuy.this);
-                                                    builder1.setTitle("Unable")
+                                                    builder1.setTitle(getString(R.string.unable))
                                                             .setMessage(canUndoText)
-                                                            .setPositiveButton("OK",null)
+                                                            .setPositiveButton(getString(R.string.ok_),null)
                                                             .create().show();
                                                     MyProgressBar.HideProgress();
 tempo.add(1);
@@ -240,9 +241,9 @@ tempo.clear();
                                                                 if (OldSupplierM<NewSupplierM){
                                                                     String canUndoText = getResources().getString(R.string.can_not_undo_supplier_money_text);
                                                                     AlertDialog.Builder builder1 = new AlertDialog.Builder(UndoBuy.this);
-                                                                    builder1.setTitle("Unable")
+                                                                    builder1.setTitle(getString(R.string.unable))
                                                                             .setMessage(canUndoText)
-                                                                            .setPositiveButton("OK",null)
+                                                                            .setPositiveButton(getString(R.string.ok_),null)
                                                                             .create().show();
                                                                 }
                                                                 else {
@@ -329,7 +330,7 @@ tempo.add(1);
                                     }
                                 }
                             })
-                            .setNegativeButton("Cancel",null)
+                            .setNegativeButton(getString(R.string.cancel_text),null)
                             .create().show();
                 }catch (Exception ex){}
 
@@ -394,7 +395,7 @@ tempo.clear();
                     }
                 }
 
-                Date[Product.size()] = count+" Total";
+                Date[Product.size()] = count+getString(R.string._total);
                 Amount[money.size()] = total+"";
                 Quantity[quantity.size()] = quant+"";
 
@@ -491,7 +492,7 @@ tempo.clear();
                                     }
                                 }
 
-                                Date[Product.size()] = count+" Total";
+                                Date[Product.size()] = count+getString(R.string._total);
                                 Amount[money.size()] = total+"";
                                 Quantity[quantity.size()] = quant+"";
 
@@ -594,12 +595,7 @@ tempo.add(1);
         {
             if ((fday == 0) && (fmonth == 0) && (fYear == 0) && (tday == 0) && (tmonth == 0) && (tYear == 0))
             {
-                android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(this);
-                builder.setTitle("Choose Date")
-                        .setMessage("Please Choose Any Date")
-                        .setPositiveButton("OK",null)
-                        .create()
-                        .show();
+                DateRequestDialog(this);
                 return;
             }
             DatabaseReference mBuyRef = mRootRef.child(userIdMainStatic+"/buy");
@@ -681,32 +677,9 @@ tempo.clear();
                                 }
                             }
 
-                            Date[Product.size()] = count+" Total";
+                            Date[Product.size()] = count+getString(R.string._total);
                             Amount[money.size()] = total+"";
                             Quantity[quantity.size()] = quant+"";
-
-                            /*TODO : change Page */
-//                            try{
-//                                if (Date[Product.size()].equals(betweenDates[Dates.size()])){
-//                                    Intent intent = new Intent(sellHistory.this,fiveItemLister.class);
-//                                    intent.putExtra("c1",Date);
-//                                    intent.putExtra("c2",productList);
-//                                    intent.putExtra("c3",Quantity);
-//                                    intent.putExtra("c4",Amount);
-//                                    intent.putExtra("c5",Mode);
-//
-//                                    intent.putExtra("col1","Date");
-//                                    intent.putExtra("col2","Prod.");
-//                                    intent.putExtra("col3","Quan.");
-//                                    intent.putExtra("col4","Money");
-//                                    intent.putExtra("col5","Mode");
-//
-//                                    intent.putExtra("total","Total Money : "+total);
-//                                    startActivity(intent);
-//
-//
-//                                }
-//                            }catch (Exception ex){}
 
 
                             statementAdapter historyPayList = new statementAdapter(UndoBuy.this,Date,productList,Supplier,Quantity,Amount,Mode);
@@ -737,12 +710,7 @@ tempo.add(1);
         else {
             if ((fday == 0) && (fmonth == 0) && (fYear == 0) && (tday == 0) && (tmonth == 0) && (tYear == 0))
             {
-                android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(this);
-                builder.setTitle("Choose Date")
-                        .setMessage("Please Choose Any Date")
-                        .setPositiveButton("OK",null)
-                        .create()
-                        .show();
+                DateRequestDialog(this);
                 return;
             }
             DatabaseReference mBuyRef = mRootRef.child(userIdMainStatic+"/buy");
@@ -824,32 +792,9 @@ tempo.clear();
                                 }
                             }
 
-                            Date[Product.size()] = count+" Total";
+                            Date[Product.size()] = count+getString(R.string._total);
                             Amount[money.size()] = total+"";
                             Quantity[quantity.size()] = quant+"";
-
-                            /*TODO : Change Page*/
-//                            try{
-//                                if (Date[Product.size()].equals(betweenDates[Dates.size()])){
-//                                    Intent intent = new Intent(sellHistory.this,fiveItemLister.class);
-//                                    intent.putExtra("c1",Date);
-//                                    intent.putExtra("c2",productList);
-//                                    intent.putExtra("c3",Quantity);
-//                                    intent.putExtra("c4",Amount);
-//                                    intent.putExtra("c5",Mode);
-//
-//                                    intent.putExtra("col1","Date");
-//                                    intent.putExtra("col2","Prod.");
-//                                    intent.putExtra("col3","Quan.");
-//                                    intent.putExtra("col4","Money");
-//                                    intent.putExtra("col5","Mode");
-//
-//                                    intent.putExtra("total","Total Money : "+total);
-//                                    startActivity(intent);
-//
-//
-//                                }
-//                            }catch (Exception ex){}
 
                             statementAdapter historyPayList = new statementAdapter(UndoBuy.this,Date,productList,Supplier,Quantity,Amount,Mode);
                             listView.setAdapter(historyPayList);

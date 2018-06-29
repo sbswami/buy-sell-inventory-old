@@ -36,6 +36,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import static com.sanshy.buysellinventory.MyDialogBox.DateRequestDialog;
+
 public class SideBStatement extends AppCompatActivity {
 
     ListView listView;
@@ -272,12 +274,7 @@ public class SideBStatement extends AppCompatActivity {
     {
         if ((fday == 0) && (fmonth == 0) && (fYear == 0) && (tday == 0) && (tmonth == 0) && (tYear == 0))
         {
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setTitle("Choose Date")
-                    .setMessage("Please Choose Any Date")
-                    .setPositiveButton("OK",null)
-                    .create()
-                    .show();
+            DateRequestDialog(this);
             return;
         }
         List<Date> dates = new ArrayList<>();

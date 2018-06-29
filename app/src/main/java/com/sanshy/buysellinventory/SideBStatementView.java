@@ -103,9 +103,9 @@ tempo.clear();
                             totalIncome+=incomeList.get(z);
                             totalProfit+=profitList.get(z);
                         }
-                        expendText.setText("Total Exp. : "+totalExp);
-                        incomeText.setText("Total Income : "+totalIncome);
-                        profitText.setText("Total Profit : "+totalProfit);
+                        expendText.setText(getString(R.string.total_exp_)+totalExp);
+                        incomeText.setText(getString(R.string.total_income_)+totalIncome);
+                        profitText.setText(getString(R.string.total_profit_)+totalProfit);
                         MyProgressBar.HideProgress();
 tempo.add(1);
                     }

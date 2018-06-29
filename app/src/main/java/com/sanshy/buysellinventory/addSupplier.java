@@ -254,7 +254,7 @@ public class addSupplier extends AppCompatActivity {
         }
         if (Address.isEmpty())
         {
-            Address = "Not Defined";
+            Address = getString(R.string.not_defined);
         }
 
 
