@@ -302,9 +302,7 @@ public class home extends AppCompatActivity implements RewardedVideoAdListener {
         String shareText = getString(R.string.buy_sell_name)+"\n" +
                 getString(R.string.share_line_one)+"\n" +
                 getString(R.string.share_line_two)+"\n" +
-                getString(R.string.share_line_three)+"\n" +
-                getString(R.string.share_line_hindi_1)+"\n" +
-                getString(R.string.share_line_hindi_two)+
+                getString(R.string.share_line_three)+
                 "https://play.google.com/store/apps/details?id=com.sanshy.buysellinventory";
         String shareSubject =getString(R.string.share_subject);
         Intent intent = new Intent(Intent.ACTION_SEND);
@@ -349,8 +347,7 @@ public class home extends AppCompatActivity implements RewardedVideoAdListener {
     public void resetB(View view){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(R.string.warning)
-                .setMessage(getString(R.string.warning_line_english) +
-                        "\n"+getString(R.string.warning_line_hindi))
+                .setMessage(getString(R.string.warning_line_english))
                 .setPositiveButton(getString(R.string.cancel_text),null)
                 .setNegativeButton(getString(R.string.reset_text), new DialogInterface.OnClickListener() {
                     @Override
