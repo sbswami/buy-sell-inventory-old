@@ -166,7 +166,7 @@
     <string name="stockH" translatable="false">ca-app-pub-2563796576069532/6504060101</string>
 
 
-    <string name="description">Buy Sell Inventory Application Online Data Store.\n
+    <string name="description" translatable="false">Buy Sell Inventory Application Online Data Store.\n
         This Application Provides Lots of Features The Working is as Follows....\n
         1. First Button \'Product\', Used To Add Product Items, There Buy Price, There Sell Price,
         Company , See Product List, Delete Item Many More.\n
@@ -234,7 +234,7 @@
         दुकान का पूरा हिसाब, बही खाते का पूरा हिसाब, घरेलु एंव अन्य खर्च का हिसाब और भी अन्य बहुत सारी विशेषताएं
         आसन तरीके से एंव ऑनलाइन डाटा स्टोर|\n</string>
 
-    <string name="descriptionmini">Buy Sell Inventory Application Online Data Store.\n
+    <string name="descriptionmini" translatable="false">Buy Sell Inventory Application Online Data Store.\n
         This Application Provides Lots of Features The Working is as Follows....\n</string>
     <string name="verify_text">Verify</string>
     <string name="solve_msg">Solve It To Reset! 99+2+3+5=</string>
@@ -342,29 +342,28 @@
     <string name="total_profit_">Total Profit : </string>
     <string name="remain_profit">Remain Profit</string>
     <string name="payment_still_remaining_">Payment Still Remaining</string>
-    <string name="buy_detail">Buy Detail!</string>
     <string name="date__">Date : </string>
     <string name="product_name__">Product Name : </string>
     <string name="supplier__">Supplier : </string>
     <string name="quantity__">Quantity : </string>
-    <string name="money__">Money : </string>
-    <string name="mode__">Mode : </string>
+    <string name="money__">Amount  :</string>
+    <string name="mode__">Type  :</string>
     <string name="unable">Unable</string>
-    <string name="exp_details">Exp. Details</string>
+    <string name="exp_details">Details of Expendititure</string>
     <string name="remark__">Remark :</string>
-    <string name="sell_deatail">Sell Detail!</string>
+    <string name="sell_deatail">Details of Sell!</string>
     <string name="customer__">Customer :</string>
     <string name="icnome_details">Income Details</string>
     <string name="not_defined">Not Defined</string>
-    <string name="only_on_hold_sell">Only On-Hold Sell</string>
-    <string name="only_on_hold_buy">Only On-Hold Buy</string>
-    <string name="logo_photo">Logo Photo</string>
+    <string name="only_on_hold_sell">Lending sale only</string>
+    <string name="only_on_hold_buy">Only Borrow Buy</string>
+    <string name="logo_photo" translatable="false">Logo Photo</string>
     <string name="or">or</string>
-    <string name="whatsapp_icon">whatsapp icon</string>
-    <string name="insta_icon">Instagram Icon</string>
-    <string name="gmail_icon">gmail icon</string>
+    <string name="whatsapp_icon" translatable="false">whatsapp icon</string>
+    <string name="insta_icon" translatable="false">Instagram Icon</string>
+    <string name="gmail_icon" translatable="false">gmail icon</string>
     <string name="profile">Profile</string>
-    <string name="product_image">Product Image</string>
+    <string name="product_image" translatable="false">Product Image</string>
     <string name="email">Email</string>
     <string name="loading">Loading....</string>
 
@@ -387,13 +386,13 @@
 
     <!--TODO temp -->
 
-    <string name="quickstart_message">Click the SUBSCRIBE TO NEWS button below to subscribe to the
+    <string name="quickstart_message" translatable="false">Click the SUBSCRIBE TO NEWS button below to subscribe to the
         news topic. Messages sent to the news topic will be received. The LOG TOKEN button logs the
         InstanceID token to logcat.</string>
-    <string name="subscribe_to_news">Subscribe To News</string>
-    <string name="log_token">Log Token</string>
+    <string name="subscribe_to_news" translatable="false">Subscribe To News</string>
+    <string name="log_token" translatable="false">Log Token</string>
 
-    <string name="msg_subscribed">Subscribed to news topic</string>
+    <string name="msg_subscribed" translatable="false">Subscribed to news topic</string>
     <string name="msg_token_fmt" translatable="false">InstanceID Token: %s</string>
 
     <string name="default_notification_channel_id" translatable="false">fcm_default_channel</string>
@@ -401,7 +400,8 @@
         This is the name that users will see when interacting with this channel.
         It should describe the category of notifications that will be sent through this channel
      -->
-    <string name="default_notification_channel_name" translatable="true">News</string>
-    <string name="msg_subscribe_failed">Failed to subscribe to news topic</string>
+    <string name="default_notification_channel_name" translatable="false">News</string>
+    <string name="msg_subscribe_failed" translatable="false">Failed to subscribe to news topic</string>
     <string name="stock_text">Stock</string>
+    <string name="buy_detail">Details of Buy!</string>
 </resources>
