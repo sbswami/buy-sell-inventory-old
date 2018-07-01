@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">فروخت انوینٹری خریدیں</string>
+    <string name="app_name">خریداری فروخت انوینٹری | اسٹاک مینجمنٹ | آن لائن</string>
     <string name="write_here">یہاں لکھو</string>
     <string name="reset_text">ری سیٹ کریں</string>
     <string name="product_text">مصنوعات</string>
@@ -204,4 +204,6 @@
     <string name="loading">لوڈ ہو رہا ہے ....</string>
     <string name="stock_text">اسٹاک</string>
     <string name="buy_sell_name">فروخت انوینٹری ایپلی کیشنز آن لائن ڈیٹا سٹور خریدیں.</string>
+    <string name="rate_us_request_dialog_">ہم خدمات فراہم کرنے کے لئے سخت محنت کر رہے ہیں. براہ کرم ہمیں صرف 5 ستارے کی شرح سے قدر کیجئے</string>
+    <string name="not_now_">ابھی نہیں</string>
 </resources>

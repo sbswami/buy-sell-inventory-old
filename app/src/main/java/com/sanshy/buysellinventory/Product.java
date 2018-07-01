@@ -29,6 +29,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import static com.sanshy.buysellinventory.MyUserStaticClass.isPaid;
 import static com.sanshy.buysellinventory.MyUserStaticClass.userIdMainStatic;
 
 
@@ -43,6 +44,8 @@ public class Product extends AppCompatActivity {
 
     public ArrayList<pitem> piList = new ArrayList<>();
 
+    AdView adView1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,12 +55,19 @@ public class Product extends AppCompatActivity {
 
         suggestion_box4 = findViewById(R.id.suggestion_box4);
 
-        AdView adView1;
         adView1 = findViewById(R.id.adView);
 
-        adView1.loadAd(new AdRequest.Builder().build());
+        myAds();
 
 
+    }
+
+    private void myAds() {
+        if (!isPaid()){
+            adView1.loadAd(new AdRequest.Builder().build());
+        }else{
+            adView1.setVisibility(View.GONE);
+        }
     }
 
     @Override

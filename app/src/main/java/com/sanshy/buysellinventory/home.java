@@ -43,22 +43,27 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.messaging.FirebaseMessaging;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
+import static com.sanshy.buysellinventory.MyUserStaticClass.getUserIdMainStatic;
+import static com.sanshy.buysellinventory.MyUserStaticClass.isPaid;
+import static com.sanshy.buysellinventory.MyUserStaticClass.setPaid;
 import static com.sanshy.buysellinventory.MyUserStaticClass.userIdMainStatic;
 import static com.sanshy.buysellinventory.NetworkConnectivityCheck.connectionCheck;
 
 
-public class home extends AppCompatActivity implements RewardedVideoAdListener {
+public class home extends AppCompatActivity{
 
     private static final String TAG = "FCM";
     private FirebaseAnalytics mFirebaseAnalytics;
     private FirebaseAuth mAuth;
     private DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
     TextView profile;
-    InterstitialAd mInterstitialAd,mInterstitialAd2;
+    AdView adView1,adView2;
 
     String UserIdFromAdmin;
 
-    private RewardedVideoAd mRewardedVideoAd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,6 +80,9 @@ public class home extends AppCompatActivity implements RewardedVideoAdListener {
         }catch (Exception ex){
 
         }
+
+        adView1 = findViewById(R.id.adView);
+        adView2 = findViewById(R.id.adView2);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             // Create channel to show notifications.
@@ -104,84 +112,30 @@ public class home extends AppCompatActivity implements RewardedVideoAdListener {
         // [END handle_data_extras]
 
 
-        mRewardedVideoAd = MobileAds.getRewardedVideoAdInstance(this);
-        mRewardedVideoAd.setRewardedVideoAdListener(this);
 
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
-
         mAuth = FirebaseAuth.getInstance();
-
         profile = findViewById(R.id.profile);
-
-
-        AdView adView1,adView2;
-        adView1 = findViewById(R.id.adView);
-        adView2 = findViewById(R.id.adView2);
-
-        adView1.loadAd(new AdRequest.Builder().build());
-        adView2.loadAd(new AdRequest.Builder().build());
-
-        mInterstitialAd = new InterstitialAd(this);
-        mInterstitialAd.setAdUnitId("ca-app-pub-2563796576069532/7110085832");
-        mInterstitialAd.loadAd(new AdRequest.Builder().build());
-
-//        mInterstitialAd2 = new InterstitialAd(this);
-//        mInterstitialAd2.setAdUnitId("ca-app-pub-2563796576069532/5197404213");
-//        mInterstitialAd2.loadAd(new AdRequest.Builder().build());
-//
-//        mInterstitialAd.setAdListener(new AdListener(){
-//            @Override
-//            public void onAdLoaded() {
-//                mInterstitialAd.show();
-//
-//            }
-//
-//            @Override
-//            public void onAdFailedToLoad(int i) {
-//                super.onAdFailedToLoad(i);
-//                switch (i)
-//                {
-//                    case ERROR_CODE_INTERNAL_ERROR :
-//                        Toast.makeText(home.this, "Internal", Toast.LENGTH_SHORT).show();
-//                        break;
-//                    case ERROR_CODE_INVALID_REQUEST :
-//                        Toast.makeText(home.this, "Invalid Request", Toast.LENGTH_SHORT).show();
-//                        break;
-//                    case ERROR_CODE_NETWORK_ERROR :
-//                        Toast.makeText(home.this, "Network", Toast.LENGTH_SHORT).show();
-//                        break;
-//                    default:
-//                        Toast.makeText(home.this, "No Fill", Toast.LENGTH_SHORT).show();
-//                        break;
-//                }
-//            }
-//        });
-
         connectionCheck(this);
+    }
 
-        loadRewardedVideoAd();
+    private void myAds() {
+        if (!isPaid()){
+            adView1.loadAd(new AdRequest.Builder().build());
+            adView2.loadAd(new AdRequest.Builder().build());
+        }else{
+            adView1.setVisibility(View.GONE);
+            adView2.setVisibility(View.GONE);
+        }
 
     }
-    private void loadRewardedVideoAd() {
-        mRewardedVideoAd.loadAd("ca-app-pub-2563796576069532/4960065955",
-                new AdRequest.Builder().build());
-    }
+
    public void rateUs(View view){
-
-       if (mRewardedVideoAd.isLoaded()) {
-           mRewardedVideoAd.show();
-       }
-
        Intent intent = new Intent(Intent.ACTION_VIEW);
        intent.setData(Uri.parse("market://details?id=com.sanshy.buysellinventory"));
        startActivity(intent);
    }
    public void feedback(View v){
-
-       if (mRewardedVideoAd.isLoaded()) {
-           mRewardedVideoAd.show();
-       }
-
        startActivity(new Intent(this,help.class));
 
 //       Intent emailIntent = new Intent(Intent.ACTION_SENDTO);
@@ -192,10 +146,6 @@ public class home extends AppCompatActivity implements RewardedVideoAdListener {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-//        if (mInterstitialAd2.isLoaded())
-//        {
-//            mInterstitialAd2.show();
-//        }
     }
 
     @Override
@@ -208,6 +158,41 @@ public class home extends AppCompatActivity implements RewardedVideoAdListener {
     protected void onStart() {
         super.onStart();
 
+        final DatabaseReference rate = mRootRef.child(userIdMainStatic+"/rate");
+        rate.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()){
+                    boolean rated = dataSnapshot.getValue(Boolean.class);
+                    if (!rated){
+                        AlertDialog.Builder builder = new AlertDialog.Builder(home.this);
+
+                        builder.setTitle(getString(R.string.rate_us_text))
+                                .setMessage(getString(R.string.rate_us_request_dialog_))
+                                .setPositiveButton(getString(R.string.rate_us_text), new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        Intent intent = new Intent(Intent.ACTION_VIEW);
+                                        intent.setData(Uri.parse("market://details?id=com.sanshy.buysellinventory"));
+                                        startActivity(intent);
+                                        rate.setValue(true);
+                                    }
+                                })
+                                .setNegativeButton(getString(R.string.not_now_),null);
+
+                        builder.create().show();
+                    }
+                }else{
+                    rate.setValue(false);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if (currentUser == null)
         {
@@ -216,7 +201,32 @@ public class home extends AppCompatActivity implements RewardedVideoAdListener {
         }
         else
         {
+            final DatabaseReference allInfoRef = mRootRef.child("AdminWork/PaidUser");
+            allInfoRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    ArrayList<String> paidUserList = new ArrayList<>();
+                    if (dataSnapshot.exists()){
+                        paidUserList = (ArrayList<String>) dataSnapshot.getValue();
+                        for (String userId : paidUserList){
+                            if (userId.equals(getUserIdMainStatic())){
+                                setPaid(true);
+                                myAds();
+                                break;
+                            }
+                        }
+                    }
+                    else {
+                        paidUserList.add(getUserIdMainStatic());
+                        allInfoRef.setValue(paidUserList);
+                    }
+                }
 
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
             mRootRef.child("update").addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -299,6 +309,7 @@ public class home extends AppCompatActivity implements RewardedVideoAdListener {
         connectionCheck(this);startActivity(new Intent(this,Expenditure.class));
     }
     public void share(View view){
+
         String shareText = getString(R.string.buy_sell_name)+"\n" +
                 getString(R.string.share_line_one)+"\n" +
                 getString(R.string.share_line_two)+"\n" +
@@ -313,12 +324,7 @@ public class home extends AppCompatActivity implements RewardedVideoAdListener {
 
     }
 
-    public void logout(View view)
-    {
-
-        if (mRewardedVideoAd.isLoaded()) {
-            mRewardedVideoAd.show();
-        }
+    public void logout(View view){
         AuthUI.getInstance()
                 .signOut(this)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -396,11 +402,7 @@ public class home extends AppCompatActivity implements RewardedVideoAdListener {
                 })
                 .create().show();
     }
-//    @Override
-//    protected void onPostResume() {
-//        super.onPostResume();
-//        connectionCheck();
-//    }
+
     @Override
     public void onResume() {
         super.onResume();  // Always call the superclass method first
@@ -409,44 +411,4 @@ public class home extends AppCompatActivity implements RewardedVideoAdListener {
 
     }
 
-
-    @Override
-    public void onRewardedVideoAdLoaded() {
-
-    }
-
-    @Override
-    public void onRewardedVideoAdOpened() {
-
-    }
-
-    @Override
-    public void onRewardedVideoStarted() {
-
-    }
-
-    @Override
-    public void onRewardedVideoAdClosed() {
-
-    }
-
-    @Override
-    public void onRewarded(RewardItem rewardItem) {
-
-    }
-
-    @Override
-    public void onRewardedVideoAdLeftApplication() {
-
-    }
-
-    @Override
-    public void onRewardedVideoAdFailedToLoad(int i) {
-
-    }
-
-    @Override
-    public void onRewardedVideoCompleted() {
-
-    }
 }

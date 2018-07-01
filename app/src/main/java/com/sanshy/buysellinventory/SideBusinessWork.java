@@ -11,19 +11,31 @@ import android.view.View;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 
+import static com.sanshy.buysellinventory.MyUserStaticClass.isPaid;
+
 public class SideBusinessWork extends AppCompatActivity {
+
+    AdView adView1,adView2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_side_business_work);
 
-        AdView adView1,adView2;
         adView1 = findViewById(R.id.adView);
         adView2 = findViewById(R.id.adView2);
 
-        adView1.loadAd(new AdRequest.Builder().build());
-        adView2.loadAd(new AdRequest.Builder().build());
+        myAds();
+    }
+
+    private void myAds() {
+        if (!isPaid()){
+            adView1.loadAd(new AdRequest.Builder().build());
+            adView2.loadAd(new AdRequest.Builder().build());
+        }else{
+            adView1.setVisibility(View.GONE);
+            adView2.setVisibility(View.GONE);
+        }
     }
 
     public void sideBExp(View view){

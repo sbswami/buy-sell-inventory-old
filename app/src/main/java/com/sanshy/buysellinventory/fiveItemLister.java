@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -11,17 +12,20 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 
 import static com.sanshy.buysellinventory.MyDialogBox.ErrorFeedbackDialog;
+import static com.sanshy.buysellinventory.MyUserStaticClass.isPaid;
 
 public class fiveItemLister extends AppCompatActivity {
+
+    AdView adView1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_five_item_lister);
 
-        AdView adView1;
         adView1 = findViewById(R.id.adView);
-        adView1.loadAd(new AdRequest.Builder().build());
+
+        myAds();
         try{
 
             Intent intent = getIntent();
@@ -65,6 +69,15 @@ public class fiveItemLister extends AppCompatActivity {
         }
 
 
+
+    }
+
+    private void myAds() {
+        if (!isPaid()){
+            adView1.loadAd(new AdRequest.Builder().build());
+        }else{
+            adView1.setVisibility(View.GONE);
+        }
     }
 
     @Override

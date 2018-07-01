@@ -9,6 +9,8 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -21,6 +23,9 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import static com.sanshy.buysellinventory.MyUserStaticClass.isPaid;
+import static com.sanshy.buysellinventory.MyUserStaticClass.loadAds;
+import static com.sanshy.buysellinventory.MyUserStaticClass.showAds;
 import static com.sanshy.buysellinventory.MyUserStaticClass.userIdMainStatic;
 import static com.sanshy.buysellinventory.SideBExp.EXPEND;
 import static com.sanshy.buysellinventory.SideBExp.INCOME;
@@ -38,7 +43,7 @@ public class SideBStatementView extends AppCompatActivity {
     ArrayList<String> tExp = new ArrayList<>();
     ArrayList<String> tIncome = new ArrayList<>();
     ArrayList<String> datesList = new ArrayList<>();
-
+    AdView adView1,adView2;
     private DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
     private FirebaseUser user = mAuth.getCurrentUser();
@@ -57,6 +62,23 @@ public class SideBStatementView extends AppCompatActivity {
 
         Collections.addAll(datesList, dates);
         System.out.println(datesList);
+
+        adView1 = findViewById(R.id.adView);
+        adView2 = findViewById(R.id.adView2);
+
+        myAds();
+
+    }
+
+    private void myAds() {
+        if (!isPaid()){
+            adView1.loadAd(new AdRequest.Builder().build());
+            adView2.loadAd(new AdRequest.Builder().build());
+            loadAds(this);
+        }else{
+            adView1.setVisibility(View.GONE);
+            adView2.setVisibility(View.GONE);
+        }
     }
 
     ArrayList<Double> expList = new ArrayList<>();
@@ -125,7 +147,9 @@ tempo.add(1);
     @Override
     protected void onPause() {
         super.onPause();
-
+        if (!isPaid()){
+            showAds();
+        }
         if (tempo.size()==0){
             android.os.Process.killProcess(android.os.Process.myPid());
         }

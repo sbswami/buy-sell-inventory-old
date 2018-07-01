@@ -15,14 +15,14 @@ public class MyProgressBar {
     }
     public static void MyProgress(Context myContext){
         mProgress = new ProgressDialog(myContext);
-        mProgress.setMessage("Loading Data...");
+        mProgress.setMessage(myContext.getString(R.string.loading));
     }
     public static void ShowProgress(){mProgress.show();}
     public static void HideProgress(){mProgress.hide();}
 
     public static void ShowProgress(Context myContext){
         mProgress = new ProgressDialog(myContext);
-        mProgress.setMessage("Loading Data...");
+        mProgress.setMessage(myContext.getString(R.string.loading));
 
         mProgress.show();
     }

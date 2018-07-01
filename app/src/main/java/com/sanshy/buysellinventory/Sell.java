@@ -48,6 +48,7 @@ import static com.sanshy.buysellinventory.Buy.TOTAL_HOLD_PAID_TO_SUPPLIER;
 import static com.sanshy.buysellinventory.Buy.TOTAL_ON_HOLD_BUY;
 import static com.sanshy.buysellinventory.Buy.TOTAL_ON_HOLD_SELL;
 import static com.sanshy.buysellinventory.Buy.TOTAL_SELL;
+import static com.sanshy.buysellinventory.MyUserStaticClass.isPaid;
 import static com.sanshy.buysellinventory.MyUserStaticClass.userIdMainStatic;
 
 public class Sell extends AppCompatActivity {
@@ -67,6 +68,8 @@ public class Sell extends AppCompatActivity {
 
     String productBuyPrice;
     String productSellPrice;
+
+    AdView adView1,adView2;
 
     private DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
@@ -88,12 +91,20 @@ public class Sell extends AppCompatActivity {
 
         cash.setChecked(true);
 
-        AdView adView1,adView2;
         adView1 = findViewById(R.id.adView);
         adView2 = findViewById(R.id.adView2);
 
-        adView1.loadAd(new AdRequest.Builder().build());
-        adView2.loadAd(new AdRequest.Builder().build());
+        myAds();
+    }
+
+    private void myAds() {
+        if (!isPaid()){
+            adView1.loadAd(new AdRequest.Builder().build());
+            adView2.loadAd(new AdRequest.Builder().build());
+        }else{
+            adView1.setVisibility(View.GONE);
+            adView2.setVisibility(View.GONE);
+        }
     }
 
     @Override

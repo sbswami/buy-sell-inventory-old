@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Buy Sell Inventory</string>
+    <string name="app_name">बही खाते का हिसाब (क्रय, विक्रय) आसान सरल तरीके से</string>
     <string name="write_here">" यहाँ लिखें"</string>
     <string name="reset_text">रीसेट</string>
     <string name="product_text">उत्पाद</string>
@@ -23,7 +23,7 @@
     <string name="add_supplier_text">प्रदायक जोड़ें</string>
     <string name="name_text">नाम</string>
     <string name="phone_text">फ़ोन नंबर</string>
-    <string name="buy_price_text">कीमत खरीदें</string>
+    <string name="buy_price_text">क्रय मूल्य</string>
     <string name="buy_percentage_text">मार्जिन प्रतिशत</string>
     <string name="sell_price_text">विक्रय मूल्य</string>
     <string name="company_text">कंपनी</string>
@@ -204,4 +204,6 @@
     <string name="loading">लोड हो रहा है....</string>
     <string name="stock_text">भण्डार</string>
     <string name="buy_sell_name">"बिक्री सूची ऑनलाइन डेटा स्टोर खरीदें। "</string>
+    <string name="rate_us_request_dialog_">हम सेवाएं प्रदान करने के लिए कड़ी मेहनत कर रहे हैं। कृपया दर 5 सितारे देकर हमें सराहना करें</string>
+    <string name="not_now_">अभी नहीं</string>
 </resources>

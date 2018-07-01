@@ -35,6 +35,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 
+import static com.sanshy.buysellinventory.MyUserStaticClass.isPaid;
 import static com.sanshy.buysellinventory.MyUserStaticClass.userIdMainStatic;
 
 public class Buy extends AppCompatActivity {
@@ -70,6 +71,8 @@ public class Buy extends AppCompatActivity {
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
     private FirebaseUser user = mAuth.getCurrentUser();
 
+    AdView adView1,adView2;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -85,12 +88,20 @@ public class Buy extends AppCompatActivity {
         group = findViewById(R.id.radioGroup);
         cash.setChecked(true);
 
-        AdView adView1,adView2;
         adView1 = findViewById(R.id.adView);
         adView2 = findViewById(R.id.adView2);
 
-        adView1.loadAd(new AdRequest.Builder().build());
-        adView2.loadAd(new AdRequest.Builder().build());
+        myAds();
+    }
+
+    private void myAds() {
+        if (!isPaid()){
+            adView1.loadAd(new AdRequest.Builder().build());
+            adView2.loadAd(new AdRequest.Builder().build());
+        }else{
+            adView1.setVisibility(View.GONE);
+            adView2.setVisibility(View.GONE);
+        }
     }
 
     @Override

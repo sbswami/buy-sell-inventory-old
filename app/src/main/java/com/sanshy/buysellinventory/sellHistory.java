@@ -35,6 +35,9 @@ import java.util.Date;
 import java.util.List;
 
 import static com.sanshy.buysellinventory.MyDialogBox.DateRequestDialog;
+import static com.sanshy.buysellinventory.MyUserStaticClass.isPaid;
+import static com.sanshy.buysellinventory.MyUserStaticClass.loadAds;
+import static com.sanshy.buysellinventory.MyUserStaticClass.showAds;
 import static com.sanshy.buysellinventory.MyUserStaticClass.userIdMainStatic;
 
 public class sellHistory extends AppCompatActivity {
@@ -66,10 +69,19 @@ public class sellHistory extends AppCompatActivity {
         suggestion_box4 = findViewById(R.id.suggestion_box4);
         listView = findViewById(R.id.listView);
         remainAmount = findViewById(R.id.remainAmount);
+
+        myAds();
+
 //        AdView adView1;
 //        adView1 = findViewById(R.id.adView);
 //
 //        adView1.loadAd(new AdRequest.Builder().build());
+    }
+
+    private void myAds() {
+        if (!isPaid()){
+            loadAds(this);
+        }
     }
 
     @Override
@@ -300,7 +312,9 @@ tempo.add(1);
     @Override
     protected void onPause() {
         super.onPause();
-        
+        if (!isPaid()){
+            showAds();
+        }
         if (tempo.size()==0){
             android.os.Process.killProcess(android.os.Process.myPid());
         }

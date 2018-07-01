@@ -29,6 +29,9 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import static com.sanshy.buysellinventory.MyUserStaticClass.isPaid;
+import static com.sanshy.buysellinventory.MyUserStaticClass.loadAds;
+import static com.sanshy.buysellinventory.MyUserStaticClass.showAds;
 import static com.sanshy.buysellinventory.MyUserStaticClass.userIdMainStatic;
 
 public class Stock extends AppCompatActivity {
@@ -61,11 +64,18 @@ public class Stock extends AppCompatActivity {
         remainStock = findViewById(R.id.remainStock);
         suggestion_box4 = findViewById(R.id.suggestion_box4);
 
+        myAds();
 
 //        AdView adView1;
 //        adView1 = findViewById(R.id.adView);
 //
 //        adView1.loadAd(new AdRequest.Builder().build());
+    }
+
+    private void myAds() {
+        if (!isPaid()){
+            loadAds(this);
+        }
     }
 
     @Override

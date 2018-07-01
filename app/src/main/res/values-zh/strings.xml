@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">买卖库存</string>
+    <string name="app_name">购买销售库存| 股票管理| 线上</string>
     <string name="write_here">写在这里</string>
     <string name="reset_text">重启</string>
     <string name="product_text">乘积</string>
@@ -204,4 +204,6 @@
     <string name="loading">数据加载中....</string>
     <string name="out_of_stock_">缺货！</string>
     <string name="buy_sell_name">买卖库存应用在线数据存储。</string>
+    <string name="rate_us_request_dialog_">我们正在努力提供服务。 请只赞赏5星评价我们</string>
+    <string name="not_now_">不是现在</string>
 </resources>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Купить инвентарь</string>
+    <string name="app_name">Покупка инвентаря | Управление запасами | В сети</string>
     <string name="write_here">Пишите здесь</string>
     <string name="reset_text">Сброс</string>
     <string name="product_text">Продукт</string>
@@ -204,4 +204,6 @@
     <string name="loading">загрузка....</string>
     <string name="stock_text">Акции</string>
     <string name="buy_sell_name">Купить онлайн-магазин приложений для инвентаризации.</string>
+    <string name="rate_us_request_dialog_">Мы прилагаем все усилия для предоставления услуг. Пожалуйста, оцените нас, просто давая оценку 5 звезд</string>
+    <string name="not_now_">Не сейчас</string>
 </resources>

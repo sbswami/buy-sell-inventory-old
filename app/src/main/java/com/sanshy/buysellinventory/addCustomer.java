@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.InterstitialAd;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -25,6 +26,9 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import static com.sanshy.buysellinventory.MyUserStaticClass.isPaid;
+import static com.sanshy.buysellinventory.MyUserStaticClass.loadAds;
+import static com.sanshy.buysellinventory.MyUserStaticClass.showAds;
 import static com.sanshy.buysellinventory.MyUserStaticClass.userIdMainStatic;
 
 public class addCustomer extends AppCompatActivity {
@@ -42,6 +46,7 @@ public class addCustomer extends AppCompatActivity {
     final ArrayList<String> hintList2 = new ArrayList<>();
 
 
+    AdView adView1,adView2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,14 +57,31 @@ public class addCustomer extends AppCompatActivity {
         city = findViewById(R.id.city);
         address = findViewById(R.id.address);
 
-        AdView adView1,adView2;
         adView1 = findViewById(R.id.adView);
         adView2 = findViewById(R.id.adView2);
 
-        adView1.loadAd(new AdRequest.Builder().build());
-        adView2.loadAd(new AdRequest.Builder().build());
+        myAds();
     }
 
+    public void myAds(){
+        if (!isPaid()){
+            adView1.loadAd(new AdRequest.Builder().build());
+            adView2.loadAd(new AdRequest.Builder().build());
+            loadAds(this);
+
+        }else{
+            adView1.setVisibility(View.GONE);
+            adView2.setVisibility(View.GONE);
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (!isPaid()){
+            showAds();
+        }
+    }
 
     @Override
     protected void onStart() {

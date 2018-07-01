@@ -6,8 +6,8 @@ android {
         applicationId "com.sanshy.buysellinventory"
         minSdkVersion 19
         targetSdkVersion 27
-        versionCode 20
-        versionName "3.2"
+        versionCode 21
+        versionName "3.3"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -15,6 +15,12 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+    }
+    lintOptions {
+        checkReleaseBuilds false
+        // Or, if you prefer, you can continue to check for errors in release builds,
+        // but continue the build even when errors are found:
+        abortOnError false
     }
 }
 
@@ -38,6 +44,7 @@ dependencies {
     implementation 'com.firebase:firebase-jobdispatcher:0.8.5'
     implementation 'com.firebaseui:firebase-ui-auth:4.0.0'
     implementation 'com.google.firebase:firebase-config:16.0.0'
+    implementation 'com.razorpay:checkout:1.4.8'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'

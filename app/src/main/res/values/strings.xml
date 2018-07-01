@@ -158,12 +158,12 @@
 
 
     <!-- Intersial -->
-    <string name="homeH" translatable="false">ca-app-pub-2563796576069532/7078350140</string>
-    <string name="sellH" translatable="false">ca-app-pub-2563796576069532/5197404213</string>
-    <string name="buyH" translatable="false">ca-app-pub-2563796576069532/7110085832</string>
-    <string name="statementH" translatable="false">ca-app-pub-2563796576069532/8718734879</string>
-    <string name="ExpH" translatable="false">ca-app-pub-2563796576069532/7625145053</string>
-    <string name="stockH" translatable="false">ca-app-pub-2563796576069532/6504060101</string>
+    <string name="i1" translatable="false">ca-app-pub-2563796576069532/7078350140</string>
+    <string name="i2" translatable="false">ca-app-pub-2563796576069532/5197404213</string>
+    <string name="i3" translatable="false">ca-app-pub-2563796576069532/7110085832</string>
+    <string name="i4" translatable="false">ca-app-pub-2563796576069532/8718734879</string>
+    <string name="i5" translatable="false">ca-app-pub-2563796576069532/7625145053</string>
+    <string name="i6" translatable="false">ca-app-pub-2563796576069532/6504060101</string>
 
 
     <string name="description" translatable="false">Buy Sell Inventory Application Online Data Store.\n
@@ -366,8 +366,11 @@
     <string name="product_image" translatable="false">Product Image</string>
     <string name="email">Email</string>
     <string name="loading">Loading....</string>
+    <string name="rate_us_request_dialog_">We are Working Hard to Provide the services. Please Appreciate Us By Just Giving Rate 5 Stars</string>
 
-
+    <string name="stock_text">Stock</string>
+    <string name="buy_detail">Details of Buy!</string>
+    <string name="not_now_">Not Now</string>
 
 
 
@@ -402,6 +405,5 @@
      -->
     <string name="default_notification_channel_name" translatable="false">News</string>
     <string name="msg_subscribe_failed" translatable="false">Failed to subscribe to news topic</string>
-    <string name="stock_text">Stock</string>
-    <string name="buy_detail">Details of Buy!</string>
+
 </resources>

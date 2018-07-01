@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">شراء بيع المخزون</string>
+    <string name="app_name">شراء بيع جرد | إدارة المخزون | عبر الانترنت</string>
     <string name="write_here">اكتب هنا</string>
     <string name="reset_text">إعادة تعيين</string>
     <string name="product_text">المنتج</string>
@@ -204,4 +204,6 @@
     <string name="email">البريد الإلكتروني</string>
     <string name="loading">جار التحميل....</string>
     <string name="buy_sell_name">شراء بيع مخزون التطبيقات على الانترنت مخزن البيانات.</string>
+    <string name="rate_us_request_dialog_">نحن نعمل بجد لتوفير الخدمات. يرجى نقدر لنا فقط من خلال إعطاء سعر 5 نجوم</string>
+    <string name="not_now_">ليس الان</string>
 </resources>

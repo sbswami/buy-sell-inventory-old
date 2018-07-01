@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">కొనుగోలు సెల్ కొనుగోలు</string>
+    <string name="app_name">అమ్మకానికి ఇన్వెంటరీ కొనుగోలు | స్టాక్ మేనేజ్మెంట్ | ఆన్లైన్</string>
     <string name="write_here">ఇక్కడ వ్రాయండి</string>
     <string name="reset_text">రీసెట్</string>
     <string name="product_text">ఉత్పత్తి</string>
@@ -204,4 +204,6 @@
     <string name="loading">లోడ్....</string>
     <string name="stock_text">స్టాక్</string>
     <string name="buy_sell_name">ఇన్వెంటరీ అప్లికేషన్ ఆన్లైన్ డేటా స్టోర్ సెల్ కొనండి.</string>
+    <string name="rate_us_request_dialog_">మేము సేవలను అందించడానికి కష్టపడి పనిచేస్తున్నాము. దయచేసి జస్ట్ 5 స్టార్స్ రేట్ ఇవ్వడం ద్వారా మాకు మెచ్చుకోండి</string>
+    <string name="not_now_">ఇప్పుడు కాదు</string>
 </resources>

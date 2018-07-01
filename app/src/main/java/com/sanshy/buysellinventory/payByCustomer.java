@@ -45,6 +45,7 @@ import static com.sanshy.buysellinventory.Buy.TOTAL_HOLD_PAID_TO_SUPPLIER;
 import static com.sanshy.buysellinventory.Buy.TOTAL_ON_HOLD_BUY;
 import static com.sanshy.buysellinventory.Buy.TOTAL_ON_HOLD_SELL;
 import static com.sanshy.buysellinventory.Buy.TOTAL_SELL;
+import static com.sanshy.buysellinventory.MyUserStaticClass.isPaid;
 import static com.sanshy.buysellinventory.MyUserStaticClass.userIdMainStatic;
 
 public class payByCustomer extends AppCompatActivity {
@@ -65,6 +66,8 @@ public class payByCustomer extends AppCompatActivity {
     ArrayList<String> onHoldList = new ArrayList<>();
     ArrayList<String> grossList = new ArrayList<>();
 
+    AdView adView1,adView2;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,13 +77,22 @@ public class payByCustomer extends AppCompatActivity {
         amount = findViewById(R.id.amount);
         remainAmount = findViewById(R.id.remainHold);
 
-        AdView adView1,adView2;
         adView1 = findViewById(R.id.adView);
         adView2 = findViewById(R.id.adView2);
 
-        adView1.loadAd(new AdRequest.Builder().build());
-        adView2.loadAd(new AdRequest.Builder().build());
+        myAds();
     }
+
+    private void myAds() {
+        if (!isPaid()){
+            adView1.loadAd(new AdRequest.Builder().build());
+            adView2.loadAd(new AdRequest.Builder().build());
+        }else{
+            adView1.setVisibility(View.GONE);
+            adView2.setVisibility(View.GONE);
+        }
+    }
+
 
     @Override
     protected void onStart() {

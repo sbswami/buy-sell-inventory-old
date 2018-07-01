@@ -8,6 +8,14 @@
     android:orientation="vertical"
     tools:context="com.sanshy.buysellinventory.SideBStatementView">
 
+    <com.google.android.gms.ads.AdView
+        android:id="@+id/adView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="visible"
+        app:adSize="BANNER"
+        app:adUnitId="@string/sDay1" />
+
     <TextView
         android:id="@+id/income"
         android:layout_width="match_parent"
@@ -46,5 +54,12 @@
         android:textColor="#000"
         android:textSize="19sp"
         android:textStyle="bold" />
+    <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/adView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="visible"
+        ads:adSize="BANNER"
+        ads:adUnitId="@string/sDay3" />
 
 </LinearLayout>

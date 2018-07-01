@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">विक्री इन्व्हेंटरी खरेदी</string>
+    <string name="app_name">खरेदी विक्री इन्व्हेंटरी | शेअर व्यवस्थापन | ऑनलाइन</string>
     <string name="write_here">येथे लिहा</string>
     <string name="reset_text">रीसेट करा</string>
     <string name="product_text">उत्पादन</string>
@@ -204,4 +204,6 @@
     <string name="loading">लोड होत आहे ....</string>
     <string name="stock_text">स्टॉक</string>
     <string name="buy_sell_name">विक्री इन्व्हेंटरी अनुप्रयोग ऑनलाइन डाटा स्टोअर खरेदी.</string>
+    <string name="rate_us_request_dialog_">आम्ही सेवा प्रदान करण्यासाठी कठोर परिश्रम करत आहोत. दराने 5 तारांचा खर्च करून आम्हाला कौतुक करा</string>
+    <string name="not_now_">आता नाही</string>
 </resources>

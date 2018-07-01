@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">வாங்க விற்க வாங்க</string>
+    <string name="app_name">கொள்முதல் விற்பனை சரக்கு | பங்கு மேலாண்மை | ஆன்லைன்</string>
     <string name="write_here">இங்கே எழுதுங்கள்</string>
     <string name="reset_text">மீட்டமை</string>
     <string name="product_text">தயாரிப்பு</string>
@@ -204,4 +204,6 @@
     <string name="loading">ஏற்றுதல் ....</string>
     <string name="stock_text">பங்கு</string>
     <string name="buy_sell_name">ஆன்ட்ராய்டு அப்ளிகேஷன் ஆன்லைன் தரவு ஸ்டோர் விற்கவும்.</string>
+    <string name="rate_us_request_dialog_">இந்த சேவைகளை வழங்க கடினமாக உழைக்கிறோம். 5 நட்சத்திரங்களை அளிப்பதன் மூலம் எங்களை மதிப்பிடுக</string>
+    <string name="not_now_">இப்போது இல்லை</string>
 </resources>

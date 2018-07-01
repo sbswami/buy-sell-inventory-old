@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Acheter Vendre l&#39;inventaire</string>
+    <string name="app_name">Inventaire de vente d\'achat | Gestion des stocks | En ligne</string>
     <string name="write_here">Ecrire ici</string>
     <string name="reset_text">Réinitialiser</string>
     <string name="product_text">Produit</string>
@@ -204,4 +204,6 @@
     <string name="loading">Chargement....</string>
     <string name="stock_text">Stock</string>
     <string name="buy_sell_name">Acheter Vendre l\'inventaire de l\'application en ligne magasin de données.</string>
+    <string name="rate_us_request_dialog_">Nous travaillons dur pour fournir les services. S\'il vous plaît nous apprécier par juste donner le taux 5 étoiles</string>
+    <string name="not_now_">Pas maintenant</string>
 </resources>

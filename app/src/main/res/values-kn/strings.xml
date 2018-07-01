@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">ಮಾರಾಟದ ಇನ್ವೆಂಟರಿ ಖರೀದಿಸಿ</string>
+    <string name="app_name">ಖರೀದಿ ಮಾರಾಟದ ಇನ್ವೆಂಟರಿ | ಸ್ಟಾಕ್ ಮ್ಯಾನೇಜ್ಮೆಂಟ್ | ಆನ್ಲೈನ್</string>
     <string name="write_here">ಇಲ್ಲಿ ಬರೆಯಿರಿ</string>
     <string name="reset_text">ಮರುಹೊಂದಿಸಿ</string>
     <string name="product_text">ಉತ್ಪನ್ನ</string>
@@ -204,4 +204,6 @@
     <string name="loading">ಲೋಡ್ ಮಾಡಲಾಗುತ್ತಿದೆ ....</string>
     <string name="stock_text">ಸ್ಟಾಕ್</string>
     <string name="buy_sell_name">ಇನ್ವೆಂಟರಿ ಅಪ್ಲಿಕೇಶನ್ ಆನ್ಲೈನ್ ​​ಡಾಟಾ ಅಂಗಡಿ ಮಾರಾಟ ಮಾಡಿ.</string>
+    <string name="rate_us_request_dialog_">ಸೇವೆಗಳನ್ನು ಒದಗಿಸಲು ನಾವು ಶ್ರಮಿಸುತ್ತಿದ್ದೇವೆ. ದಯವಿಟ್ಟು ದರ 5 ಸ್ಟಾರ್ಗಳನ್ನು ನೀಡುವ ಮೂಲಕ ನಮಗೆ ಮೆಚ್ಚುಗೆ ನೀಡಿ</string>
+    <string name="not_now_">ಈಗ ಸಾಧ್ಯವಿಲ್ಲ</string>
 </resources>

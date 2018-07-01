@@ -43,6 +43,9 @@ import static com.sanshy.buysellinventory.Buy.TOTAL_HOLD_PAID_TO_SUPPLIER;
 import static com.sanshy.buysellinventory.Buy.TOTAL_ON_HOLD_BUY;
 import static com.sanshy.buysellinventory.Buy.TOTAL_ON_HOLD_SELL;
 import static com.sanshy.buysellinventory.Buy.TOTAL_SELL;
+import static com.sanshy.buysellinventory.MyUserStaticClass.isPaid;
+import static com.sanshy.buysellinventory.MyUserStaticClass.loadAds;
+import static com.sanshy.buysellinventory.MyUserStaticClass.showAds;
 import static com.sanshy.buysellinventory.MyUserStaticClass.userIdMainStatic;
 
 public class StatementSearch extends AppCompatActivity {
@@ -65,10 +68,15 @@ public class StatementSearch extends AppCompatActivity {
 
     ArrayList<String> datesList = new ArrayList<>();
     ArrayList<Integer> tempo = new ArrayList<>();
+
+    AdView adView1,adView2,adView3,adView4,adView5;
+
     @Override
     protected void onPause() {
         super.onPause();
-
+        if (!isPaid()){
+            showAds();
+        }
         if (tempo.size()==0){
             android.os.Process.killProcess(android.os.Process.myPid());
         }
@@ -79,6 +87,7 @@ public class StatementSearch extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_statement_search);
+
 
         {
             totalBuy = findViewById(R.id.totalBuy);
@@ -106,19 +115,31 @@ public class StatementSearch extends AppCompatActivity {
         datesList.addAll(Arrays.asList(dates));
         System.out.println(datesList);
 
-        AdView adView1,adView2,adView3,adView4,adView5;
         adView1 = findViewById(R.id.adView);
         adView2 = findViewById(R.id.adView2);
         adView3 = findViewById(R.id.adView3);
         adView4 = findViewById(R.id.adView4);
         adView5 = findViewById(R.id.adView5);
 
-        adView1.loadAd(new AdRequest.Builder().build());
-        adView2.loadAd(new AdRequest.Builder().build());
-        adView3.loadAd(new AdRequest.Builder().build());
-        adView4.loadAd(new AdRequest.Builder().build());
-        adView5.loadAd(new AdRequest.Builder().build());
+        myAds();
 
+    }
+
+    private void myAds() {
+        if (!isPaid()){
+            adView1.loadAd(new AdRequest.Builder().build());
+            adView2.loadAd(new AdRequest.Builder().build());
+            adView3.loadAd(new AdRequest.Builder().build());
+            adView4.loadAd(new AdRequest.Builder().build());
+            adView5.loadAd(new AdRequest.Builder().build());
+            loadAds(this);
+        }else{
+            adView1.setVisibility(View.GONE);
+            adView2.setVisibility(View.GONE);
+            adView3.setVisibility(View.GONE);
+            adView4.setVisibility(View.GONE);
+            adView5.setVisibility(View.GONE);
+        }
     }
 
     @Override

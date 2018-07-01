@@ -37,6 +37,7 @@ import java.util.List;
 import java.util.Set;
 
 import static com.sanshy.buysellinventory.MyDialogBox.DateRequestDialog;
+import static com.sanshy.buysellinventory.MyUserStaticClass.isPaid;
 
 public class SideBStatement extends AppCompatActivity {
 
@@ -50,19 +51,29 @@ public class SideBStatement extends AppCompatActivity {
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
     private FirebaseUser user = mAuth.getCurrentUser();
 
+    AdView adView1,adView2;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_side_bstatement);
 
-        AdView adView1,adView2;
         adView1 = findViewById(R.id.adView);
         adView2 = findViewById(R.id.adView2);
 
-        adView1.loadAd(new AdRequest.Builder().build());
-        adView2.loadAd(new AdRequest.Builder().build());
+        myAds();
 
 
+    }
+
+    private void myAds() {
+        if (!isPaid()){
+            adView1.loadAd(new AdRequest.Builder().build());
+            adView2.loadAd(new AdRequest.Builder().build());
+        }else{
+            adView1.setVisibility(View.GONE);
+            adView2.setVisibility(View.GONE);
+        }
     }
 
     @Override

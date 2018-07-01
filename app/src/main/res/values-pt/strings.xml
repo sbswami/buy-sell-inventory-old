@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Comprar estoque de venda</string>
+    <string name="app_name">Inventário de Venda de Compra | Gestão de Stock | Conectados</string>
     <string name="write_here">Escreva aqui</string>
     <string name="reset_text">Restabelecer</string>
     <string name="product_text">produtos</string>
@@ -27,7 +27,7 @@
     <string name="buy_percentage_text">Porcentagem de Margem</string>
     <string name="sell_price_text">Preço de venda</string>
     <string name="company_text">Empresa</string>
-    <string name="save_text">Salve </string>
+    <string name="save_text">Salve</string>
     <string name="cancel_text">cancele</string>
     <string name="city_text">Cidade</string>
     <string name="address_text">Endereço</string>
@@ -204,4 +204,6 @@
     <string name="loading">Carregando....</string>
     <string name="stock_text">estoque</string>
     <string name="buy_sell_name">Compra Venda de Inventário de Pedidos Online Data Store.</string>
+    <string name="rate_us_request_dialog_">Estamos trabalhando duro para fornecer os serviços. Por favor, apreciar-nos por apenas dando taxa 5 estrelas</string>
+    <string name="not_now_">Agora não</string>
 </resources>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">বিক্রয় জায়</string>
+    <string name="app_name">ক্রয় বিক্রয় ইনভেন্টরি | স্টক ম্যানেজমেন্ট | অনলাইন</string>
     <string name="write_here">এখানে লিখ</string>
     <string name="reset_text">রিসেট</string>
     <string name="product_text">পণ্য</string>
@@ -204,4 +204,6 @@
     <string name="email">ইমেইল</string>
     <string name="loading">লোড হচ্ছে ....</string>
     <string name="buy_sell_name">বিক্রয় ইনভেন্টরি অ্যাপ্লিকেশন অনলাইন ডেটা স্টোর কিনুন</string>
+    <string name="rate_us_request_dialog_">আমরা সেবা প্রদান হার্ড কাজ করা হয় দয়া করে রেট দেওয়া 5 হারের মাধ্যমে আমাদের প্রশংসা করুন</string>
+    <string name="not_now_">এখন না</string>
 </resources>

@@ -38,6 +38,9 @@ import static com.sanshy.buysellinventory.Buy.TOTAL_BUY;
 import static com.sanshy.buysellinventory.Buy.TOTAL_CASH_BUY;
 import static com.sanshy.buysellinventory.Buy.TOTAL_ON_HOLD_BUY;
 import static com.sanshy.buysellinventory.MyDialogBox.DateRequestDialog;
+import static com.sanshy.buysellinventory.MyUserStaticClass.isPaid;
+import static com.sanshy.buysellinventory.MyUserStaticClass.loadAds;
+import static com.sanshy.buysellinventory.MyUserStaticClass.showAds;
 import static com.sanshy.buysellinventory.MyUserStaticClass.userIdMainStatic;
 
 public class UndoBuy extends AppCompatActivity {
@@ -67,6 +70,9 @@ public class UndoBuy extends AppCompatActivity {
 
         suggestion_box4 = findViewById(R.id.suggestion_box4);
         listView = findViewById(R.id.listView);
+
+        myAds();
+
 //        AdView adView1;
 //        adView1 = findViewById(R.id.adView);
 //
@@ -337,6 +343,12 @@ tempo.add(1);
 
             }
         });
+    }
+
+    private void myAds() {
+        if (!isPaid()){
+            loadAds(this);
+        }
     }
 
     @Override
@@ -850,7 +862,9 @@ tempo.add(1);
     @Override
     protected void onPause() {
         super.onPause();
-
+        if (!isPaid()){
+            showAds();
+        }
         if (tempo.size()==0){
             android.os.Process.killProcess(android.os.Process.myPid());
         }

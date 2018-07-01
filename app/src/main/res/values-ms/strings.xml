@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Beli Jual Inventori</string>
+    <string name="app_name">Inventori Jual Beli | Pengurusan Stok | Online</string>
     <string name="write_here">Tulis di sini</string>
     <string name="reset_text">Tetapkan semula</string>
     <string name="product_text">Produk</string>
@@ -9,7 +9,7 @@
     <string name="buy_text">Beli</string>
     <string name="sell_text">menjual</string>
     <string name="statement_text">Laporan</string>
-    <string name="holders_text">ಹೊಂದಿರುವವರು</string>
+    <string name="holders_text">Pemegang</string>
     <string name="expenditure_mini_text">Perbelanjaan</string>
     <string name="share_text">Kongsi</string>
     <string name="rate_us_text">Beri Nilai Kami</string>
@@ -204,4 +204,6 @@
     <string name="loading">Memuatkan ....</string>
     <string name="stock_text">Stok</string>
     <string name="buy_sell_name">Beli Jual Data Inventory Store Data Dalam Talian.</string>
+    <string name="rate_us_request_dialog_">Kami Bekerja keras untuk Menyediakan perkhidmatan. Sila Menghargai Kami Dengan Memberi Nilai 5 Bintang</string>
+    <string name="not_now_">Bukan sekarang</string>
 </resources>

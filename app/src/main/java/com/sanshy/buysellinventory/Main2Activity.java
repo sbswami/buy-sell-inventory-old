@@ -17,10 +17,15 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
 
+import static com.sanshy.buysellinventory.MyUserStaticClass.isPaid;
+
 public class Main2Activity extends AppCompatActivity {
     private FirebaseAuth mAuth;
 
     EditText name,email,phone;
+
+    AdView adView1,adView2;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,13 +37,23 @@ public class Main2Activity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
 
-        AdView adView1,adView2;
         adView1 = findViewById(R.id.adView);
         adView2 = findViewById(R.id.adView2);
 
-        adView1.loadAd(new AdRequest.Builder().build());
-        adView2.loadAd(new AdRequest.Builder().build());
+        myAds();
+
     }
+
+    private void myAds() {
+        if (!isPaid()){
+            adView1.loadAd(new AdRequest.Builder().build());
+            adView2.loadAd(new AdRequest.Builder().build());
+        }else{
+            adView1.setVisibility(View.GONE);
+            adView2.setVisibility(View.GONE);
+        }
+    }
+
 
     public void save(View view){
         String Name = name.getText().toString();

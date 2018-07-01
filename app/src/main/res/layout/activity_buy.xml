@@ -208,7 +208,7 @@
                 android:onClick="undo"
                 android:text="@string/undo_buy_text"
                 android:textColor="#fff"
-                android:textSize="21sp" />
+                android:textSize="@dimen/medium_text" />
             <com.google.android.gms.ads.AdView
                 xmlns:ads="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/adView2"
