@@ -1,10 +1,9 @@
 package com.sanshy.buysellinventory;
 
-import android.content.Context;
+
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.net.ConnectivityManager;
 import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -15,22 +14,23 @@ import android.widget.AutoCompleteTextView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
+
 import com.google.firebase.database.ValueEventListener;
+
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
 import static com.sanshy.buysellinventory.MyUserStaticClass.isPaid;
 import static com.sanshy.buysellinventory.MyUserStaticClass.loadAds;
+import static com.sanshy.buysellinventory.MyUserStaticClass.saveExcelFileStock;
 import static com.sanshy.buysellinventory.MyUserStaticClass.showAds;
 import static com.sanshy.buysellinventory.MyUserStaticClass.userIdMainStatic;
 
@@ -50,6 +50,10 @@ public class Stock extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
 
+        if (!isPaid()){
+            showAds();
+        }
+
         if (tempo.size()==0){
             android.os.Process.killProcess(android.os.Process.myPid());
         }
@@ -60,6 +64,19 @@ public class Stock extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_stock);
+
+
+        FloatingActionButton UploadStock = (FloatingActionButton) findViewById(R.id.upload_stock);
+        UploadStock.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                UploadStockButton();
+
+//                Snackbar.make(view, periviousPageToken, Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
+            }
+        });
 
         remainStock = findViewById(R.id.remainStock);
         suggestion_box4 = findViewById(R.id.suggestion_box4);
@@ -72,11 +89,38 @@ public class Stock extends AppCompatActivity {
 //        adView1.loadAd(new AdRequest.Builder().build());
     }
 
+    private void UploadStockButton() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        builder.setTitle(R.string.save_excel_file)
+                .setMessage(getString(R.string.save_the_existing_stock_))
+                .setPositiveButton(getString(R.string.save_text), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        boolean check = saveExcelFileStock(Stock.this,"Stock.xls",stockitemList);
+                        if (check){
+                            MyDialogBox.ShowDialog(Stock.this,getString(R.string.saved));
+                        }
+                        else {
+                            MyDialogBox.ShowDialog(Stock.this,getString(R.string.error_));
+                        }
+                    }
+                })
+                .setNegativeButton(getString(R.string.cancel_text),null);
+
+
+        builder.create().show();
+    }
+
+
+
     private void myAds() {
         if (!isPaid()){
             loadAds(this);
         }
     }
+
+
 
     @Override
     protected void onStart() {

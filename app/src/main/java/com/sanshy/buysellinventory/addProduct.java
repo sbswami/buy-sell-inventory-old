@@ -165,6 +165,12 @@ public class addProduct extends AppCompatActivity {
             sellPrice.setError(getString(R.string.required_field));
             return;
         }
+        if (!(Margin.isEmpty())){
+            double marginPercent = Double.parseDouble(Margin);
+            if (marginPercent>100){
+                MyDialogBox.ShowDialog(this,getString(R.string.margin_must_be_under_100));
+            }
+        }
 
         String tempBuyPriceHolder = BuyP;
         if (BuyP.isEmpty()){

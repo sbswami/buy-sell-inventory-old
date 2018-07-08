@@ -58,6 +58,32 @@
     </LinearLayout>
 
     <android.support.design.widget.FloatingActionButton
+        android:id="@+id/download_product"
+        android:layout_width="55sp"
+        android:layout_height="55sp"
+        android:layout_marginBottom="24dp"
+        android:layout_marginStart="24dp"
+        android:clickable="true"
+        android:focusable="true"
+        app:backgroundTint="@color/colorAccent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@android:drawable/stat_sys_download" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/upload_product"
+        android:layout_width="55sp"
+        android:layout_height="55sp"
+        android:layout_marginBottom="24dp"
+        android:layout_marginStart="8dp"
+        android:clickable="true"
+        android:focusable="true"
+        app:backgroundTint="@color/colorAccent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/download_product"
+        app:srcCompat="@android:drawable/stat_sys_upload" />
+
+    <android.support.design.widget.FloatingActionButton
         android:id="@+id/floatingActionButton"
         android:layout_width="65sp"
         android:layout_height="65sp"

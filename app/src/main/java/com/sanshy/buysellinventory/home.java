@@ -48,7 +48,10 @@ import java.util.ArrayList;
 
 import static com.sanshy.buysellinventory.MyUserStaticClass.getUserIdMainStatic;
 import static com.sanshy.buysellinventory.MyUserStaticClass.isPaid;
+import static com.sanshy.buysellinventory.MyUserStaticClass.loadAds;
+import static com.sanshy.buysellinventory.MyUserStaticClass.paid;
 import static com.sanshy.buysellinventory.MyUserStaticClass.setPaid;
+import static com.sanshy.buysellinventory.MyUserStaticClass.showAds;
 import static com.sanshy.buysellinventory.MyUserStaticClass.userIdMainStatic;
 import static com.sanshy.buysellinventory.NetworkConnectivityCheck.connectionCheck;
 
@@ -117,12 +120,25 @@ public class home extends AppCompatActivity{
         mAuth = FirebaseAuth.getInstance();
         profile = findViewById(R.id.profile);
         connectionCheck(this);
+
+        myAds();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+
+        if (!isPaid()){
+            showAds();
+        }
+
     }
 
     private void myAds() {
         if (!isPaid()){
             adView1.loadAd(new AdRequest.Builder().build());
             adView2.loadAd(new AdRequest.Builder().build());
+            loadAds(this);
         }else{
             adView1.setVisibility(View.GONE);
             adView2.setVisibility(View.GONE);
@@ -157,7 +173,6 @@ public class home extends AppCompatActivity{
     @Override
     protected void onStart() {
         super.onStart();
-
         final DatabaseReference rate = mRootRef.child(userIdMainStatic+"/rate");
         rate.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -210,7 +225,8 @@ public class home extends AppCompatActivity{
                         paidUserList = (ArrayList<String>) dataSnapshot.getValue();
                         for (String userId : paidUserList){
                             if (userId.equals(getUserIdMainStatic())){
-                                setPaid(true);
+                                paid=true;
+                                MyDialogBox.ShowDialog(home.this,"herre");
                                 myAds();
                                 break;
                             }
@@ -227,6 +243,7 @@ public class home extends AppCompatActivity{
 
                 }
             });
+
             mRootRef.child("update").addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

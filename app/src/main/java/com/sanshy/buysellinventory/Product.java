@@ -1,9 +1,12 @@
 package com.sanshy.buysellinventory;
 
+import android.content.ContentResolver;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.ConnectivityManager;
+import android.net.Uri;
 import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -14,6 +17,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
@@ -25,11 +29,15 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.microsoft.schemas.office.x2006.encryption.CTKeyEncryptor;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
 import static com.sanshy.buysellinventory.MyUserStaticClass.isPaid;
+import static com.sanshy.buysellinventory.MyUserStaticClass.readExcelFileProuduct;
+import static com.sanshy.buysellinventory.MyUserStaticClass.saveExcelFileProduct;
+import static com.sanshy.buysellinventory.MyUserStaticClass.saveExcelFileStock;
 import static com.sanshy.buysellinventory.MyUserStaticClass.userIdMainStatic;
 
 
@@ -44,12 +52,38 @@ public class Product extends AppCompatActivity {
 
     public ArrayList<pitem> piList = new ArrayList<>();
 
+    private static final int FILE_SELECT_CODE = 99;
+
     AdView adView1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product);
+
+        FloatingActionButton uploadProduct = (FloatingActionButton) findViewById(R.id.upload_product);
+        uploadProduct.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                UploadProductButton();
+
+//                Snackbar.make(view, periviousPageToken, Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
+            }
+        });
+
+        FloatingActionButton downloadProduct = (FloatingActionButton) findViewById(R.id.download_product);
+        downloadProduct.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                DownloadProductButton();
+
+//                Snackbar.make(view, periviousPageToken, Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
+            }
+        });
 
         listView = findViewById(R.id.listView);
 
@@ -62,6 +96,90 @@ public class Product extends AppCompatActivity {
 
     }
 
+    private void DownloadProductButton() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        builder.setTitle(R.string.save_excel_file)
+                .setMessage(getString(R.string.save_the_existing_product_))
+                .setPositiveButton(getString(R.string.save_text), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        boolean check = saveExcelFileProduct(Product.this,"Product.xls",piList);
+                        if (check){
+                            MyDialogBox.ShowDialog(Product.this,getString(R.string.saved));
+                        }
+                        else {
+                            MyDialogBox.ShowDialog(Product.this,getString(R.string.error_));
+                        }
+                    }
+                })
+                .setNegativeButton(getString(R.string.cancel_text),null);
+
+
+        builder.create().show();
+    }
+
+    private void UploadProductButton() {
+        Intent myIntent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+        myIntent.addCategory(Intent.CATEGORY_OPENABLE);
+        myIntent.setType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+        startActivityForResult(myIntent,FILE_SELECT_CODE);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if ((requestCode==FILE_SELECT_CODE)&&(resultCode==RESULT_OK)){
+            MyProgressBar.ShowProgress(this);
+            Uri uri = data.getData();
+            String filePath = uri.getPath();
+            String filePrimaryPath = filePath.substring(filePath.indexOf(":")+1);
+            filePrimaryPath = "/storage/emulated/0/"+filePrimaryPath;
+
+
+            ArrayList<pitem> Pi = readExcelFileProuduct(this,filePrimaryPath,false);
+            if (Pi==null){
+                MyDialogBox.ShowDialog(this,getString(R.string.unable_to_find_correct_file));
+            }else{
+                ArrayList<pitem> savingItems = new ArrayList<>();
+
+                for (pitem Pit : Pi){
+
+                    for (int l = 0; l < AllItems.size(); l++){
+                        if (Pit.getName().equals(AllItems.get(l).getName())){
+                            break;
+                        }
+                        if (l==AllItems.size()-1){
+                            if (!(Pit.getName().equals(AllItems.get(l).getName()))){
+                                savingItems.add(Pit);
+                            }
+                        }
+                    }
+                }
+
+                for (pitem prom : savingItems){
+
+                    String Name = prom.getName();
+                    String SellPrice = prom.getSellPrice();
+                    String BuyPrice = prom.getBuyPrice();
+                    String Company = prom.getCompany();
+
+                    DatabaseReference mProductRef = mRootRef.child(userIdMainStatic+"/product/"+Name+"_"+userIdMainStatic);
+                    pitem pi = new pitem(Name,SellPrice,BuyPrice,Company,Company+"_"+SellPrice,Company+"_"+BuyPrice);
+                    mProductRef.setValue(pi);
+
+                    DatabaseReference mStockRef = mRootRef.child(userIdMainStatic+"/stock/"+Name);
+                    stockitem stocki = new stockitem(Name,"0",BuyPrice,SellPrice);
+                    mStockRef.setValue(stocki);
+                }
+                MyProgressBar.HideProgress();
+                MyDialogBox.ShowDialog(this,savingItems.size()+" "+getString(R.string.saved));
+            }
+            MyProgressBar.HideProgress();
+        }
+    }
+
     private void myAds() {
         if (!isPaid()){
             adView1.loadAd(new AdRequest.Builder().build());
@@ -69,6 +187,8 @@ public class Product extends AppCompatActivity {
             adView1.setVisibility(View.GONE);
         }
     }
+
+    ArrayList<pitem> AllItems = new ArrayList<>();
 
     @Override
     protected void onStart() {
@@ -81,11 +201,12 @@ public class Product extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                 piList.clear();
+                AllItems.clear();
 
                 for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren())
                 {
                     pitem pi = dataSnapshot1.getValue(pitem.class);
-
+                    AllItems.add(pi);
                     piList.add(pi);
                 }
                 final String Name[] = new String[piList.size()];

@@ -18,6 +18,13 @@ public class pitem {
 
     }
 
+    public pitem(String name, String sellPrice, String buyPrice, String company) {
+        this.name = name;
+        this.sellPrice = sellPrice;
+        this.buyPrice = buyPrice;
+        this.company = company;
+    }
+
     public pitem(String name, String sellPrice, String buyPrice, String company, String companySellPrice, String companyBuyPrice) {
         this.name = name;
         this.sellPrice = sellPrice;

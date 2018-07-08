@@ -405,5 +405,16 @@
      -->
     <string name="default_notification_channel_name" translatable="false">News</string>
     <string name="msg_subscribe_failed" translatable="false">Failed to subscribe to news topic</string>
+    <string name="save_excel_file">Save Excel File</string>
+    <string name="save_the_existing_stock_">Save the existing stock as Excel Sheet</string>
+    <string name="product_nam">Product Name</string>
+    <string name="total_buy_amount_">Total Buy Amount</string>
+    <string name="total_sell_amount_">Total Sell Amount</string>
+    <string name="save_the_existing_product_">Save The Product List shown on the screen.</string>
+    <string name="please_install_file_manager">Please install a File Manager.</string>
+    <string name="select_file_to_upload">Select a File to Upload</string>
+    <string name="please_first_download_excel_">Please First Download Excel File and See the format of file then try to upload</string>
+    <string name="margin_must_be_under_100">Margin Must be Under 100</string>
+    <string name="unable_to_find_correct_file">Unable To Find Correct File!</string>
 
 </resources>
