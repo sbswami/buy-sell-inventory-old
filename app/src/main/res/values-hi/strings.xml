@@ -206,4 +206,17 @@
     <string name="buy_sell_name">"बिक्री सूची ऑनलाइन डेटा स्टोर खरीदें। "</string>
     <string name="rate_us_request_dialog_">हम सेवाएं प्रदान करने के लिए कड़ी मेहनत कर रहे हैं। कृपया दर 5 सितारे देकर हमें सराहना करें</string>
     <string name="not_now_">अभी नहीं</string>
+    <string name="save_excel_file">एक्सेल फ़ाइल सहेजें</string>
+    <string name="save_the_existing_stock_">मौजूदा स्टॉक को एक्सेल शीट के रूप में सहेजें</string>
+    <string name="product_nam">उत्पाद का नाम</string>
+    <string name="total_buy_amount_">कुल खरीद राशि</string>
+    <string name="total_sell_amount_">कुल बिक्री राशि</string>
+    <string name="save_the_existing_product_">स्क्रीन पर दिखाए गए उत्पाद सूची को सहेजें।</string>
+    <string name="please_install_file_manager">कृपया एक फ़ाइल प्रबंधक स्थापित करें</string>
+    <string name="select_file_to_upload">पलोड करने के लिए एक फ़ाइल का चयन करें</string>
+    <string name="please_first_download_excel_">कृपया पहले एक्सेल फ़ाइल डाउनलोड करें और फ़ाइल के प्रारूप को देखें, फिर अपलोड करने का प्रयास करें</string>
+    <string name="margin_must_be_under_100">मार्जिन 100 से कम होना चाहिए</string>
+    <string name="unable_to_find_correct_file">सही फ़ाइल खोजने में असमर्थ!</string>
+    <string name="save_supplier_list_in_excel_file_">एक्सेल फ़ाइल में प्रदायक सूची सहेजें।</string>
+    <string name="save_customer_list_in_excel_file_">एक्सेल फ़ाइल में ग्राहक सूची सहेजें</string>
 </resources>

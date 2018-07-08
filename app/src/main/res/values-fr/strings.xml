@@ -206,4 +206,17 @@
     <string name="buy_sell_name">Acheter Vendre l\'inventaire de l\'application en ligne magasin de données.</string>
     <string name="rate_us_request_dialog_">Nous travaillons dur pour fournir les services. S\'il vous plaît nous apprécier par juste donner le taux 5 étoiles</string>
     <string name="not_now_">Pas maintenant</string>
+    <string name="save_excel_file">Enregistrer le fichier Excel</string>
+    <string name="save_the_existing_stock_">Enregistrer le stock existant sous forme de feuille Excel</string>
+    <string name="product_nam">Nom du produit</string>
+    <string name="total_buy_amount_">Montant total de l\'achat</string>
+    <string name="total_sell_amount_">Montant total de la vente</string>
+    <string name="save_the_existing_product_">Enregistrer la liste de produits affichée à l\'écran.</string>
+    <string name="please_install_file_manager">Veuillez installer un gestionnaire de fichiers</string>
+    <string name="select_file_to_upload">Sélectionnez un fichier à télécharger</string>
+    <string name="please_first_download_excel_">Veuillez d\'abord télécharger le fichier Excel et voir le format du fichier, puis essayer de télécharger</string>
+    <string name="margin_must_be_under_100">La marge doit être inférieure à 100</string>
+    <string name="unable_to_find_correct_file">Impossible de trouver le bon fichier!</string>
+    <string name="save_supplier_list_in_excel_file_">Enregistrer la liste des fournisseurs dans un fichier Excel.</string>
+    <string name="save_customer_list_in_excel_file_">Enregistrer la liste des clients dans un fichier Excel</string>
 </resources>

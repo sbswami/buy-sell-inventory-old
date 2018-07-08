@@ -97,7 +97,7 @@ public class Stock extends AppCompatActivity {
                 .setPositiveButton(getString(R.string.save_text), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        boolean check = saveExcelFileStock(Stock.this,"Stock.xls",stockitemList);
+                        boolean check = saveExcelFileStock(Stock.this,getString(R.string.stock_text)+".xls",stockitemList);
                         if (check){
                             MyDialogBox.ShowDialog(Stock.this,getString(R.string.saved));
                         }

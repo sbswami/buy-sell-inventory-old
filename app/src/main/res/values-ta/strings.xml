@@ -206,4 +206,17 @@
     <string name="buy_sell_name">ஆன்ட்ராய்டு அப்ளிகேஷன் ஆன்லைன் தரவு ஸ்டோர் விற்கவும்.</string>
     <string name="rate_us_request_dialog_">இந்த சேவைகளை வழங்க கடினமாக உழைக்கிறோம். 5 நட்சத்திரங்களை அளிப்பதன் மூலம் எங்களை மதிப்பிடுக</string>
     <string name="not_now_">இப்போது இல்லை</string>
+    <string name="save_excel_file">எக்செல் கோப்பை சேமி</string>
+    <string name="save_the_existing_stock_">ஏற்கனவே உள்ள பங்குகளை எக்செல் தாளை சேமி</string>
+    <string name="product_nam">பொருளின் பெயர்</string>
+    <string name="total_buy_amount_">மொத்த வாங்க தொகை</string>
+    <string name="total_sell_amount_">மொத்த விற்பனை தொகை</string>
+    <string name="save_the_existing_product_">திரையில் காட்டப்படும் தயாரிப்பு பட்டியல் சேமிக்கவும்.</string>
+    <string name="please_install_file_manager">ஒரு கோப்பு நிர்வாகியை நிறுவவும்</string>
+    <string name="select_file_to_upload">பதிவேற்றுவதற்கு ஒரு கோப்பைத் தேர்ந்தெடுக்கவும்</string>
+    <string name="please_first_download_excel_">முதலில் எக்செல் கோப்பை பதிவிறக்கம் செய்து கோப்பின் வடிவமைப்பைப் பார்க்கவும்</string>
+    <string name="margin_must_be_under_100">விளிம்பு 100 க்கு கீழ் இருக்க வேண்டும்</string>
+    <string name="unable_to_find_correct_file">சரியான கோப்பை கண்டுபிடிக்க முடியவில்லை!</string>
+    <string name="save_supplier_list_in_excel_file_">Excel கோப்பில் சப்ளையர் பட்டியலை சேமி.</string>
+    <string name="save_customer_list_in_excel_file_">எக்செல் கோப்பில் வாடிக்கையாளர் பட்டியலை சேமி</string>
 </resources>

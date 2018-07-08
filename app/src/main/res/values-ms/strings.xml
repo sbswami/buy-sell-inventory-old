@@ -206,4 +206,17 @@
     <string name="buy_sell_name">Beli Jual Data Inventory Store Data Dalam Talian.</string>
     <string name="rate_us_request_dialog_">Kami Bekerja keras untuk Menyediakan perkhidmatan. Sila Menghargai Kami Dengan Memberi Nilai 5 Bintang</string>
     <string name="not_now_">Bukan sekarang</string>
+    <string name="save_excel_file">Simpan Fail Excel</string>
+    <string name="save_the_existing_stock_">Simpan saham sedia ada sebagai Lembaran Excel</string>
+    <string name="product_nam">Nama Produk</string>
+    <string name="total_buy_amount_">Jumlah Jumlah Beli</string>
+    <string name="total_sell_amount_">Jumlah Jual Jumlah</string>
+    <string name="save_the_existing_product_">Simpan Senarai Produk yang ditunjukkan pada skrin.</string>
+    <string name="please_install_file_manager">Sila pasang Pengurus Fail</string>
+    <string name="select_file_to_upload">Pilih Fail untuk Muat Naik</string>
+    <string name="please_first_download_excel_">Sila Muat turun Fail Excel Pertama dan Lihat format fail kemudian cuba muat naik</string>
+    <string name="margin_must_be_under_100">Margin Must Be Under 100</string>
+    <string name="unable_to_find_correct_file">Tidak Dapat Cari Fail yang Betul!</string>
+    <string name="save_supplier_list_in_excel_file_">Simpan Senarai Pembekal Dalam Fail Excel.</string>
+    <string name="save_customer_list_in_excel_file_">Simpan Senarai Pelanggan dalam Fail Excel</string>
 </resources>

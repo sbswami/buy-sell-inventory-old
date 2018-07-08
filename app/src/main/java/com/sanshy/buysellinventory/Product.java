@@ -61,17 +61,17 @@ public class Product extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product);
 
-        FloatingActionButton uploadProduct = (FloatingActionButton) findViewById(R.id.upload_product);
-        uploadProduct.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                UploadProductButton();
-
-//                Snackbar.make(view, periviousPageToken, Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-            }
-        });
+//        FloatingActionButton uploadProduct = (FloatingActionButton) findViewById(R.id.upload_product);
+//        uploadProduct.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//
+//                UploadProductButton();
+//
+////                Snackbar.make(view, periviousPageToken, Snackbar.LENGTH_LONG)
+////                        .setAction("Action", null).show();
+//            }
+//        });
 
         FloatingActionButton downloadProduct = (FloatingActionButton) findViewById(R.id.download_product);
         downloadProduct.setOnClickListener(new View.OnClickListener() {
@@ -104,7 +104,7 @@ public class Product extends AppCompatActivity {
                 .setPositiveButton(getString(R.string.save_text), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        boolean check = saveExcelFileProduct(Product.this,"Product.xls",piList);
+                        boolean check = saveExcelFileProduct(Product.this,getString(R.string.product_text)+".xls",piList);
                         if (check){
                             MyDialogBox.ShowDialog(Product.this,getString(R.string.saved));
                         }

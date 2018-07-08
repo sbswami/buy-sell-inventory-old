@@ -206,4 +206,17 @@
     <string name="buy_sell_name">ఇన్వెంటరీ అప్లికేషన్ ఆన్లైన్ డేటా స్టోర్ సెల్ కొనండి.</string>
     <string name="rate_us_request_dialog_">మేము సేవలను అందించడానికి కష్టపడి పనిచేస్తున్నాము. దయచేసి జస్ట్ 5 స్టార్స్ రేట్ ఇవ్వడం ద్వారా మాకు మెచ్చుకోండి</string>
     <string name="not_now_">ఇప్పుడు కాదు</string>
+    <string name="save_excel_file">Excel ఫైల్ను సేవ్ చేయండి</string>
+    <string name="save_the_existing_stock_">ఇప్పటికే ఉన్న స్టాక్ను Excel షీట్గా సేవ్ చేయండి</string>
+    <string name="product_nam">ఉత్పత్తి నామం</string>
+    <string name="total_buy_amount_">మొత్తం కొనుగోలు మొత్తం</string>
+    <string name="total_sell_amount_">మొత్తం అమ్మే మొత్తం</string>
+    <string name="save_the_existing_product_">తెరపై చూపిన ఉత్పత్తి జాబితాను సేవ్ చేయండి.</string>
+    <string name="please_install_file_manager">దయచేసి ఫైల్ నిర్వాహికిని ఇన్స్టాల్ చేయండి</string>
+    <string name="select_file_to_upload">అప్లోడ్ చేయడానికి ఫైల్ను ఎంచుకోండి</string>
+    <string name="please_first_download_excel_">దయచేసి మొదట ఎక్సెల్ ఫైల్ను డౌన్లోడ్ చేయండి మరియు ఫైల్ ఫార్మాట్ ను చూడండి అప్పుడు అప్లోడ్ చేయడానికి ప్రయత్నించండి</string>
+    <string name="margin_must_be_under_100">అండర్ 100 కింద ఉండాలి</string>
+    <string name="unable_to_find_correct_file">సరైన ఫైల్ను కనుగొనడం సాధ్యపడలేదు!</string>
+    <string name="save_supplier_list_in_excel_file_">Excel ఫైల్ లో సరఫరాదారు జాబితాను సేవ్ చేయండి.</string>
+    <string name="save_customer_list_in_excel_file_">ఫైల్ లో కస్టమర్ జాబితా సేవ్</string>
 </resources>

@@ -206,4 +206,17 @@
     <string name="buy_sell_name">Comprar Vender aplicación de inventario Tienda de datos en línea.</string>
     <string name="rate_us_request_dialog_">Estamos trabajando arduamente para brindar los servicios. Por favor, agradézcanos con solo dar 5 estrellas</string>
     <string name="not_now_">Ahora no</string>
+    <string name="save_excel_file">Guardar archivo de Excel</string>
+    <string name="save_the_existing_stock_">Guarde las existencias existentes como hoja de Excel</string>
+    <string name="product_nam">nombre del producto</string>
+    <string name="total_buy_amount_">Monto total de compra</string>
+    <string name="total_sell_amount_">Importe de venta total</string>
+    <string name="save_the_existing_product_">Guarde la lista de productos que se muestra en la pantalla.</string>
+    <string name="please_install_file_manager">Por favor instale un administrador de archivos</string>
+    <string name="select_file_to_upload">Seleccione un archivo para cargar</string>
+    <string name="please_first_download_excel_">Primero descargue el archivo de Excel y vea el formato del archivo y luego intente cargarlo</string>
+    <string name="margin_must_be_under_100">El margen debe ser inferior a 100</string>
+    <string name="unable_to_find_correct_file">¡No se puede encontrar el archivo correcto!</string>
+    <string name="save_supplier_list_in_excel_file_">Guarde la lista de proveedores en el archivo de Excel.</string>
+    <string name="save_customer_list_in_excel_file_">Guardar lista de clientes en archivo de Excel</string>
 </resources>

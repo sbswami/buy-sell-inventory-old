@@ -206,4 +206,17 @@
     <string name="buy_sell_name">买卖库存应用在线数据存储。</string>
     <string name="rate_us_request_dialog_">我们正在努力提供服务。 请只赞赏5星评价我们</string>
     <string name="not_now_">不是现在</string>
+    <string name="save_excel_file">保存Excel文件</string>
+    <string name="save_the_existing_stock_">将现有库存保存为Excel工作表</string>
+    <string name="product_nam">产品名称</string>
+    <string name="total_buy_amount_">总购买金额</string>
+    <string name="total_sell_amount_">总销售金额</string>
+    <string name="save_the_existing_product_">保存屏幕上显示的产品列表。</string>
+    <string name="please_install_file_manager">请安装文件管理器</string>
+    <string name="select_file_to_upload">选择要上载的文件</string>
+    <string name="please_first_download_excel_">请先下载Excel文件并查看文件格式然后尝试上传</string>
+    <string name="margin_must_be_under_100">保证金必须低于100</string>
+    <string name="unable_to_find_correct_file">无法找到正确的文件！</string>
+    <string name="save_supplier_list_in_excel_file_">在Excel文件中保存供应商列表。</string>
+    <string name="save_customer_list_in_excel_file_">在Excel文件中保存客户列表</string>
 </resources>

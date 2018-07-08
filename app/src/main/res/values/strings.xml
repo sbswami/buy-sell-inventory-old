@@ -416,5 +416,7 @@
     <string name="please_first_download_excel_">Please First Download Excel File and See the format of file then try to upload</string>
     <string name="margin_must_be_under_100">Margin Must be Under 100</string>
     <string name="unable_to_find_correct_file">Unable To Find Correct File!</string>
+    <string name="save_supplier_list_in_excel_file_">Save Supplier List In Excel File.</string>
+    <string name="save_customer_list_in_excel_file_">Save Customer List in Excel File</string>
 
 </resources>

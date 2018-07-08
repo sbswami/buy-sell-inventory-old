@@ -206,4 +206,17 @@
     <string name="buy_sell_name">বিক্রয় ইনভেন্টরি অ্যাপ্লিকেশন অনলাইন ডেটা স্টোর কিনুন</string>
     <string name="rate_us_request_dialog_">আমরা সেবা প্রদান হার্ড কাজ করা হয় দয়া করে রেট দেওয়া 5 হারের মাধ্যমে আমাদের প্রশংসা করুন</string>
     <string name="not_now_">এখন না</string>
+    <string name="save_excel_file">এক্সেল ফাইল সংরক্ষণ করুন</string>
+    <string name="save_the_existing_stock_">বিদ্যমান স্টক এক্সেল শীট হিসাবে সংরক্ষণ করুন</string>
+    <string name="product_nam">পণ্যের নাম</string>
+    <string name="total_buy_amount_">মোট ক্রয় পরিমাণ</string>
+    <string name="total_sell_amount_">মোট বিক্রয় পরিমাণ</string>
+    <string name="save_the_existing_product_">পর্দায় প্রদর্শিত পণ্য তালিকা সংরক্ষণ করুন।</string>
+    <string name="please_install_file_manager">একটি ফাইল ম্যানেজার ইনস্টল করুন</string>
+    <string name="select_file_to_upload">আপলোড করার জন্য একটি ফাইল নির্বাচন করুন</string>
+    <string name="please_first_download_excel_">দয়া করে প্রথমে এক্সেল ফাইল ডাউনলোড করুন এবং ফাইলের বিন্যাস দেখুন তারপর আপলোড করার চেষ্টা করুন</string>
+    <string name="margin_must_be_under_100">মার্জিন 100 এর নিচে হতে হবে</string>
+    <string name="unable_to_find_correct_file">সঠিক ফাইল খুঁজতে ব্যর্থ!</string>
+    <string name="save_supplier_list_in_excel_file_">এক্সেল ফাইলের মধ্যে সরবরাহকারী তালিকা সংরক্ষণ করুন</string>
+    <string name="save_customer_list_in_excel_file_">এক্সেল ফাইলে গ্রাহক তালিকা সংরক্ষণ করুন</string>
 </resources>

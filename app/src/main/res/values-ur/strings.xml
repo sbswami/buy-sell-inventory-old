@@ -206,4 +206,17 @@
     <string name="buy_sell_name">فروخت انوینٹری ایپلی کیشنز آن لائن ڈیٹا سٹور خریدیں.</string>
     <string name="rate_us_request_dialog_">ہم خدمات فراہم کرنے کے لئے سخت محنت کر رہے ہیں. براہ کرم ہمیں صرف 5 ستارے کی شرح سے قدر کیجئے</string>
     <string name="not_now_">ابھی نہیں</string>
+    <string name="save_excel_file">ایکسل فائل کو محفوظ کریں</string>
+    <string name="save_the_existing_stock_">موجودہ اسٹاک کو ایکسل شیٹ کے طور پر محفوظ کریں</string>
+    <string name="product_nam">پروڈکٹ کا نام</string>
+    <string name="total_buy_amount_">کل خریدنے کی رقم</string>
+    <string name="total_sell_amount_">کل فروخت کی قیمت</string>
+    <string name="save_the_existing_product_">سکرین پر دکھایا گیا مصنوعات کی فہرست محفوظ کریں.</string>
+    <string name="please_install_file_manager">برائے مہربانی فائل منیجر انسٹال کریں</string>
+    <string name="select_file_to_upload">اپ لوڈ کرنے کیلئے فائل منتخب کریں</string>
+    <string name="please_first_download_excel_">براہ کرم سب سے پہلے سب سے پہلے ایکسل فائل ڈاؤن لوڈ کریں اور فائل کی شکل دیکھیں، پھر اپ لوڈ کرنے کی کوشش کریں</string>
+    <string name="margin_must_be_under_100">مارجن 100 کے تحت ہونا ضروری ہے</string>
+    <string name="unable_to_find_correct_file">درست فائل تلاش کرنے میں ناکام</string>
+    <string name="save_supplier_list_in_excel_file_">ایکسل فائل میں سپلائر سپلائر محفوظ کریں.</string>
+    <string name="save_customer_list_in_excel_file_">ایکسل فائل میں کسٹمر کی فہرست محفوظ کریں</string>
 </resources>

@@ -282,7 +282,7 @@ public class MyUserStaticClass {
         //Cell style for header row
         //New Sheet
         Sheet sheet1 = null;
-        sheet1 = wb.createSheet("Stock");
+        sheet1 = wb.createSheet("Product");
 
         // Generate column headings
         Row row = sheet1.createRow(0);
@@ -359,6 +359,187 @@ public class MyUserStaticClass {
 
         return success;
     }
+    public static boolean saveExcelFileSupplier(Context context, String fileName, ArrayList<sitem> sitemArrayList) {
+
+        // check if available and not read only
+        if (isExternalStorageAvailable() || isExternalStorageReadOnly()) {
+            Log.w("FileUtils", "Storage not available or read only");
+            return false;
+        }
+
+        boolean success = false;
+
+        //New Workbook
+        Workbook wb = new HSSFWorkbook();
+
+        Cell c = null;
+
+        //Cell style for header row
+        //New Sheet
+        Sheet sheet1 = null;
+        sheet1 = wb.createSheet("Supplier");
+
+        // Generate column headings
+        Row row = sheet1.createRow(0);
+
+        c = row.createCell(0);
+        c.setCellValue(context.getString(R.string.supplier_name_text));
+
+        c = row.createCell(1);
+        c.setCellValue(context.getString(R.string.company_text));
+
+        c = row.createCell(2);
+        c.setCellValue(context.getString(R.string.phone_text));
+
+        c = row.createCell(3);
+        c.setCellValue(context.getString(R.string.city_text));
+
+        c = row.createCell(4);
+        c.setCellValue(context.getString(R.string.address_text));
+
+        for (int k = 0; k < sitemArrayList.size(); k++){
+            Row row1 = sheet1.createRow(k+1);
+
+            c = row1.createCell(0);
+            c.setCellValue(sitemArrayList.get(k).getName());
+
+            c = row1.createCell(1);
+            c.setCellValue(sitemArrayList.get(k).getCompany());
+
+            c = row1.createCell(2);
+            c.setCellValue(sitemArrayList.get(k).getPhone());
+
+            c = row1.createCell(3);
+            c.setCellValue(sitemArrayList.get(k).getCity());
+
+            c = row1.createCell(4);
+            c.setCellValue(sitemArrayList.get(k).getAddress());
+
+        }
+
+        sheet1.setColumnWidth(0, (15 * 500));
+        sheet1.setColumnWidth(1, (15 * 500));
+        sheet1.setColumnWidth(2, (15 * 500));
+        sheet1.setColumnWidth(3, (15 * 500));
+
+        File myDirectory = new File("/storage/emulated/0/BuySellInventory");
+
+        if (!myDirectory.exists()){
+            myDirectory.mkdir();
+        }
+
+        // Create a path where we will place our List of objects on external storage
+        File file = new File("/storage/emulated/0/BuySellInventory", fileName);
+        FileOutputStream os = null;
+
+        try {
+            os = new FileOutputStream(file);
+            wb.write(os);
+            Log.w("FileUtils", "Writing file" + file);
+            success = true;
+        } catch (IOException e) {
+            Log.w("FileUtils", "Error writing " + file, e);
+        } catch (Exception e) {
+            Log.w("FileUtils", "Failed to save file", e);
+        } finally {
+            try {
+                if (null != os)
+                    os.close();
+            } catch (Exception ex) {
+            }
+        }
+
+        return success;
+    }
+    public static boolean saveExcelFileCustomer(Context context, String fileName, ArrayList<citem> citemArrayList) {
+
+        // check if available and not read only
+        if (isExternalStorageAvailable() || isExternalStorageReadOnly()) {
+            Log.w("FileUtils", "Storage not available or read only");
+            return false;
+        }
+
+        boolean success = false;
+
+        //New Workbook
+        Workbook wb = new HSSFWorkbook();
+
+        Cell c = null;
+
+        //Cell style for header row
+        //New Sheet
+        Sheet sheet1 = null;
+        sheet1 = wb.createSheet("Customer");
+
+        // Generate column headings
+        Row row = sheet1.createRow(0);
+
+        c = row.createCell(0);
+        c.setCellValue(context.getString(R.string.customer_name_text));
+
+        c = row.createCell(1);
+        c.setCellValue(context.getString(R.string.phone_text));
+
+        c = row.createCell(2);
+        c.setCellValue(context.getString(R.string.city_text));
+
+        c = row.createCell(3);
+        c.setCellValue(context.getString(R.string.address_text));
+
+        for (int k = 0; k < citemArrayList.size(); k++){
+            Row row1 = sheet1.createRow(k+1);
+
+            c = row1.createCell(0);
+            c.setCellValue(citemArrayList.get(k).getName());
+
+            c = row1.createCell(1);
+            c.setCellValue(citemArrayList.get(k).getPhone());
+
+            c = row1.createCell(2);
+            c.setCellValue(citemArrayList.get(k).getCity());
+
+            c = row1.createCell(3);
+            c.setCellValue(citemArrayList.get(k).getAddress());
+
+        }
+
+        sheet1.setColumnWidth(0, (15 * 500));
+        sheet1.setColumnWidth(1, (15 * 500));
+        sheet1.setColumnWidth(2, (15 * 500));
+        sheet1.setColumnWidth(3, (15 * 500));
+
+        File myDirectory = new File("/storage/emulated/0/BuySellInventory");
+
+        if (!myDirectory.exists()){
+            myDirectory.mkdir();
+        }
+
+        // Create a path where we will place our List of objects on external storage
+        File file = new File("/storage/emulated/0/BuySellInventory", fileName);
+        FileOutputStream os = null;
+
+        try {
+            os = new FileOutputStream(file);
+            wb.write(os);
+            Log.w("FileUtils", "Writing file" + file);
+            success = true;
+        } catch (IOException e) {
+            Log.w("FileUtils", "Error writing " + file, e);
+        } catch (Exception e) {
+            Log.w("FileUtils", "Failed to save file", e);
+        } finally {
+            try {
+                if (null != os)
+                    os.close();
+            } catch (Exception ex) {
+            }
+        }
+
+        return success;
+    }
+
+
+
     public static ArrayList<pitem> readExcelFileProuduct(Context context, String filename,boolean isXLS) {
         try{
             // Creating Input Stream

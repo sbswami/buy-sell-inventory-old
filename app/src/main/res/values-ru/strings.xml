@@ -206,4 +206,17 @@
     <string name="buy_sell_name">Купить онлайн-магазин приложений для инвентаризации.</string>
     <string name="rate_us_request_dialog_">Мы прилагаем все усилия для предоставления услуг. Пожалуйста, оцените нас, просто давая оценку 5 звезд</string>
     <string name="not_now_">Не сейчас</string>
+    <string name="save_excel_file">Сохранить файл Excel</string>
+    <string name="save_the_existing_stock_">Сохраните существующий запас как лист Excel</string>
+    <string name="product_nam">наименование товара</string>
+    <string name="total_buy_amount_">Общая сумма покупки</string>
+    <string name="total_sell_amount_">Общая сумма продажи</string>
+    <string name="save_the_existing_product_">Сохраните список продуктов, показанный на экране.</string>
+    <string name="please_install_file_manager">Установите диспетчер файлов</string>
+    <string name="select_file_to_upload">Выберите файл для загрузки</string>
+    <string name="please_first_download_excel_">Сначала загрузите файл Excel и посмотрите формат файла, затем попробуйте загрузить</string>
+    <string name="margin_must_be_under_100">Маржа должна быть меньше 100</string>
+    <string name="unable_to_find_correct_file">Не удалось найти правильный файл!</string>
+    <string name="save_supplier_list_in_excel_file_">Сохранить список поставщиков в файле Excel.</string>
+    <string name="save_customer_list_in_excel_file_">Сохранить список клиентов в файле Excel</string>
 </resources>

@@ -206,4 +206,17 @@
     <string name="buy_sell_name">شراء بيع مخزون التطبيقات على الانترنت مخزن البيانات.</string>
     <string name="rate_us_request_dialog_">نحن نعمل بجد لتوفير الخدمات. يرجى نقدر لنا فقط من خلال إعطاء سعر 5 نجوم</string>
     <string name="not_now_">ليس الان</string>
+    <string name="save_excel_file">احفظ ملف Excel</string>
+    <string name="save_the_existing_stock_">احفظ المخزون الموجود في ورقة Excel</string>
+    <string name="product_nam">اسم المنتج</string>
+    <string name="total_buy_amount_">مجموع مبلغ الشراء</string>
+    <string name="total_sell_amount_">مجموع مبلغ البيع</string>
+    <string name="save_the_existing_product_">احفظ قائمة المنتجات المعروضة على الشاشة.</string>
+    <string name="please_install_file_manager">الرجاء تثبيت مدير الملفات</string>
+    <string name="select_file_to_upload">حدد ملف للتحميل</string>
+    <string name="please_first_download_excel_">الرجاء تنزيل ملف Excel أولاً ومشاهدة تنسيق الملف ثم محاولة التحميل</string>
+    <string name="margin_must_be_under_100">يجب أن يكون الهامش أقل من 100</string>
+    <string name="unable_to_find_correct_file">غير قادر على العثور على ملف صحيح!</string>
+    <string name="save_supplier_list_in_excel_file_">احفظ قائمة الموردين في ملف Excel.</string>
+    <string name="save_customer_list_in_excel_file_">حفظ قائمة العملاء في ملف Excel</string>
 </resources>

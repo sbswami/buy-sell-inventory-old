@@ -206,4 +206,17 @@
     <string name="buy_sell_name">Compra Venda de Inventário de Pedidos Online Data Store.</string>
     <string name="rate_us_request_dialog_">Estamos trabalhando duro para fornecer os serviços. Por favor, apreciar-nos por apenas dando taxa 5 estrelas</string>
     <string name="not_now_">Agora não</string>
+    <string name="save_excel_file">Salvar arquivo do Excel</string>
+    <string name="save_the_existing_stock_">Salvar o estoque existente como planilha do Excel</string>
+    <string name="product_nam">Nome do Produto</string>
+    <string name="total_buy_amount_">Valor Total de Compra</string>
+    <string name="total_sell_amount_">Valor total de venda</string>
+    <string name="save_the_existing_product_">Salvar a lista de produtos mostrada na tela.</string>
+    <string name="please_install_file_manager">Por favor, instale um gerenciador de arquivos</string>
+    <string name="select_file_to_upload">Selecione um arquivo para upload</string>
+    <string name="please_first_download_excel_">Por favor, primeiro baixar o arquivo do Excel e ver o formato do arquivo, em seguida, tentar fazer o upload</string>
+    <string name="margin_must_be_under_100">A margem deve ser inferior a 100</string>
+    <string name="unable_to_find_correct_file">Incapaz de encontrar o arquivo correto!</string>
+    <string name="save_supplier_list_in_excel_file_">Salvar lista de fornecedores no arquivo do Excel.</string>
+    <string name="save_customer_list_in_excel_file_">Salvar lista de clientes no arquivo do Excel</string>
 </resources>

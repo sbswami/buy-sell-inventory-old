@@ -206,4 +206,17 @@
     <string name="buy_sell_name">ಇನ್ವೆಂಟರಿ ಅಪ್ಲಿಕೇಶನ್ ಆನ್ಲೈನ್ ​​ಡಾಟಾ ಅಂಗಡಿ ಮಾರಾಟ ಮಾಡಿ.</string>
     <string name="rate_us_request_dialog_">ಸೇವೆಗಳನ್ನು ಒದಗಿಸಲು ನಾವು ಶ್ರಮಿಸುತ್ತಿದ್ದೇವೆ. ದಯವಿಟ್ಟು ದರ 5 ಸ್ಟಾರ್ಗಳನ್ನು ನೀಡುವ ಮೂಲಕ ನಮಗೆ ಮೆಚ್ಚುಗೆ ನೀಡಿ</string>
     <string name="not_now_">ಈಗ ಸಾಧ್ಯವಿಲ್ಲ</string>
+    <string name="save_excel_file">ಎಕ್ಸೆಲ್ ಫೈಲ್ ಉಳಿಸಿ</string>
+    <string name="save_the_existing_stock_">ಅಸ್ತಿತ್ವದಲ್ಲಿರುವ ಸ್ಟಾಕ್ ಅನ್ನು ಎಕ್ಸೆಲ್ ಶೀಟ್ ಆಗಿ ಉಳಿಸಿ</string>
+    <string name="product_nam">ಉತ್ಪನ್ನದ ಹೆಸರು</string>
+    <string name="total_buy_amount_">ಒಟ್ಟು ಮೊತ್ತವನ್ನು ಖರೀದಿಸಿ</string>
+    <string name="total_sell_amount_">ಒಟ್ಟು ಮೊತ್ತವನ್ನು ಮಾರಾಟ ಮಾಡಿ</string>
+    <string name="save_the_existing_product_">ಪರದೆಯ ಮೇಲೆ ತೋರಿಸಲಾದ ಉತ್ಪನ್ನ ಪಟ್ಟಿಯನ್ನು ಉಳಿಸಿ.</string>
+    <string name="please_install_file_manager">ದಯವಿಟ್ಟು ಫೈಲ್ ನಿರ್ವಾಹಕವನ್ನು ಸ್ಥಾಪಿಸಿ</string>
+    <string name="select_file_to_upload">ಅಪ್ಲೋಡ್ ಮಾಡಲು ಫೈಲ್ ಆಯ್ಕೆಮಾಡಿ</string>
+    <string name="please_first_download_excel_">ದಯವಿಟ್ಟು ಮೊದಲ ಎಕ್ಸೆಲ್ ಫೈಲ್ ಡೌನ್ಲೋಡ್ ಮಾಡಿ ಮತ್ತು ಫೈಲ್ ಸ್ವರೂಪವನ್ನು ನೋಡಿ ನಂತರ ಅಪ್ಲೋಡ್ ಮಾಡಲು ಪ್ರಯತ್ನಿಸಿ</string>
+    <string name="margin_must_be_under_100">ಅಂಚು 100 ಕ್ಕಿಂತ ಕಡಿಮೆ ಇರಬೇಕು</string>
+    <string name="unable_to_find_correct_file">ಸರಿಯಾದ ಫೈಲ್ ಅನ್ನು ಹುಡುಕಲಾಗಲಿಲ್ಲ!</string>
+    <string name="save_supplier_list_in_excel_file_">ಎಕ್ಸೆಲ್ ಫೈಲ್ನಲ್ಲಿ ಸರಬರಾಜುದಾರ ಪಟ್ಟಿಯನ್ನು ಉಳಿಸಿ.</string>
+    <string name="save_customer_list_in_excel_file_">ಎಕ್ಸೆಲ್ ಫೈಲ್ನಲ್ಲಿ ಗ್ರಾಹಕ ಪಟ್ಟಿಯನ್ನು ಉಳಿಸಿ</string>
 </resources>

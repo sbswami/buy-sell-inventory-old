@@ -206,4 +206,17 @@
     <string name="buy_sell_name">विक्री इन्व्हेंटरी अनुप्रयोग ऑनलाइन डाटा स्टोअर खरेदी.</string>
     <string name="rate_us_request_dialog_">आम्ही सेवा प्रदान करण्यासाठी कठोर परिश्रम करत आहोत. दराने 5 तारांचा खर्च करून आम्हाला कौतुक करा</string>
     <string name="not_now_">आता नाही</string>
+    <string name="save_excel_file">एक्सेल फाइल जतन करा</string>
+    <string name="save_the_existing_stock_">विद्यमान स्टॉक एक्सेल शीट म्हणून जतन करा</string>
+    <string name="product_nam">उत्पादनाचे नांव</string>
+    <string name="total_buy_amount_">एकूण खरेदीची रक्कम</string>
+    <string name="total_sell_amount_">एकूण विक्री रक्कम</string>
+    <string name="save_the_existing_product_">स्क्रीन वर दर्शविलेल्या उत्पादन सूची जतन करा.</string>
+    <string name="please_install_file_manager">कृपया एक फाइल व्यवस्थापक स्थापित करा</string>
+    <string name="select_file_to_upload">अपलोड करण्यासाठी एक फाइल निवडा</string>
+    <string name="please_first_download_excel_">कृपया प्रथम Excel फाईल डाउनलोड करा आणि फाईलचे स्वरूप पहा नंतर अपलोड करण्याचा प्रयत्न करा</string>
+    <string name="margin_must_be_under_100">मार्जिन 100 वर्षांखालील असणे आवश्यक आहे</string>
+    <string name="unable_to_find_correct_file">योग्य फाईल शोधण्यात अक्षम!</string>
+    <string name="save_supplier_list_in_excel_file_">एक्सल फाइलमध्ये पुरवठादार यादी जतन करा.</string>
+    <string name="save_customer_list_in_excel_file_">एक्सेल फाइलमध्ये ग्राहक यादी जतन करा</string>
 </resources>
