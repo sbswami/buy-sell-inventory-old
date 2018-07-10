@@ -11,6 +11,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -22,6 +23,12 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.billingclient.api.BillingClient;
+import com.android.billingclient.api.BillingClientStateListener;
+import com.android.billingclient.api.Purchase;
+import com.android.billingclient.api.PurchasesUpdatedListener;
+import com.android.billingclient.api.SkuDetailsParams;
+import com.android.billingclient.api.SkuDetailsResponseListener;
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
@@ -45,6 +52,7 @@ import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.List;
 
 import static com.sanshy.buysellinventory.MyUserStaticClass.getUserIdMainStatic;
 import static com.sanshy.buysellinventory.MyUserStaticClass.isPaid;
@@ -66,13 +74,13 @@ public class home extends AppCompatActivity{
     AdView adView1,adView2;
 
     String UserIdFromAdmin;
+    private BillingClient mBillingClient;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-
 
         try{
             Intent intent = getIntent();
@@ -124,26 +132,62 @@ public class home extends AppCompatActivity{
         myAds();
     }
 
+    PurchasesUpdatedListener myPurchaseListener = new PurchasesUpdatedListener() {
+        @Override
+        public void onPurchasesUpdated(int responseCode, @Nullable List<Purchase> purchases) {
+
+        }
+    };
+
+    public void removeAdButton(View view){
+
+        mBillingClient = BillingClient.newBuilder(home.this).setListener(myPurchaseListener).build();
+        mBillingClient.startConnection(new BillingClientStateListener() {
+            @Override
+            public void onBillingSetupFinished(@BillingClient.BillingResponse int billingResponseCode) {
+                if (billingResponseCode == BillingClient.BillingResponse.OK) {
+                    // The billing client is ready. You can query purchases here.
+                }
+            }
+            @Override
+            public void onBillingServiceDisconnected() {
+                // Try to restart the connection on the next request to
+                // Google Play by calling the startConnection() method.
+            }
+        });
+
+
+        List skuList = new ArrayList<> ();
+        skuList.add("premium_upgrade");
+        skuList.add("gas");
+        SkuDetailsParams.Builder params = SkuDetailsParams.newBuilder();
+        params.setSkusList(skuList).setType(BillingClient.SkuType.INAPP);
+        mBillingClient.querySkuDetailsAsync(params.build(),
+                new SkuDetailsResponseListener() {
+                    @Override
+                    public void onSkuDetailsResponse(int responseCode, List skuDetailsList) {
+                        // Process the result.
+
+                    }
+                });
+    }
+
     @Override
     protected void onStop() {
         super.onStop();
-
-        if (!isPaid()){
-            showAds();
-        }
-
     }
 
     private void myAds() {
-        if (!isPaid()){
-            adView1.loadAd(new AdRequest.Builder().build());
-            adView2.loadAd(new AdRequest.Builder().build());
-            loadAds(this);
-        }else{
-            adView1.setVisibility(View.GONE);
-            adView2.setVisibility(View.GONE);
-        }
+        try{
+            if (!isPaid()){
+                adView1.loadAd(new AdRequest.Builder().build());
+                adView2.loadAd(new AdRequest.Builder().build());
+            }else{
+                adView1.setVisibility(View.GONE);
+                adView2.setVisibility(View.GONE);
+            }
 
+        }catch (Exception ex){}
     }
 
    public void rateUs(View view){
@@ -173,40 +217,6 @@ public class home extends AppCompatActivity{
     @Override
     protected void onStart() {
         super.onStart();
-        final DatabaseReference rate = mRootRef.child(userIdMainStatic+"/rate");
-        rate.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()){
-                    boolean rated = dataSnapshot.getValue(Boolean.class);
-                    if (!rated){
-                        AlertDialog.Builder builder = new AlertDialog.Builder(home.this);
-
-                        builder.setTitle(getString(R.string.rate_us_text))
-                                .setMessage(getString(R.string.rate_us_request_dialog_))
-                                .setPositiveButton(getString(R.string.rate_us_text), new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        Intent intent = new Intent(Intent.ACTION_VIEW);
-                                        intent.setData(Uri.parse("market://details?id=com.sanshy.buysellinventory"));
-                                        startActivity(intent);
-                                        rate.setValue(true);
-                                    }
-                                })
-                                .setNegativeButton(getString(R.string.not_now_),null);
-
-                        builder.create().show();
-                    }
-                }else{
-                    rate.setValue(false);
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
 
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if (currentUser == null)
@@ -293,6 +303,42 @@ public class home extends AppCompatActivity{
                 profile.setText(getString(R.string.welcome)+name);
             }
         }catch (Exception ex){}
+
+        final DatabaseReference rate = mRootRef.child(userIdMainStatic+"/rate");
+        rate.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()){
+                    boolean rated = dataSnapshot.getValue(Boolean.class);
+                    if (!rated){
+                        AlertDialog.Builder builder = new AlertDialog.Builder(home.this);
+
+                        builder.setTitle(getString(R.string.rate_us_text))
+                                .setMessage(getString(R.string.rate_us_request_dialog_))
+                                .setPositiveButton(getString(R.string.rate_us_text), new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        Intent intent = new Intent(Intent.ACTION_VIEW);
+                                        intent.setData(Uri.parse("market://details?id=com.sanshy.buysellinventory"));
+                                        startActivity(intent);
+                                        rate.setValue(true);
+                                    }
+                                })
+                                .setNegativeButton(getString(R.string.not_now_),null);
+
+                        builder.create().show();
+                    }
+                }else{
+                    rate.setValue(false);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
     }
 
     public void Profile(View view){

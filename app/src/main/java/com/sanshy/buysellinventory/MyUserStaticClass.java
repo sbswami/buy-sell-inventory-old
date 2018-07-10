@@ -48,7 +48,16 @@ public class MyUserStaticClass {
 
     public static FirebaseUser userStatic = mAuth.getCurrentUser();
 
-    public static String userIdMainStatic = userStatic.getUid();
+    public static String userIdMainStatic = "000000000000000";
+
+    public static boolean chek = finalDo();
+
+    public static boolean finalDo(){
+        try{
+            userIdMainStatic = userStatic.getUid();
+        }catch (Exception ex){}
+        return true;
+    }
 
     public static boolean paid = false;
 

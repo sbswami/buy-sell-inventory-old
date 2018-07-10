@@ -418,5 +418,6 @@
     <string name="unable_to_find_correct_file">Unable To Find Correct File!</string>
     <string name="save_supplier_list_in_excel_file_">Save Supplier List In Excel File.</string>
     <string name="save_customer_list_in_excel_file_">Save Customer List in Excel File</string>
+    <string name="remove_ads">Remove Advertisement</string>
 
 </resources>
