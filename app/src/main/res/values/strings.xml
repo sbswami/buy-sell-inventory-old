@@ -418,6 +418,20 @@
     <string name="unable_to_find_correct_file">Unable To Find Correct File!</string>
     <string name="save_supplier_list_in_excel_file_">Save Supplier List In Excel File.</string>
     <string name="save_customer_list_in_excel_file_">Save Customer List in Excel File</string>
-    <string name="remove_ads">Remove Advertisement</string>
+    <string name="remove_ads" translatable="false">Remove Advertisement</string>
+    <string name="tour_show_time" translatable="false">TourShowTime</string>
+    <string name="saved_location" translatable="false">To Internal Storage in BuySellInventory Folder</string>
+    <string name="show_key" translatable="false">showKey</string>
+    <string name="home_count" translatable="false">homeCount</string>
+    <string name="prod_count" translatable="false">productCount</string>
+    <string name="supplie_count" translatable="false">supplierCount</string>
+    <string name="home_product_tour_guide">By clicking on the product, you will see the product window containing the list of products and you can add the product</string>
+    <string name="home_supplier_tour_guide">By clicking on Supplier, you will see the Supplier Window containing the list of suppliers and you can also add Supplier</string>
+    <string name="home_buy_tour_guide">By clicking Buy, you will see the Buy window in which you will write information about buying the product from the supplier. In this you can also see the purchase history and the option to return the product purchased by mistake is the lowest in the screen.</string>
+    <string name="home_sell_tour_guide">By clicking on Sell, you will see the Sell window in which you will write the information about selling the product. You can also view the selling history and the option to return the product sold in the wrong way is the lowest in the screen.</string>
+    <string name="home_report_tour_guide">Click on the report, which allows you to view reports of purchases, sales, profits, net profit and expenses.</string>
+    <string name="product_search_tour_guide">Search the product</string>
+    <string name="never_">Never</string>
+    <string name="permission_needed_excel">Permission Needed for Write Excel File.</string>
 
 </resources>

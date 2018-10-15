@@ -64,7 +64,7 @@ public class Sell extends AppCompatActivity {
     RadioButton payType;
     RadioButton cash,onHold;
     EditText quantity;
-    TextView price;
+    EditText price;
 
     String productBuyPrice;
     String productSellPrice;

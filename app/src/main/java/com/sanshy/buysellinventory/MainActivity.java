@@ -1,7 +1,9 @@
 package com.sanshy.buysellinventory;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
@@ -22,8 +24,11 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -124,8 +129,30 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
 
+                final DatabaseReference createDate = mRootRef.child(user.getUid()+"/CreateDate");
+                createDate.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        if (!(dataSnapshot.exists())){
+                            DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                            Date date = new Date();
+                            String Date = dateFormat.format(date);
+                            createDate.setValue(Date);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
 
                 MyUserStaticClass.userIdMainStatic = user.getUid();
+
+                SharedPreferences sharedPref = this.getSharedPreferences(getString(R.string.tour_show_time), Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPref.edit();
+                editor.putInt(getString(R.string.show_key), 1);
+                editor.apply();
 
                 startActivity(new Intent(this,home.class));
                 this.finish();

@@ -219,4 +219,11 @@
     <string name="unable_to_find_correct_file">غير قادر على العثور على ملف صحيح!</string>
     <string name="save_supplier_list_in_excel_file_">احفظ قائمة الموردين في ملف Excel.</string>
     <string name="save_customer_list_in_excel_file_">حفظ قائمة العملاء في ملف Excel</string>
+    <string name="home_product_tour_guide">من خلال النقر على المنتج ، سترى نافذة المنتج التي تحتوي على قائمة المنتجات ويمكنك إضافة المنتج</string>
+    <string name="home_supplier_tour_guide">بالنقر على المورد ، سترى نافذة المورد التي تحتوي على قائمة الموردين ويمكنك أيضًا إضافة المورد</string>
+    <string name="home_buy_tour_guide">من خلال النقر على \"شراء\" ، سترى نافذة \"شراء\" حيث ستقوم بإدخال معلومات حول شراء المنتج من المورد. في هذا ، يمكنك أيضًا الاطلاع على سجل الشراء وخيار إرجاع المنتج الذي تم شراؤه عن طريق الخطأ هو الأقل في الشاشة.</string>
+    <string name="home_sell_tour_guide">من خلال النقر على بيع ، سترى نافذة البيع التي ستكتب بها معلومات حول بيع المنتج. يمكنك أيضا عرض تاريخ البيع وخيار إرجاع المنتج المباع بطريقة خاطئة هو الأقل في الشاشة</string>
+    <string name="home_report_tour_guide">انقر على التقرير ، والذي يسمح لك بمشاهدة تقارير عن المشتريات والمبيعات والأرباح وصافي الربح والمصروفات</string>
+    <string name="product_search_tour_guide">ابحث في المنتج</string>
+    <string name="never_">أبدا</string>
 </resources>

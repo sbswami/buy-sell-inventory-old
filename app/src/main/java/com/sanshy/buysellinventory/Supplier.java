@@ -1,10 +1,16 @@
 package com.sanshy.buysellinventory;
 
+import android.Manifest;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.net.ConnectivityManager;
+import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,8 +18,8 @@ import android.util.Log;
 import android.view.View;
 
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
@@ -27,12 +33,14 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
+import static com.sanshy.buysellinventory.MyUserStaticClass.MY_PERMISSIONS_REQUEST_WRITE_STORAGE;
 import static com.sanshy.buysellinventory.MyUserStaticClass.isPaid;
-import static com.sanshy.buysellinventory.MyUserStaticClass.saveExcelFileProduct;
 import static com.sanshy.buysellinventory.MyUserStaticClass.saveExcelFileSupplier;
+import static com.sanshy.buysellinventory.MyUserStaticClass.sharedPref;
+import static com.sanshy.buysellinventory.MyUserStaticClass.showCount;
 import static com.sanshy.buysellinventory.MyUserStaticClass.userIdMainStatic;
+import static com.sanshy.buysellinventory.TourGuide.guide;
 
 
 public class Supplier extends AppCompatActivity {
@@ -45,6 +53,9 @@ public class Supplier extends AppCompatActivity {
 
     public ArrayList<sitem> siList = new ArrayList<>();
     AdView adView1;
+
+    FloatingActionButton addSuppli;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,6 +73,8 @@ public class Supplier extends AppCompatActivity {
             }
         });
 
+        addSuppli = findViewById(R.id.floatingActionButton2);
+
         listView = findViewById(R.id.listView);
 
         adView1 = findViewById(R.id.adView);
@@ -77,12 +90,44 @@ public class Supplier extends AppCompatActivity {
                 .setPositiveButton(getString(R.string.save_text), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        boolean check = saveExcelFileSupplier(Supplier.this,getString(R.string.supplier_text)+".xls",siList);
-                        if (check){
-                            MyDialogBox.ShowDialog(Supplier.this,getString(R.string.saved));
-                        }
-                        else {
-                            MyDialogBox.ShowDialog(Supplier.this,getString(R.string.error_));
+
+
+                        // Check if we're running on Android 5.0 or higher
+                        if (Build.VERSION.SDK_INT >22) {
+// Here, thisActivity is the current activity
+                            if (ContextCompat.checkSelfPermission(Supplier.this,
+                                    Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                                    != PackageManager.PERMISSION_GRANTED) {
+
+                                // Permission is not granted
+                                // Should we show an explanation?
+                                if (ActivityCompat.shouldShowRequestPermissionRationale(Supplier.this,
+                                        Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+
+                                    Toast.makeText(Supplier.this, R.string.permission_needed_excel, Toast.LENGTH_SHORT).show();
+
+                                    // Show an explanation to the user *asynchronously* -- don't block
+                                    // this thread waiting for the user's response! After the user
+                                    // sees the explanation, try again to request the permission.
+                                }
+                                // No explanation needed; request the permission
+                                ActivityCompat.requestPermissions(Supplier.this,
+                                        new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                                        MY_PERMISSIONS_REQUEST_WRITE_STORAGE);
+
+                                // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
+                                // app-defined int constant. The callback method gets the
+                                // result of the request.
+                            } else {
+                                saveExcelFinal();
+                                // Permission has already been granted
+                            }
+
+                        } else {
+
+                            saveExcelFinal();
+
+                            // Implement this feature without material design
                         }
                     }
                 })
@@ -92,7 +137,39 @@ public class Supplier extends AppCompatActivity {
         builder.create().show();
     }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case MY_PERMISSIONS_REQUEST_WRITE_STORAGE: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    // permission was granted, yay! Do the
+                    // contacts-related task you need to do.
+                    saveExcelFinal();
+                } else {
+                    // permission denied, boo! Disable the
+                    // functionality that depends on this permission.
 
+                    Toast.makeText(this, getString(R.string.permission_needed_excel), Toast.LENGTH_SHORT).show();
+                }
+                return;
+            }
+
+            // other 'case' lines to check for other
+            // permissions this app might request.
+        }
+    }
+
+    public void saveExcelFinal(){
+        boolean check = saveExcelFileSupplier(Supplier.this,getString(R.string.supplier_text)+".xls",siList);
+        if (check){
+            MyDialogBox.ShowDialog(Supplier.this,getString(R.string.saved)+getString(R.string.saved_location));
+        }
+        else {
+            MyDialogBox.ShowDialog(Supplier.this,getString(R.string.error_));
+        }
+    }
     private void myAds() {
         if (!isPaid()){
             adView1.loadAd(new AdRequest.Builder().build());
@@ -250,9 +327,42 @@ public class Supplier extends AppCompatActivity {
             }
         });
 
+        Thread myThread = new Thread(runnable);
+        myThread.start();
+
     }
 
+    void supplierTour(){
 
+        sharedPref = this.getSharedPreferences(getString(R.string.tour_show_time), Context.MODE_PRIVATE);
+        int supplierCount = 1;
+        supplierCount = sharedPref.getInt(getString(R.string.supplie_count), supplierCount);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putInt(getString(R.string.supplie_count), 1+supplierCount);
+        editor.apply();
+
+        switch (supplierCount){
+            case 1 : guide(Supplier.this,"SupplierAddSupplier",getString(R.string.add_supplier_text),addSuppli,showCount);
+                break;
+        }
+    }
+
+    Runnable runnable = new Runnable() {
+        @Override
+        public void run() {
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    supplierTour();
+                }
+            });
+        }
+    };
 
     public void addS(View view){
         Intent intent = new Intent(this,addSupplier.class);

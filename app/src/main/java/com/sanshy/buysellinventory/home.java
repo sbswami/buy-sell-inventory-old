@@ -2,8 +2,10 @@ package com.sanshy.buysellinventory;
 
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
@@ -20,13 +22,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.billingclient.api.BillingClient;
 import com.android.billingclient.api.BillingClientStateListener;
+import com.android.billingclient.api.BillingFlowParams;
 import com.android.billingclient.api.Purchase;
 import com.android.billingclient.api.PurchasesUpdatedListener;
+import com.android.billingclient.api.SkuDetails;
 import com.android.billingclient.api.SkuDetailsParams;
 import com.android.billingclient.api.SkuDetailsResponseListener;
 import com.firebase.ui.auth.AuthUI;
@@ -51,36 +56,122 @@ import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.lang.reflect.Array;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+
+import co.mobiwise.materialintro.shape.Focus;
+import co.mobiwise.materialintro.shape.FocusGravity;
+import co.mobiwise.materialintro.shape.ShapeType;
+import co.mobiwise.materialintro.view.MaterialIntroView;
 
 import static com.sanshy.buysellinventory.MyUserStaticClass.getUserIdMainStatic;
 import static com.sanshy.buysellinventory.MyUserStaticClass.isPaid;
 import static com.sanshy.buysellinventory.MyUserStaticClass.loadAds;
 import static com.sanshy.buysellinventory.MyUserStaticClass.paid;
 import static com.sanshy.buysellinventory.MyUserStaticClass.setPaid;
+import static com.sanshy.buysellinventory.MyUserStaticClass.sharedPref;
 import static com.sanshy.buysellinventory.MyUserStaticClass.showAds;
+import static com.sanshy.buysellinventory.MyUserStaticClass.showCount;
 import static com.sanshy.buysellinventory.MyUserStaticClass.userIdMainStatic;
 import static com.sanshy.buysellinventory.NetworkConnectivityCheck.connectionCheck;
+import static com.sanshy.buysellinventory.TourGuide.guide;
 
 
-public class home extends AppCompatActivity{
+public class home extends AppCompatActivity implements PurchasesUpdatedListener{
 
     private static final String TAG = "FCM";
     private FirebaseAnalytics mFirebaseAnalytics;
-    private FirebaseAuth mAuth;
+    private FirebaseAuth mAuth = FirebaseAuth.getInstance();
     private DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
     TextView profile;
     AdView adView1,adView2;
+    // create new Person
+    private BillingClient mBillingClient;
 
     String UserIdFromAdmin;
-    private BillingClient mBillingClient;
+
+    LinearLayout productB,supplierB,customerB,buyB,sellB,reportB,stockB,holdersB,expenditureB,sideBusinessB,shareB,rateB,helpB,feedbackB,resetBt,logOutB;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+        productB = findViewById(R.id.product_b);
+        supplierB = findViewById(R.id.supplier_b);
+        customerB = findViewById(R.id.customer_b);
+        buyB  = findViewById(R.id.buy_b);
+        sellB = findViewById(R.id.sell_b);
+        reportB = findViewById(R.id.report_b);
+        stockB = findViewById(R.id.stock_b);
+        holdersB = findViewById(R.id.holders_b);
+        expenditureB = findViewById(R.id.exp_b);
+        sideBusinessB = findViewById(R.id.side_business_b);
+        shareB = findViewById(R.id.share_b);
+        rateB = findViewById(R.id.rate_us_b);
+        helpB = findViewById(R.id.help_b);
+        feedbackB = findViewById(R.id.feedback_b);
+        resetBt = findViewById(R.id.reset_b);
+        logOutB  = findViewById(R.id.logout_b);
+
+
+
+        mBillingClient = BillingClient.newBuilder(this).setListener(this).build();
+        mBillingClient.startConnection(new BillingClientStateListener() {
+            @Override
+            public void onBillingSetupFinished(@BillingClient.BillingResponse int billingResponseCode) {
+                if (billingResponseCode == BillingClient.BillingResponse.OK) {
+                    // The billing client is ready. You can query purchases here.
+                    List skuList = new ArrayList<> ();
+                    skuList.add("buy_sell_test");
+                    SkuDetailsParams.Builder params = SkuDetailsParams.newBuilder();
+                    params.setSkusList(skuList).setType(BillingClient.SkuType.INAPP);
+                    mBillingClient.querySkuDetailsAsync(params.build(),
+                            new SkuDetailsResponseListener() {
+                                @Override
+                                public void onSkuDetailsResponse(int responseCode, List<SkuDetails> skuDetailsList) {
+                                    // Process the result.
+
+                                    if (responseCode == BillingClient.BillingResponse.OK
+                                            && skuDetailsList != null) {
+                                        for (SkuDetails skuDetails : skuDetailsList) {
+                                            String sku = skuDetails.getSku();
+                                            String price = skuDetails.getPrice();
+                                            if ("buy_sell_test".equals(sku)) {
+                                                Toast.makeText(home.this, "Connected", Toast.LENGTH_SHORT).show();
+                                                skuId = "buy_sell_test";
+                                            } else{
+
+                                            }
+                                        }
+                                    }
+
+                                }
+                            });
+
+                }
+            }
+            @Override
+            public void onBillingServiceDisconnected() {
+
+                Toast.makeText(home.this, getString(R.string.payment_still_remaining_), Toast.LENGTH_SHORT).show();
+
+                // Try to restart the connection on the next request to
+                // Google Play by calling the startConnection() method.
+            }
+        });
+
+        sharedPref = this.getSharedPreferences(getString(R.string.tour_show_time), Context.MODE_PRIVATE);
+        showCount = sharedPref.getInt(getString(R.string.show_key), showCount);
+        if (showCount==1){
+            SharedPreferences.Editor editor = sharedPref.edit();
+            editor.putInt(getString(R.string.show_key), 1);
+            editor.apply();
+        }
 
         try{
             Intent intent = getIntent();
@@ -125,52 +216,11 @@ public class home extends AppCompatActivity{
 
 
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
-        mAuth = FirebaseAuth.getInstance();
         profile = findViewById(R.id.profile);
         connectionCheck(this);
 
-        myAds();
     }
 
-    PurchasesUpdatedListener myPurchaseListener = new PurchasesUpdatedListener() {
-        @Override
-        public void onPurchasesUpdated(int responseCode, @Nullable List<Purchase> purchases) {
-
-        }
-    };
-
-    public void removeAdButton(View view){
-
-        mBillingClient = BillingClient.newBuilder(home.this).setListener(myPurchaseListener).build();
-        mBillingClient.startConnection(new BillingClientStateListener() {
-            @Override
-            public void onBillingSetupFinished(@BillingClient.BillingResponse int billingResponseCode) {
-                if (billingResponseCode == BillingClient.BillingResponse.OK) {
-                    // The billing client is ready. You can query purchases here.
-                }
-            }
-            @Override
-            public void onBillingServiceDisconnected() {
-                // Try to restart the connection on the next request to
-                // Google Play by calling the startConnection() method.
-            }
-        });
-
-
-        List skuList = new ArrayList<> ();
-        skuList.add("premium_upgrade");
-        skuList.add("gas");
-        SkuDetailsParams.Builder params = SkuDetailsParams.newBuilder();
-        params.setSkusList(skuList).setType(BillingClient.SkuType.INAPP);
-        mBillingClient.querySkuDetailsAsync(params.build(),
-                new SkuDetailsResponseListener() {
-                    @Override
-                    public void onSkuDetailsResponse(int responseCode, List skuDetailsList) {
-                        // Process the result.
-
-                    }
-                });
-    }
 
     @Override
     protected void onStop() {
@@ -214,11 +264,12 @@ public class home extends AppCompatActivity{
 
     }
 
+    FirebaseUser currentUser = mAuth.getCurrentUser();
+
     @Override
     protected void onStart() {
         super.onStart();
 
-        FirebaseUser currentUser = mAuth.getCurrentUser();
         if (currentUser == null)
         {
             startActivity(new Intent(this,MainActivity.class));
@@ -246,6 +297,52 @@ public class home extends AppCompatActivity{
                         paidUserList.add(getUserIdMainStatic());
                         allInfoRef.setValue(paidUserList);
                     }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+
+            final DatabaseReference createDate = mRootRef.child(userIdMainStatic+"/CreateDate");
+            createDate.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                    Date date = new Date();
+                    String Date = dateFormat.format(date);
+
+                    if (!(dataSnapshot.exists())){
+                        createDate.setValue(Date);
+                        paid = true;
+                    }else{
+                        String creDate = dataSnapshot.getValue(String.class);
+                        if (creDate.equals(Date)){
+                            paid = true;
+                        }
+                    }
+
+                    myAds();
+                    int homeBtCount = 1;
+                    homeBtCount = sharedPref.getInt(getString(R.string.home_count), homeBtCount);
+                    SharedPreferences.Editor editor = sharedPref.edit();
+                    editor.putInt(getString(R.string.home_count), 1+homeBtCount);
+                    editor.apply();
+
+                    switch (homeBtCount){
+                        case 1 : guide(home.this,"HomeProduct",getString(R.string.home_product_tour_guide),productB,showCount);
+                            break;
+                        case 2 : guide(home.this,"HomeSupplier",getString(R.string.home_supplier_tour_guide),supplierB,showCount);
+                            break;
+                        case 3 : guide(home.this,"HomeBuy",getString(R.string.home_buy_tour_guide),buyB,showCount);
+                            break;
+                        case 4 : guide(home.this,"HomeSell",getString(R.string.home_sell_tour_guide),sellB,showCount);
+                            break;
+                        case 5 : guide(home.this,"HomeReport",getString(R.string.home_report_tour_guide),reportB,showCount);
+                            break;
+                    }
+
                 }
 
                 @Override
@@ -324,7 +421,13 @@ public class home extends AppCompatActivity{
                                         rate.setValue(true);
                                     }
                                 })
-                                .setNegativeButton(getString(R.string.not_now_),null);
+                                .setNegativeButton(getString(R.string.not_now_),null)
+                                .setNeutralButton(getString(R.string.never_), new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        rate.setValue(true);
+                                    }
+                                });
 
                         builder.create().show();
                     }
@@ -387,7 +490,15 @@ public class home extends AppCompatActivity{
 
     }
 
+
+    public void payMoney(View view){
+
+
+    }
+
+    String skuId;
     public void logout(View view){
+
         AuthUI.getInstance()
                 .signOut(this)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -400,14 +511,22 @@ public class home extends AppCompatActivity{
 
     public void help(View view){
 
-        // Get token
-        String token = FirebaseInstanceId.getInstance().getToken();
+        BillingFlowParams flowParams = BillingFlowParams.newBuilder()
+                .setSku(skuId)
+                .setType(BillingClient.SkuType.INAPP) // SkuType.SUB for subscription
+                .build();
+        int responseCode = mBillingClient.launchBillingFlow(this,flowParams);
 
-        // Log and toast
-        String msg = getString(R.string.msg_token_fmt, token);
-        Log.d(TAG, msg);
 
-        startActivity(new Intent(this,help.class));
+
+//        // Get token
+//        String token = FirebaseInstanceId.getInstance().getToken();
+//
+//        // Log and toast
+//        String msg = getString(R.string.msg_token_fmt, token);
+//        Log.d(TAG, msg);
+//
+//        startActivity(new Intent(this,help.class));
     }
     public void SideBusiness(View view){
         startActivity(new Intent(this,SideBusinessWork.class));
@@ -474,4 +593,50 @@ public class home extends AppCompatActivity{
 
     }
 
+
+    @Override
+    public void onPurchasesUpdated(int responseCode, @Nullable List<Purchase> purchases) {
+        if (responseCode == BillingClient.BillingResponse.OK
+                && purchases != null) {
+
+            MyProgressBar.ShowProgress(this);
+            final DatabaseReference allInfoRef = mRootRef.child("AdminWork/PaidUser");
+            allInfoRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    ArrayList<String> paidUserList = new ArrayList<>();
+                    if (dataSnapshot.exists()){
+                        paidUserList = (ArrayList<String>) dataSnapshot.getValue();
+                        paidUserList.add(getUserIdMainStatic());
+                        allInfoRef.setValue(paidUserList);
+                    }
+                    else {
+                        paidUserList.add(getUserIdMainStatic());
+                        allInfoRef.setValue(paidUserList);
+                    }
+                    MyProgressBar.HideProgress();
+                    MyDialogBox.ShowDialog(home.this,getString(R.string.payment_done));
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+
+            for (Purchase purchase : purchases) {
+
+            }
+        } else if (responseCode == BillingClient.BillingResponse.USER_CANCELED) {
+
+            Toast.makeText(this, getString(R.string.payment_still_remaining_), Toast.LENGTH_SHORT).show();
+
+            // Handle an error caused by a user cancelling the purchase flow.
+        } else {
+
+            
+
+            // Handle any other error codes.
+        }
+    }
 }

@@ -219,4 +219,11 @@
     <string name="unable_to_find_correct_file">Impossible de trouver le bon fichier!</string>
     <string name="save_supplier_list_in_excel_file_">Enregistrer la liste des fournisseurs dans un fichier Excel.</string>
     <string name="save_customer_list_in_excel_file_">Enregistrer la liste des clients dans un fichier Excel</string>
+    <string name="home_product_tour_guide">En cliquant sur le produit, vous verrez la fenêtre du produit contenant la liste des produits et vous pouvez ajouter le produit</string>
+    <string name="home_supplier_tour_guide">En cliquant sur Fournisseur, vous verrez la fenêtre Fournisseur contenant la liste des fournisseurs et vous pouvez également ajouter Fournisseur</string>
+    <string name="home_buy_tour_guide">En cliquant sur Acheter, vous verrez la fenêtre Acheter dans laquelle vous écrirez des informations sur l\'achat du produit auprès du fournisseur. En cela, vous pouvez également voir l\'historique des achats et l\'option de retourner le produit acheté par erreur est le plus bas dans l\'écran.</string>
+    <string name="home_sell_tour_guide">En cliquant sur Vendre, vous verrez la fenêtre Vendre dans laquelle vous écrirez les informations sur la vente du produit. Vous pouvez également afficher l\'historique de vente et l\'option de retourner le produit vendu de la mauvaise façon est la plus basse sur l\'écran.</string>
+    <string name="home_report_tour_guide">Cliquez sur le rapport, qui vous permet d\'afficher les rapports d\'achats, les ventes, les bénéfices, les bénéfices nets et les dépenses.</string>
+    <string name="product_search_tour_guide">Rechercher le produit</string>
+    <string name="never_">Jamais</string>
 </resources>

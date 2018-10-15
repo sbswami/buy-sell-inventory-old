@@ -219,4 +219,11 @@
     <string name="unable_to_find_correct_file">无法找到正确的文件！</string>
     <string name="save_supplier_list_in_excel_file_">在Excel文件中保存供应商列表。</string>
     <string name="save_customer_list_in_excel_file_">在Excel文件中保存客户列表</string>
+    <string name="home_product_tour_guide">" 通过单击产品，您将看到包含产品列表的产品窗口，您可以添加产品"</string>
+    <string name="home_supplier_tour_guide">通过单击“供应商”，您将看到包含供应商列表的“供应商”窗口，您还可以添加“供应商”</string>
+    <string name="home_buy_tour_guide">通过单击“购买”，您将看到“购买”窗口，您将在其中写入有关从供应商处购买产品的信息。在此您还可以看到购买历史记录，并且返回错误购买的产品的选项是屏幕中最低的。</string>
+    <string name="home_sell_tour_guide">通过单击“销售”，您将看到“销售”窗口，您将在其中编写产品的销售信息。 您还可以查看销售历史记录和选项，以便以错误的方式返回销售的产品，这是屏幕上最低的。</string>
+    <string name="home_report_tour_guide">点击报告，您可以查看购买，销售，利润，净利润和费用的报告。</string>
+    <string name="product_search_tour_guide">搜索产品</string>
+    <string name="never_">决不</string>
 </resources>

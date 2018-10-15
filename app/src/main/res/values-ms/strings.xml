@@ -219,4 +219,11 @@
     <string name="unable_to_find_correct_file">Tidak Dapat Cari Fail yang Betul!</string>
     <string name="save_supplier_list_in_excel_file_">Simpan Senarai Pembekal Dalam Fail Excel.</string>
     <string name="save_customer_list_in_excel_file_">Simpan Senarai Pelanggan dalam Fail Excel</string>
+    <string name="home_product_tour_guide">Dengan mengklik pada produk, anda akan melihat tetingkap produk yang mengandungi senarai produk dan anda boleh menambah produk</string>
+    <string name="home_supplier_tour_guide">Dengan mengklik Pembekal, anda akan melihat Window Supplier yang mengandungi senarai pembekal dan anda juga boleh menambah Pembekal</string>
+    <string name="home_buy_tour_guide">Dengan mengklik Beli, anda akan melihat tetingkap Beli di mana anda akan menulis maklumat tentang membeli produk dari pembekal. Di sini, anda juga boleh melihat sejarah pembelian dan pilihan untuk memulangkan produk yang dibeli secara tidak sengaja adalah yang paling rendah di skrin.</string>
+    <string name="home_sell_tour_guide">Dengan mengklik pada Jual, anda akan melihat tetingkap Jual di mana anda akan menulis maklumat tentang menjual produk. Anda juga boleh melihat sejarah jualan dan pilihan untuk memulangkan produk yang dijual dengan cara yang salah adalah yang paling rendah dalam skrin.</string>
+    <string name="home_report_tour_guide">Klik pada laporan, yang membolehkan anda melihat laporan pembelian, jualan, keuntungan, keuntungan dan perbelanjaan bersih.</string>
+    <string name="product_search_tour_guide">Cari produk</string>
+    <string name="never_">Jangan sekali-kali</string>
 </resources>

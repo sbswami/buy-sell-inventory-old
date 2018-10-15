@@ -219,4 +219,11 @@
     <string name="unable_to_find_correct_file">सही फ़ाइल खोजने में असमर्थ!</string>
     <string name="save_supplier_list_in_excel_file_">एक्सेल फ़ाइल में प्रदायक सूची सहेजें।</string>
     <string name="save_customer_list_in_excel_file_">एक्सेल फ़ाइल में ग्राहक सूची सहेजें</string>
+    <string name="home_product_tour_guide">उत्पाद पर क्लिक करके, आप उत्पाद की सूची वाली उत्पाद विंडो देखेंगे और आप उत्पाद जोड़ सकते हैं</string>
+    <string name="home_supplier_tour_guide">प्रदायक पर क्लिक करके, आप प्रदायक विंडो को आपूर्तिकर्ताओं की सूची वाले देखेंगे और आप प्रदायक भी जोड़ सकते हैं</string>
+    <string name="home_buy_tour_guide">खरीदें पर क्लिक करके, आप खरीदें विंडो देखेंगे जिसमें आप सप्लायर से उत्पाद खरीदने के बारे में जानकारी लिखेंगे। इसमें आप खरीद इतिहास भी देख सकते हैं और गलती से खरीदे गए उत्पाद को वापस करने का विकल्प स्क्रीन में सबसे कम है।</string>
+    <string name="home_sell_tour_guide">सेल पर क्लिक करके, आपको सेल विंडो दिखाई देगी जिसमें आप उत्पाद बेचने के बारे में जानकारी लिखेंगे। आप बिक्री इतिहास को भी देख सकते हैं और गलत तरीके से बेचे गए उत्पाद को वापस करने का विकल्प स्क्रीन में सबसे कम है।</string>
+    <string name="home_report_tour_guide">रिपोर्ट पर क्लिक करें, जो आपको खरीद, बिक्री, लाभ, शुद्ध लाभ और व्यय की रिपोर्ट देखने की अनुमति देता है।</string>
+    <string name="product_search_tour_guide">उत्पाद खोजें</string>
+    <string name="never_">कभी नहीँ</string>
 </resources>

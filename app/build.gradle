@@ -6,8 +6,8 @@ android {
         applicationId "com.sanshy.buysellinventory"
         minSdkVersion 19
         targetSdkVersion 27
-        versionCode 22
-        versionName "3.4"
+        versionCode 27
+        versionName "3.4.27"
         multiDexEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
@@ -45,8 +45,10 @@ dependencies {
     implementation 'com.google.firebase:firebase-iid:16.2.0'
     implementation 'com.firebase:firebase-jobdispatcher:0.8.5'
     implementation 'com.firebaseui:firebase-ui-auth:4.0.0'
+    implementation 'com.android.billingclient:billing:1.1'
     implementation 'com.google.firebase:firebase-config:16.0.0'
     implementation 'com.razorpay:checkout:1.4.8'
+    implementation 'com.github.iammert:MaterialIntroView:1.6.0'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'

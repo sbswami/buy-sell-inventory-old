@@ -1,9 +1,14 @@
 package com.sanshy.buysellinventory;
 
 
+import android.Manifest;
 import android.content.DialogInterface;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,6 +18,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -28,6 +34,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import static com.sanshy.buysellinventory.MyUserStaticClass.MY_PERMISSIONS_REQUEST_WRITE_STORAGE;
 import static com.sanshy.buysellinventory.MyUserStaticClass.isPaid;
 import static com.sanshy.buysellinventory.MyUserStaticClass.loadAds;
 import static com.sanshy.buysellinventory.MyUserStaticClass.saveExcelFileStock;
@@ -97,12 +104,42 @@ public class Stock extends AppCompatActivity {
                 .setPositiveButton(getString(R.string.save_text), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        boolean check = saveExcelFileStock(Stock.this,getString(R.string.stock_text)+".xls",stockitemList);
-                        if (check){
-                            MyDialogBox.ShowDialog(Stock.this,getString(R.string.saved));
-                        }
-                        else {
-                            MyDialogBox.ShowDialog(Stock.this,getString(R.string.error_));
+                        // Check if we're running on Android 5.0 or higher
+                        if (Build.VERSION.SDK_INT >22) {
+// Here, thisActivity is the current activity
+                            if (ContextCompat.checkSelfPermission(Stock.this,
+                                    Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                                    != PackageManager.PERMISSION_GRANTED) {
+
+                                // Permission is not granted
+                                // Should we show an explanation?
+                                if (ActivityCompat.shouldShowRequestPermissionRationale(Stock.this,
+                                        Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+
+                                    Toast.makeText(Stock.this, R.string.permission_needed_excel, Toast.LENGTH_SHORT).show();
+
+                                    // Show an explanation to the user *asynchronously* -- don't block
+                                    // this thread waiting for the user's response! After the user
+                                    // sees the explanation, try again to request the permission.
+                                }
+                                // No explanation needed; request the permission
+                                ActivityCompat.requestPermissions(Stock.this,
+                                        new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                                        MY_PERMISSIONS_REQUEST_WRITE_STORAGE);
+
+                                // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
+                                // app-defined int constant. The callback method gets the
+                                // result of the request.
+                            } else {
+                                saveExcelFinal();
+                                // Permission has already been granted
+                            }
+
+                        } else {
+
+                            saveExcelFinal();
+
+                            // Implement this feature without material design
                         }
                     }
                 })
@@ -112,6 +149,39 @@ public class Stock extends AppCompatActivity {
         builder.create().show();
     }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case MY_PERMISSIONS_REQUEST_WRITE_STORAGE: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    // permission was granted, yay! Do the
+                    // contacts-related task you need to do.
+                    saveExcelFinal();
+                } else {
+                    // permission denied, boo! Disable the
+                    // functionality that depends on this permission.
+
+                    Toast.makeText(this, getString(R.string.permission_needed_excel), Toast.LENGTH_SHORT).show();
+                }
+                return;
+            }
+
+            // other 'case' lines to check for other
+            // permissions this app might request.
+        }
+    }
+
+    public void saveExcelFinal(){
+        boolean check = saveExcelFileStock(Stock.this,getString(R.string.stock_text)+".xls",stockitemList);
+        if (check){
+            MyDialogBox.ShowDialog(Stock.this,getString(R.string.saved)+getString(R.string.saved_location));
+        }
+        else {
+            MyDialogBox.ShowDialog(Stock.this,getString(R.string.error_));
+        }
+    }
 
 
     private void myAds() {

@@ -46,16 +46,6 @@
                     android:textColor="@color/colorAccent"
                     android:textSize="19sp" />
 
-                <Button
-                    android:id="@+id/button"
-                    style="@style/Widget.AppCompat.Button.Colored"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:onClick="removeAdButton"
-                    android:text="@string/remove_ads"
-                    android:textAllCaps="false"
-                    android:textSize="16sp"
-                    android:visibility="gone" />
             </LinearLayout>
 
             <LinearLayout
@@ -65,6 +55,7 @@
                 android:baselineAligned="false">
 
                 <LinearLayout
+                    android:id="@+id/product_b"
                     android:layout_weight="1"
                     android:layout_width="0dp"
                     android:layout_height="150sp"
@@ -91,6 +82,7 @@
                         android:textSize="@dimen/home_word"/>
                 </LinearLayout>
                 <LinearLayout
+                    android:id="@+id/supplier_b"
                     android:layout_weight="1"
                     android:layout_width="0dp"
                     android:layout_height="150sp"
@@ -173,6 +165,7 @@
                 android:baselineAligned="false">
 
                 <LinearLayout
+                    android:id="@+id/customer_b"
                     android:layout_weight="1"
                     android:layout_width="0dp"
                     android:layout_height="150sp"
@@ -199,6 +192,7 @@
                         android:textSize="@dimen/home_word"/>
                 </LinearLayout>
                 <LinearLayout
+                    android:id="@+id/buy_b"
                     android:layout_weight="1"
                     android:layout_width="0dp"
                     android:layout_height="150sp"
@@ -234,6 +228,7 @@
                 android:baselineAligned="false">
 
                 <LinearLayout
+                    android:id="@+id/sell_b"
                     android:layout_weight="1"
                     android:layout_width="0dp"
                     android:layout_height="150sp"
@@ -260,6 +255,7 @@
                         android:textSize="@dimen/home_word"/>
                 </LinearLayout>
                 <LinearLayout
+                    android:id="@+id/report_b"
                     android:layout_weight="1"
                     android:layout_width="0dp"
                     android:layout_height="150sp"
@@ -295,6 +291,7 @@
                 android:baselineAligned="false">
 
                 <LinearLayout
+                    android:id="@+id/stock_b"
                     android:layout_width="0dp"
                     android:layout_height="150sp"
                     android:layout_margin="@dimen/margin_home"
@@ -322,6 +319,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/holders_b"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_margin="@dimen/margin_home"
@@ -357,6 +355,7 @@
                 android:baselineAligned="false">
 
                 <LinearLayout
+                    android:id="@+id/exp_b"
                     android:layout_weight="1"
                     android:layout_width="0dp"
                     android:layout_height="150sp"
@@ -384,6 +383,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/side_business_b"
                     android:layout_width="0dp"
                     android:layout_height="150sp"
                     android:layout_margin="@dimen/margin_home"
@@ -419,6 +419,7 @@
                 android:baselineAligned="false">
 
                 <LinearLayout
+                    android:id="@+id/share_b"
                     android:layout_weight="1"
                     android:layout_width="0dp"
                     android:layout_height="150sp"
@@ -445,6 +446,7 @@
                         android:textSize="@dimen/home_word"/>
                 </LinearLayout>
                 <LinearLayout
+                    android:id="@+id/rate_us_b"
                     android:layout_weight="1"
                     android:layout_width="0dp"
                     android:layout_height="150sp"
@@ -479,6 +481,7 @@
                 android:baselineAligned="false">
 
                 <LinearLayout
+                    android:id="@+id/help_b"
                     android:layout_weight="1"
                     android:layout_width="0dp"
                     android:layout_height="150sp"
@@ -505,6 +508,7 @@
                         android:textSize="@dimen/home_word"/>
                 </LinearLayout>
                 <LinearLayout
+                    android:id="@+id/feedback_b"
                     android:layout_weight="1"
                     android:layout_width="0dp"
                     android:layout_height="150sp"
@@ -540,6 +544,7 @@
                 android:baselineAligned="false">
 
                 <LinearLayout
+                    android:id="@+id/reset_b"
                     android:layout_weight="1"
                     android:layout_width="0dp"
                     android:layout_height="150sp"
@@ -566,6 +571,7 @@
                         android:textSize="@dimen/home_word"/>
                 </LinearLayout>
                 <LinearLayout
+                    android:id="@+id/logout_b"
                     android:layout_weight="1"
                     android:layout_width="0dp"
                     android:layout_height="150sp"

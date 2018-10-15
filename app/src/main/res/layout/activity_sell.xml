@@ -86,7 +86,7 @@
                 android:textColorHint="#fff"
                 android:textSize="24sp" />
 
-            <TextView
+            <EditText
                 android:id="@+id/price"
                 android:layout_width="match_parent"
                 android:layout_height="70sp"

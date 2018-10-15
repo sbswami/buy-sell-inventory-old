@@ -1,6 +1,7 @@
 package com.sanshy.buysellinventory;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Environment;
@@ -50,6 +51,10 @@ public class MyUserStaticClass {
 
     public static String userIdMainStatic = "000000000000000";
 
+
+    public static SharedPreferences sharedPref;
+
+    public static int showCount = 1;
     public static boolean chek = finalDo();
 
     public static boolean finalDo(){
@@ -186,7 +191,7 @@ public class MyUserStaticClass {
         return success;
     }
 
-
+    public static final int MY_PERMISSIONS_REQUEST_WRITE_STORAGE = 3278;
     public static boolean saveExcelFileStock(Context context, String fileName, ArrayList<stockitem> stockitemArrayList) {
 
         // check if available and not read only

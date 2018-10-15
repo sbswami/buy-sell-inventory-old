@@ -219,4 +219,11 @@
     <string name="unable_to_find_correct_file">Incapaz de encontrar o arquivo correto!</string>
     <string name="save_supplier_list_in_excel_file_">Salvar lista de fornecedores no arquivo do Excel.</string>
     <string name="save_customer_list_in_excel_file_">Salvar lista de clientes no arquivo do Excel</string>
+    <string name="home_product_tour_guide">Ao clicar no produto, você verá a janela do produto contendo a lista de produtos e poderá adicionar o produto</string>
+    <string name="home_supplier_tour_guide">Ao clicar em Fornecedor, você verá a Janela do Fornecedor contendo a lista de fornecedores e também poderá adicionar o Fornecedor.</string>
+    <string name="home_buy_tour_guide">Ao clicar em Comprar, você verá a janela Comprar na qual você escreverá informações sobre como comprar o produto com o fornecedor. Neste você também pode ver o histórico de compras e a opção de devolver o produto comprado por engano é a menor na tela.</string>
+    <string name="home_sell_tour_guide">Ao clicar em Vender, você verá a janela Vender, na qual você escreverá as informações sobre a venda do produto. Você também pode ver o histórico de vendas e a opção de devolver o produto vendido da maneira errada é a menor na tela.</string>
+    <string name="home_report_tour_guide">Clique no relatório, que permite visualizar relatórios de compras, vendas, lucros, lucro líquido e despesas.</string>
+    <string name="product_search_tour_guide">Pesquise o produto</string>
+    <string name="never_">Nunca</string>
 </resources>
